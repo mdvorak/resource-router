@@ -1,0 +1,44 @@
+{
+  "name": "resource-router",
+  "version": "1.0.0-alpha.0",
+  "homepage": "https://github.com/mdvorak/resource-router",
+  "author": "Michal Dvorak",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "karma --version",
+    "clean": "rimraf dist/ codegen/ *.tgz *.tar.gz",
+    "compile": "ngc && ncp package.release.json dist/package.json && ncp README.* LICENSE.* dist/",
+    "build": "npm run-script clean && npm run-script compile",
+    "release": "npm run-script clean && npm test && npm run-script compile && npm publish dist",
+    "postpublish": "npm run-script clean"
+  },
+  "dependencies": {
+    "@angular/common": "^2.4.3",
+    "@angular/compiler": "^2.4.3",
+    "@angular/core": "^2.4.3",
+    "@angular/http": "^2.4.3",
+    "@angular/platform-browser": "^2.4.3",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.0.1",
+    "zone.js": "^0.7.4"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "^2.4.3",
+    "@types/jasmine": "^2.5.35",
+    "@types/node": "^6.0.45",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.2.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "ncp": "^2.0.0",
+    "phantomjs-prebuilt": "^2.1.7",
+    "rimraf": "^2.5.2",
+    "typescript": "~2.0.10"
+  },
+  "engines": {
+    "node": ">=4.0.0",
+    "npm": ">=4.0.0"
+  }
+}

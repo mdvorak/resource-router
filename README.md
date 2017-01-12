@@ -1,4 +1,4 @@
-angular-data-router
+resource-router
 ===================
 
 [Angular](https://angular.io/) routing engine that drive views by media types. It loads data itself, and by response `Content-Type` header
