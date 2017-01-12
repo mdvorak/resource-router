@@ -1,0 +1,36 @@
+# Build files
+/docs/
+/dist/
+/codegen/
+/index.d.ts
+/index.js
+/index.js.map
+/src/**/*.d.ts
+/src/**/*.js
+/src/**/*.js.map
+*.tar.gz
+*.tgz
+
+# Node and bower directories
+node_modules/
+bower_components/
+
+# Temporary files
+*~
+*.log
+*.mo
+
+# IDE files
+.idea/
+*.ipr
+*.iml
+*.iws
+.project
+.classpath
+.settings
+classes/
+
+# Other garbage
+.DS_Store
+.*.swp
+._*
