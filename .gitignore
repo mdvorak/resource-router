@@ -1,7 +1,6 @@
 # Build files
 /docs/
 /dist/
-/codegen/
 /index.d.ts
 /index.js
 /index.js.map
