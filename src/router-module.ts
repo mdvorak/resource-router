@@ -27,7 +27,7 @@ import { ResourceOutletDirective } from './directives/resource-outlet';
 import { RouteDataLoader, HttpRouteDataLoader } from './route-data-loader';
 
 
-export const DATA_ROUTER_CONFIGURATION = new OpaqueToken('DATA_ROUTER_CONFIGURATION');
+export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
 
 
 @NgModule({
@@ -51,7 +51,7 @@ export class ResourceRouterModule {
                     provide: LocationStrategy,
                     useFactory: provideLocationStrategy,
                     deps: [
-                        PlatformLocation, [new Inject(APP_BASE_HREF), new Optional()], DATA_ROUTER_CONFIGURATION
+                        PlatformLocation, [new Inject(APP_BASE_HREF), new Optional()], RESOURCE_ROUTER_CONFIGURATION
                     ]
                 },
                 Location,
@@ -69,7 +69,7 @@ export class ResourceRouterModule {
                     }
                 },
                 {
-                    provide: DATA_ROUTER_CONFIGURATION,
+                    provide: RESOURCE_ROUTER_CONFIGURATION,
                     useValue: options
                 },
                 {
