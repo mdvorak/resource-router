@@ -19,7 +19,7 @@ import {
 import { APP_API_PREFIX, ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
 import { ResponseTypeStrategy, ContentTypeStrategy } from './response-type-strategy';
-import { FALLBACK_ROUTE, DATA_ROUTES, RouteRegistry } from './route-registry';
+import { FALLBACK_ROUTE, RESOURCE_ROUTES, RouteRegistry } from './route-registry';
 import { RouteDef } from './config';
 import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition.component';
 import { ApiLinkDirective } from './directives/api-link.directive';
@@ -41,11 +41,11 @@ export const DATA_ROUTER_CONFIGURATION = new OpaqueToken('DATA_ROUTER_CONFIGURAT
     ],
     exports: [ResourceOutletDirective, ApiLinkDirective]
 })
-export class DataRouterModule {
+export class ResourceRouterModule {
 
-    static configure(options: DataRouterOptions): ModuleWithProviders {
+    static configure(options: ResourceRouterOptions): ModuleWithProviders {
         return {
-            ngModule: DataRouterModule,
+            ngModule: ResourceRouterModule,
             providers: [
                 {
                     provide: LocationStrategy,
@@ -91,10 +91,10 @@ export class DataRouterModule {
 
     static forTypes(routes: RouteDef[]): ModuleWithProviders {
         return {
-            ngModule: DataRouterModule,
+            ngModule: ResourceRouterModule,
             providers: [
                 {
-                    provide: DATA_ROUTES,
+                    provide: RESOURCE_ROUTES,
                     useValue: routes,
                     multi: true
                 },
@@ -108,7 +108,7 @@ export class DataRouterModule {
     }
 }
 
-export interface DataRouterOptions {
+export interface ResourceRouterOptions {
     prefix: string;
     useHash?: boolean;
     responseTypeStrategy?: Type<ResponseTypeStrategy>;
@@ -116,7 +116,7 @@ export interface DataRouterOptions {
 }
 
 
-function provideLocationStrategy(platformLocationStrategy: PlatformLocation, baseHref: string, options: DataRouterOptions) {
+function provideLocationStrategy(platformLocationStrategy: PlatformLocation, baseHref: string, options: ResourceRouterOptions) {
     return options.useHash
         ? new HashLocationStrategy(platformLocationStrategy, baseHref)
         : new PathLocationStrategy(platformLocationStrategy, baseHref);

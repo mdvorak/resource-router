@@ -1,4 +1,4 @@
-export { DataRouterModule } from './router-module';
+export { ResourceRouterModule, ResourceRouterOptions } from './router-module';
 export { RouteData } from './route-data';
 export { Data, RouteDef, ResolveData, RouteMatcher } from './config';
 export { APP_API_PREFIX, ApiUrl } from './api-url';

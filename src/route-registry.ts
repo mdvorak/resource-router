@@ -2,7 +2,7 @@ import { Inject, Injectable, OpaqueToken } from '@angular/core';
 import { RouteDef, RouteMatcher } from './config';
 import { normalizeMediaType } from './normalize';
 
-export const DATA_ROUTES = new OpaqueToken('DATA_ROUTES');
+export const RESOURCE_ROUTES = new OpaqueToken('RESOURCE_ROUTES');
 export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
 
 
@@ -13,7 +13,7 @@ export class RouteRegistry {
     private exact = new Map<string, RouteDef>();
     private matchers: Array<{ m: RouteMatcher, d: RouteDef }> = [];
 
-    constructor(@Inject(DATA_ROUTES) routes: any,
+    constructor(@Inject(RESOURCE_ROUTES) routes: any,
                 @Inject(FALLBACK_ROUTE) fallbackRoute: RouteDef) {
         // Flatten route declarations
         this.addRoute(routes);
