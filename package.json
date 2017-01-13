@@ -4,13 +4,35 @@
   "homepage": "https://github.com/mdvorak/resource-router",
   "author": "Michal Dvorak",
   "license": "MIT",
+  "description": "Resource Router for RESTful clients",
+  "main": "bundles/resource-router.umd.js",
+  "jsnext:main": "index.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdvorak/resource-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mdvorak/resource-router/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "router",
+    "rest"
+  ],
   "private": true,
   "scripts": {
+    "lint": "tslint -c tslint.json index.ts src/**/*.ts",
     "test": "karma --version",
     "clean": "rimraf dist/ codegen/ *.tgz *.tar.gz",
-    "compile": "ngc && ncp package.release.json dist/package.json && ncp README.* LICENSE.* dist/",
-    "build": "npm run-script clean && npm run-script compile",
-    "release": "npm run-script clean && npm test && npm run-script compile && npm publish dist",
+    "compile": "ngc",
+    "bundle": "rollup -c && uglifyjs ./dist/bundles/resource-router.umd.js -o ./dist/bundles/resource-router.umd.min.js",
+    "prebuild": "npm run-script clean && npm run-script lint && npm test",
+    "build": "npm run-script compile && npm run-script bundle",
+    "postbuild": "node ./release-package.js ./package.json ./dist/package.json && ncp LICENSE.txt dist/LICENSE.txt && ncp README.md dist/README.md && rimraf codegen/",
+    "release": "npm run-script build && npm publish dist",
     "postpublish": "npm run-script clean"
   },
   "dependencies": {
@@ -27,6 +49,7 @@
     "@angular/compiler-cli": "^2.4.3",
     "@types/jasmine": "^2.5.35",
     "@types/node": "^6.0.45",
+    "codelyzer": "^2.0.0-beta.4",
     "jasmine-core": "^2.4.1",
     "karma": "^1.2.0",
     "karma-jasmine": "^1.0.2",
@@ -35,7 +58,10 @@
     "ncp": "^2.0.0",
     "phantomjs-prebuilt": "^2.1.7",
     "rimraf": "^2.5.2",
-    "typescript": "~2.0.10"
+    "rollup": "^0.41.1",
+    "tslint": "^4.3.1",
+    "typescript": "~2.0.10",
+    "uglify-js": "^2.7.5"
   },
   "engines": {
     "node": ">=4.0.0",

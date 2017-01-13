@@ -1,9 +1,9 @@
-import {Inject, Injectable, OpaqueToken} from "@angular/core";
-import {RouteDef, RouteMatcher} from "./config";
-import {normalizeMediaType} from "./normalize";
+import { Inject, Injectable, OpaqueToken } from '@angular/core';
+import { RouteDef, RouteMatcher } from './config';
+import { normalizeMediaType } from './normalize';
 
-export const DATA_ROUTES = new OpaqueToken("DATA_ROUTES");
-export const FALLBACK_ROUTE = new OpaqueToken("FALLBACK_ROUTE");
+export const DATA_ROUTES = new OpaqueToken('DATA_ROUTES');
+export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
 
 
 // TODO error and status code matching
@@ -11,7 +11,7 @@ export const FALLBACK_ROUTE = new OpaqueToken("FALLBACK_ROUTE");
 @Injectable()
 export class RouteRegistry {
     private exact = new Map<string, RouteDef>();
-    private matchers: Array<{m: RouteMatcher, d: RouteDef}> = [];
+    private matchers: Array<{ m: RouteMatcher, d: RouteDef }> = [];
 
     constructor(@Inject(DATA_ROUTES) routes: any,
                 @Inject(FALLBACK_ROUTE) fallbackRoute: RouteDef) {
@@ -43,10 +43,19 @@ export class RouteRegistry {
         return mediaType && !!this.match(normalizeMediaType(mediaType), status);
     }
 
+    protected validateRoute(route: RouteDef): void {
+        if (!route.type) {
+            throw new Error('Invalid configuration of route, route type must be set');
+        }
+        if (!route.component) {
+            throw new Error('Invalid configuration of route, route component must be set');
+        }
+    }
+
     private addRoute(route: RouteDef|any): void {
         // Nulls are not allowed
         if (!route) {
-            throw new Error("Invalid configuration of route, encountered undefined route.");
+            throw new Error('Invalid configuration of route, encountered undefined route.');
         }
 
         // Flatten array
@@ -55,7 +64,7 @@ export class RouteRegistry {
             route.forEach(this.addRoute, this);
         } else {
             // Sanity check
-            RouteRegistry.validateRoute(route);
+            this.validateRoute(route);
 
             // Add to internal collections
             if (typeof route.type === 'function') {
@@ -78,15 +87,6 @@ export class RouteRegistry {
                     this.exact[type] = route;
                 }
             }
-        }
-    }
-
-    private static validateRoute(route: RouteDef): void {
-        if (!route.type) {
-            throw new Error("Invalid configuration of route, route type must be set");
-        }
-        if (!route.component) {
-            throw new Error("Invalid configuration of route, route component must be set");
         }
     }
 }

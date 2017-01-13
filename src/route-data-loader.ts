@@ -1,9 +1,9 @@
-import {Injectable, Type} from "@angular/core";
-import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs";
-import {RouteRegistry} from "./route-registry";
-import {ResponseTypeStrategy} from "./response-type-strategy";
-import {RouteDef, Data, ResolveData} from "./config";
+import { Injectable, Type } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
+import { RouteRegistry } from './route-registry';
+import { ResponseTypeStrategy } from './response-type-strategy';
+import { RouteDef, Data, ResolveData } from './config';
 
 
 export class LoadedRouteData {

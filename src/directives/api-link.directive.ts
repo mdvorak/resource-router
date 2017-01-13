@@ -1,19 +1,20 @@
-import {Directive, Input, HostBinding, HostListener} from '@angular/core';
-import {Location} from "@angular/common";
-import {RouteRegistry} from "../route-registry";
-import {ApiUrl} from "../api-url";
+import { Directive, Input, HostBinding } from '@angular/core';
+import { Location } from '@angular/common';
+import { RouteRegistry } from '../route-registry';
+import { ApiUrl } from '../api-url';
 
 
 // TODO on anchor and outside anchor, like routerLink
 @Directive({selector: '[apiLink]'})
 export class ApiLinkDirective {
 
-    private url: string;
     @HostBinding() href?: string;
-    //@Input() target: string;
-    //@Input() type: string;
-    //@Input() skipLocationChange: boolean;
-    //@Input() replaceUrl: boolean;
+    // @Input() target: string;
+    // @Input() type: string;
+    // @Input() skipLocationChange: boolean;
+    // @Input() replaceUrl: boolean;
+
+    private url: string;
 
     constructor(private apiUrl: ApiUrl,
                 private location: Location,

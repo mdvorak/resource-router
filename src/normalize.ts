@@ -1,5 +1,5 @@
 // Intentionally using window.document
-const urlParsingNode = document.createElement("A") as HTMLAnchorElement;
+const urlParsingNode = document.createElement('A') as HTMLAnchorElement;
 
 
 /**
@@ -22,11 +22,11 @@ export function normalizeUrl(href: string): string {
         // Special case - browser interprets empty string as current URL, while we need
         // what it considers a base if no base href is given.
         // Add /X to the path and then remove it.
-        urlParsingNode.setAttribute("href", 'X');
+        urlParsingNode.setAttribute('href', 'X');
         return urlParsingNode.href.replace(/X$/, '');
     } else if (href) {
         // Normalize thru href property
-        urlParsingNode.setAttribute("href", href);
+        urlParsingNode.setAttribute('href', href);
         return urlParsingNode.href;
     }
 

@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {RouteData} from "../route-data";
+import { Component } from '@angular/core';
+import { RouteData } from '../route-data';
 
 @Component({
     template: `<p>Missing type definition of <code>"{{route.type}}"</code> on <code>"{{route.url}}"</code></p>

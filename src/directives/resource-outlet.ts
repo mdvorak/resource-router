@@ -1,10 +1,16 @@
 import {
-    Input, Output, EventEmitter, Directive, ViewContainerRef, ComponentRef,
-    ReflectiveInjector, ComponentFactoryResolver
-} from "@angular/core";
-import {Observable} from "rxjs";
-import {RouteDataLoader, LoadedRouteData} from "../route-data-loader";
-import {RouteData} from "../route-data";
+    Input,
+    Output,
+    EventEmitter,
+    Directive,
+    ViewContainerRef,
+    ComponentRef,
+    ReflectiveInjector,
+    ComponentFactoryResolver
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import { RouteDataLoader, LoadedRouteData } from '../route-data-loader';
+import { RouteData } from '../route-data';
 
 
 // TODO support "layouts" via directive contents
@@ -16,9 +22,9 @@ import {RouteData} from "../route-data";
 })
 export class ResourceOutletDirective {
 
+    @Output() srcChange: EventEmitter<string> = new EventEmitter();
     protected current: ComponentRef<any>;
     private srcValue: string;
-    @Output() srcChange: EventEmitter<string> = new EventEmitter();
 
     constructor(protected viewContainer: ViewContainerRef,
                 protected loader: RouteDataLoader,

@@ -1,6 +1,6 @@
-import {Response} from "@angular/http";
-import {Injectable} from "@angular/core";
-import {normalizeMediaType} from "./normalize";
+import { Response } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { normalizeMediaType } from './normalize';
 
 export abstract class ResponseTypeStrategy {
 

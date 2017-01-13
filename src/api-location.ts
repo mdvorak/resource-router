@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Location} from "@angular/common";
-import {ApiUrl} from "./api-url";
-import {normalizeUrl} from "./normalize";
+import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
+import { ApiUrl } from './api-url';
+import { normalizeUrl } from './normalize';
 
 // TODO normalize location.href
 
@@ -19,13 +19,6 @@ export class ApiLocation {
         this.location.subscribe(this.onLocationChanged);
         this.onLocationChanged();
     }
-
-    private onLocationChanged = () => {
-        const path = this.location.path();
-
-        // Store API url
-        this.urlValue = this.apiUrlService.mapViewToApi(path);
-    };
 
     /**
      * Resource URL that is being currently viewed.
@@ -51,7 +44,7 @@ export class ApiLocation {
         url = normalizeUrl(url);
 
         // Only on change
-        if (url != this.urlValue) {
+        if (url !== this.urlValue) {
             // Navigate
             this.go(url);
 
@@ -62,7 +55,7 @@ export class ApiLocation {
 
     go(url: string) {
         if (typeof url !== 'string') {
-            throw new Error("url must be a string");
+            throw new Error('url must be a string');
         }
 
         let path = this.apiUrlService.mapApiToView(url);
@@ -72,5 +65,12 @@ export class ApiLocation {
         } else {
             throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to the API prefix '${this.apiUrlService.prefix}'`);
         }
+    }
+
+    private onLocationChanged = () => {
+        const path = this.location.path();
+
+        // Store API url
+        this.urlValue = this.apiUrlService.mapViewToApi(path);
     }
 }

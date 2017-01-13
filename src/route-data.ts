@@ -1,5 +1,5 @@
-import {Response} from "@angular/http";
-import {Data} from "./config";
+import { Response } from '@angular/http';
+import { Data } from './config';
 
 export class RouteData {
 
