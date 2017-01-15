@@ -8,6 +8,7 @@ import {
     ReflectiveInjector,
     ComponentFactoryResolver
 } from '@angular/core';
+import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs';
 import { RouteDataLoader, LoadedRouteData } from '../route-data-loader';
 import { RouteData } from '../route-data';

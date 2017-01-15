@@ -1,4 +1,4 @@
-import { Inject, Injectable, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, OpaqueToken, Optional } from '@angular/core';
 import { RouteDef, RouteMatcher } from './config';
 import { normalizeMediaType } from './normalize';
 
@@ -13,8 +13,12 @@ export class RouteRegistry {
     private exact = new Map<string, RouteDef>();
     private matchers: Array<{ m: RouteMatcher, d: RouteDef }> = [];
 
-    constructor(@Inject(RESOURCE_ROUTES) routes: any,
+    constructor(@Inject(RESOURCE_ROUTES) @Optional() routes: any,
                 @Inject(FALLBACK_ROUTE) fallbackRoute: RouteDef) {
+        if (!routes) {
+            throw new Error('No routes defined! See ResourceRouterModule.forTypes(...) method for more details');
+        }
+
         // Flatten route declarations
         this.addRoute(routes);
 

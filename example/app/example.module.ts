@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
-import { ResourceRouterModule } from '../../src/router-module';
-import { ExampleComponent } from './example.component';
+import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { ResourceRouterModule } from '../../index';
+import { ExampleComponent } from './example.component';
+import { JsonComponent } from './components/json.component';
 
 @NgModule({
     declarations: [
-        ExampleComponent
+        ExampleComponent,
+        JsonComponent
     ],
     imports: [
         BrowserModule,
+        HttpModule,
         ResourceRouterModule.configure({
-            prefix: 'asdaa'
-        })
+            prefix: 'api/'
+        }),
+        ResourceRouterModule.forTypes([
+            {
+                type: 'x.example',
+                component: JsonComponent
+            }
+        ])
     ],
     bootstrap: [
         ExampleComponent

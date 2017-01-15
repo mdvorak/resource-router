@@ -14,6 +14,8 @@
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
             '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             'rxjs': 'npm:rxjs',
+            'zone.js': 'npm:zone.js',
+            'core-js/es7': 'npm:core-js',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
         },
         packages: {

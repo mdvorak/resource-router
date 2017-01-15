@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { RouteRegistry } from './route-registry';
 import { ResponseTypeStrategy } from './response-type-strategy';
 import { RouteDef, Data, ResolveData } from './config';
+import 'rxjs/add/operator/map';
 
 
 export class LoadedRouteData {
