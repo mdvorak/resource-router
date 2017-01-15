@@ -1,8 +1,7 @@
-import {NgModule} from "@angular/core";
-import {ResourceRouterModule} from "../../src/router-module";
-import {ExampleComponent} from "./example.component";
-import {BrowserModule} from "@angular/platform-browser";
-import {CommonModule} from "@angular/common";
+import { NgModule } from '@angular/core';
+import { ResourceRouterModule } from '../../src/router-module';
+import { ExampleComponent } from './example.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     declarations: [

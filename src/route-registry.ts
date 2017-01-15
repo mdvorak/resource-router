@@ -1,6 +1,6 @@
-import {Inject, Injectable, OpaqueToken} from '@angular/core';
-import {RouteDef, RouteMatcher} from './config';
-import {normalizeMediaType} from './normalize';
+import { Inject, Injectable, OpaqueToken } from '@angular/core';
+import { RouteDef, RouteMatcher } from './config';
+import { normalizeMediaType } from './normalize';
 
 export const RESOURCE_ROUTES = new OpaqueToken('RESOURCE_ROUTES');
 export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
@@ -11,7 +11,7 @@ export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
 @Injectable()
 export class RouteRegistry {
     private exact = new Map<string, RouteDef>();
-    private matchers: Array<{m: RouteMatcher, d: RouteDef}> = [];
+    private matchers: Array<{ m: RouteMatcher, d: RouteDef }> = [];
 
     constructor(@Inject(RESOURCE_ROUTES) routes: any,
                 @Inject(FALLBACK_ROUTE) fallbackRoute: RouteDef) {
