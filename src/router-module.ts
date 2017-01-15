@@ -21,7 +21,7 @@ import { ApiLocation } from './api-location';
 import { ResponseTypeStrategy, ContentTypeStrategy } from './response-type-strategy';
 import { FALLBACK_ROUTE, RESOURCE_ROUTES, RouteRegistry } from './route-registry';
 import { RouteDef } from './config';
-import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition.component';
+import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
 import { RouteDataLoader, HttpRouteDataLoader } from './route-data-loader';

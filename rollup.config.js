@@ -9,9 +9,7 @@ export default {
     globals: {
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
-        '@angular/http': 'ng.http',
-        'rxjs/Observable': 'Rx',
-        'rxjs/Observer': 'Rx'
+        '@angular/http': 'ng.http'
     },
     onwarn: function (message) {
         if (message.code === 'THIS_IS_UNDEFINED') return;

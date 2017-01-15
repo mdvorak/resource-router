@@ -35,9 +35,10 @@ Things that are yet to be implemented
 * Support view matching by HTTP status codes
 * Rewrite DEMO
 * Support for `resolve` and `data` route configs
-* Support for outlet layouts
+* Support for outlet layouts, outlet resolve
 * Navigation within outlet
 * Hide element if empty link
 * External navigation for unknown type
 * Build and publish docs
 * Travis integration
+* Examples
