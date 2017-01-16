@@ -7,5 +7,6 @@
       "/src": "src"
     }
   },
-  "logConnections": true
+  "logConnections": true,
+  "reloadDebounce": 500
 }
