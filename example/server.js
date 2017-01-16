@@ -5,6 +5,9 @@ const url = require('url');
 const server = browserSync.create();
 server.init({
     port: 3000,
+    files: [
+        '**/*.js', '**/*.html', '**/*.css'
+    ],
     server: {
         baseDir: __dirname,
         routes: {
@@ -12,7 +15,7 @@ server.init({
             "/src": "src"
         }
     },
-    reloadDebounce: 500,
+    reloadDebounce: 100,
     localOnly: true,
     middleware: [
         function (req, res, next) {
