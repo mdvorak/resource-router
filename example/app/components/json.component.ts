@@ -6,6 +6,9 @@ import { RouteData } from '../../../src/route-data';
 })
 export class JsonComponent {
 
-    constructor(public data: RouteData) {
+    data: any;
+
+    constructor(data: RouteData) {
+        this.data = data.json();
     }
 }

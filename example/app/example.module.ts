@@ -18,7 +18,7 @@ import { JsonComponent } from './components/json.component';
         }),
         ResourceRouterModule.forTypes([
             {
-                type: 'x.example',
+                type: 'application/json',
                 component: JsonComponent
             }
         ])

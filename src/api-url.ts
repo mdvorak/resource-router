@@ -1,5 +1,5 @@
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
-import { normalizeUrl } from './normalize';
+import {Injectable, OpaqueToken, Inject} from '@angular/core';
+import {normalizeUrl} from './normalize';
 
 export const APP_API_PREFIX = new OpaqueToken('APP_API_PREFIX');
 
@@ -28,14 +28,21 @@ export class ApiUrl {
      * @returns {String} Resource url, for e.g. HTTP requests.
      */
     mapViewToApi(path: string) {
-        // Path should never begin with slash, remove it
-        if (path && path[0] === '/') {
-            path = path.substring(1);
+        if (typeof path !== 'string') {
+            throw new Error('path must be string');
         }
+
+        // This is for diagnostics only, but might be useful
+        if (/^https?:/.test(path)) {
+            throw new Error("path must be relative");
+        }
+
+        // Strip leading slash
+        path = path.replace(/^\//, '');
 
         // Join
         // Note: API prefix MUST end with a slash, otherwise it will work as configured, which is most likely wrong.
-        return this.prefix + path;
+        return (this.prefix + path).replace(/\/$/, '');
     }
 
     /**
@@ -49,9 +56,13 @@ export class ApiUrl {
      * @returns {String} View path.
      */
     mapApiToView(url: string) {
+        if (typeof url !== 'string') {
+            throw new Error('url must be string');
+        }
+
         // Remove prefix
         if (url && url.indexOf(this.prefix) === 0) {
-            return url.substring(this.prefix.length);
+            return url.substring(this.prefix.length).replace(/\/$/, '');
         }
 
         // Unable to map
