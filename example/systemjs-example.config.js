@@ -20,8 +20,7 @@
         },
         packages: {
             app: {
-                main: './example.bundle.js',
-                defaultExtension: 'js'
+                main: './example.bundle.js'
             },
             rxjs: {
                 defaultExtension: 'js'
