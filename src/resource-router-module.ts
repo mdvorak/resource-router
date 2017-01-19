@@ -16,6 +16,7 @@ import {
     Inject,
     Optional
 } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { APP_API_PREFIX, ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
 import { ResponseTypeStrategy, ContentTypeStrategy } from './response-type-strategy';
@@ -25,7 +26,6 @@ import { DefaultMissingRouteDefinitionComponent } from './components/default-mis
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
 import { ViewDataLoader, HttpViewDataLoader } from './view-data-loader';
-import {HttpModule} from "@angular/http";
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
