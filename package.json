@@ -4,7 +4,7 @@
   "homepage": "https://github.com/mdvorak/resource-router",
   "author": "Michal Dvorak",
   "license": "MIT",
-  "description": "Resource Router for RESTful clients",
+  "description": "Angular router for RESTful clients",
   "main": "bundles/resource-router.umd.js",
   "jsnext:main": "index.js",
   "module": "index.js",
