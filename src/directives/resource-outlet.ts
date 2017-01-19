@@ -18,6 +18,19 @@ import { ActiveViewData } from '../active-view-data';
 // TODO add event "navigated"
 // TODO support navigation inside outlet
 
+// TODO napad:
+/* TODO problem, jak propagovat url zpet?
+<div *load-resource="apiLocation.url; let main = response">
+  <div *load-resource="main.data._links?.nav?.href; let menu = response">
+    <resource-view [response]="menu"></resource-view>
+  </div>
+
+  <resource-outlet [src]="main.data._links?.nav?.href"></resource-outlet>
+
+  <resource-view [response]="main"></resource-view>
+</div>
+*/
+
 @Directive({
     selector: 'resource-outlet'
 })
