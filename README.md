@@ -11,20 +11,48 @@ TODO
 Installation
 ------------
 
-TODO
+    npm i angular-resource-router
+
+
+Configuration
+-------------
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ResourceRouterModule } from 'angular-data-router';
+import { AppComponent } from './app.component';
+import { ExampleComponent } from './example.component';
+
+@NgModule({
+    declarations: [
+        AppComponent,
+        ExampleComponent
+    ],
+    imports: [
+        BrowserModule,
+        ResourceRouterModule.configure({
+            prefix: 'api/'
+        }),
+        ResourceRouterModule.forTypes([
+            {
+                type: 'application/x.example',
+                component: ExampleComponent
+            }
+        ])
+    ],
+    bootstrap: [
+        AppComponent
+    ]
+})
+export class ExampleModule {
+}
+```
 
 How It Works
 ------------
 TODO
 
-demo
-
-Configuration
--------------
-
-Both HTML 5 mode and hashbang are supported.
-
-TODO
 
 TODO
 ----
@@ -33,7 +61,7 @@ Things that are yet to be implemented
 
 * Complete README
 * Support view matching by HTTP status codes
-* Rewrite DEMO
+* Complete example and make it available online
 * Support for `resolve` and `data` route configs
 * Support for outlet layouts, outlet resolve
 * Navigation within outlet
@@ -41,4 +69,3 @@ Things that are yet to be implemented
 * External navigation for unknown type
 * Build and publish docs
 * Travis integration
-* Examples
