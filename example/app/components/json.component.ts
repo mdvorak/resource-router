@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouteData } from '../../../src/route-data';
+import { ActiveViewData } from '../../../src/active-view-data';
 
 @Component({
     template: `<pre>{{data|json}}</pre>`
@@ -8,7 +8,7 @@ export class JsonComponent {
 
     data: any;
 
-    constructor(data: RouteData) {
+    constructor(data: ActiveViewData) {
         this.data = data.json();
     }
 }

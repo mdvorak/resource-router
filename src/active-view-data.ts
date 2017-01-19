@@ -1,7 +1,7 @@
 import { Response } from '@angular/http';
 import { Data } from './config';
 
-export class RouteData {
+export class ActiveViewData {
 
     constructor(public readonly response: Response,
                 public readonly type: string,

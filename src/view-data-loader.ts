@@ -7,7 +7,7 @@ import { ViewDef, Data, ResolveData } from './config';
 import 'rxjs/add/operator/map';
 
 
-export class LoadedRouteData {
+export class LoadedViewData {
 
     component: Type<any>;
     data?: Data; // TODO not supported yet
@@ -23,30 +23,30 @@ export class LoadedRouteData {
 }
 
 
-export abstract class RouteDataLoader {
+export abstract class ViewDataLoader {
 
-    abstract fetch(url: string): Observable<LoadedRouteData>;
+    abstract fetch(url: string): Observable<LoadedViewData>;
 
 }
 
 @Injectable()
-export class HttpRouteDataLoader extends RouteDataLoader {
+export class HttpViewDataLoader extends ViewDataLoader {
     constructor(private http: Http,
                 private strategy: ResponseTypeStrategy,
                 private registry: ResourceViewRegistry) {
         super();
     }
 
-    fetch(url: string): Observable<LoadedRouteData> {
+    fetch(url: string): Observable<LoadedViewData> {
         return this.http
             .get(url)
             .map(response => this.resolve(response));
     }
 
-    private resolve(response: Response): LoadedRouteData {
+    private resolve(response: Response): LoadedViewData {
         const type = this.strategy.extractType(response);
         const route = this.registry.match(type);
 
-        return new LoadedRouteData(response, type, route);
+        return new LoadedViewData(response, type, route);
     }
 }

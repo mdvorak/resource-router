@@ -1,5 +1,5 @@
 import { Inject, Injectable, OpaqueToken, Optional } from '@angular/core';
-import { ViewDef, RouteMatcher } from './config';
+import { ViewDef, ResourceTypeMatcher } from './config';
 import { normalizeMediaType } from './normalize';
 
 export const RESOURCE_ROUTES = new OpaqueToken('RESOURCE_ROUTES');
@@ -11,7 +11,7 @@ export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
 @Injectable()
 export class ResourceViewRegistry {
     private exact = new Map<string, ViewDef>();
-    private matchers: Array<{ m: RouteMatcher, d: ViewDef }> = [];
+    private matchers: Array<{ m: ResourceTypeMatcher, d: ViewDef }> = [];
 
     constructor(@Inject(RESOURCE_ROUTES) @Optional() routes: any,
                 @Inject(FALLBACK_ROUTE) fallbackRoute: ViewDef) {
@@ -98,7 +98,7 @@ export class ResourceViewRegistry {
 
 
 // Private helper functions
-function wildcardMatcherFactory(wildcard: string): RouteMatcher {
+function wildcardMatcherFactory(wildcard: string): ResourceTypeMatcher {
     const pattern = new RegExp('^' + wildcardToRegexPattern(wildcard) + '$');
 
     // Register matcher

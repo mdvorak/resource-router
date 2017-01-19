@@ -24,7 +24,7 @@ import { ViewDef } from './config';
 import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
-import { RouteDataLoader, HttpRouteDataLoader } from './route-data-loader';
+import { ViewDataLoader, HttpViewDataLoader } from './view-data-loader';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
@@ -82,8 +82,8 @@ export class ResourceRouterModule {
                     useClass: options.responseTypeStrategy || ContentTypeStrategy
                 },
                 {
-                    provide: RouteDataLoader,
-                    useClass: HttpRouteDataLoader
+                    provide: ViewDataLoader,
+                    useClass: HttpViewDataLoader
                 }
             ]
         };

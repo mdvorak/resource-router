@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 
-export type RouteMatcher = (type: string, status?: number) => boolean;
+export type ResourceTypeMatcher = (type: string, status?: number) => boolean;
 
 export type Data = {
     [name: string]: any
@@ -14,7 +14,7 @@ export interface ViewDef {
     component: Type<any>;
 
     type?: string;
-    matcher?: RouteMatcher;
+    matcher?: ResourceTypeMatcher;
 
     data?: Data; // TODO not supported yet
     resolve?: ResolveData; // TODO not supported yet

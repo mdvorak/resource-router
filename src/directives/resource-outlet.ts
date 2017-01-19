@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs';
-import { RouteDataLoader, LoadedRouteData } from '../route-data-loader';
-import { RouteData } from '../route-data';
+import { ViewDataLoader, LoadedViewData } from '../view-data-loader';
+import { ActiveViewData } from '../active-view-data';
 
 
 // TODO support "layouts" via directive contents
@@ -28,7 +28,7 @@ export class ResourceOutletDirective {
     private srcValue: string;
 
     constructor(protected viewContainer: ViewContainerRef,
-                protected loader: RouteDataLoader,
+                protected loader: ViewDataLoader,
                 protected resolver: ComponentFactoryResolver) {
         // Handle src changes
         this.srcChange
@@ -48,11 +48,11 @@ export class ResourceOutletDirective {
         return this.srcValue;
     }
 
-    load(url: string): Observable<LoadedRouteData> {
+    load(url: string): Observable<LoadedViewData> {
         return this.loader.fetch(url);
     }
 
-    render(routeData: LoadedRouteData) {
+    render(routeData: LoadedViewData) {
         // Destroy current view
         if (this.current) {
             this.current.destroy();
@@ -64,8 +64,8 @@ export class ResourceOutletDirective {
             const factory = this.resolver.resolveComponentFactory(routeData.component);
             const providers = ReflectiveInjector.resolve([
                 {
-                    provide: RouteData,
-                    useValue: new RouteData(routeData.response, routeData.type, routeData.data)
+                    provide: ActiveViewData,
+                    useValue: new ActiveViewData(routeData.response, routeData.type, routeData.data)
                 }
             ]);
 
