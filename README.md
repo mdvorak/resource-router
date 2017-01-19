@@ -17,6 +17,9 @@ Installation
 Configuration
 -------------
 
+Sample snippet how is the router configured.
+It is very similar to original router, but instead of registering paths, we are registering media types.
+
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
