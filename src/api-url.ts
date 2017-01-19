@@ -1,5 +1,5 @@
-import {Injectable, OpaqueToken, Inject} from '@angular/core';
-import {normalizeUrl} from './normalize';
+import { Injectable, OpaqueToken, Inject } from '@angular/core';
+import { normalizeUrl } from './normalize';
 
 export const APP_API_PREFIX = new OpaqueToken('APP_API_PREFIX');
 
@@ -34,7 +34,7 @@ export class ApiUrl {
 
         // This is for diagnostics only, but might be useful
         if (/^https?:/.test(path)) {
-            throw new Error("path must be relative");
+            throw new Error('path must be relative');
         }
 
         // Strip leading slash
