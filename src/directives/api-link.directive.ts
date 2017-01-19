@@ -1,6 +1,6 @@
 import { Directive, Input, HostBinding } from '@angular/core';
 import { Location } from '@angular/common';
-import { RouteRegistry } from '../route-registry';
+import { ResourceViewRegistry } from '../resource-view-registry';
 import { ApiUrl } from '../api-url';
 
 
@@ -18,7 +18,7 @@ export class ApiLinkDirective {
 
     constructor(private apiUrl: ApiUrl,
                 private location: Location,
-                private dataRouteRegistry: RouteRegistry) {
+                private dataRouteRegistry: ResourceViewRegistry) {
     }
 
     @Input()

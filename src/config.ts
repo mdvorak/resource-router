@@ -10,7 +10,7 @@ export type ResolveData = {
     [name: string]: any
 };
 
-export interface RouteDef {
+export interface ViewDef {
     component: Type<any>;
 
     type?: string;

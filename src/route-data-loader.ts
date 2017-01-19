@@ -1,9 +1,9 @@
 import { Injectable, Type } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { RouteRegistry } from './route-registry';
+import { ResourceViewRegistry } from './resource-view-registry';
 import { ResponseTypeStrategy } from './response-type-strategy';
-import { RouteDef, Data, ResolveData } from './config';
+import { ViewDef, Data, ResolveData } from './config';
 import 'rxjs/add/operator/map';
 
 
@@ -15,7 +15,7 @@ export class LoadedRouteData {
 
     constructor(public response: Response,
                 public  type: string,
-                route: RouteDef) {
+                route: ViewDef) {
         this.component = route.component;
         this.data = route.data;
         this.resolve = route.resolve;
@@ -33,7 +33,7 @@ export abstract class RouteDataLoader {
 export class HttpRouteDataLoader extends RouteDataLoader {
     constructor(private http: Http,
                 private strategy: ResponseTypeStrategy,
-                private registry: RouteRegistry) {
+                private registry: ResourceViewRegistry) {
         super();
     }
 

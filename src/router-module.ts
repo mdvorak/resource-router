@@ -19,8 +19,8 @@ import {
 import { APP_API_PREFIX, ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
 import { ResponseTypeStrategy, ContentTypeStrategy } from './response-type-strategy';
-import { FALLBACK_ROUTE, RESOURCE_ROUTES, RouteRegistry } from './route-registry';
-import { RouteDef } from './config';
+import { FALLBACK_ROUTE, RESOURCE_ROUTES, ResourceViewRegistry } from './resource-view-registry';
+import { ViewDef } from './config';
 import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
@@ -57,14 +57,14 @@ export class ResourceRouterModule {
                 Location,
                 ApiUrl,
                 ApiLocation,
-                RouteRegistry,
+                ResourceViewRegistry,
                 {
                     provide: APP_API_PREFIX,
                     useValue: options.prefix
                 },
                 {
                     provide: FALLBACK_ROUTE,
-                    useValue: options.fallbackRoute || <RouteDef>{
+                    useValue: options.fallbackRoute || <ViewDef>{
                         component: DefaultMissingRouteDefinitionComponent
                     }
                 },
@@ -89,7 +89,7 @@ export class ResourceRouterModule {
         };
     }
 
-    static forTypes(routes: RouteDef[]): ModuleWithProviders {
+    static forTypes(routes: ViewDef[]): ModuleWithProviders {
         return {
             ngModule: ResourceRouterModule,
             providers: [
@@ -112,7 +112,7 @@ export interface ResourceRouterOptions {
     prefix: string;
     useHash?: boolean;
     responseTypeStrategy?: Type<ResponseTypeStrategy>;
-    fallbackRoute?: RouteDef;
+    fallbackRoute?: ViewDef;
 }
 
 

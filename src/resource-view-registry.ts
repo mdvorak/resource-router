@@ -1,5 +1,5 @@
 import { Inject, Injectable, OpaqueToken, Optional } from '@angular/core';
-import { RouteDef, RouteMatcher } from './config';
+import { ViewDef, RouteMatcher } from './config';
 import { normalizeMediaType } from './normalize';
 
 export const RESOURCE_ROUTES = new OpaqueToken('RESOURCE_ROUTES');
@@ -9,12 +9,12 @@ export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
 // TODO error and status code matching
 
 @Injectable()
-export class RouteRegistry {
-    private exact = new Map<string, RouteDef>();
-    private matchers: Array<{ m: RouteMatcher, d: RouteDef }> = [];
+export class ResourceViewRegistry {
+    private exact = new Map<string, ViewDef>();
+    private matchers: Array<{ m: RouteMatcher, d: ViewDef }> = [];
 
     constructor(@Inject(RESOURCE_ROUTES) @Optional() routes: any,
-                @Inject(FALLBACK_ROUTE) fallbackRoute: RouteDef) {
+                @Inject(FALLBACK_ROUTE) fallbackRoute: ViewDef) {
         if (!routes) {
             throw new Error('No routes defined! See ResourceRouterModule.forTypes(...) method for more details');
         }
@@ -26,7 +26,7 @@ export class RouteRegistry {
         this.exact.set(FALLBACK_ROUTE.toString(), fallbackRoute);
     }
 
-    match(mediaType: string, status?: number): RouteDef {
+    match(mediaType: string, status?: number): ViewDef {
         // Exact match
         let data = this.exact[mediaType];
         if (data) return data;
@@ -48,7 +48,7 @@ export class RouteRegistry {
     }
 
     //noinspection JSMethodCanBeStatic
-    protected validateRoute(route: RouteDef): void {
+    protected validateRoute(route: ViewDef): void {
         if (!route.type) {
             throw new Error('Invalid configuration of route, route type must be set');
         }
@@ -57,7 +57,7 @@ export class RouteRegistry {
         }
     }
 
-    private addRoute(route: RouteDef|any): void {
+    private addRoute(route: ViewDef|any): void {
         // Nulls are not allowed
         if (!route) {
             throw new Error('Invalid configuration of route, encountered undefined route.');
