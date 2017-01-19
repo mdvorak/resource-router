@@ -4,8 +4,11 @@ export default {
     entry: './dist/index.js',
     dest: './dist/bundles/resource-router.umd.js',
     format: 'umd',
-    moduleName: pkg.name,
-    external: Object.keys(pkg.dependencies),
+    moduleName: 'mdvorak.resourceRouter',
+    external: Object.keys(pkg.dependencies).concat([
+        'rxjs/add/operator/map',
+        'rxjs/add/operator/switchMap'
+    ]),
     globals: {
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
