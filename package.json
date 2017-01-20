@@ -50,6 +50,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "^2.4.3",
     "@angular/platform-browser-dynamic": "^2.4.3",
+    "@angular/forms": "^2.4.3",
     "@types/core-js": "^0.9.35",
     "@types/jasmine": "^2.5.35",
     "@types/node": "^6.0.45",

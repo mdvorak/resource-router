@@ -44,7 +44,23 @@ function handleApi(req, res) {
             'Content-Type': 'application/json'
         });
         res.end(JSON.stringify({
-            meaning: 42
+            meaning: 42,
+            _links: {
+                next: {href: '/sample', title: 'Next'}
+            }
+        }));
+    } else if (req.url === '/sample') {
+        // Unspecified content
+        res.writeHead(200, {
+            'Content-Type': 'application/x.sample+json'
+        });
+        res.end(JSON.stringify({
+            name: 'Mikee',
+            address: 'Nameless st.',
+            age: 42,
+            _links: {
+                next: {href: '/json', title: 'Next'}
+            }
         }));
     } else {
         // Not found
