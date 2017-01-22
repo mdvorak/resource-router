@@ -6,23 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Polyfill(s) for older browsers -->
-    <script src="../node_modules/core-js/client/shim.min.js"></script>
+    <!-- Polyfills for older browsers -->
+    <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
 
-    <script src="../node_modules/zone.js/dist/zone.js"></script>
-    <script src="../node_modules/systemjs/dist/system.src.js"></script>
+    <script src="https://unpkg.com/zone.js@0.7.4?main=browser"></script>
+    <script src="https://unpkg.com/reflect-metadata@0.1.8"></script>
+    <script src="https://unpkg.com/systemjs@0.19.39/dist/system.src.js"></script>
 
-    <script src="systemjs.config.js"></script>
     <script>
-        System.import('app')
-            .then(function () {
-                // Since the actual main method is in the bundle as module, we load it manually
-                return System.import('example/app/example.main');
-            })
-            .catch(function (err) {
-                console.error(err);
-            });
+        window.autoBootstrap = true;
     </script>
+    <script src="systemjs.config.local.js"></script>
 
     <base href="/">
 </head>

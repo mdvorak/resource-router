@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActiveViewData } from '../../../src/active-view-data';
+import { ActiveViewData } from 'angular-resource-router';
 
 export interface SampleData {
 

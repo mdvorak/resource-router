@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActiveViewData } from '../../../src/active-view-data';
+import { ActiveViewData } from 'angular-resource-router';
 
 @Component({
     template: `<h2>Untyped JSON</h2><pre>{{data|json}}</pre>

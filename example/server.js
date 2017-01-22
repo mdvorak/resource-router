@@ -12,7 +12,8 @@ server.init({
         baseDir: __dirname,
         routes: {
             "/node_modules": "node_modules",
-            "/src": "src"
+            "/src": "src",
+            "/dist": "dist"
         }
     },
     reloadDebounce: 100,

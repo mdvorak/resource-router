@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { ResourceRouterModule } from '../../index';
-import { ExampleComponent } from './example.component';
+import { ResourceRouterModule } from 'angular-resource-router';
+import { AppComponent } from './app.component';
 import { JsonComponent } from './components/json.component';
 import { SampleComponent } from './components/sample.component';
 
 @NgModule({
     declarations: [
-        ExampleComponent,
+        AppComponent,
         JsonComponent,
         SampleComponent
     ],
@@ -34,8 +34,8 @@ import { SampleComponent } from './components/sample.component';
         FormsModule
     ],
     bootstrap: [
-        ExampleComponent
+        AppComponent
     ]
 })
-export class ExampleModule {
+export class AppModule {
 }

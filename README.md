@@ -23,14 +23,14 @@ It is very similar to original router, but instead of registering paths, we are 
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ResourceRouterModule } from 'angular-data-router';
+import { ResourceRouterModule } from 'angular-resource-router';
 import { AppComponent } from './app.component';
-import { ExampleComponent } from './example.component';
+import { SampleComponent } from './sample.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        ExampleComponent
+        SampleComponent
     ],
     imports: [
         BrowserModule,
@@ -39,8 +39,8 @@ import { ExampleComponent } from './example.component';
         }),
         ResourceRouterModule.forTypes([
             {
-                type: 'application/x.example',
-                component: ExampleComponent
+                type: 'application/x.sample',
+                component: SampleComponent
             }
         ])
     ],
