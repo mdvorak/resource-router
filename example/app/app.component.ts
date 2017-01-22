@@ -3,7 +3,9 @@ import { ApiLocation } from 'angular-resource-router';
 
 @Component({
     selector: 'example-app',
-    template: `<resource-outlet [(src)]="apiLocation.url"></resource-outlet>`
+    template: `See <a href="https://app.swaggerhub.com/api/mdvorak/resource-router-example/1.0.0">API definition</a>
+
+<resource-outlet [(src)]="apiLocation.url"></resource-outlet>`
 })
 export class AppComponent {
 

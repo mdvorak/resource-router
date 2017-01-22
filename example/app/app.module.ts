@@ -16,11 +16,11 @@ import { SampleComponent } from './components/sample.component';
         BrowserModule,
         FormsModule,
         ResourceRouterModule.configure({
-            prefix: 'api/'
+            prefix: 'https://private-d3b165-resourcerouterexample.apiary-mock.com/'
         }),
         ResourceRouterModule.forTypes([
             {
-                type: 'application/json',
+                type: 'x.questions',
                 component: JsonComponent
             },
             {
