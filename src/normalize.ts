@@ -16,7 +16,7 @@ const urlParsingNode = document.createElement('A') as HTMLAnchorElement;
 export function normalizeUrl(href: string): string {
     // Note: This supports any URL, even on another domain.
     // Built-in Location.normalize does not.
-    // TODO verify statement
+    // TODO verify this statement
 
     if (href === '') {
         // Special case - browser interprets empty string as current URL, while we need
@@ -34,6 +34,7 @@ export function normalizeUrl(href: string): string {
     return null;
 }
 
+// TODO move to component after all, so it can be customized
 /**
  * Normalizes the media type. Removes format suffix (everything after +), and prepends `application/` if there is
  * just subtype provided.

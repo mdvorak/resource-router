@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { ActiveViewData } from '../active-view-data';
+import { ViewData } from '../view-data';
 
 @Component({
     template: `<p>Missing type definition of <code>"{{route.type}}"</code> on <code>"{{route.url}}"</code></p>
-<pre>{{data}}</pre>`
+<pre>{{text}}</pre>`
 })
 export class DefaultMissingRouteDefinitionComponent {
 
-    data: any;
+    text: any;
 
-    constructor(public route: ActiveViewData) {
-        this.data = route.text();
+    constructor(public data: ViewData) {
+        this.text = data.response.text();
     }
 }

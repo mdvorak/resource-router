@@ -16,7 +16,8 @@ import { SampleComponent } from './components/sample.component';
         BrowserModule,
         FormsModule,
         ResourceRouterModule.configure({
-            prefix: 'https://private-d3b165-resourcerouterexample.apiary-mock.com/'
+            prefix: 'https://private-d3b165-resourcerouterexample.apiary-mock.com/api/',
+            useHash: true
         }),
         ResourceRouterModule.forTypes([
             {

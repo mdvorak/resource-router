@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActiveViewData } from 'angular-resource-router';
+import { ViewData } from 'angular-resource-router';
 
 @Component({
     template: `<h2>Untyped JSON</h2><pre>{{data|json}}</pre>
@@ -9,7 +9,7 @@ export class JsonComponent {
 
     data: any;
 
-    constructor(data: ActiveViewData) {
-        this.data = data.json();
+    constructor(data: ViewData) {
+        this.data = data.response.json();
     }
 }

@@ -1,7 +1,10 @@
 export { ResourceRouterModule, ResourceRouterOptions } from './resource-router-module';
-export { ActiveViewData } from './active-view-data';
+export { ViewData } from './view-data';
+export { ViewDataLoader, HttpViewDataLoader } from './view-data-loader';
 export { ViewDef, Data, ResolveData, ResourceTypeMatcher } from './config';
 export { APP_API_PREFIX, ApiUrl } from './api-url';
 export { ApiLocation } from './api-location';
 export { ResourceOutletDirective } from './directives/resource-outlet';
 export { ApiLinkDirective } from './directives/api-link.directive';
+export { ResourceDataDirective } from './directives/resource-data';
+export { ResourceViewDirective } from './directives/resource-view';

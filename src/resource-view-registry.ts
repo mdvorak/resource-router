@@ -19,10 +19,10 @@ export class ResourceViewRegistry {
             throw new Error('No routes defined! See ResourceRouterModule.forTypes(...) method for more details');
         }
 
-        // Flatten route declarations
+        // Flatten data declarations
         this.addRoute(routes);
 
-        // Fallback route
+        // Fallback data
         this.exact.set(FALLBACK_ROUTE.toString(), fallbackRoute);
     }
 
@@ -50,17 +50,17 @@ export class ResourceViewRegistry {
     //noinspection JSMethodCanBeStatic
     protected validateRoute(route: ViewDef): void {
         if (!route.type) {
-            throw new Error('Invalid configuration of route, route type must be set');
+            throw new Error('Invalid configuration of data, data type must be set');
         }
         if (!route.component) {
-            throw new Error('Invalid configuration of route, route component must be set');
+            throw new Error('Invalid configuration of data, data component must be set');
         }
     }
 
     private addRoute(route: ViewDef|any): void {
         // Nulls are not allowed
         if (!route) {
-            throw new Error('Invalid configuration of route, encountered undefined route.');
+            throw new Error('Invalid configuration of data, encountered undefined data.');
         }
 
         // Flatten array

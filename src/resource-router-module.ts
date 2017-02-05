@@ -26,6 +26,8 @@ import { DefaultMissingRouteDefinitionComponent } from './components/default-mis
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
 import { ViewDataLoader, HttpViewDataLoader } from './view-data-loader';
+import { ResourceDataDirective } from './directives/resource-data';
+import { ResourceViewDirective } from './directives/resource-view';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
@@ -34,6 +36,8 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
 @NgModule({
     declarations: [
         ResourceOutletDirective,
+        ResourceDataDirective,
+        ResourceViewDirective,
         ApiLinkDirective,
         DefaultMissingRouteDefinitionComponent
     ],
@@ -41,7 +45,7 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
         CommonModule,
         HttpModule
     ],
-    exports: [ResourceOutletDirective, ApiLinkDirective]
+    exports: [ResourceOutletDirective, ResourceDataDirective, ResourceViewDirective, ApiLinkDirective]
 })
 export class ResourceRouterModule {
 

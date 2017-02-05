@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActiveViewData } from 'angular-resource-router';
+import { ViewData } from 'angular-resource-router';
 
 export interface SampleData {
 
@@ -27,7 +27,7 @@ export class SampleComponent {
 
     data: SampleData;
 
-    constructor(data: ActiveViewData) {
-        this.data = data.json();
+    constructor(data: ViewData) {
+        this.data = data.response.json();
     }
 }

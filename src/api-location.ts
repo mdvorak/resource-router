@@ -22,7 +22,7 @@ export class ApiLocation {
 
     /**
      * Resource URL that is being currently viewed.
-     * Note: This should not be used to determine current route URL, since this always corresponds to the
+     * Note: This should not be used to determine current data URL, since this always corresponds to the
      * primary view.
      *
      * @returns Resource URL that is being currently viewed.
