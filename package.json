@@ -35,7 +35,8 @@
     "build": "concurrently \"npm test\" \"npm run-script compile\" && npm run-script bundle",
     "postbuild": "node release-package.js package.json dist/package.json && ncp LICENSE.txt dist/LICENSE.txt && ncp README.md dist/README.md && rimraf dist/codegen/",
     "release": "npm run-script build && npm publish dist",
-    "postpublish": "npm run-script clean"
+    "postpublish": "npm run-script clean",
+    "preversion": "npm run-script lint && npm run-script test"
   },
   "dependencies": {
     "@angular/common": "^2.4.3",
