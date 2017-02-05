@@ -24,7 +24,7 @@ export class ApiLinkDirective {
     @Input()
     set apiLink(url: string) {
         this.url = url ? this.apiUrl.mapApiToView(url) : null;
-        this.href = this.url ? this.location.prepareExternalUrl('/' + this.url) : (url || '');
+        this.href = this.url ? this.location.prepareExternalUrl(this.url) : (url || '');
     }
 
     /*
