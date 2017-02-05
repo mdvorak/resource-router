@@ -11,7 +11,7 @@ export const FALLBACK_VIEW = new OpaqueToken('FALLBACK_VIEW');
 @Injectable()
 export class ResourceViewRegistry {
     private exact = new Map<string, ViewDef>();
-    private matchers: Array<{ m: ResourceTypeMatcher, d: ViewDef }> = [];
+    private matchers: Array<{m: ResourceTypeMatcher, d: ViewDef}> = [];
 
     constructor(@Inject(RESOURCE_VIEWS) @Optional() routes: any,
                 @Inject(FALLBACK_VIEW) fallbackView: ViewDef) {

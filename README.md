@@ -66,7 +66,8 @@ Things that are yet to be implemented
 * Support view matching by HTTP status codes
 * Complete example and make it available online
 * Support for `resolve` and `data` route configs
-* Support for outlet layouts, outlet resolve
+* Support for <s>outlet layouts</s>, outlet resolve
+* Outlet context data (name etc)
 * Navigation within outlet
 * Hide element if empty link
 * External navigation for unknown type

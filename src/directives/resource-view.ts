@@ -17,23 +17,19 @@ import { ViewData } from '../view-data';
 })
 export class ResourceViewDirective {
 
-    @Output() dataChange: EventEmitter<ViewData<any>> = new EventEmitter();
     protected current: ComponentRef<any>;
     private dataValue: ViewData<any>;
 
     constructor(protected viewContainer: ViewContainerRef,
                 protected loader: ViewDataLoader,
                 protected resolver: ComponentFactoryResolver) {
-        // Handle src changes
-        this.dataChange
-            .subscribe((data: ViewData<any>) => this.render(data));
     }
 
     @Input()
     set data(value: ViewData<any>) {
         if (this.dataValue !== value) {
             this.dataValue = value;
-            this.dataChange.emit(value);
+            this.render(value);
         }
     }
 
@@ -55,11 +51,7 @@ export class ResourceViewDirective {
             ]);
 
             const injector = ReflectiveInjector.fromResolvedProviders(providers, this.viewContainer.parentInjector);
-
             this.current = this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
-            // this.current.changeDetectorRef.detectChanges(); // TODO what it does? its in RouterOutlet
-        } else {
-            throw new Error('viewData.component cannot be undefined (response=' + viewData.response + ')');
         }
     }
 }

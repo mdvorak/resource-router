@@ -7,25 +7,33 @@ export class ViewData<T> {
     readonly component: Type<any>;
 
     get status(): number {
-        return this.response.status;
+        return this.response ? this.response.status : 0;
     }
 
     get statusText(): string {
-        return this.response.statusText;
+        return this.response ? this.response.statusText : null;
     }
 
     get headers(): Headers {
-        return this.response.headers;
+        return this.response ? this.response.headers : null;
     }
 
     get url(): string {
-        return this.response.url;
+        return this.response ? this.response.url : null;
     }
 
     constructor(public readonly response: Response,
                 public readonly type: string,
                 public readonly body: T,
                 view: ViewDef) {
-        this.component = view.component;
+        this.component = view ? view.component : null;
+    }
+
+    toString(): string {
+        if (this.response) {
+            return this.response.toString() + ' as ' + this.component;
+        } else {
+            return 'undefined view';
+        }
     }
 }

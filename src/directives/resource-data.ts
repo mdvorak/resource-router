@@ -4,7 +4,8 @@ import {
     EventEmitter,
     Directive,
     ViewContainerRef,
-    TemplateRef
+    TemplateRef,
+    OnInit
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs';
@@ -12,24 +13,25 @@ import { ViewDataLoader } from '../view-data-loader';
 import { ViewData } from '../view-data';
 
 
+const UNDEFINED_VIEW = new ViewData(null, null, null, null);
+
+
 @Directive({
     selector: '[resourceData][[resourceDataOf]'
 })
-export class ResourceDataDirective {
+export class ResourceDataDirective implements OnInit {
 
     @Output() resourceUrlChange: EventEmitter<string> = new EventEmitter();
     private resourceUrlValue: string;
+    private context = new ResourceDataContext();
 
     constructor(protected viewContainer: ViewContainerRef,
-                protected templateRef: TemplateRef<any>,
+                protected templateRef: TemplateRef<ResourceDataContext>,
                 protected loader: ViewDataLoader) {
         // Handle src changes
         this.resourceUrlChange
-            .switchMap((url: string) => this.load(url))
-            .subscribe(
-                data => this.render(data),
-                err => this.clear()
-            );
+            .switchMap(url => this.load(url))
+            .subscribe(data => this.context.$implicit = data);
     }
 
     // Unused but needed when used in decomposed notation directly on <template>
@@ -46,20 +48,20 @@ export class ResourceDataDirective {
     }
 
     load(url: string): Observable<ViewData<any>> {
-        return this.loader.fetch(url);
+        if (url) {
+            return this.loader
+                .fetch(url)
+                .catch(err => Observable.of(UNDEFINED_VIEW));
+        } else {
+            return Observable.of(UNDEFINED_VIEW);
+        }
     }
 
-    clear() {
-        this.viewContainer.clear();
+    ngOnInit() {
+        this.viewContainer.createEmbeddedView(this.templateRef, this.context);
     }
+}
 
-    render(viewData: ViewData<any>) {
-        // Destroy current view
-        this.clear();
-
-        // Create new
-        this.viewContainer.createEmbeddedView(this.templateRef, {
-            $implicit: viewData
-        });
-    }
+export class ResourceDataContext {
+    $implicit: ViewData<any> = UNDEFINED_VIEW;
 }
