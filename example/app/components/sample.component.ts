@@ -27,7 +27,7 @@ export class SampleComponent {
 
     data: SampleData;
 
-    constructor(data: ViewData) {
-        this.data = data.response.json();
+    constructor(public viewData: ViewData<SampleData>) {
+        this.data = viewData.body;
     }
 }

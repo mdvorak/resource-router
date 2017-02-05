@@ -17,34 +17,34 @@ import { ViewData } from '../view-data';
 })
 export class ResourceViewDirective {
 
-    @Output() dataChange: EventEmitter<ViewData> = new EventEmitter();
+    @Output() dataChange: EventEmitter<ViewData<any>> = new EventEmitter();
     protected current: ComponentRef<any>;
-    private dataValue: ViewData;
+    private dataValue: ViewData<any>;
 
     constructor(protected viewContainer: ViewContainerRef,
                 protected loader: ViewDataLoader,
                 protected resolver: ComponentFactoryResolver) {
         // Handle src changes
         this.dataChange
-            .subscribe((data: ViewData) => this.render(data));
+            .subscribe((data: ViewData<any>) => this.render(data));
     }
 
     @Input()
-    set data(value: ViewData) {
+    set data(value: ViewData<any>) {
         if (this.dataValue !== value) {
             this.dataValue = value;
             this.dataChange.emit(value);
         }
     }
 
-    render(viewData: ViewData) {
+    render(viewData: ViewData<any>) {
         // Destroy current view
         if (this.current) {
             this.current.destroy();
             this.current = null;
         }
 
-        if (viewData.component) {
+        if (viewData && viewData.component) {
             // Create nested component
             const factory = this.resolver.resolveComponentFactory(viewData.component);
             const providers = ReflectiveInjector.resolve([

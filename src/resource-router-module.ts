@@ -71,7 +71,8 @@ export class ResourceRouterModule {
                 {
                     provide: FALLBACK_ROUTE,
                     useValue: options.fallbackRoute || <ViewDef>{
-                        component: DefaultMissingRouteDefinitionComponent
+                        component: DefaultMissingRouteDefinitionComponent,
+                        response: 'text'
                     }
                 },
                 {

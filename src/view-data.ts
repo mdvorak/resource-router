@@ -1,18 +1,31 @@
-import { Response } from '@angular/http';
-import { Data, ResolveData, ViewDef } from './config';
+import { Response, Headers } from '@angular/http';
 import { Type } from '@angular/core';
+import { ViewDef } from './config';
 
-export class ViewData {
+export class ViewData<T> {
 
-    component: Type<any>;
-    data?: Data; // TODO not supported yet
-    resolve?: ResolveData; // TODO not supported yet
+    readonly component: Type<any>;
 
-    constructor(public response: Response,
-                public type: string,
-                route: ViewDef) {
-        this.component = route.component;
-        this.data = route.data;
-        this.resolve = route.resolve;
+    get status(): number {
+        return this.response.status;
+    }
+
+    get statusText(): string {
+        return this.response.statusText;
+    }
+
+    get headers(): Headers {
+        return this.response.headers;
+    }
+
+    get url(): string {
+        return this.response.url;
+    }
+
+    constructor(public readonly response: Response,
+                public readonly type: string,
+                public readonly body: T,
+                view: ViewDef) {
+        this.component = view.component;
     }
 }

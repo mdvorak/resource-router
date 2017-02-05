@@ -3,21 +3,13 @@ import { ApiLocation } from 'angular-resource-router';
 
 @Component({
     selector: 'my-app',
-    template: `See <a href="https://app.swaggerhub.com/api/mdvorak/resource-router-example/1.0.0">API definition</a>
+    template: `<p>See <a href="https://app.swaggerhub.com/api/mdvorak/resource-router-example/1.0.0">API definition</a></p>
 
-<!--<resource-outlet [(src)]="apiLocation.url"></resource-outlet>-->
-
-
-<resource-view *resourceData="let x of apiLocation.url"
-               (resourceUrlChange)="apiLocation.url=$event"
-               [data]="x">
-    Foo {{x.response}}
-</resource-view>
-
-<!--<template [resourceData] let-data [resourceDataOf]="apiLocation.url">-->
-    <!--<resource-view [data]="data"></resource-view>-->
-<!--</template>-->
-`
+<div *resourceData="let viewData of apiLocation.url"
+     (resourceUrlChange)="apiLocation.url=$event">
+    <h1>{{viewData.url}}</h1>
+    <resource-view [data]="viewData"></resource-view>
+</div>`
 })
 export class AppComponent {
 

@@ -7,9 +7,9 @@ import {
     TemplateRef
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs';
-import { ViewDataLoader } from '../view-data-loader';
-import { ViewData } from '../view-data';
+import {Observable} from 'rxjs';
+import {ViewDataLoader} from '../view-data-loader';
+import {ViewData} from '../view-data';
 
 
 @Directive({
@@ -45,7 +45,7 @@ export class ResourceDataDirective {
         }
     }
 
-    load(url: string): Observable<ViewData> {
+    load(url: string): Observable<ViewData<any>> {
         return this.loader.fetch(url);
     }
 
@@ -53,15 +53,13 @@ export class ResourceDataDirective {
         this.viewContainer.clear();
     }
 
-    render(viewData: ViewData) {
+    render(viewData: ViewData<any>) {
         // Destroy current view
         this.clear();
 
         // Create new
-        if (viewData) {
-            this.viewContainer.createEmbeddedView(this.templateRef, {
-                $implicit: viewData
-            });
-        }
+        this.viewContainer.createEmbeddedView(this.templateRef, {
+            $implicit: viewData
+        });
     }
 }
