@@ -15,14 +15,13 @@ import { NavigationHandler } from '../navigation-handler';
 
 
 @Directive({
-    selector: '[resourceData][resourceDataOf]',
-    outputs: ['resourceUrlChange']
+    selector: '[resourceData][resourceDataOf]'
 })
 export class ResourceDataDirective implements OnInit, NavigationHandler {
 
-    resourceUrlChange = new EventEmitter<string>();
+    @Output() urlChange = new EventEmitter<string>();
 
-    private resourceUrlValue: string;
+    private urlValue: string;
     private undefinedView = new ViewData(this, null, null, null, null);
     private context = new ResourceDataContext(this.undefinedView);
 
@@ -30,7 +29,7 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
                 protected templateRef: TemplateRef<ResourceDataContext>,
                 protected loader: ViewDataLoader) {
         // Handle src changes
-        this.resourceUrlChange
+        this.urlChange
             .switchMap(url => this.load(url))
             .subscribe(data => this.context.$implicit = data);
     }
@@ -40,15 +39,19 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
     set resourceData(value: any) {
     }
 
-    get resourceDataOf(): string {
-        return this.resourceUrlValue;
-    }
-
     @Input()
     set resourceDataOf(value: string) {
-        if (this.resourceUrlValue !== value) {
-            this.resourceUrlValue = value;
-            this.resourceUrlChange.emit(value);
+        this.url = value;
+    }
+
+    get url(): string {
+        return this.urlValue;
+    }
+
+    set url(value: string) {
+        if (this.urlValue !== value) {
+            this.urlValue = value;
+            this.urlChange.emit(value);
         }
     }
 
@@ -67,7 +70,9 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
     }
 
     go(url: string): void {
-        this.resourceDataOf = url;
+        // Always fire the event, which forces the data to be reloaded
+        this.urlValue = url;
+        this.urlChange.emit(url);
     }
 }
 
