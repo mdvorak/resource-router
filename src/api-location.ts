@@ -49,7 +49,8 @@ export class ApiLocation implements NavigationHandler {
             // Navigate
             this.go(url);
 
-            // This prevents race-conditions
+            // This prevents race-conditions, when value would be immediately read after being set,
+            // and navigation has yet not been performed
             this.urlValue = url;
         }
     }

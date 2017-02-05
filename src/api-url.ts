@@ -62,7 +62,7 @@ export class ApiUrl {
 
         // Remove prefix
         if (url && url.indexOf(this.prefix) === 0) {
-            return url.substring(this.prefix.length).replace(/\/$/, '');
+            return '/' + url.substring(this.prefix.length).replace(/\/$/, '');
         }
 
         // Unable to map
