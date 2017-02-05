@@ -1,6 +1,6 @@
 import { Response, Headers } from '@angular/http';
 import { Type } from '@angular/core';
-import { ViewDef } from './config';
+import { ViewDef } from './view-definition';
 
 export class ViewData<T> {
 

@@ -20,8 +20,8 @@ import { HttpModule } from '@angular/http';
 import { APP_API_PREFIX, ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
 import { ResponseTypeStrategy, ContentTypeStrategy } from './response-type-strategy';
-import { FALLBACK_ROUTE, RESOURCE_ROUTES, ResourceViewRegistry } from './resource-view-registry';
-import { ViewDef } from './config';
+import { FALLBACK_VIEW, RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
+import { ViewDef } from './view-definition';
 import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
@@ -69,11 +69,8 @@ export class ResourceRouterModule {
                     useValue: options.prefix
                 },
                 {
-                    provide: FALLBACK_ROUTE,
-                    useValue: options.fallbackRoute || <ViewDef>{
-                        component: DefaultMissingRouteDefinitionComponent,
-                        response: 'text'
-                    }
+                    provide: FALLBACK_VIEW,
+                    useValue: options.fallbackView || fallbackView()
                 },
                 {
                     provide: RESOURCE_ROUTER_CONFIGURATION,
@@ -101,7 +98,7 @@ export class ResourceRouterModule {
             ngModule: ResourceRouterModule,
             providers: [
                 {
-                    provide: RESOURCE_ROUTES,
+                    provide: RESOURCE_VIEWS,
                     useValue: routes,
                     multi: true
                 },
@@ -119,7 +116,7 @@ export interface ResourceRouterOptions {
     prefix: string;
     useHash?: boolean;
     responseTypeStrategy?: Type<ResponseTypeStrategy>;
-    fallbackRoute?: ViewDef;
+    fallbackView?: ViewDef;
 }
 
 
@@ -127,4 +124,11 @@ function provideLocationStrategy(platformLocationStrategy: PlatformLocation, bas
     return options.useHash
         ? new HashLocationStrategy(platformLocationStrategy, baseHref)
         : new PathLocationStrategy(platformLocationStrategy, baseHref);
+}
+
+function fallbackView(): ViewDef {
+    return {
+        component: DefaultMissingRouteDefinitionComponent,
+        body: 'text'
+    };
 }

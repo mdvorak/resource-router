@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ResponseTypeStrategy } from './response-type-strategy';
 import { ViewData } from './view-data';
-import { ViewDef } from './config';
+import { ViewDef } from './view-definition';
 
 
 export abstract class ViewDataLoader {
@@ -32,9 +32,9 @@ export abstract class ViewDataLoader {
     //noinspection JSMethodCanBeStatic
     protected parse(response: Response, view: ViewDef) {
         // Is it defined by the view?
-        if (view.response) {
+        if (view.body) {
             // Resolve
-            let data: any = view.response[view.response];
+            let data: any = response[view.body];
             if (typeof data === 'function') {
                 data = data();
             }

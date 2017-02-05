@@ -9,7 +9,7 @@ export type ResolveData = {
 export interface ViewDef {
 
     component: Type<any>;
-    response?: string;
+    body?: string;
 
     type?: string;
     status?: number|string;

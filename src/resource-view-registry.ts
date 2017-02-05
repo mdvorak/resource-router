@@ -1,9 +1,9 @@
 import { Inject, Injectable, OpaqueToken, Optional } from '@angular/core';
-import { ViewDef, ResourceTypeMatcher } from './config';
+import { ViewDef, ResourceTypeMatcher } from './view-definition';
 import { normalizeMediaType } from './normalize';
 
-export const RESOURCE_ROUTES = new OpaqueToken('RESOURCE_ROUTES');
-export const FALLBACK_ROUTE = new OpaqueToken('FALLBACK_ROUTE');
+export const RESOURCE_VIEWS = new OpaqueToken('RESOURCE_VIEWS');
+export const FALLBACK_VIEW = new OpaqueToken('FALLBACK_VIEW');
 
 
 // TODO error and status code matching
@@ -13,8 +13,8 @@ export class ResourceViewRegistry {
     private exact = new Map<string, ViewDef>();
     private matchers: Array<{ m: ResourceTypeMatcher, d: ViewDef }> = [];
 
-    constructor(@Inject(RESOURCE_ROUTES) @Optional() routes: any,
-                @Inject(FALLBACK_ROUTE) fallbackRoute: ViewDef) {
+    constructor(@Inject(RESOURCE_VIEWS) @Optional() routes: any,
+                @Inject(FALLBACK_VIEW) fallbackView: ViewDef) {
         if (!routes) {
             throw new Error('No routes defined! See ResourceRouterModule.forTypes(...) method for more details');
         }
@@ -23,7 +23,7 @@ export class ResourceViewRegistry {
         this.addRoute(routes);
 
         // Fallback data
-        this.exact.set(FALLBACK_ROUTE.toString(), fallbackRoute);
+        this.exact.set(FALLBACK_VIEW.toString(), fallbackView);
     }
 
     match(mediaType: string, status?: number): ViewDef {
@@ -40,7 +40,7 @@ export class ResourceViewRegistry {
 
         // Not found
         // TODO do we really want this?
-        return this.exact.get(FALLBACK_ROUTE.toString());
+        return this.exact.get(FALLBACK_VIEW.toString());
     }
 
     isKnownType(mediaType: string, status?: number): boolean {
