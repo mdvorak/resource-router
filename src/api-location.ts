@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiUrl } from './api-url';
 import { normalizeUrl } from './normalize';
+import { NavigationHandler } from './navigation-handler';
 
 // TODO normalize location.href
 
@@ -10,7 +11,7 @@ import { normalizeUrl } from './normalize';
  * Provides bindable `url` property, to be used with `resource-outlet` component.
  */
 @Injectable()
-export class ApiLocation {
+export class ApiLocation implements NavigationHandler {
 
     private urlValue: string;
 

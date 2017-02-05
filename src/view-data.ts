@@ -1,6 +1,7 @@
 import { Response, Headers } from '@angular/http';
 import { Type } from '@angular/core';
 import { ViewDef } from './view-definition';
+import { NavigationHandler } from './navigation-handler';
 
 export class ViewData<T> {
 
@@ -22,7 +23,8 @@ export class ViewData<T> {
         return this.response ? this.response.url : null;
     }
 
-    constructor(public readonly response: Response,
+    constructor(public readonly navigation: NavigationHandler,
+                public readonly response: Response,
                 public readonly type: string,
                 public readonly body: T,
                 view: ViewDef) {

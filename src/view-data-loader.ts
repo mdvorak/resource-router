@@ -7,6 +7,7 @@ import { ResourceViewRegistry } from './resource-view-registry';
 import { ResponseTypeStrategy } from './response-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
+import { NavigationHandler, NULL_NAVIGATION_HANDLER } from './navigation-handler';
 
 
 export abstract class ViewDataLoader {
@@ -15,9 +16,9 @@ export abstract class ViewDataLoader {
                 public registry: ResourceViewRegistry) {
     }
 
-    abstract fetch(url: string): Observable<ViewData<any>>;
+    abstract fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>>;
 
-    resolve(response: Response): ViewData<any> {
+    resolve(response: Response, navigation: NavigationHandler): ViewData<any> {
         // Resolve type
         const type = this.strategy.extractType(response);
         const view = this.registry.match(type);
@@ -26,7 +27,7 @@ export abstract class ViewDataLoader {
         const body = this.parse(response, view);
 
         // Return
-        return new ViewData(response, type, body, view);
+        return new ViewData(navigation || NULL_NAVIGATION_HANDLER, response, type, body, view);
     }
 
     //noinspection JSMethodCanBeStatic
@@ -72,10 +73,10 @@ export class HttpViewDataLoader extends ViewDataLoader {
         super(strategy, registry);
     }
 
-    fetch(url: string): Observable<ViewData<any>> {
+    fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>> {
         return this.http
             .get(url)
             .catch(response => Observable.of(response))
-            .map(response => this.resolve(response));
+            .map(response => this.resolve(response, navigation));
     }
 }

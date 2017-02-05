@@ -5,25 +5,26 @@ import {
     Directive,
     ViewContainerRef,
     TemplateRef,
-    OnInit
+    OnInit, ViewRef
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs';
 import { ViewDataLoader } from '../view-data-loader';
 import { ViewData } from '../view-data';
-
-
-const UNDEFINED_VIEW = new ViewData(null, null, null, null);
+import { NavigationHandler } from '../navigation-handler';
 
 
 @Directive({
-    selector: '[resourceData][[resourceDataOf]'
+    selector: '[resourceData][resourceDataOf]',
+    outputs: ['resourceUrlChange']
 })
-export class ResourceDataDirective {
+export class ResourceDataDirective implements OnInit, NavigationHandler {
 
-    @Output() resourceUrlChange: EventEmitter<string> = new EventEmitter();
+    resourceUrlChange = new EventEmitter<string>();
+
     private resourceUrlValue: string;
-    private context = new ResourceDataContext();
+    private undefinedView = new ViewData(this, null, null, null, null);
+    private context = new ResourceDataContext(this.undefinedView);
 
     constructor(protected viewContainer: ViewContainerRef,
                 protected templateRef: TemplateRef<ResourceDataContext>,
@@ -32,15 +33,15 @@ export class ResourceDataDirective {
         this.resourceUrlChange
             .switchMap(url => this.load(url))
             .subscribe(data => this.context.$implicit = data);
-
-        // Initialize
-        // TODO test this
-        this.resourceUrlChange.first().subscribe(() => this.render());
     }
 
     // Unused but needed when used in decomposed notation directly on <template>
     @Input()
     set resourceData(value: any) {
+    }
+
+    get resourceDataOf(): string {
+        return this.resourceUrlValue;
     }
 
     @Input()
@@ -54,19 +55,23 @@ export class ResourceDataDirective {
     load(url: string): Observable<ViewData<any>> {
         if (url) {
             return this.loader
-                .fetch(url)
-                .catch(err => Observable.of(UNDEFINED_VIEW));
+                .fetch(url, this)
+                .catch(err => Observable.of(this.undefinedView));
         } else {
-            return Observable.of(UNDEFINED_VIEW);
+            return Observable.of(this.undefinedView);
         }
     }
 
-    render() {
-        this.viewContainer.clear();
+    ngOnInit() {
         this.viewContainer.createEmbeddedView(this.templateRef, this.context);
+    }
+
+    go(url: string): void {
+        this.resourceDataOf = url;
     }
 }
 
 export class ResourceDataContext {
-    $implicit: ViewData<any> = UNDEFINED_VIEW;
+    constructor(public $implicit: ViewData<any>) {
+    }
 }
