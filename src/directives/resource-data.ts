@@ -19,7 +19,7 @@ const UNDEFINED_VIEW = new ViewData(null, null, null, null);
 @Directive({
     selector: '[resourceData][[resourceDataOf]'
 })
-export class ResourceDataDirective implements OnInit {
+export class ResourceDataDirective {
 
     @Output() resourceUrlChange: EventEmitter<string> = new EventEmitter();
     private resourceUrlValue: string;
@@ -32,6 +32,10 @@ export class ResourceDataDirective implements OnInit {
         this.resourceUrlChange
             .switchMap(url => this.load(url))
             .subscribe(data => this.context.$implicit = data);
+
+        // Initialize
+        // TODO test this
+        this.resourceUrlChange.first().subscribe(() => this.render());
     }
 
     // Unused but needed when used in decomposed notation directly on <template>
@@ -57,7 +61,8 @@ export class ResourceDataDirective implements OnInit {
         }
     }
 
-    ngOnInit() {
+    render() {
+        this.viewContainer.clear();
         this.viewContainer.createEmbeddedView(this.templateRef, this.context);
     }
 }
