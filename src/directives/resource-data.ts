@@ -7,9 +7,9 @@ import {
     TemplateRef
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs';
-import {ViewDataLoader} from '../view-data-loader';
-import {ViewData} from '../view-data';
+import { Observable } from 'rxjs';
+import { ViewDataLoader } from '../view-data-loader';
+import { ViewData } from '../view-data';
 
 
 @Directive({
