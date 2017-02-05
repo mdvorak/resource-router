@@ -8,7 +8,7 @@ import {
 
 @Component({
     selector: 'resource-outlet',
-    template: `<template [resourceData] (urlChange)="src=$event" [resourceDataOf]="src">
+    template: `<template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
     <resource-view [data]="data"></resource-view>
 </template>`
 })
