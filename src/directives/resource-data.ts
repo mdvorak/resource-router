@@ -26,7 +26,10 @@ export class ResourceDataDirective {
         // Handle src changes
         this.resourceUrlChange
             .switchMap((url: string) => this.load(url))
-            .subscribe(data => this.render(data));
+            .subscribe(
+                data => this.render(data),
+                err => this.clear()
+            );
     }
 
     // Unused but needed when used in decomposed notation directly on <template>
@@ -46,13 +49,19 @@ export class ResourceDataDirective {
         return this.loader.fetch(url);
     }
 
+    clear() {
+        this.viewContainer.clear();
+    }
+
     render(viewData: ViewData) {
         // Destroy current view
-        this.viewContainer.clear();
+        this.clear();
 
         // Create new
-        this.viewContainer.createEmbeddedView(this.templateRef, {
-            $implicit: viewData
-        });
+        if (viewData) {
+            this.viewContainer.createEmbeddedView(this.templateRef, {
+                $implicit: viewData
+            });
+        }
     }
 }

@@ -7,8 +7,10 @@ module.exports = function (config) {
             {pattern: "src/**/*.spec.ts"}
         ],
 
+        // TODO karma-typescript sucks
         preprocessors: {
-            "**/*.ts": ["karma-typescript"]
+            "base.spec.ts": ["karma-typescript"],
+            "src/**/*.ts": ["karma-typescript"]
         },
 
         reporters: ["progress", "karma-typescript"],

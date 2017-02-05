@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ViewData } from '../view-data';
 
 @Component({
-    template: `<p>Missing type definition of <code>"{{route.type}}"</code> on <code>"{{route.url}}"</code></p>
+    template: `<p>Missing type definition of <code>"{{data.type}}"</code> on <code>"{{data.url}}"</code></p>
 <pre>{{text}}</pre>`
 })
 export class DefaultMissingRouteDefinitionComponent {

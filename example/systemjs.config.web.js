@@ -47,6 +47,7 @@
                 defaultExtension: 'ts'
             },
             rxjs: {
+                main: 'Rx.js',
                 defaultExtension: 'js'
             }
         }

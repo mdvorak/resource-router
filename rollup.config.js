@@ -6,13 +6,15 @@ export default {
     format: 'umd',
     moduleName: 'mdvorak.resourceRouter',
     external: Object.keys(pkg.dependencies).concat([
+        'rxjs/add/operator/catch',
         'rxjs/add/operator/map',
         'rxjs/add/operator/switchMap'
     ]),
     globals: {
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
-        '@angular/http': 'ng.http'
+        '@angular/http': 'ng.http',
+        'rxjs': 'Rx'
     },
     onwarn: function (message) {
         if (message.code === 'THIS_IS_UNDEFINED') return;

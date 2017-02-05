@@ -21,8 +21,8 @@
             }
         },
         paths: {
-            'npm:*': '../node_modules/*',
-            'dist:*': '../dist/*'
+            'npm:*': '/node_modules/*',
+            'dist:*': '/dist/*'
         },
         map: {
             // our app is within the app folder
@@ -50,6 +50,7 @@
                 defaultExtension: 'ts'
             },
             rxjs: {
+                main: 'Rx.js',
                 defaultExtension: 'js'
             }
         }
