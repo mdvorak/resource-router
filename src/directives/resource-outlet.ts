@@ -8,9 +8,9 @@ import {
 
 @Component({
     selector: 'resource-outlet',
-    template: `<resource-view *resourceData="let data of src" 
-                              (resourceUrlChange)="src=$event"
-                              [data]="data"></resource-view>`
+    template: `<template [resourceData] (urlChange)="src=$event" [resourceDataOf]="src">
+    <resource-view [data]="data"></resource-view>
+</template>`
 })
 export class ResourceOutletDirective {
 
