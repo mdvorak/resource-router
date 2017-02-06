@@ -1,12 +1,4 @@
-import {
-    Input,
-    Output,
-    EventEmitter,
-    Directive,
-    ViewContainerRef,
-    TemplateRef,
-    OnInit, ViewRef
-} from '@angular/core';
+import { Input, Output, EventEmitter, Directive, ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs';
 import { ViewDataLoader } from '../view-data-loader';
@@ -22,8 +14,7 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
     @Output() urlChange = new EventEmitter<string>();
 
     private urlValue: string;
-    private undefinedView = new ViewData(this, null, null, null, null);
-    private context = new ResourceDataContext(this.undefinedView);
+    private context = new ResourceDataContext(this.undefinedView(null));
 
     constructor(protected viewContainer: ViewContainerRef,
                 protected templateRef: TemplateRef<ResourceDataContext>,
@@ -59,9 +50,9 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
         if (url) {
             return this.loader
                 .fetch(url, this)
-                .catch(err => Observable.of(this.undefinedView));
+                .catch(err => Observable.of(this.undefinedView(url)));
         } else {
-            return Observable.of(this.undefinedView);
+            return Observable.of(this.undefinedView(url));
         }
     }
 
@@ -73,6 +64,11 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
         // Always fire the event, which forces the data to be reloaded
         this.urlValue = url;
         this.urlChange.emit(url);
+    }
+
+    private undefinedView(url: string): ViewData<any> {
+        // TODO pass url
+        return new ViewData<any>(this, null, null, null, null);
     }
 }
 

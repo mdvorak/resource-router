@@ -1,3 +1,4 @@
+//noinspection ThisExpressionReferencesGlobalObjectJS
 (function (global) {
     SystemJS.defaultJSExtensions = true;
 
@@ -74,7 +75,9 @@
             System.import('app/app.module')
         ])
             .then(function (imports) {
+                //noinspection ES6ConvertVarToLetConst
                 var platform = imports[0];
+                //noinspection ES6ConvertVarToLetConst
                 var app = imports[1];
                 platform.platformBrowserDynamic().bootstrapModule(app.AppModule);
             })
