@@ -6,30 +6,43 @@ export const RESOURCE_VIEWS = new OpaqueToken('RESOURCE_VIEWS');
 export const FALLBACK_VIEW = new OpaqueToken('FALLBACK_VIEW');
 
 
-// TODO error and status code matching
-
 @Injectable()
 export class ResourceViewRegistry {
     private exact = new Map<string, ViewDef>();
+    // TODO maybe have two lists, one for regexes and one for user function, to have deterministic behavior
     private matchers: Array<{m: ResourceTypeMatcher, d: ViewDef}> = [];
 
-    constructor(@Inject(RESOURCE_VIEWS) @Optional() routes: any,
+    constructor(@Inject(RESOURCE_VIEWS) @Optional() views: any,
                 @Inject(FALLBACK_VIEW) fallbackView: ViewDef) {
-        if (!routes) {
-            throw new Error('No routes defined! See ResourceRouterModule.forTypes(...) method for more details');
+        if (!views) {
+            throw new Error('No view definitions found! See ResourceRouterModule.forTypes(...) method for more details');
         }
 
         // Flatten data declarations
-        this.addRoute(routes);
+        this.addViews(views);
 
         // Fallback data
         this.exact.set(FALLBACK_VIEW.toString(), fallbackView);
     }
 
     match(mediaType: string, status?: number): ViewDef {
-        // Exact match
-        let data = this.exact[mediaType];
+        let data: ViewDef;
+
+        // Exact match with status
+        if (status) {
+            data = this.exact[mediaType + ':' + status];
+            if (data) return data;
+        }
+
+        // Exact match of type
+        data = this.exact[mediaType];
         if (data) return data;
+
+        // Exact match of status only
+        if (status) {
+            data = this.exact[String(status)];
+            if (data) return data;
+        }
 
         // Iterate matcher functions
         for (let matcher of this.matchers) {
@@ -39,7 +52,6 @@ export class ResourceViewRegistry {
         }
 
         // Not found
-        // TODO do we really want this?
         return this.exact.get(FALLBACK_VIEW.toString());
     }
 
@@ -48,48 +60,74 @@ export class ResourceViewRegistry {
     }
 
     //noinspection JSMethodCanBeStatic
-    protected validateRoute(route: ViewDef): void {
-        if (!route.type) {
-            throw new Error('Invalid configuration of data, data type must be set');
+    protected validateRoute(view: ViewDef): void {
+        if (!view.component) {
+            throw validationError(view, 'component is mandatory');
         }
-        if (!route.component) {
-            throw new Error('Invalid configuration of data, data component must be set');
+
+        if (view.matcher && typeof view.matcher !== 'function') {
+            throw validationError(view, 'matcher must be a function');
+        }
+        if (view.type && typeof view.type !== 'string') {
+            throw validationError(view, 'type must be a string');
+        }
+        if (view.status && typeof view.status !== 'number' && typeof view.status !== 'string') {
+            throw validationError(view, 'status must be either number or a string');
+        }
+
+        if (view.matcher) {
+            if (view.type || view.status) {
+                throw validationError(view, 'when matcher is set, type and status must be undefined');
+            }
+        } else if (!view.type && !view.status) {
+            throw validationError(view, 'either type, status or matcher must be set');
         }
     }
 
-    private addRoute(route: ViewDef|any): void {
+    private addViews(view: ViewDef|any): void {
         // Nulls are not allowed
-        if (!route) {
-            throw new Error('Invalid configuration of data, encountered undefined data.');
+        if (!view) {
+            throw new Error('Invalid configuration of data, encountered undefined.');
         }
 
         // Flatten array
-        if (Array.isArray(route)) {
+        if (Array.isArray(view)) {
             // Recursive call
-            route.forEach(this.addRoute, this);
+            view.forEach(this.addViews, this);
         } else {
             // Sanity check
-            this.validateRoute(route);
+            this.validateRoute(view);
 
             // Add to internal collections
-            if (typeof route.type === 'function') {
-                // Register external matcher
+            if (view.matcher) {
+                // Register function matcher
                 this.matchers.push({
-                    m: route.type,
-                    d: route
+                    m: view.matcher,
+                    d: view
                 });
             } else {
-                const type = normalizeMediaType(route.type);
+                let type = view.type ? normalizeMediaType(view.type) : '';
+                if (view.status) {
+                    if (type) type += ':';
+                    type += view.status;
+                }
 
                 if (/[*?]/.test(type)) {
                     // Register wildcard matcher
-                    this.matchers.push({
+                    let matcher = {
                         m: wildcardMatcherFactory(type),
-                        d: route
-                    });
+                        d: view
+                    };
+
+                    // Both takes precedence
+                    if (view.type && view.status) {
+                        this.matchers.unshift(matcher);
+                    } else {
+                        this.matchers.push(matcher);
+                    }
                 } else {
                     // Exact match
-                    this.exact[type] = route;
+                    this.exact[type] = view;
                 }
             }
         }
@@ -102,8 +140,8 @@ function wildcardMatcherFactory(wildcard: string): ResourceTypeMatcher {
     const pattern = new RegExp('^' + wildcardToRegexPattern(wildcard) + '$');
 
     // Register matcher
-    return function wildcardMatcher(s) {
-        return pattern.test(s);
+    return function wildcardMatcher(type: string, status?: number) {
+        return pattern.test(type);
     };
 }
 
@@ -112,4 +150,8 @@ function wildcardToRegexPattern(s: string): string {
         .replace(/\x08/g, '\\x08')
         .replace(/[*]+/g, '.*')
         .replace(/[?]/g, '.');
+}
+
+function validationError(view: any, text: string): Error {
+    return new Error('Invalid view configuration, ' + text + ':\n' + JSON.stringify(view));
 }

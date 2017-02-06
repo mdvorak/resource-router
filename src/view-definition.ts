@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 
 export type ResourceTypeMatcher = (type: string, status?: number) => boolean;
 
-export type ResolveData = {
+export type Data = {
     [name: string]: any
 };
 
@@ -15,5 +15,6 @@ export interface ViewDef {
     status?: number|string;
     matcher?: ResourceTypeMatcher;
 
-    // TODO resolve?: ResolveData;
+    data?: Data;
+    resolve?: Data;
 }
