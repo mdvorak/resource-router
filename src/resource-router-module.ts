@@ -120,13 +120,13 @@ export interface ResourceRouterOptions {
 }
 
 
-function provideLocationStrategy(platformLocationStrategy: PlatformLocation, baseHref: string, options: ResourceRouterOptions) {
+export function provideLocationStrategy(platformLocationStrategy: PlatformLocation, baseHref: string, options: ResourceRouterOptions) {
     return options.useHash
         ? new HashLocationStrategy(platformLocationStrategy, baseHref)
         : new PathLocationStrategy(platformLocationStrategy, baseHref);
 }
 
-function fallbackView(): ViewDef {
+export function fallbackView(): ViewDef {
     return {
         component: DefaultMissingRouteDefinitionComponent,
         body: 'text'

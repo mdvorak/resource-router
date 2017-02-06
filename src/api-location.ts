@@ -17,7 +17,7 @@ export class ApiLocation implements NavigationHandler {
 
     constructor(private apiUrlService: ApiUrl,
                 private location: Location) {
-        this.location.subscribe(this.onLocationChanged);
+        this.location.subscribe(() => this.onLocationChanged());
         this.onLocationChanged();
     }
 
@@ -69,7 +69,7 @@ export class ApiLocation implements NavigationHandler {
         }
     }
 
-    private onLocationChanged = () => {
+    private onLocationChanged() {
         const path = this.location.path();
 
         // Store API url
