@@ -8,9 +8,10 @@ export const FALLBACK_VIEW = new OpaqueToken('FALLBACK_VIEW');
 
 @Injectable()
 export class ResourceViewRegistry {
+
     private exact = new Map<string, ViewDef>();
-    // TODO maybe have two lists, one for regexes and one for user function, to have deterministic behavior
-    private matchers: Array<{m: ResourceTypeMatcher, d: ViewDef}> = [];
+    private wildcards: Array<{m: ResourceTypeMatcher, d: ViewDef}> = [];
+    private custom: Array<ViewDef> = [];
 
     constructor(@Inject(RESOURCE_VIEWS) @Optional() views: any,
                 @Inject(FALLBACK_VIEW) fallbackView: ViewDef) {
@@ -30,7 +31,7 @@ export class ResourceViewRegistry {
 
         // Exact match with status
         if (status) {
-            data = this.exact[mediaType + ':' + status];
+            data = this.exact[status + ':' + mediaType];
             if (data) return data;
         }
 
@@ -40,14 +41,20 @@ export class ResourceViewRegistry {
 
         // Exact match of status only
         if (status) {
-            data = this.exact[String(status)];
+            data = this.exact['' + status];
             if (data) return data;
         }
 
-        // Iterate matcher functions
-        for (let matcher of this.matchers) {
+        // Test matchers
+        for (let matcher of this.wildcards) {
             if (matcher.m(mediaType, status)) {
                 return matcher.d;
+            }
+        }
+
+        for (let view of this.custom) {
+            if (view.matcher(mediaType, status)) {
+                return view;
             }
         }
 
@@ -101,16 +108,9 @@ export class ResourceViewRegistry {
             // Add to internal collections
             if (view.matcher) {
                 // Register function matcher
-                this.matchers.push({
-                    m: view.matcher,
-                    d: view
-                });
+                this.custom.push(view);
             } else {
-                let type = view.type ? normalizeMediaType(view.type) : '';
-                if (view.status) {
-                    if (type) type += ':';
-                    type += view.status;
-                }
+                const type = join2(':', '' + view.status, view.type);
 
                 if (/[*?]/.test(type)) {
                     // Register wildcard matcher
@@ -119,12 +119,7 @@ export class ResourceViewRegistry {
                         d: view
                     };
 
-                    // Both takes precedence
-                    if (view.type && view.status) {
-                        this.matchers.unshift(matcher);
-                    } else {
-                        this.matchers.push(matcher);
-                    }
+                    this.wildcards.push(matcher);
                 } else {
                     // Exact match
                     this.exact[type] = view;
@@ -154,4 +149,10 @@ function wildcardToRegexPattern(s: string): string {
 
 function validationError(view: any, text: string): Error {
     return new Error('Invalid view configuration, ' + text + ':\n' + JSON.stringify(view));
+}
+
+function join2(sep: string, a: string, b: string): string {
+    if (a && b)
+        return a + sep + b;
+    return a || b;
 }
