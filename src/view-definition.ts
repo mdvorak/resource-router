@@ -13,7 +13,7 @@ export interface ViewDef {
 
     type?: string;
     status?: number|string;
-    matcher?: ResourceTypeMatcher;
+    matcher?: ResourceTypeMatcher|RegExp;
 
     data?: Data;
     resolve?: Data;

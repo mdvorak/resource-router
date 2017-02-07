@@ -11,7 +11,7 @@ export class ResourceViewRegistry {
 
     private exact = new Map<string, ViewDef>();
     private wildcards: Array<{m: ResourceTypeMatcher, d: ViewDef}> = [];
-    private custom: Array<ViewDef> = [];
+    private custom: Array<{m: ResourceTypeMatcher, d: ViewDef}> = [];
 
     constructor(@Inject(RESOURCE_VIEWS) @Optional() views: any,
                 @Inject(FALLBACK_VIEW) fallbackView: ViewDef) {
@@ -52,9 +52,9 @@ export class ResourceViewRegistry {
             }
         }
 
-        for (let view of this.custom) {
-            if (view.matcher(mediaType, status)) {
-                return view;
+        for (let matcher of this.custom) {
+            if (matcher.m(mediaType, status)) {
+                return matcher.d;
             }
         }
 
@@ -72,7 +72,7 @@ export class ResourceViewRegistry {
             throw validationError(view, 'component is mandatory');
         }
 
-        if (view.matcher && typeof view.matcher !== 'function') {
+        if (view.matcher && (typeof view.matcher !== 'function' || view.matcher instanceof RegExp)) {
             throw validationError(view, 'matcher must be a function');
         }
         if (view.type && typeof view.type !== 'string') {
@@ -108,7 +108,10 @@ export class ResourceViewRegistry {
             // Add to internal collections
             if (view.matcher) {
                 // Register function matcher
-                this.custom.push(view);
+                this.custom.push({
+                    m: view.matcher instanceof RegExp ? RegExp.prototype.test.bind(view.matcher) : view.matcher,
+                    d: view
+                });
             } else {
                 const type = join2(':', '' + view.status, view.type);
 
