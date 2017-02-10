@@ -1,21 +1,31 @@
 module.exports = function (config) {
     config.set({
-        frameworks: ["jasmine", "karma-typescript"],
+        logLevel: config.LOG_INFO,
+        frameworks: ['jasmine', 'karma-typescript'],
+        reporters: ['progress', 'karma-typescript'],
+        browsers: ['PhantomJS', 'Chrome'],
 
         files: [
-            {pattern: "base.spec.ts"},
-            {pattern: "src/**/*.spec.ts"}
+            {pattern: 'test.ts'},
+            {pattern: 'src/**/*.ts'}
         ],
 
-        // TODO karma-typescript sucks
         preprocessors: {
-            "base.spec.ts": ["karma-typescript"],
-            "src/**/*.ts": ["karma-typescript"]
+            '**/*.ts': ['karma-typescript']
         },
 
-        reporters: ["progress", "karma-typescript"],
-
-        browsers: ["PhantomJS"],
-        singleRun: true
+        karmaTypescriptConfig: {
+            compilerOptions: {
+                "moduleResolution": "node",
+                "sourceMap": true,
+                "removeComments": false,
+                "emitDecoratorMetadata": true,
+                "experimentalDecorators": true,
+            },
+            include: [
+                "test.ts",
+                "src/**/*.ts"
+            ]
+        }
     });
 };

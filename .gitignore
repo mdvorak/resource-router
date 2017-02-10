@@ -1,6 +1,7 @@
 # Build files
 /docs/
 /dist/
+/coverage/
 /index.d.ts
 /index.js
 /index.js.map
