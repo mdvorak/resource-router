@@ -55,7 +55,8 @@ export class ApiLocation implements NavigationHandler {
         }
     }
 
-    go(url: string) {
+    // TODO this needs to issue outlet reload if url does not change, somehow
+    go(url: string): void {
         if (typeof url !== 'string') {
             throw new Error('url must be a string');
         }
@@ -67,6 +68,11 @@ export class ApiLocation implements NavigationHandler {
         } else {
             throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to the API prefix '${this.apiUrlService.prefix}'`);
         }
+    }
+
+    home(): void {
+        // We don't need API url here, / leads to root of the api, always
+        this.location.go('/');
     }
 
     private onLocationChanged() {
