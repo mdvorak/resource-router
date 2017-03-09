@@ -34,7 +34,9 @@ export function normalizeUrl(href: string): string {
     return null;
 }
 
-// TODO move to component after all, so it can be customized
+
+const MEDIA_TYPE_NORMALIZER = /\s*[+;].*$/;
+
 /**
  * Normalizes the media type. Removes format suffix (everything after +), and prepends `application/` if there is
  * just subtype provided.
@@ -43,15 +45,6 @@ export function normalizeUrl(href: string): string {
  * @returns Normalized media type.
  */
 export function normalizeMediaType(mimeType: string): string {
-    if (!mimeType) return null;
-
     // Get rid of + end everything after
-    mimeType = mimeType.replace(/\s*[\+;].*$/, '');
-
-    // Prepend application/ if here is only subtype
-    if (mimeType.indexOf('/') < 0) {
-        mimeType = 'application/' + mimeType;
-    }
-
-    return mimeType;
+    return mimeType ? mimeType.replace(MEDIA_TYPE_NORMALIZER, '') : mimeType;
 }

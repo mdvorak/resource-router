@@ -21,7 +21,7 @@ import { SampleComponent } from './components/sample.component';
         }),
         ResourceRouterModule.forTypes([
             {
-                type: 'x.questions',
+                type: 'application/x.questions',
                 component: JsonComponent
             },
             {

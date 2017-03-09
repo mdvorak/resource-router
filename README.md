@@ -2,9 +2,9 @@ resource-router
 ===================
 
 [Angular](https://angular.io/) routing engine that drive views by media types. It loads data itself, and by response `Content-Type` header
-it displays configured view. It is drop-in replacement for original [Angular Router](https://angular.io/docs/ts/latest/guide/router.html) (they cannot be used at the same time).
+it displays configured view. It is a replacement for original [Angular Router](https://angular.io/docs/ts/latest/guide/router.html) (they cannot be used at the same time).
 
-The aim of this framework is to allow building of RESTful clients using angular, following [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle.
+The aim of this library is to allow building of RESTful clients using Angular, following [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle.
 
 TODO
 
@@ -26,6 +26,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ResourceRouterModule } from 'angular-resource-router';
 import { AppComponent } from './app.component';
 import { SampleComponent } from './sample.component';
+import { ErrorComponent } from './error.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,11 @@ import { SampleComponent } from './sample.component';
             {
                 type: 'application/x.sample',
                 component: SampleComponent
+            },
+            {
+                status: '*',
+                type: '*',
+                component: ErrorComponent
             }
         ])
     ],
@@ -63,7 +69,7 @@ TODO
 Things that are yet to be implemented
 
 * Complete README
-* Support view matching by HTTP status codes
+* <s>Support view matching by HTTP status codes</s>
 * Complete example and make it available online
 * Support for `resolve` and `data` route configs
 * Support for <s>outlet layouts</s>, outlet resolve
@@ -73,3 +79,5 @@ Things that are yet to be implemented
 * External navigation for unknown type
 * Build and publish docs
 * Travis integration
+* Move to gulp, package.json became unreadable
+* Typedoc

@@ -19,15 +19,17 @@ import {
 import { HttpModule } from '@angular/http';
 import { APP_API_PREFIX, ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
-import { ResponseTypeStrategy, ContentTypeStrategy } from './response-type-strategy';
-import { FALLBACK_VIEW, RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
+import { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';
+import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { ViewDef } from './view-definition';
-import { DefaultMissingRouteDefinitionComponent } from './components/default-missing-route-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceOutletDirective } from './directives/resource-outlet';
-import { ViewDataLoader, HttpViewDataLoader } from './view-data-loader';
+import { ViewDataLoader, DefaultHttpViewDataLoader } from './view-data-loader';
 import { ResourceDataDirective } from './directives/resource-data';
 import { ResourceViewDirective } from './directives/resource-view';
+import { DefaultEmptyComponent } from './components/default-empty.component';
+import { DefaultLoadingComponent } from './components/default-loading.component';
+import { DefaultErrorComponent } from './components/default-error.component';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
@@ -39,7 +41,9 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
         ResourceDataDirective,
         ResourceViewDirective,
         ApiLinkDirective,
-        DefaultMissingRouteDefinitionComponent
+        DefaultEmptyComponent,
+        DefaultLoadingComponent,
+        DefaultErrorComponent
     ],
     imports: [
         CommonModule,
@@ -69,42 +73,43 @@ export class ResourceRouterModule {
                     useValue: options.prefix
                 },
                 {
-                    provide: FALLBACK_VIEW,
-                    useValue: options.fallbackView || fallbackView()
-                },
-                {
                     provide: RESOURCE_ROUTER_CONFIGURATION,
                     useValue: options
                 },
                 {
-                    provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-                    useValue: [DefaultMissingRouteDefinitionComponent],
+                    provide: RESOURCE_VIEWS,
+                    useValue: [loadingView(), errorView(), emptyView()],
                     multi: true
                 },
                 {
-                    provide: ResponseTypeStrategy,
+                    provide: ANALYZE_FOR_ENTRY_COMPONENTS,
+                    useValue: [DefaultLoadingComponent, DefaultErrorComponent, DefaultEmptyComponent],
+                    multi: true
+                },
+                {
+                    provide: ViewTypeStrategy,
                     useClass: options.responseTypeStrategy || ContentTypeStrategy
                 },
                 {
                     provide: ViewDataLoader,
-                    useClass: HttpViewDataLoader
+                    useClass: DefaultHttpViewDataLoader
                 }
             ]
         };
     }
 
-    static forTypes(routes: ViewDef[]): ModuleWithProviders {
+    static forTypes(views: ViewDef[]): ModuleWithProviders {
         return {
             ngModule: ResourceRouterModule,
             providers: [
                 {
                     provide: RESOURCE_VIEWS,
-                    useValue: routes,
+                    useValue: views,
                     multi: true
                 },
                 {
                     provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-                    useValue: routes,
+                    useValue: views.map(v => v.component),
                     multi: true
                 }
             ]
@@ -115,7 +120,7 @@ export class ResourceRouterModule {
 export interface ResourceRouterOptions {
     prefix: string;
     useHash?: boolean;
-    responseTypeStrategy?: Type<ResponseTypeStrategy>;
+    responseTypeStrategy?: Type<ViewTypeStrategy>;
     fallbackView?: ViewDef;
 }
 
@@ -126,9 +131,30 @@ export function provideLocationStrategy(platformLocationStrategy: PlatformLocati
         : new PathLocationStrategy(platformLocationStrategy, baseHref);
 }
 
-export function fallbackView(): ViewDef {
+export function loadingView(): ViewDef {
     return {
-        component: DefaultMissingRouteDefinitionComponent,
-        body: 'text'
+        component: DefaultLoadingComponent,
+        status: 204,
+        type: 'router/loading',
+        quality: Number.MIN_SAFE_INTEGER
+    };
+}
+
+export function emptyView(): ViewDef {
+    return {
+        component: DefaultEmptyComponent,
+        status: 204,
+        type: 'router/empty',
+        quality: Number.MIN_SAFE_INTEGER
+    };
+}
+
+export function errorView(): ViewDef {
+    return {
+        component: DefaultErrorComponent,
+        status: '*',
+        type: '*',
+        body: 'text',
+        quality: Number.MIN_SAFE_INTEGER
     };
 }

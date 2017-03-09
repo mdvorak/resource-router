@@ -26,7 +26,8 @@
   "scripts": {
     "clean": "rimraf dist/ codegen/ src/**/*.js* src/**/*.d.ts example/app/example.bundle.* *.tgz *.tar.gz",
     "lint": "tslint -c tslint.json index.ts src/**/*.ts example/**/*.ts",
-    "test": "karma start --single-run",
+    "test": "karma start",
+    "testonce": "karma start --single-run",
     "prestart": "npm run clean && tsc",
     "start": "concurrently \"tsc -w\" \"lite-server -c example/server.config.json\"",
     "compile": "ngc",
@@ -36,7 +37,7 @@
     "postbuild": "node release-package.js package.json dist/package.json && ncp LICENSE.txt dist/LICENSE.txt && ncp README.md dist/README.md && rimraf dist/codegen/",
     "release": "npm run build && npm publish dist",
     "postpublish": "npm run clean",
-    "preversion": "npm run clean && npm run lint && npm run test",
+    "preversion": "npm run clean && npm run lint && karma start --single-run",
     "postversion": "npm run release && git push && git push --tags"
   },
   "dependencies": {

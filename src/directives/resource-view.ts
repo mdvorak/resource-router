@@ -40,9 +40,9 @@ export class ResourceViewDirective {
             this.current = null;
         }
 
-        if (viewData && viewData.component) {
+        if (viewData && viewData.config && viewData.config.component) {
             // Create nested component
-            const factory = this.resolver.resolveComponentFactory(viewData.component);
+            const factory = this.resolver.resolveComponentFactory(viewData.config.component);
             const providers = ReflectiveInjector.resolve([
                 {
                     provide: ViewData,

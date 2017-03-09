@@ -1,41 +1,35 @@
 import { Response, Headers } from '@angular/http';
-import { Type } from '@angular/core';
 import { ViewDef } from './view-definition';
 import { NavigationHandler } from './navigation-handler';
+import { Type } from '@angular/core';
+
 
 export class ViewData<T> {
 
-    readonly component: Type<any>;
-
-    get status(): number {
-        return this.response ? this.response.status : 0;
-    }
-
-    get statusText(): string {
-        return this.response ? this.response.statusText : null;
-    }
-
-    get headers(): Headers {
-        return this.response ? this.response.headers : null;
-    }
-
-    get url(): string {
-        return this.response ? this.response.url : null;
+    static fromResponse<T>(navigation: NavigationHandler,
+                           config: ViewDef,
+                           type: string,
+                           response: Response,
+                           body: T): ViewData<T> {
+        return new ViewData<T>(
+            navigation,
+            config,
+            type,
+            response.url,
+            response.status,
+            response.statusText,
+            response.headers,
+            body
+        );
     }
 
     constructor(public readonly navigation: NavigationHandler,
-                public readonly response: Response,
+                public readonly config: ViewDef,
                 public readonly type: string,
-                public readonly body: T,
-                view: ViewDef) {
-        this.component = view ? view.component : null;
-    }
-
-    toString(): string {
-        if (this.response) {
-            return this.response.toString() + ' as ' + this.component;
-        } else {
-            return 'undefined view';
-        }
+                public readonly url: string,
+                public readonly status: number,
+                public readonly statusText: string,
+                public readonly headers: Headers,
+                public readonly body: T) {
     }
 }

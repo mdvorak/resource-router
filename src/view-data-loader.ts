@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ResourceViewRegistry } from './resource-view-registry';
-import { ResponseTypeStrategy } from './response-type-strategy';
+import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { NavigationHandler, NULL_NAVIGATION_HANDLER } from './navigation-handler';
@@ -12,8 +12,15 @@ import { NavigationHandler, NULL_NAVIGATION_HANDLER } from './navigation-handler
 
 export abstract class ViewDataLoader {
 
-    constructor(public strategy: ResponseTypeStrategy,
+    abstract fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>>;
+
+}
+
+export abstract class HttpViewDataLoader extends ViewDataLoader {
+
+    constructor(public strategy: ViewTypeStrategy,
                 public registry: ResourceViewRegistry) {
+        super();
     }
 
     abstract fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>>;
@@ -21,23 +28,23 @@ export abstract class ViewDataLoader {
     resolve(response: Response, navigation: NavigationHandler): ViewData<any> {
         // Resolve type
         const type = this.strategy.extractType(response);
-        const view = this.registry.match(type);
+        const config = this.registry.match(type, response.status);
 
         // Parse body
-        const body = this.parse(response, view);
+        const body = this.parse(response, config);
 
         // Return
-        return new ViewData(navigation || NULL_NAVIGATION_HANDLER, response, type, body, view);
+        return ViewData.fromResponse(navigation || NULL_NAVIGATION_HANDLER, config, type, response, body);
     }
 
     //noinspection JSMethodCanBeStatic
-    protected parse(response: Response, view: ViewDef) {
-        // Is it defined by the view?
-        if (view.body) {
+    protected parse(response: Response, config: ViewDef) {
+        // Is it defined by the config?
+        if (config && config.body) {
             // Resolve
-            let data: any = response[view.body];
+            let data: any = response[config.body];
             if (typeof data === 'function') {
-                data = data();
+                data = data.call(response);
             }
             return data;
         }
@@ -54,7 +61,7 @@ export abstract class ViewDataLoader {
         type = type.replace(/;.*$/, '');
 
         // Best-effort parsing
-        if (type === 'application/json' || type.match(/^application\/.*\+json$/)) {
+        if (type.match(/\/(.+\+)?json$/)) {
             return response.json();
         } else if (type.match(/^text\//)) {
             return response.text();
@@ -65,18 +72,22 @@ export abstract class ViewDataLoader {
 }
 
 @Injectable()
-export class HttpViewDataLoader extends ViewDataLoader {
+export class DefaultHttpViewDataLoader extends HttpViewDataLoader {
 
-    constructor(private http: Http,
-                strategy: ResponseTypeStrategy,
+    constructor(public http: Http,
+                strategy: ViewTypeStrategy,
                 registry: ResourceViewRegistry) {
         super(strategy, registry);
     }
 
     fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>> {
-        return this.http
-            .get(url)
+        // Swallow errors, treat them as normal response
+        return this.get(url)
             .catch(response => Observable.of(response))
             .map(response => this.resolve(response, navigation));
+    }
+
+    protected get(url: string): Observable<Response> {
+        return this.http.get(url);
     }
 }
