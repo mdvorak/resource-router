@@ -109,7 +109,7 @@ export class ResourceRouterModule {
                 },
                 {
                     provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-                    useValue: views.map(v => v.component),
+                    useValue: views,
                     multi: true
                 }
             ]
