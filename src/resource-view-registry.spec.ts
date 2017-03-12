@@ -20,7 +20,7 @@ describe('ResourceViewRegistry', () => {
         };
     }
 
-    describe('should', () => {
+    describe('should initialize', () => {
         beforeEach(async(() => {
             return TestBed.configureTestingModule({
                 providers: [
@@ -41,7 +41,7 @@ describe('ResourceViewRegistry', () => {
             });
         }));
 
-        it('initialize with configured views', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
+        it('with configured views', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
             expect(registry).toBeTruthy();
             expect(registry.length).toBe(3);
             expect(registry.match('one', 200).component.toString()).toBe('one');

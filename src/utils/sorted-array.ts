@@ -15,7 +15,7 @@ export class SortedArray<T> {
      * @param value
      */
     push(value: T) {
-        const i = insertLocation(value, this.array, this.comparer, 0, this.array.length);
+        const i = insertLocation(value, this.array, this.comparer);
         this.array.splice(i + 1, 0, value);
     }
 }
@@ -55,7 +55,7 @@ function locationFor<T>(element: T, array: T[], comparer: Comparer<T>, start: nu
 }
 
 // This is for "push" behavior, we need to preserve insert order for equal values
-function insertLocation<T>(element: T, array: T[], comparer: Comparer<T>, start: number, end: number): number {
+function insertLocation<T>(element: T, array: T[], comparer: Comparer<T>): number {
     // Find possible insert location
     let i = locationFor(element, array, comparer, 0, array.length);
 
