@@ -2,19 +2,25 @@ import { Inject, Injectable, OpaqueToken, Optional } from '@angular/core';
 import { ViewDef } from './view-definition';
 import { SortedArray } from './utils/sorted-array';
 import { wildcardToRegex } from './utils/wildcard-to-regex';
-import { evaluateTypeQuality, evaluateStatusQuality } from './quality-evaluator';
+import { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
 
 
 export const RESOURCE_VIEWS = new OpaqueToken('RESOURCE_VIEWS');
+export const TYPE_QUALITY_EVALUATOR = new OpaqueToken('TYPE_QUALITY_EVALUATOR');
 
 
 @Injectable()
 export class ResourceViewRegistry {
 
+    private readonly typeQualityEvaluator: TypeQualityEvaluator;
     private readonly viewsByStatus = new SortedArray<ViewsByStatus>(qualityComparator);
     private _length = 0;
 
-    constructor(@Inject(RESOURCE_VIEWS) @Optional() views: any) {
+    constructor(@Inject(RESOURCE_VIEWS) @Optional() views?: any,
+                @Inject(TYPE_QUALITY_EVALUATOR) @Optional() typeQualityEvaluator?: TypeQualityEvaluator) {
+        // Initialize quality evaluator - must be before addViews
+        this.typeQualityEvaluator = typeQualityEvaluator || simpleTypeQualityEvaluator;
+
         // Flatten data declarations
         this.addViews(views);
     }
@@ -89,7 +95,6 @@ export class ResourceViewRegistry {
         }
     }
 
-    //noinspection JSMethodCanBeStatic
     private addSingleView(config: ViewDef, group: ViewsByStatus, type: string) {
         // Copy of definition, to avoid confusion, with specific status and type
         config = Object.assign({}, config, {
@@ -98,7 +103,7 @@ export class ResourceViewRegistry {
         });
 
         // Evaluate quality if needed
-        const quality = typeof config.quality === 'number' ? config.quality : evaluateTypeQuality(type);
+        const quality = typeof config.quality === 'number' ? config.quality : this.typeQualityEvaluator(type);
 
         // Add to the group
         group.types.push({
@@ -134,7 +139,7 @@ class ViewsByStatus {
     constructor(status: string) {
         this.status = status;
         this.statusExp = wildcardToRegex(status);
-        this.quality = evaluateStatusQuality(status);
+        this.quality = statusQualityEvaluator(status);
     }
 }
 
