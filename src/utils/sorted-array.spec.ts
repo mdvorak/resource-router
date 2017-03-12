@@ -38,13 +38,20 @@ describe('SortedArray', () => {
         const v1 = {v: 10, n: 'v1'};
         const v2 = {v: 30, n: 'v2'};
         const v3 = {v: 10, n: 'v3'};
+        const v4 = {v: 10, n: 'v4'};
+        const v5 = {v: 10, n: 'v5'};
+        const v6 = {v: 0, n: 'v6'};
 
         sorted.push(v1);
         sorted.push(v2);
         sorted.push(v3);
         sorted.push(v1);
+        sorted.push(v5);
+        sorted.push(v4);
+        sorted.push(v1);
+        sorted.push(v6);
 
-        expect(sorted.array).toEqual([v1, v3, v1, v2]);
+        expect(sorted.array).toEqual([v6, v1, v3, v1, v5, v4, v1, v2]);
     });
 });
 

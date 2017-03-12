@@ -33,7 +33,7 @@ export function defaultComparer<T>(a: T, b: T) {
 }
 
 // Based on https://github.com/jo/quick-insert
-function insertLocation<T>(element: T, array: T[], comparer: Comparer<T>, start: number, end: number): number {
+function locationFor<T>(element: T, array: T[], comparer: Comparer<T>, start: number, end: number): number {
     if (array.length === 0) {
         return -1;
     }
@@ -48,8 +48,23 @@ function insertLocation<T>(element: T, array: T[], comparer: Comparer<T>, start:
     if (c === 0) {
         return pivot;
     } else if (c < 0) {
-        return insertLocation(element, array, comparer, start, pivot);
+        return locationFor(element, array, comparer, start, pivot);
     } else {
-        return insertLocation(element, array, comparer, pivot, end);
+        return locationFor(element, array, comparer, pivot, end);
     }
+}
+
+// This is for "push" behavior, we need to preserve insert order for equal values
+function insertLocation<T>(element: T, array: T[], comparer: Comparer<T>, start: number, end: number): number {
+    // Find possible insert location
+    let i = locationFor(element, array, comparer, 0, array.length);
+
+    // We need to do append and maintain insert order
+    if (i >= 0) {
+        while (i < array.length - 1 && comparer(array[i], array[i + 1]) === 0) {
+            ++i;
+        }
+    }
+
+    return i;
 }
