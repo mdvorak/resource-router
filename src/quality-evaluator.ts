@@ -2,7 +2,7 @@ export type TypeQualityEvaluator = (type: string) => number;
 
 export function simpleTypeQualityEvaluator(type: string): number {
     // Any type is zero
-    if (type === '*') return 0;
+    if (/^[*]+$/.test(type)) return 0;
     // Wildcard or specific?
     return /[*?]/.test(type) ? 0.5 : 1;
 }
