@@ -42,10 +42,6 @@ export class ResourceViewRegistry {
         }
     }
 
-    isKnownType(mediaType: string, status: number): boolean {
-        return mediaType && !!this.match(mediaType, status);
-    }
-
     addViews(config: ViewDef|ViewDef[]): void {
         // Flatten array
         if (Array.isArray(config)) {
@@ -77,7 +73,9 @@ export class ResourceViewRegistry {
     //noinspection JSMethodCanBeStatic
     protected validateViewDefinition(config: ViewDef) {
         // Component
-        validateComponent(config);
+        if (!config.component || typeof config.component !== 'function') {
+            throw newValidationError(config, 'component is mandatory and must be a type');
+        }
 
         // Type
         validateType(config);
@@ -148,13 +146,7 @@ interface ParsedViewDef {
 
 
 // Validation functions
-export function validateComponent(config: ViewDef) {
-    if (!config.component || typeof config.component !== 'function') {
-        throw newValidationError(config, 'component is mandatory and must be a type');
-    }
-}
-
-export function validateType(config: ViewDef) {
+function validateType(config: ViewDef) {
     if (Array.isArray(config.type)) {
         if (config.type.find(t => typeof t !== 'string')) {
             throw newValidationError(config, 'type array must consist only of strings');
@@ -165,7 +157,7 @@ export function validateType(config: ViewDef) {
     }
 }
 
-export function validateStatus(config: ViewDef) {
+function validateStatus(config: ViewDef) {
     if (config.status) {
         if (Array.isArray(config.status)) {
             // Validate array of values
@@ -185,6 +177,10 @@ function validateStatusExpression(config: ViewDef, status: string) {
         throw newValidationError(config, 'status pattern must be between 1 and 3 characters long');
     }
 
+    if (/[^x\d?*]/.test(status)) {
+        throw newValidationError(config, 'status pattern contains invalid characters');
+    }
+
     if (!/^\d*[?x]*\**$/.test(status)) {
         throw newValidationError(config, 'status pattern can contain wildcards only at the end of the pattern');
     }
@@ -198,6 +194,10 @@ function newValidationError(config: any, text: string): Error {
 export function normalizeStatusExpression(pattern: string): string {
     // Handle * wildcard
     if (pattern.endsWith('*')) {
+        if (pattern.length > 3) {
+            throw new Error('Wildcard * is not supported for status expressions longer then 3 characters: ' + pattern);
+        }
+
         return (pattern.replace(/\*/g, '') + '???').substr(0, 3);
     }
 
