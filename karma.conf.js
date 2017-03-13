@@ -1,4 +1,9 @@
 module.exports = function (config) {
+    var browsers = ['PhantomJS'];
+    if (!process.env.TRAVIS) {
+        browsers.push('Chrome');
+    }
+    
     config.set({
         logLevel: config.LOG_INFO,
         frameworks: ['jasmine', 'karma-typescript'],
