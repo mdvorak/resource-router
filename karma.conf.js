@@ -8,7 +8,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         frameworks: ['jasmine', 'karma-typescript'],
         reporters: ['progress', 'karma-typescript'],
-        browsers: ['PhantomJS', 'Chrome'],
+        browsers: browsers,
 
         files: [
             {pattern: 'test.ts'},
