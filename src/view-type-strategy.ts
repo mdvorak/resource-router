@@ -4,13 +4,13 @@ import { normalizeMediaType } from './normalize';
 
 export abstract class ViewTypeStrategy {
 
-    abstract extractType(response: Response): string;
+    abstract extractType(response: Response): string|null;
 }
 
 @Injectable()
 export class ContentTypeStrategy implements ViewTypeStrategy {
 
-    extractType(response: Response): string {
+    extractType(response: Response): string|null {
         let contentType = response.headers.get('content-type');
         return contentType ? this.normalizeMediaType(contentType) : null;
     }

@@ -4,9 +4,10 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs';
 import { ViewDataLoader } from '../view-data-loader';
 import { ViewData } from '../view-data';
-import { NavigationHandler } from '../navigation-handler';
+import { NavigationHandler, UrlType } from '../navigation-handler';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ViewDef } from '../view-definition';
+import { MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from '../system-media-types';
 
 
 @Directive({
@@ -14,16 +15,16 @@ import { ViewDef } from '../view-definition';
 })
 export class ResourceDataDirective implements OnInit, NavigationHandler {
 
-    @Output() urlChange = new EventEmitter<string>();
+    @Output() urlChange = new EventEmitter<UrlType>();
 
-    private urlValue: string;
+    private urlValue: UrlType;
     private context: ResourceDataContext;
 
     constructor(protected viewContainer: ViewContainerRef,
                 protected templateRef: TemplateRef<ResourceDataContext>,
                 protected loader: ViewDataLoader,
                 protected registry: ResourceViewRegistry) {
-        this.context = new ResourceDataContext(this.mockView(null, 'router/loading', 204, 'OK'));
+        this.context = new ResourceDataContext(this.mockView('', MEDIA_TYPE_ROUTER_LOADING, 204, 'OK'));
 
         // Handle src changes
         this.urlChange
@@ -41,24 +42,24 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
         this.url = value;
     }
 
-    get url(): string {
+    get url(): UrlType {
         return this.urlValue;
     }
 
-    set url(value: string) {
+    set url(value: UrlType) {
         if (this.urlValue !== value) {
             this.urlValue = value;
             this.urlChange.emit(value);
         }
     }
 
-    load(url: string): Observable<ViewData<any>> {
+    load(url: UrlType): Observable<ViewData<any>> {
         if (url) {
             return this.loader
                 .fetch(url, this)
-                .catch(err => Observable.of(this.mockView(url, 'router/error', 999, 'Router Error', err)));
+                .catch(err => Observable.of(this.mockView(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Router Error', err)));
         } else {
-            return Observable.of(this.mockView(url, 'router/empty', 204, 'OK'));
+            return Observable.of(this.mockView('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
         }
     }
 

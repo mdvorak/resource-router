@@ -30,6 +30,7 @@ import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultLoadingComponent } from './components/default-loading.component';
 import { DefaultErrorComponent } from './components/default-error.component';
+import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
@@ -135,7 +136,7 @@ export function loadingView(): ViewDef {
     return {
         component: DefaultLoadingComponent,
         status: 204,
-        type: 'router/loading',
+        type: MEDIA_TYPE_ROUTER_LOADING,
         quality: Number.MIN_SAFE_INTEGER
     };
 }
@@ -144,7 +145,7 @@ export function emptyView(): ViewDef {
     return {
         component: DefaultEmptyComponent,
         status: 204,
-        type: 'router/empty',
+        type: MEDIA_TYPE_ROUTER_EMPTY,
         quality: Number.MIN_SAFE_INTEGER
     };
 }

@@ -17,11 +17,10 @@ import { ViewData } from '../view-data';
 })
 export class ResourceViewDirective {
 
-    protected current: ComponentRef<any>;
+    protected current: ComponentRef<any>|null;
     private dataValue: ViewData<any>;
 
     constructor(protected viewContainer: ViewContainerRef,
-                protected loader: ViewDataLoader,
                 protected resolver: ComponentFactoryResolver) {
     }
 

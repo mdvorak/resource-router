@@ -22,16 +22,16 @@ export function normalizeUrl(href: string): string {
         // Special case - browser interprets empty string as current URL, while we need
         // what it considers a base if no base href is given.
         // Add /X to the path and then remove it.
-        urlParsingNode.setAttribute('href', 'X');
+        urlParsingNode.href = 'X';
         return urlParsingNode.href.replace(/X$/, '');
     } else if (href) {
         // Normalize thru href property
-        urlParsingNode.setAttribute('href', href);
+        urlParsingNode.href = href;
         return urlParsingNode.href;
     }
 
-    // Empty
-    return null;
+    // Invalid value
+    return href;
 }
 
 

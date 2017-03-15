@@ -14,7 +14,7 @@ export class ApiLinkDirective {
     // @Input() skipLocationChange: boolean;
     // @Input() replaceUrl: boolean;
 
-    private url: string;
+    private url: string|null;
 
     constructor(private apiUrl: ApiUrl,
                 private location: Location,
@@ -23,8 +23,8 @@ export class ApiLinkDirective {
 
     @Input()
     set apiLink(url: string) {
-        this.url = url ? this.apiUrl.mapApiToView(url) : null;
-        this.href = this.url ? this.location.prepareExternalUrl(this.url) : (url || '');
+        this.url = url ? this.apiUrl.mapApiToView(url) : '';
+        this.href = this.url ? this.location.prepareExternalUrl(this.url) : url;
     }
 
     /*

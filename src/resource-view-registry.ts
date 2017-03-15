@@ -29,7 +29,7 @@ export class ResourceViewRegistry {
         return this._length;
     }
 
-    match(type: string, status: number): ViewDef {
+    match(type: string, status: number): ViewDef|null {
         // Convert number to padded string
         const statusStr = normalizeStatus(status);
 
@@ -46,9 +46,12 @@ export class ResourceViewRegistry {
                 return view.config;
             }
         }
+
+        // Not found
+        return null;
     }
 
-    addViews(config: ViewDef|ViewDef[]): void {
+    addViews(config: ViewDef|ViewDef[]) {
         // Flatten array
         if (Array.isArray(config)) {
             // Recursive call

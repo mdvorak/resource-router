@@ -26,19 +26,19 @@ export abstract class HttpViewDataLoader extends ViewDataLoader {
     abstract fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>>;
 
     resolve(response: Response, navigation: NavigationHandler): ViewData<any> {
-        // Resolve type
+        // Resolve type, if possible
         const type = this.strategy.extractType(response);
-        const config = this.registry.match(type, response.status);
+        const config = type ? this.registry.match(type, response.status) : null;
 
         // Parse body
         const body = this.parse(response, config);
 
         // Return
-        return ViewData.fromResponse(navigation || NULL_NAVIGATION_HANDLER, config, type, response, body);
+        return ViewData.fromResponse(navigation, config, type, response, body);
     }
 
     //noinspection JSMethodCanBeStatic
-    protected parse(response: Response, config: ViewDef) {
+    protected parse(response: Response, config: ViewDef|null): any {
         // Is it defined by the config?
         if (config && config.body) {
             // Resolve
@@ -53,7 +53,7 @@ export abstract class HttpViewDataLoader extends ViewDataLoader {
     }
 
     //noinspection JSMethodCanBeStatic
-    protected parseDefault(response: Response) {
+    protected parseDefault(response: Response): any {
         let type = response.headers.get('content-type');
         if (!type) return null;
 

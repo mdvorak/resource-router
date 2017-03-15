@@ -27,7 +27,7 @@ export class ApiUrl {
      * @param {String} path View path, as in `$location.path()`.
      * @returns {String} Resource url, for e.g. HTTP requests.
      */
-    mapViewToApi(path: string) {
+    mapViewToApi(path: string): string {
         if (typeof path !== 'string') {
             throw new Error('path must be string');
         }
@@ -55,7 +55,7 @@ export class ApiUrl {
      *                     <p>If the url equals to api prefix, empty string is returned.</p>
      * @returns {String} View path.
      */
-    mapApiToView(url: string) {
+    mapApiToView(url: string): string|null {
         if (typeof url !== 'string') {
             throw new Error('url must be string');
         }

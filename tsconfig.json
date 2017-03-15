@@ -4,7 +4,7 @@
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -13,12 +13,11 @@
       "dom"
     ],
     "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
     "suppressImplicitAnyIndexErrors": true,
     "inlineSources": true,
-    "declaration": true,
-    "types": [
-      "node"
-    ]
+    "strictNullChecks": true,
+    "declaration": true
   },
   "files": [
     "index.ts"

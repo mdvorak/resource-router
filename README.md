@@ -7,11 +7,11 @@ it displays configured view. It is a replacement for original [Angular Router](h
 
 The aim of this library is to allow building of RESTful clients using Angular, following [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle.
 
-TODO
+See [changelog](CHANGELOG.md) for release changes.
 
 ## Installation
 
-    npm i angular-resource-router
+    npm i angular-resource-router --save
 
 
 ## Configuration
@@ -76,6 +76,6 @@ Things that are yet to be implemented
 * Hide element if empty link
 * External navigation for unknown type
 * Build and publish docs
-* Travis integration
+* <s>Travis integration</s>
 * Move to gulp, package.json became unreadable
 * Typedoc
