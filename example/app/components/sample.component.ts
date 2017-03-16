@@ -3,13 +3,13 @@ import { ViewData } from 'angular-resource-router';
 
 export interface SampleData {
 
-    name: string;
-    address?: string;
-    age?: number;
+  name: string;
+  address?: string;
+  age?: number;
 }
 
 @Component({
-    template: `<h2>SAmple</h2>
+  template: `<h2>SAmple</h2>
 <form>
 <label for="name">Name</label>
 <input id="name" name="name" type="text" [(ngModel)]="data.name">
@@ -25,9 +25,9 @@ export interface SampleData {
 })
 export class SampleComponent {
 
-    data: SampleData;
+  data: SampleData;
 
-    constructor(public viewData: ViewData<SampleData>) {
-        this.data = viewData.body;
-    }
+  constructor(public viewData: ViewData<SampleData>) {
+    this.data = viewData.body;
+  }
 }

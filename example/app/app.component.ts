@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ApiLocation } from 'angular-resource-router';
 
 @Component({
-    selector: 'my-app',
-    template: `<p>See <a href="http://docs.resourcerouterexample.apiary.io/#">API definition</a></p>
+  selector: 'app-root',
+  template: `<p>See <a href="http://docs.resourcerouterexample.apiary.io/#">API definition</a></p>
 
 <template [resourceData] let-data [resourceDataOf]="apiLocation.url"
           (urlChange)="apiLocation.url=$event">
@@ -21,6 +21,6 @@ import { ApiLocation } from 'angular-resource-router';
 })
 export class AppComponent {
 
-    constructor(public apiLocation: ApiLocation) {
-    }
+  constructor(public apiLocation: ApiLocation) {
+  }
 }
