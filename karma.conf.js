@@ -1,36 +1,38 @@
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/0.13/config/configuration-file.html
+
 module.exports = function (config) {
-    var browsers = ['PhantomJS'];
-    if (!process.env.TRAVIS) {
-        browsers.push('Chrome');
-    }
-    
-    config.set({
-        logLevel: config.LOG_INFO,
-        frameworks: ['jasmine', 'karma-typescript'],
-        reporters: ['progress', 'karma-typescript'],
-        browsers: browsers,
-
-        files: [
-            {pattern: 'test.ts'},
-            {pattern: 'src/**/*.ts'}
-        ],
-
-        preprocessors: {
-            '**/*.ts': ['karma-typescript']
-        },
-
-        karmaTypescriptConfig: {
-            compilerOptions: {
-                "moduleResolution": "node",
-                "sourceMap": true,
-                "removeComments": false,
-                "emitDecoratorMetadata": true,
-                "experimentalDecorators": true,
-            },
-            include: [
-                "test.ts",
-                "src/**/*.ts"
-            ]
-        }
-    });
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular/cli'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-phantomjs-launcher'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter')
+    ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    files: [
+      {pattern: './test.ts', watched: false}
+    ],
+    preprocessors: {
+      './test.ts': ['@angular/cli']
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+    coverageIstanbulReporter: {
+      reports: ['html', 'lcovonly']
+    },
+    reporters: ['progress', 'coverage-istanbul'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['PhantomJS', 'Chrome'],
+    singleRun: false
+  });
 };
