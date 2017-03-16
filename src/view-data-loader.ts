@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
@@ -55,7 +56,9 @@ export abstract class HttpViewDataLoader extends ViewDataLoader {
   //noinspection JSMethodCanBeStatic
   protected parseDefault(response: Response): any {
     let type = response.headers.get('content-type');
-    if (!type) return null;
+    if (!type) {
+      return null;
+    }
 
     // Strip parameters
     type = type.replace(/;.*$/, '');

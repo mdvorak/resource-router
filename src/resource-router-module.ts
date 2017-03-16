@@ -23,7 +23,7 @@ import { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';
 import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { ViewDef } from './view-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
-import { ResourceOutletDirective } from './directives/resource-outlet';
+import { ResourceOutletComponent } from './directives/resource-outlet';
 import { ViewDataLoader, DefaultHttpViewDataLoader } from './view-data-loader';
 import { ResourceDataDirective } from './directives/resource-data';
 import { ResourceViewDirective } from './directives/resource-view';
@@ -38,7 +38,7 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
 
 @NgModule({
   declarations: [
-    ResourceOutletDirective,
+    ResourceOutletComponent,
     ResourceDataDirective,
     ResourceViewDirective,
     ApiLinkDirective,
@@ -50,7 +50,7 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
     CommonModule,
     HttpModule
   ],
-  exports: [ResourceOutletDirective, ResourceDataDirective, ResourceViewDirective, ApiLinkDirective]
+  exports: [ResourceOutletComponent, ResourceDataDirective, ResourceViewDirective, ApiLinkDirective]
 })
 export class ResourceRouterModule {
 

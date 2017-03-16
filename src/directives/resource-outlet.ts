@@ -7,7 +7,7 @@ import { Input, Output, EventEmitter, Component } from '@angular/core';
     <resource-view [data]="data"></resource-view>
 </ng-template>`
 })
-export class ResourceOutletDirective {
+export class ResourceOutletComponent {
 
   @Output() srcChange: EventEmitter<string> = new EventEmitter();
   private srcValue: string;

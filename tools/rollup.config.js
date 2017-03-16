@@ -7,15 +7,17 @@ module.exports = {
   moduleName: 'mdvorak.resourceRouter',
   sourceMap: true,
   external: Object.keys(pkg.dependencies).concat([
+    'rxjs/Observable',
     'rxjs/add/operator/catch',
     'rxjs/add/operator/map',
-    'rxjs/add/operator/switchMap'
+    'rxjs/add/operator/switchMap',
+    'rxjs/add/observable/of'
   ]),
   globals: {
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',
     '@angular/http': 'ng.http',
-    'rxjs': 'Rx'
+    'rxjs/Observable': 'Rx'
   },
   onwarn: function (message) {
     if (message.code === 'THIS_IS_UNDEFINED') return;

@@ -28,7 +28,9 @@ export class SortedArray<T> {
  * @returns {number} 0 if elements equals, -1 if a < b, 1 otherwise.
  */
 export function defaultComparer<T>(a: T, b: T) {
-  if (a === b) return 0;
+  if (a === b) {
+    return 0;
+  }
   return a < b ? -1 : 1;
 }
 

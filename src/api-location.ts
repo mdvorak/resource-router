@@ -61,7 +61,7 @@ export class ApiLocation implements NavigationHandler {
       throw new Error('url must be a string');
     }
 
-    let path = this.apiUrlService.mapApiToView(url);
+    const path = this.apiUrlService.mapApiToView(url);
 
     if (path) {
       this.location.go(path);

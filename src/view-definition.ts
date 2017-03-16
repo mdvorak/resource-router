@@ -1,9 +1,9 @@
 import { Type } from '@angular/core';
 
 
-export type Data = {
-  [name: string]: any
-};
+export interface Data {
+  [name: string]: any;
+}
 
 export type StatusType = number|string;
 

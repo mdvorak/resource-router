@@ -1,7 +1,7 @@
 import { Input, Output, EventEmitter, Directive, ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
 import { Headers } from '@angular/http';
 import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { ViewDataLoader } from '../view-data-loader';
 import { ViewData } from '../view-data';
 import { NavigationHandler, UrlType } from '../navigation-handler';

@@ -1,4 +1,4 @@
-import { Inject, Injectable, OpaqueToken, Optional, InjectionToken } from '@angular/core';
+import { Inject, Injectable, Optional, InjectionToken } from '@angular/core';
 import { ViewDef } from './view-definition';
 import { SortedArray } from './utils/sorted-array';
 import { wildcardToRegex } from './utils/wildcard-to-regex';
@@ -6,7 +6,7 @@ import { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluato
 
 
 export const RESOURCE_VIEWS = new InjectionToken<ViewDef>('RESOURCE_VIEWS');
-export const TYPE_QUALITY_EVALUATOR = new OpaqueToken('TYPE_QUALITY_EVALUATOR');
+export const TYPE_QUALITY_EVALUATOR = new InjectionToken<TypeQualityEvaluator>('TYPE_QUALITY_EVALUATOR');
 
 
 @Injectable()
@@ -21,8 +21,11 @@ export class ResourceViewRegistry {
     // Initialize quality evaluator - must be before addViews
     this.typeQualityEvaluator = typeQualityEvaluator || simpleTypeQualityEvaluator;
 
-    // Flatten data declarations
-    this.addViews(views);
+    // Ignore if no view is defined - this is supported path for later registration
+    if (views) {
+      // Register views
+      this.addViews(views);
+    }
   }
 
   get length(): number {
@@ -101,10 +104,12 @@ export class ResourceViewRegistry {
   private addSingleView(config: ViewDef, group: ViewsByStatus, type: string) {
     // Copy of definition, with specific status and type only
     // See https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html#object-spread-and-rest
-    config = { ...config, ...{
-      status: group.status,
-      type: type
-    }};
+    config = {
+      ...config, ...{
+        status: group.status,
+        type: type
+      }
+    };
 
     // Evaluate quality if needed
     const quality = typeof config.quality === 'number' ? config.quality : this.typeQualityEvaluator(type);
@@ -160,8 +165,7 @@ function validateType(config: ViewDef) {
     if (config.type.find(t => typeof t !== 'string')) {
       throw newValidationError(config, 'type array must consist only of strings');
     }
-  }
-  else if (typeof config.type !== 'string') {
+  } else if (typeof config.type !== 'string') {
     throw newValidationError(config, 'type must be a string or array of strings');
   }
 }
@@ -223,7 +227,9 @@ export function normalizeStatus(status: number): string {
 }
 
 function qualityComparator(a: {quality: number}, b: {quality: number}) {
-  if (a.quality === b.quality) return 0;
+  if (a.quality === b.quality) {
+    return 0;
+  }
   return a.quality < b.quality ? 1 : -1;
 }
 
