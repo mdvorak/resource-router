@@ -8,50 +8,50 @@ import { ApiUrl } from '../api-url';
 @Directive({selector: '[apiLink]'})
 export class ApiLinkDirective {
 
-    @HostBinding() href?: string;
-    // @Input() target: string;
-    // @Input() type: string;
-    // @Input() skipLocationChange: boolean;
-    // @Input() replaceUrl: boolean;
+  @HostBinding() href?: string;
+  // @Input() target: string;
+  // @Input() type: string;
+  // @Input() skipLocationChange: boolean;
+  // @Input() replaceUrl: boolean;
 
-    private url: string|null;
+  private url: string|null;
 
-    constructor(private apiUrl: ApiUrl,
-                private location: Location,
-                private dataRouteRegistry: ResourceViewRegistry) {
-    }
+  constructor(private apiUrl: ApiUrl,
+              private location: Location,
+              private dataRouteRegistry: ResourceViewRegistry) {
+  }
 
-    @Input()
-    set apiLink(url: string) {
-        this.url = url ? this.apiUrl.mapApiToView(url) : '';
-        this.href = this.url ? this.location.prepareExternalUrl(this.url) : url;
-    }
+  @Input()
+  set apiLink(url: string) {
+    this.url = url ? this.apiUrl.mapApiToView(url) : '';
+    this.href = this.url ? this.location.prepareExternalUrl(this.url) : url;
+  }
 
-    /*
-     @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
-     onClick(button: number, ctrlKey: boolean, metaKey: boolean): boolean {
-     if (button !== 0 || ctrlKey || metaKey || !this.url) {
-     return true;
-     }
+  /*
+   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
+   onClick(button: number, ctrlKey: boolean, metaKey: boolean): boolean {
+   if (button !== 0 || ctrlKey || metaKey || !this.url) {
+   return true;
+   }
 
-     if (typeof this.target === 'string' && this.target != '_self') {
-     return true;
-     }
+   if (typeof this.target === 'string' && this.target != '_self') {
+   return true;
+   }
 
-     // TODO does not work for hashbang
-     if (typeof this.type === 'string' && !this.dataRouteRegistry.isKnownType(this.type)) {
-     return true;
-     }
+   // TODO does not work for hashbang
+   if (typeof this.type === 'string' && !this.dataRouteRegistry.isKnownType(this.type)) {
+   return true;
+   }
 
-     const extras = {
-     skipLocationChange: attrBoolValue(this.skipLocationChange),
-     replaceUrl: attrBoolValue(this.replaceUrl),
-     };
-     this.router.navigateByUrl(this.url, extras);
-     return false;
-     }*/
+   const extras = {
+   skipLocationChange: attrBoolValue(this.skipLocationChange),
+   replaceUrl: attrBoolValue(this.replaceUrl),
+   };
+   this.router.navigateByUrl(this.url, extras);
+   return false;
+   }*/
 }
 
 function attrBoolValue(s: any): boolean {
-    return s === '' || !!s;
+  return s === '' || !!s;
 }

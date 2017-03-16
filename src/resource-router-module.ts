@@ -37,125 +37,125 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
 
 
 @NgModule({
-    declarations: [
-        ResourceOutletDirective,
-        ResourceDataDirective,
-        ResourceViewDirective,
-        ApiLinkDirective,
-        DefaultEmptyComponent,
-        DefaultLoadingComponent,
-        DefaultErrorComponent
-    ],
-    imports: [
-        CommonModule,
-        HttpModule
-    ],
-    exports: [ResourceOutletDirective, ResourceDataDirective, ResourceViewDirective, ApiLinkDirective]
+  declarations: [
+    ResourceOutletDirective,
+    ResourceDataDirective,
+    ResourceViewDirective,
+    ApiLinkDirective,
+    DefaultEmptyComponent,
+    DefaultLoadingComponent,
+    DefaultErrorComponent
+  ],
+  imports: [
+    CommonModule,
+    HttpModule
+  ],
+  exports: [ResourceOutletDirective, ResourceDataDirective, ResourceViewDirective, ApiLinkDirective]
 })
 export class ResourceRouterModule {
 
-    static configure(options: ResourceRouterOptions): ModuleWithProviders {
-        return {
-            ngModule: ResourceRouterModule,
-            providers: [
-                {
-                    provide: LocationStrategy,
-                    useFactory: provideLocationStrategy,
-                    deps: [
-                        PlatformLocation, [new Inject(APP_BASE_HREF), new Optional()], RESOURCE_ROUTER_CONFIGURATION
-                    ]
-                },
-                Location,
-                ApiUrl,
-                ApiLocation,
-                ResourceViewRegistry,
-                {
-                    provide: APP_API_PREFIX,
-                    useValue: options.prefix
-                },
-                {
-                    provide: RESOURCE_ROUTER_CONFIGURATION,
-                    useValue: options
-                },
-                {
-                    provide: RESOURCE_VIEWS,
-                    useValue: [loadingView(), errorView(), emptyView()],
-                    multi: true
-                },
-                {
-                    provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-                    useValue: [DefaultLoadingComponent, DefaultErrorComponent, DefaultEmptyComponent],
-                    multi: true
-                },
-                {
-                    provide: ViewTypeStrategy,
-                    useClass: options.responseTypeStrategy || ContentTypeStrategy
-                },
-                {
-                    provide: ViewDataLoader,
-                    useClass: DefaultHttpViewDataLoader
-                }
-            ]
-        };
-    }
+  static configure(options: ResourceRouterOptions): ModuleWithProviders {
+    return {
+      ngModule: ResourceRouterModule,
+      providers: [
+        {
+          provide: LocationStrategy,
+          useFactory: provideLocationStrategy,
+          deps: [
+            PlatformLocation, [new Inject(APP_BASE_HREF), new Optional()], RESOURCE_ROUTER_CONFIGURATION
+          ]
+        },
+        Location,
+        ApiUrl,
+        ApiLocation,
+        ResourceViewRegistry,
+        {
+          provide: APP_API_PREFIX,
+          useValue: options.prefix
+        },
+        {
+          provide: RESOURCE_ROUTER_CONFIGURATION,
+          useValue: options
+        },
+        {
+          provide: RESOURCE_VIEWS,
+          useValue: [loadingView(), errorView(), emptyView()],
+          multi: true
+        },
+        {
+          provide: ANALYZE_FOR_ENTRY_COMPONENTS,
+          useValue: [DefaultLoadingComponent, DefaultErrorComponent, DefaultEmptyComponent],
+          multi: true
+        },
+        {
+          provide: ViewTypeStrategy,
+          useClass: options.responseTypeStrategy || ContentTypeStrategy
+        },
+        {
+          provide: ViewDataLoader,
+          useClass: DefaultHttpViewDataLoader
+        }
+      ]
+    };
+  }
 
-    static forTypes(views: ViewDef[]): ModuleWithProviders {
-        return {
-            ngModule: ResourceRouterModule,
-            providers: [
-                {
-                    provide: RESOURCE_VIEWS,
-                    useValue: views,
-                    multi: true
-                },
-                {
-                    provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-                    useValue: views,
-                    multi: true
-                }
-            ]
-        };
-    }
+  static forTypes(views: ViewDef[]): ModuleWithProviders {
+    return {
+      ngModule: ResourceRouterModule,
+      providers: [
+        {
+          provide: RESOURCE_VIEWS,
+          useValue: views,
+          multi: true
+        },
+        {
+          provide: ANALYZE_FOR_ENTRY_COMPONENTS,
+          useValue: views,
+          multi: true
+        }
+      ]
+    };
+  }
 }
 
 export interface ResourceRouterOptions {
-    prefix: string;
-    useHash?: boolean;
-    responseTypeStrategy?: Type<ViewTypeStrategy>;
-    fallbackView?: ViewDef;
+  prefix: string;
+  useHash?: boolean;
+  responseTypeStrategy?: Type<ViewTypeStrategy>;
+  fallbackView?: ViewDef;
 }
 
 
 export function provideLocationStrategy(platformLocationStrategy: PlatformLocation, baseHref: string, options: ResourceRouterOptions) {
-    return options.useHash
-        ? new HashLocationStrategy(platformLocationStrategy, baseHref)
-        : new PathLocationStrategy(platformLocationStrategy, baseHref);
+  return options.useHash
+    ? new HashLocationStrategy(platformLocationStrategy, baseHref)
+    : new PathLocationStrategy(platformLocationStrategy, baseHref);
 }
 
 export function loadingView(): ViewDef {
-    return {
-        component: DefaultLoadingComponent,
-        status: 204,
-        type: MEDIA_TYPE_ROUTER_LOADING,
-        quality: Number.MIN_SAFE_INTEGER
-    };
+  return {
+    component: DefaultLoadingComponent,
+    status: 204,
+    type: MEDIA_TYPE_ROUTER_LOADING,
+    quality: Number.MIN_SAFE_INTEGER
+  };
 }
 
 export function emptyView(): ViewDef {
-    return {
-        component: DefaultEmptyComponent,
-        status: 204,
-        type: MEDIA_TYPE_ROUTER_EMPTY,
-        quality: Number.MIN_SAFE_INTEGER
-    };
+  return {
+    component: DefaultEmptyComponent,
+    status: 204,
+    type: MEDIA_TYPE_ROUTER_EMPTY,
+    quality: Number.MIN_SAFE_INTEGER
+  };
 }
 
 export function errorView(): ViewDef {
-    return {
-        component: DefaultErrorComponent,
-        status: '*',
-        type: '*',
-        body: 'text',
-        quality: Number.MIN_SAFE_INTEGER
-    };
+  return {
+    component: DefaultErrorComponent,
+    status: '*',
+    type: '*',
+    body: 'text',
+    quality: Number.MIN_SAFE_INTEGER
+  };
 }

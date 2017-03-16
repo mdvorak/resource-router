@@ -13,11 +13,11 @@
  * @returns {RegExp}
  */
 export function wildcardToRegex(wildcard: string): RegExp {
-    return new RegExp(
-        '^' + escapeRegExpPattern(wildcard)
-            .replace(/\\\*/g, '.*')
-            .replace(/\\\?/g, '.') + '$'
-    );
+  return new RegExp(
+    '^' + escapeRegExpPattern(wildcard)
+      .replace(/\\\*/g, '.*')
+      .replace(/\\\?/g, '.') + '$'
+  );
 }
 
 /**
@@ -27,6 +27,6 @@ export function wildcardToRegex(wildcard: string): RegExp {
  * @returns {string} Regular expression pattern.
  */
 export function escapeRegExpPattern(s: string): string {
-    return s.replace(/([-()\[\]{}+.$\^|:#<>!\\=,*?])/g, '\\$1')
-        .replace(/\x08/g, '\\x08');
+  return s.replace(/([-()\[\]{}+.$\^|:#<>!\\=,*?])/g, '\\$1')
+    .replace(/\x08/g, '\\x08');
 }

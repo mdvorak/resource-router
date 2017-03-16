@@ -2,16 +2,16 @@ import { async, TestBed } from '@angular/core/testing';
 
 describe('ApiUrl', () => {
 
-    beforeEach(async(() => {
+  beforeEach(async(() => {
 
-        return TestBed
-            .configureTestingModule({
-                declarations: []
-            })
-            .compileComponents();
-    }));
+    return TestBed
+      .configureTestingModule({
+        declarations: []
+      })
+      .compileComponents();
+  }));
 
-    it('TODO', () => {
-        // TODO
-    });
+  it('TODO', () => {
+    // TODO
+  });
 });

@@ -1,31 +1,26 @@
-import {
-    Input,
-    Output,
-    EventEmitter,
-    Component,
-} from '@angular/core';
+import { Input, Output, EventEmitter, Component } from '@angular/core';
 
 
 @Component({
-    selector: 'resource-outlet',
-    template: `<ng-template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
+  selector: 'resource-outlet',
+  template: `<ng-template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
     <resource-view [data]="data"></resource-view>
 </ng-template>`
 })
 export class ResourceOutletDirective {
 
-    @Output() srcChange: EventEmitter<string> = new EventEmitter();
-    private srcValue: string;
+  @Output() srcChange: EventEmitter<string> = new EventEmitter();
+  private srcValue: string;
 
-    @Input()
-    set src(value: string) {
-        if (this.srcValue !== value) {
-            this.srcValue = value;
-            this.srcChange.emit(value);
-        }
+  @Input()
+  set src(value: string) {
+    if (this.srcValue !== value) {
+      this.srcValue = value;
+      this.srcChange.emit(value);
     }
+  }
 
-    get src(): string {
-        return this.srcValue;
-    }
+  get src(): string {
+    return this.srcValue;
+  }
 }

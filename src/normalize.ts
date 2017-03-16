@@ -14,24 +14,24 @@ const urlParsingNode = document.createElement('A') as HTMLAnchorElement;
  * @returns Normalized URL, including full hostname.
  */
 export function normalizeUrl(href: string): string {
-    // Note: This supports any URL, even on another domain.
-    // Built-in Location.normalize does not.
-    // TODO verify this statement
+  // Note: This supports any URL, even on another domain.
+  // Built-in Location.normalize does not.
+  // TODO verify this statement
 
-    if (href === '') {
-        // Special case - browser interprets empty string as current URL, while we need
-        // what it considers a base if no base href is given.
-        // Add /X to the path and then remove it.
-        urlParsingNode.href = 'X';
-        return urlParsingNode.href.replace(/X$/, '');
-    } else if (href) {
-        // Normalize thru href property
-        urlParsingNode.href = href;
-        return urlParsingNode.href;
-    }
+  if (href === '') {
+    // Special case - browser interprets empty string as current URL, while we need
+    // what it considers a base if no base href is given.
+    // Add /X to the path and then remove it.
+    urlParsingNode.href = 'X';
+    return urlParsingNode.href.replace(/X$/, '');
+  } else if (href) {
+    // Normalize thru href property
+    urlParsingNode.href = href;
+    return urlParsingNode.href;
+  }
 
-    // Invalid value
-    return href;
+  // Invalid value
+  return href;
 }
 
 
@@ -45,6 +45,6 @@ const MEDIA_TYPE_NORMALIZER = /\s*[+;].*$/;
  * @returns Normalized media type.
  */
 export function normalizeMediaType(mimeType: string): string {
-    // Get rid of + end everything after
-    return mimeType ? mimeType.replace(MEDIA_TYPE_NORMALIZER, '') : mimeType;
+  // Get rid of + end everything after
+  return mimeType ? mimeType.replace(MEDIA_TYPE_NORMALIZER, '') : mimeType;
 }

@@ -13,6 +13,6 @@ import { Type } from '@angular/core';
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
-    BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting()
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting()
 );

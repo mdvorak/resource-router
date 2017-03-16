@@ -28,30 +28,30 @@ import { SampleComponent } from './sample.component';
 import { ErrorComponent } from './error.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SampleComponent
-    ],
-    imports: [
-        BrowserModule,
-        ResourceRouterModule.configure({
-            prefix: 'api/'
-        }),
-        ResourceRouterModule.forTypes([
-            {
-                type: 'application/x.sample',
-                component: SampleComponent
-            },
-            {
-                status: '*',
-                type: '*',
-                component: ErrorComponent
-            }
-        ])
-    ],
-    bootstrap: [
-        AppComponent
-    ]
+  declarations: [
+    AppComponent,
+    SampleComponent
+  ],
+  imports: [
+    BrowserModule,
+    ResourceRouterModule.configure({
+      prefix: 'api/'
+    }),
+    ResourceRouterModule.forTypes([
+      {
+        type: 'application/x.sample',
+        component: SampleComponent
+      },
+      {
+        status: '*',
+        type: '*',
+        component: ErrorComponent
+      }
+    ])
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class ExampleModule {
 }
