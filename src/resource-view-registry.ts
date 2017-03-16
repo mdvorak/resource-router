@@ -1,11 +1,11 @@
-import { Inject, Injectable, OpaqueToken, Optional } from '@angular/core';
+import { Inject, Injectable, OpaqueToken, Optional, InjectionToken } from '@angular/core';
 import { ViewDef } from './view-definition';
 import { SortedArray } from './utils/sorted-array';
 import { wildcardToRegex } from './utils/wildcard-to-regex';
 import { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
 
 
-export const RESOURCE_VIEWS = new OpaqueToken('RESOURCE_VIEWS');
+export const RESOURCE_VIEWS = new InjectionToken<ViewDef>('RESOURCE_VIEWS');
 export const TYPE_QUALITY_EVALUATOR = new OpaqueToken('TYPE_QUALITY_EVALUATOR');
 
 
@@ -99,18 +99,19 @@ export class ResourceViewRegistry {
   }
 
   private addSingleView(config: ViewDef, group: ViewsByStatus, type: string) {
-    // Copy of definition, to avoid confusion, with specific status and type
-    config = Object.assign({}, config, {
+    // Copy of definition, with specific status and type only
+    // See https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html#object-spread-and-rest
+    config = { ...config, ...{
       status: group.status,
       type: type
-    });
+    }};
 
     // Evaluate quality if needed
     const quality = typeof config.quality === 'number' ? config.quality : this.typeQualityEvaluator(type);
 
     // Add to the group
     group.types.push({
-      config: config,
+      config: Object.freeze(config),
       typeExp: wildcardToRegex(type),
       quality: quality
     });
