@@ -1,20 +1,20 @@
 import {
-    APP_BASE_HREF,
-    PlatformLocation,
-    HashLocationStrategy,
-    PathLocationStrategy,
-    LocationStrategy,
-    Location,
-    CommonModule
+  APP_BASE_HREF,
+  PlatformLocation,
+  HashLocationStrategy,
+  PathLocationStrategy,
+  LocationStrategy,
+  Location,
+  CommonModule
 } from '@angular/common';
 import {
-    ANALYZE_FOR_ENTRY_COMPONENTS,
-    NgModule,
-    ModuleWithProviders,
-    Type,
-    OpaqueToken,
-    Inject,
-    Optional
+  ANALYZE_FOR_ENTRY_COMPONENTS,
+  NgModule,
+  ModuleWithProviders,
+  Type,
+  OpaqueToken,
+  Inject,
+  Optional
 } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { APP_API_PREFIX, ApiUrl } from './api-url';
@@ -28,7 +28,6 @@ import { ViewDataLoader, DefaultHttpViewDataLoader } from './view-data-loader';
 import { ResourceDataDirective } from './directives/resource-data';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
-import { DefaultLoadingComponent } from './components/default-loading.component';
 import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 
@@ -43,7 +42,6 @@ export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CO
     ResourceViewDirective,
     ApiLinkDirective,
     DefaultEmptyComponent,
-    DefaultLoadingComponent,
     DefaultErrorComponent
   ],
   imports: [
@@ -79,12 +77,12 @@ export class ResourceRouterModule {
         },
         {
           provide: RESOURCE_VIEWS,
-          useValue: [loadingView(), errorView(), emptyView()],
+          useValue: [emptyView(), errorView()],
           multi: true
         },
         {
           provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-          useValue: [DefaultLoadingComponent, DefaultErrorComponent, DefaultEmptyComponent],
+          useValue: [DefaultErrorComponent, DefaultEmptyComponent],
           multi: true
         },
         {
@@ -132,20 +130,11 @@ export function provideLocationStrategy(platformLocationStrategy: PlatformLocati
     : new PathLocationStrategy(platformLocationStrategy, baseHref);
 }
 
-export function loadingView(): ViewDef {
-  return {
-    component: DefaultLoadingComponent,
-    status: 204,
-    type: MEDIA_TYPE_ROUTER_LOADING,
-    quality: Number.MIN_SAFE_INTEGER
-  };
-}
-
 export function emptyView(): ViewDef {
   return {
     component: DefaultEmptyComponent,
     status: 204,
-    type: MEDIA_TYPE_ROUTER_EMPTY,
+    type: [MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING],
     quality: Number.MIN_SAFE_INTEGER
   };
 }
