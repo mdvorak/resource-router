@@ -1,66 +1,72 @@
-const {AotPlugin} = require('@ngtools/webpack');
+// Karma configuration for Unit testing
 
 module.exports = function (config) {
+
   let browsers = ['PhantomJS'];
   if (!process.env.TRAVIS) {
     browsers.push('Chrome');
   }
 
-  config.set({
-    logLevel: config.LOG_INFO,
+  const configuration = {
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-phantomjs-launcher'),
+      require('karma-chrome-launcher'),
+      require('karma-webpack'),
+      require('karma-sourcemap-loader'),
+      require('karma-spec-reporter')
+    ],
+
     frameworks: ['jasmine'],
-    reporters: ['progress'],
-    browsers: browsers,
 
     files: [
-      'test.ts',
-      'main.ts',
-      'lib/**/*.spec.ts'
+      {pattern: 'test.js', watched: false}
     ],
+
     preprocessors: {
-      'test.ts': ['webpack'],
-      'main.ts': ['webpack'],
-      'src/**/*.spec.ts': ['webpack']
+      'test.js': ['webpack']
     },
-    mime: {
-      'text/x-typescript': ['ts', 'tsx']
-    },
+
+    // webpack
     webpack: {
-      devtool: "source-map",
+      devtool: 'eval-source-map',
+      resolve: {
+        extensions: ['.js', '.ts']
+      },
       module: {
-        "rules": [
+        rules: [
           {
             "enforce": "pre",
             "test": /\.js$/,
             "loader": "source-map-loader",
             "exclude": [
-              /\/node_modules\//
+              /node_modules/
             ]
           },
           {
-            "test": /\.ts$/,
-            "loader": "@ngtools/webpack"
+            test: /\.ts/,
+            loaders: ['ts-loader'],
+            "exclude": [
+              /\.d\.ts$/,
+              /node_modules/
+            ]
           }
-        ]
-      }
+        ],
+        exprContextCritical: false
+      },
+      performance: {hints: false}
     },
-    resolve: {
-      "extensions": [
-        ".ts",
-        ".js"
-      ],
-      "modules": [
-        "./node_modules"
-      ]
+
+    webpackServer: {
+      noInfo: true
     },
-    plugins: [
-      new AotPlugin({
-        "mainPath": "main.ts",
-        "entryModule": "TestModule",
-        "exclude": [],
-        "tsConfigPath": "tsconfig.json",
-        "skipCodeGeneration": true
-      })
-    ]
-  })
+
+    reporters: ['progress'],
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: browsers
+  };
+
+  config.set(configuration);
 };

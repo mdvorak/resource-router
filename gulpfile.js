@@ -10,6 +10,7 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const releasePackage = require('./tools/release-package');
 const runSequence = require('run-sequence');
+const Karma = require('karma').Server;
 
 /**
  * Remove build directory.
@@ -22,7 +23,7 @@ gulp.task('clean', (cb) => {
  * Builds entire project.
  */
 gulp.task('build', (cb) => {
-  runSequence('clean', ['tslint', 'ngc', 'assets'], ['bundle', 'compress'], cb);
+  runSequence('clean', ['tslint', 'ngc', 'assets', 'karma'], ['bundle', 'compress'], cb);
 });
 
 /**
@@ -103,3 +104,42 @@ gulp.task('release-info', () => {
 });
 
 gulp.task('assets', ['release-package', 'release-info']);
+
+/**
+ * Run all tests once.
+ */
+gulp.task('test', (cb) => {
+  runSequence('clean', 'ngc', 'karma', cb);
+});
+
+gulp.task('karma', ['ngc'], (cb) => {
+  new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, cb).start();
+});
+
+gulp.task('test:tsc:watch', ['ngc'], (cb) => {
+  const exec = require('child_process').exec;
+  const path = require('path');
+
+  exec(path.normalize('node_modules/.bin/tsc -w'), (err, stdout, stderr) => {
+    process.stdout.write(stdout);
+    process.stderr.write(stderr);
+    cb(err);
+  });
+});
+
+gulp.task('test:karma:watch', ['ngc'], (cb) => {
+  // Delay a little for compiler to finish (ugly)
+  const instance = new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false
+  }, cb);
+
+  setTimeout(() => instance.start(), 5000);
+});
+
+gulp.task('test:watch', (cb) => {
+  runSequence('clean', ['test:tsc:watch', 'test:karma:watch'], cb);
+});
