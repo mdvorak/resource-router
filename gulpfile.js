@@ -22,7 +22,7 @@ gulp.task('clean', (cb) => {
  * Builds entire project.
  */
 gulp.task('build', (cb) => {
-  runSequence('clean', ['tslint', 'ngc', 'release-package', 'release-info'], ['bundle', 'compress'], cb);
+  runSequence('clean', ['tslint', 'ngc', 'assets'], ['bundle', 'compress'], cb);
 });
 
 /**
@@ -64,7 +64,7 @@ gulp.task('ngc', ['ngc-exec'], (cb) => {
  */
 gulp.task('bundle', (cb) => {
   pump([
-    gulp.src(['dist/index.js', 'dist/src/**/*.js']),
+    gulp.src(['dist/index.js', 'dist/src/**/*.js', '!**/*.spec.*']),
     sourcemaps.init({loadMaps: true}),
     rollup(require('./tools/rollup.config.js')), // Use external config via require
     concat('resource-router.umd.js'), // Since we have 1 entry file, this actually just renames the output
@@ -97,6 +97,9 @@ gulp.task('release-package', (cb) => {
 });
 
 gulp.task('release-info', () => {
-  return gulp.src(['*.md', 'LICENSE.*', '.npmignore'])
+  return gulp
+    .src(['*.md', 'LICENSE.*', '.npmignore'])
     .pipe(gulp.dest('dist/'));
 });
+
+gulp.task('assets', ['release-package', 'release-info']);

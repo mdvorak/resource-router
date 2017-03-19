@@ -20,7 +20,11 @@
     "declaration": true
   },
   "files": [
-    "index.ts"
+    "index.ts",
+    "test.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "dist/codegen"

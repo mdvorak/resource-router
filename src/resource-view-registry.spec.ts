@@ -6,6 +6,7 @@ import {
     normalizeStatus
 } from './resource-view-registry';
 import { Type } from '@angular/core';
+import { ViewDef } from './view-definition';
 
 describe('ResourceViewRegistry', () => {
   beforeEach(async(() => {
@@ -20,6 +21,10 @@ describe('ResourceViewRegistry', () => {
         return name;
       }
     };
+  }
+
+  function expectComponentName(config: ViewDef|null) {
+    return expect(config ? config.component.toString() : null);
   }
 
   describe('should initialize', () => {
@@ -46,9 +51,9 @@ describe('ResourceViewRegistry', () => {
     it('with configured views', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
       expect(registry).toBeTruthy();
       expect(registry.length).toBe(3);
-      expect(registry.match('one', 200).component.toString()).toBe('one');
-      expect(registry.match('two', 200).component.toString()).toBe('two');
-      expect(registry.match('three', 200).component.toString()).toBe('three');
+      expectComponentName(registry.match('one', 200)).toBe('one');
+      expectComponentName(registry.match('two', 200)).toBe('two');
+      expectComponentName(registry.match('three', 200)).toBe('three');
     }));
   });
 
@@ -68,30 +73,30 @@ describe('ResourceViewRegistry', () => {
     })));
 
     it('with default status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 200).component.toString()).toBe('foo');
-      expect(registry.match('foo', 299).component.toString()).toBe('foo');
-      expect(registry.match('application/foo', 200).component.toString()).toBe('application/foo');
-      expect(registry.match('application/foo', 201).component.toString()).toBe('application/foo');
+      expectComponentName(registry.match('foo', 200)).toBe('foo');
+      expectComponentName(registry.match('foo', 299)).toBe('foo');
+      expectComponentName(registry.match('application/foo', 200)).toBe('application/foo');
+      expectComponentName(registry.match('application/foo', 201)).toBe('application/foo');
     }));
 
     it('with exact status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 201).component.toString()).toBe('201 foo');
-      expect(registry.match('foo', 20).component.toString()).toBe('020 foo');
-      expect(registry.match('foo', 400).component.toString()).toBe('400 foo');
+      expectComponentName(registry.match('foo', 201)).toBe('201 foo');
+      expectComponentName(registry.match('foo', 20)).toBe('020 foo');
+      expectComponentName(registry.match('foo', 400)).toBe('400 foo');
     }));
 
     it('with wildcard status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 499).component.toString()).toBe('4?? foo');
+      expectComponentName(registry.match('foo', 499)).toBe('4?? foo');
     }));
 
     it('with any status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('application/foo', 300).component.toString()).toBe('??? application/foo');
-      expect(registry.match('application/foo', 0).component.toString()).toBe('??? application/foo');
-      expect(registry.match('application/foo', 999).component.toString()).toBe('??? application/foo');
+      expectComponentName(registry.match('application/foo', 300)).toBe('??? application/foo');
+      expectComponentName(registry.match('application/foo', 0)).toBe('??? application/foo');
+      expectComponentName(registry.match('application/foo', 999)).toBe('??? application/foo');
     }));
 
     it('without definition as null', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 500)).toBeFalsy();
+      expectComponentName(registry.match('foo', 500)).toBeFalsy();
     }));
 
     it('with quality override', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
@@ -107,9 +112,9 @@ describe('ResourceViewRegistry', () => {
       });
 
       // Test
-      expect(registry.match('foo', 200).component.toString()).toBe('quality foo');
-      expect(registry.match('foo', 201).component.toString()).toBe('201 quality foo');
-      expect(registry.match('application/foo', 200).component.toString()).toBe('application/foo');
+      expectComponentName(registry.match('foo', 200)).toBe('quality foo');
+      expectComponentName(registry.match('foo', 201)).toBe('201 quality foo');
+      expectComponentName(registry.match('application/foo', 200)).toBe('application/foo');
     }));
   });
 
@@ -134,49 +139,49 @@ describe('ResourceViewRegistry', () => {
     })));
 
     it('with default status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 200).component.toString()).toBe('foo*');
-      expect(registry.match('foobar', 200).component.toString()).toBe('foo*');
-      expect(registry.match('foobar', 299).component.toString()).toBe('foo*');
-      expect(registry.match('fubar', 200).component.toString()).toBe('*bar');
-      expect(registry.match('application/foo', 200).component.toString()).toBe('application/f?o');
-      expect(registry.match('application/fxo', 200).component.toString()).toBe('application/f?o');
-      expect(registry.match('application/fubar', 202).component.toString()).toBe('*bar');
-      expect(registry.match('application/fooxxxbar', 200).component.toString()).toBe('*bar');
-      expect(registry.match('application/bar', 200).component.toString()).toBe('*bar');
-      expect(registry.match('application/xxx', 299).component.toString()).toBe('application/*');
+      expectComponentName(registry.match('foo', 200)).toBe('foo*');
+      expectComponentName(registry.match('foobar', 200)).toBe('foo*');
+      expectComponentName(registry.match('foobar', 299)).toBe('foo*');
+      expectComponentName(registry.match('fubar', 200)).toBe('*bar');
+      expectComponentName(registry.match('application/foo', 200)).toBe('application/f?o');
+      expectComponentName(registry.match('application/fxo', 200)).toBe('application/f?o');
+      expectComponentName(registry.match('application/fubar', 202)).toBe('*bar');
+      expectComponentName(registry.match('application/fooxxxbar', 200)).toBe('*bar');
+      expectComponentName(registry.match('application/bar', 200)).toBe('*bar');
+      expectComponentName(registry.match('application/xxx', 299)).toBe('application/*');
     }));
 
     it('with exact status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foobar', 201).component.toString()).toBe('201 *bar');
-      expect(registry.match('application/fubar', 201).component.toString()).toBe('201 *bar');
-      expect(registry.match('foobar', 20).component.toString()).toBe('020 foo*');
-      expect(registry.match('foo', 400).component.toString()).toBe('400 foo*');
-      expect(registry.match('fooxxx', 400).component.toString()).toBe('400 foo*');
-      expect(registry.match('brr', 200).component.toString()).toBe('200 b?r');
+      expectComponentName(registry.match('foobar', 201)).toBe('201 *bar');
+      expectComponentName(registry.match('application/fubar', 201)).toBe('201 *bar');
+      expectComponentName(registry.match('foobar', 20)).toBe('020 foo*');
+      expectComponentName(registry.match('foo', 400)).toBe('400 foo*');
+      expectComponentName(registry.match('fooxxx', 400)).toBe('400 foo*');
+      expectComponentName(registry.match('brr', 200)).toBe('200 b?r');
     }));
 
     it('with wildcard status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 499).component.toString()).toBe('4?? foo*');
-      expect(registry.match('foobar', 410).component.toString()).toBe('4?? foo*');
-      expect(registry.match('fooxxx', 401).component.toString()).toBe('4?? foo*');
+      expectComponentName(registry.match('foo', 499)).toBe('4?? foo*');
+      expectComponentName(registry.match('foobar', 410)).toBe('4?? foo*');
+      expectComponentName(registry.match('fooxxx', 401)).toBe('4?? foo*');
     }));
 
     it('with any status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('application/foo', 300).component.toString()).toBe('??? application/foo*');
-      expect(registry.match('application/foobar', 300).component.toString()).toBe('??? application/foo*');
-      expect(registry.match('application/fooxxx', 300).component.toString()).toBe('??? application/foo*');
-      expect(registry.match('application/foo', 0).component.toString()).toBe('??? application/foo*');
-      expect(registry.match('application/foobar', 0).component.toString()).toBe('??? application/foo*');
-      expect(registry.match('application/fooxxx', 0).component.toString()).toBe('??? application/foo*');
-      expect(registry.match('application/fubar', 999).component.toString()).toBe('??? application/*bar');
-      expect(registry.match('application/fubar', 400).component.toString()).toBe('??? application/*bar');
-      expect(registry.match('image/png', 200).component.toString()).toBe('??? image/*');
-      expect(registry.match('image/jpg', 400).component.toString()).toBe('??? image/*');
+      expectComponentName(registry.match('application/foo', 300)).toBe('??? application/foo*');
+      expectComponentName(registry.match('application/foobar', 300)).toBe('??? application/foo*');
+      expectComponentName(registry.match('application/fooxxx', 300)).toBe('??? application/foo*');
+      expectComponentName(registry.match('application/foo', 0)).toBe('??? application/foo*');
+      expectComponentName(registry.match('application/foobar', 0)).toBe('??? application/foo*');
+      expectComponentName(registry.match('application/fooxxx', 0)).toBe('??? application/foo*');
+      expectComponentName(registry.match('application/fubar', 999)).toBe('??? application/*bar');
+      expectComponentName(registry.match('application/fubar', 400)).toBe('??? application/*bar');
+      expectComponentName(registry.match('image/png', 200)).toBe('??? image/*');
+      expectComponentName(registry.match('image/jpg', 400)).toBe('??? image/*');
     }));
 
     it('without definition as null', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 500)).toBeFalsy();
-      expect(registry.match('foobar', 500)).toBeFalsy();
+      expectComponentName(registry.match('foo', 500)).toBeFalsy();
+      expectComponentName(registry.match('foobar', 500)).toBeFalsy();
     }));
 
     it('with quality override', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
@@ -189,11 +194,11 @@ describe('ResourceViewRegistry', () => {
       ]);
 
       // Test
-      expect(registry.match('foo', 200).component.toString()).toBe('quality foo*');
-      expect(registry.match('foobar', 200).component.toString()).toBe('quality *bar');
-      expect(registry.match('foo', 201).component.toString()).toBe('201 quality foo*');
-      expect(registry.match('foobar', 201).component.toString()).toBe('201 quality foo*');
-      expect(registry.match('application/foo', 200).component.toString()).toBe('application/f?o');
+      expectComponentName(registry.match('foo', 200)).toBe('quality foo*');
+      expectComponentName(registry.match('foobar', 200)).toBe('quality *bar');
+      expectComponentName(registry.match('foo', 201)).toBe('201 quality foo*');
+      expectComponentName(registry.match('foobar', 201)).toBe('201 quality foo*');
+      expectComponentName(registry.match('application/foo', 200)).toBe('application/f?o');
     }));
   });
 
@@ -211,29 +216,29 @@ describe('ResourceViewRegistry', () => {
     })));
 
     it('with default status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 200).component.toString()).toBe('*');
-      expect(registry.match('asd', 299).component.toString()).toBe('*');
-      expect(registry.match('application/foo', 200).component.toString()).toBe('*');
-      expect(registry.match('', 200).component.toString()).toBe('*');
+      expectComponentName(registry.match('foo', 200)).toBe('*');
+      expectComponentName(registry.match('asd', 299)).toBe('*');
+      expectComponentName(registry.match('application/foo', 200)).toBe('*');
+      expectComponentName(registry.match('', 200)).toBe('*');
     }));
 
     it('with exact status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foobar', 201).component.toString()).toBe('201 *');
-      expect(registry.match('application/fubar', 201).component.toString()).toBe('201 *');
-      expect(registry.match('asd', 20).component.toString()).toBe('020 *');
-      expect(registry.match('aaa', 400).component.toString()).toBe('400 *');
+      expectComponentName(registry.match('foobar', 201)).toBe('201 *');
+      expectComponentName(registry.match('application/fubar', 201)).toBe('201 *');
+      expectComponentName(registry.match('asd', 20)).toBe('020 *');
+      expectComponentName(registry.match('aaa', 400)).toBe('400 *');
     }));
 
     it('with wildcard status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('foo', 499).component.toString()).toBe('4?? *');
-      expect(registry.match('foobar', 410).component.toString()).toBe('4?? *');
-      expect(registry.match('fooxxx', 401).component.toString()).toBe('4?? *');
+      expectComponentName(registry.match('foo', 499)).toBe('4?? *');
+      expectComponentName(registry.match('foobar', 410)).toBe('4?? *');
+      expectComponentName(registry.match('fooxxx', 401)).toBe('4?? *');
     }));
 
     it('with any status', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expect(registry.match('application/foo', 300).component.toString()).toBe('??? *');
-      expect(registry.match('foo', 999).component.toString()).toBe('??? *');
-      expect(registry.match('application', 0).component.toString()).toBe('??? *');
+      expectComponentName(registry.match('application/foo', 300)).toBe('??? *');
+      expectComponentName(registry.match('foo', 999)).toBe('??? *');
+      expectComponentName(registry.match('application', 0)).toBe('??? *');
     }));
 
     it('with quality override', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
@@ -245,10 +250,10 @@ describe('ResourceViewRegistry', () => {
       ]);
 
       // Test
-      expect(registry.match('foo', 200).component.toString()).toBe('quality *');
-      expect(registry.match('xxx', 201).component.toString()).toBe('201 quality *');
-      expect(registry.match('foo', 400).component.toString()).toBe('400 *');
-      expect(registry.match('foo', 410).component.toString()).toBe('4?? *');
+      expectComponentName(registry.match('foo', 200)).toBe('quality *');
+      expectComponentName(registry.match('xxx', 201)).toBe('201 quality *');
+      expectComponentName(registry.match('foo', 400)).toBe('400 *');
+      expectComponentName(registry.match('foo', 410)).toBe('4?? *');
     }));
   });
 
@@ -261,10 +266,10 @@ describe('ResourceViewRegistry', () => {
 
     // Test
     expect(registry.length).toBe(9);
-    expect(registry.match('foo', 200)).toBeTruthy();
-    expect(registry.match('bar', 200)).toBeTruthy();
-    expect(registry.match('foobar', 501)).toBeTruthy();
-    expect(registry.match('xxx', 200)).toBeFalsy();
+    expectComponentName(registry.match('foo', 200)).toBeTruthy();
+    expectComponentName(registry.match('bar', 200)).toBeTruthy();
+    expectComponentName(registry.match('foobar', 501)).toBeTruthy();
+    expectComponentName(registry.match('xxx', 200)).toBeFalsy();
   }));
 
   it('should validate quality type', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
