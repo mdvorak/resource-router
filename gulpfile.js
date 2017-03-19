@@ -22,7 +22,7 @@ gulp.task('clean', (cb) => {
  * Builds entire project.
  */
 gulp.task('build', (cb) => {
-  runSequence('clean', ['tslint', 'compile', 'bundle', 'compress', 'release-package', 'release-info'], cb);
+  runSequence('clean', ['tslint', 'ngc', 'release-package', 'release-info'], ['bundle', 'compress'], cb);
 });
 
 /**
@@ -41,7 +41,7 @@ gulp.task('tslint', () => {
 /**
  * Run external Angular TypeScript compiler.
  */
-gulp.task('ngc', (cb) => {
+gulp.task('ngc-exec', (cb) => {
   const exec = require('child_process').exec;
   const path = require('path');
 
@@ -52,21 +52,19 @@ gulp.task('ngc', (cb) => {
   });
 });
 
-gulp.task('ngc-cleanup', ['ngc'], (cb) => {
+gulp.task('ngc', ['ngc-exec'], (cb) => {
   const tsConfig = JSON.parse(fs.readFileSync('tsconfig.json', 'utf8'));
   const codegenPath = tsConfig.angularCompilerOptions.genDir;
 
   return del([codegenPath], cb);
 });
 
-gulp.task('compile', ['ngc', 'ngc-cleanup']);
-
 /**
  * Rollup config, creates UMD.
  */
-gulp.task('bundle', ['compile'], (cb) => {
+gulp.task('bundle', (cb) => {
   pump([
-    gulp.src(['dist/**/*.js', '!dist/bundles/**']),
+    gulp.src(['dist/index.js', 'dist/src/**/*.js']),
     sourcemaps.init({loadMaps: true}),
     rollup(require('./tools/rollup.config.js')), // Use external config via require
     concat('resource-router.umd.js'), // Since we have 1 entry file, this actually just renames the output
@@ -99,6 +97,6 @@ gulp.task('release-package', (cb) => {
 });
 
 gulp.task('release-info', () => {
-  return gulp.src(['*.md', 'LICENSE.*'])
+  return gulp.src(['*.md', 'LICENSE.*', '.npmignore'])
     .pipe(gulp.dest('dist/'));
 });
