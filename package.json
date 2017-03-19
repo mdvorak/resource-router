@@ -73,6 +73,7 @@
     "karma-cli": "~1.0.1",
     "karma-jasmine": "~1.1.0",
     "karma-phantomjs-launcher": "~1.0.2",
+    "karma-webpack": "^2.0.3",
     "lite-server": "~2.2.2",
     "phantomjs-prebuilt": "~2.1.7",
     "pump": "~1.0.2",
@@ -80,7 +81,8 @@
     "run-sequence": "~1.2.2",
     "systemjs": "~0.19.41",
     "tslint": "~4.4.2",
-    "typescript": "~2.1.5"
+    "typescript": "~2.1.5",
+    "webpack": "^2.2.1"
   },
   "engines": {
     "node": ">=6.0.0",
