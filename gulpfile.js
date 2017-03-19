@@ -109,7 +109,7 @@ gulp.task('assets', ['release-package', 'release-info']);
  * Run all tests once.
  */
 gulp.task('test', (cb) => {
-  runSequence('clean', 'ngc', 'karma', cb);
+  runSequence('clean', ['ngc', 'karma'], cb);
 });
 
 gulp.task('karma', ['ngc'], (cb) => {
