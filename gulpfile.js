@@ -16,14 +16,14 @@ const Karma = require('karma').Server;
  * Remove build directory.
  */
 gulp.task('clean', (cb) => {
-  return del(['dist', 'coverage', '*.tgz', '*.tar.gz'], cb);
+  return del(['dist', 'coverage', 'example/dist', '*.tgz', '*.tar.gz'], cb);
 });
 
 /**
  * Builds entire project.
  */
 gulp.task('build', (cb) => {
-  runSequence('clean', ['tslint', 'ngc', 'assets', 'karma'], ['bundle', 'compress'], cb);
+  runSequence('clean', ['tslint', 'ngc', 'assets', 'karma', 'bundle', 'compress'], cb);
 });
 
 /**
@@ -63,7 +63,7 @@ gulp.task('ngc', ['ngc-exec'], (cb) => {
 /**
  * Rollup config, creates UMD.
  */
-gulp.task('bundle', (cb) => {
+gulp.task('bundle', ['ngc'], (cb) => {
   pump([
     gulp.src(['dist/index.js', 'dist/src/**/*.js', '!**/*.spec.*']),
     sourcemaps.init({loadMaps: true}),
