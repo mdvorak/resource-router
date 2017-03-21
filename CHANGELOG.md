@@ -4,7 +4,10 @@
 Now compiled with `strictNullChecks: true` typescript option, which leads to explicit 
 optional function arguments.
 
+* Final UMD bundle now contains source maps
+* Example is now built with @angular/cli
+
 ### Breaking Changes
 
-* Moved to Angular 4.0.0-rc.3
+* Moved to Angular 4.0.0-rc.5
 * Moved to Typescript 2.1+
