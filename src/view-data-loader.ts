@@ -43,7 +43,7 @@ export abstract class HttpViewDataLoader extends ViewDataLoader {
     // Is it defined by the config?
     if (config && config.body) {
       // Resolve
-      let data: any = response[config.body];
+      let data = (response as any)[config.body];
       if (typeof data === 'function') {
         data = data.call(response);
       }
