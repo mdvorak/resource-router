@@ -1,7 +1,7 @@
-import { Injectable, OpaqueToken, Inject } from '@angular/core';
+import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { normalizeUrl } from './normalize';
 
-export const APP_API_PREFIX = new OpaqueToken('APP_API_PREFIX');
+export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
 
 /**
  * It maps view URLs to API and vice versa.

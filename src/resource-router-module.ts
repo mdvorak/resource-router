@@ -12,9 +12,9 @@ import {
   NgModule,
   ModuleWithProviders,
   Type,
-  OpaqueToken,
   Inject,
-  Optional
+  Optional,
+  InjectionToken
 } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { APP_API_PREFIX, ApiUrl } from './api-url';
@@ -32,7 +32,7 @@ import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 
 
-export const RESOURCE_ROUTER_CONFIGURATION = new OpaqueToken('RESOURCE_ROUTER_CONFIGURATION');
+export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOptions>('RESOURCE_ROUTER_CONFIGURATION');
 
 
 @NgModule({
