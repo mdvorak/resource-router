@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - '6'
-  
+
 sudo: false
 
 cache:
@@ -9,4 +9,5 @@ cache:
     - node_modules
 
 script:
-  - npm run testonce
+  - npm run build
+  - npm run ng build --prod

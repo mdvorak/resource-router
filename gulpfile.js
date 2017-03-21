@@ -22,9 +22,7 @@ gulp.task('clean', (cb) => {
 /**
  * Builds entire project.
  */
-gulp.task('build', (cb) => {
-  runSequence('clean', ['tslint', 'ngc', 'assets', 'karma', 'bundle', 'compress'], cb);
-});
+gulp.task('build', ['tslint', 'ngc', 'assets', 'karma', 'bundle', 'compress']);
 
 /**
  * Lint all TypeScript files.
@@ -42,7 +40,7 @@ gulp.task('tslint', () => {
 /**
  * Run external Angular TypeScript compiler.
  */
-gulp.task('ngc-exec', (cb) => {
+gulp.task('ngc', (cb) => {
   const exec = require('child_process').exec;
   const path = require('path');
 
@@ -51,13 +49,6 @@ gulp.task('ngc-exec', (cb) => {
     process.stderr.write(stderr);
     cb(err);
   });
-});
-
-gulp.task('ngc', ['ngc-exec'], (cb) => {
-  const tsConfig = JSON.parse(fs.readFileSync('tsconfig.json', 'utf8'));
-  const codegenPath = tsConfig.angularCompilerOptions.genDir;
-
-  return del([codegenPath], cb);
 });
 
 /**
@@ -108,9 +99,7 @@ gulp.task('assets', ['release-package', 'release-info']);
 /**
  * Run all tests once.
  */
-gulp.task('test', (cb) => {
-  runSequence('clean', ['ngc', 'karma'], cb);
-});
+gulp.task('test', ['tslint', 'ngc', 'karma']);
 
 gulp.task('karma', ['ngc'], (cb) => {
   new Karma({

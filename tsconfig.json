@@ -1,23 +1,24 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es5",
+    "baseUrl": ".",
+    "declaration": true,
+    "stripInternal": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "es2015",
     "moduleResolution": "node",
+    "rootDir": ".",
+    "outDir": "dist",
+    "inlineSources": true,
     "inlineSourceMap": true,
-    "removeComments": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "target": "es5",
+    "skipLibCheck": true,
     "lib": [
       "es2015",
       "dom"
-    ],
-    "noImplicitAny": true,
-    "noFallthroughCasesInSwitch": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "inlineSources": true,
-    "strictNullChecks": true,
-    "declaration": true
+    ]
   },
   "files": [
     "index.ts"
@@ -26,6 +27,7 @@
     "src/**/*.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "dist/codegen"
+    "genDir": "dist",
+    "strictMetadataEmit": true
   }
 }
