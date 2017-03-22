@@ -77,5 +77,5 @@ Things that are yet to be implemented
 * External navigation for unknown type
 * Build and publish docs
 * <s>Travis integration</s>
-* Move to gulp, package.json became unreadable
+* <s>Move to gulp, package.json became unreadable</s>
 * Typedoc
