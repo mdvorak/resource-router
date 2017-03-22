@@ -37,6 +37,10 @@ gulp.task('tslint', () => {
     .pipe(tslint.report({emitError: true}));
 });
 
+gulp.task('tslint:watch', () => {
+  gulp.watch(['index.ts', 'test.ts', 'src/**/*.ts', 'example/**/*.ts'], ['tslint']);
+});
+
 /**
  * Run external Angular TypeScript compiler.
  */
@@ -49,6 +53,14 @@ gulp.task('ngc', (cb) => {
     process.stderr.write(stderr);
     cb(err);
   });
+});
+
+
+/**
+ * Runs tsc in watch mode - this can be used only for tests and local demo app.
+ */
+gulp.task('ngc:watch', (cb) => {
+  gulp.watch(['index.ts', 'src/**/*.ts'], ['ngc']);
 });
 
 /**
@@ -101,6 +113,9 @@ gulp.task('assets', ['release-package', 'release-info']);
  */
 gulp.task('test', ['tslint', 'ngc', 'karma']);
 
+/**
+ * Runs karma start --single-run
+ */
 gulp.task('karma', ['ngc'], (cb) => {
   new Karma({
     configFile: __dirname + '/karma.conf.js',
@@ -108,27 +123,14 @@ gulp.task('karma', ['ngc'], (cb) => {
   }, cb).start();
 });
 
-gulp.task('test:tsc:watch', ['ngc'], (cb) => {
-  const exec = require('child_process').exec;
-  const path = require('path');
-
-  exec(path.normalize('node_modules/.bin/tsc -w'), (err, stdout, stderr) => {
-    process.stdout.write(stdout);
-    process.stderr.write(stderr);
-    cb(err);
-  });
-});
-
-gulp.task('test:karma:watch', ['ngc'], (cb) => {
-  // Delay a little for compiler to finish (ugly)
+/**
+ * Runs karma and watches for changes
+ */
+gulp.task('karma:watch', (cb) => {
   const instance = new Karma({
     configFile: __dirname + '/karma.conf.js',
     singleRun: false
-  }, cb);
-
-  setTimeout(() => instance.start(), 5000);
+  }, cb).start();
 });
 
-gulp.task('test:watch', (cb) => {
-  runSequence('clean', ['test:tsc:watch', 'test:karma:watch'], cb);
-});
+gulp.task('test:watch', ['tslint:watch', 'ngc:watch', 'karma:watch']);
