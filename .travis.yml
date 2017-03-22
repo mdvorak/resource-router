@@ -10,4 +10,4 @@ cache:
 
 script:
   - npm run build
-  - npm run ng build --prod
+  - npm run ng -- build --prod
