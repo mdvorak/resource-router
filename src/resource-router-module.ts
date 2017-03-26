@@ -1,30 +1,31 @@
 import {
   APP_BASE_HREF,
-  PlatformLocation,
+  CommonModule,
   HashLocationStrategy,
-  PathLocationStrategy,
-  LocationStrategy,
   Location,
-  CommonModule
+  LocationStrategy,
+  PathLocationStrategy,
+  PlatformLocation
 } from '@angular/common';
 import {
   ANALYZE_FOR_ENTRY_COMPONENTS,
-  NgModule,
-  ModuleWithProviders,
-  Type,
   Inject,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
   Optional,
-  InjectionToken
+  Type
 } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { APP_API_PREFIX, ApiUrl } from './api-url';
+import { ApiUrl, APP_API_PREFIX } from './api-url';
 import { ApiLocation } from './api-location';
-import { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';
+import { ContentTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
 import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { ViewDef } from './view-definition';
 import { ApiLinkDirective } from './directives/api-link.directive';
+import { ResourceLinkDirective, ResourceLinkWithHrefDirective } from './directives/resource-link';
 import { ResourceOutletComponent } from './directives/resource-outlet';
-import { ViewDataLoader, DefaultHttpViewDataLoader } from './view-data-loader';
+import { DefaultHttpViewDataLoader, ViewDataLoader } from './view-data-loader';
 import { ResourceDataDirective } from './directives/resource-data';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
@@ -41,6 +42,8 @@ export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOp
     ResourceDataDirective,
     ResourceViewDirective,
     ApiLinkDirective,
+    ResourceLinkDirective,
+    ResourceLinkWithHrefDirective,
     DefaultEmptyComponent,
     DefaultErrorComponent
   ],
@@ -48,7 +51,14 @@ export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOp
     CommonModule,
     HttpModule
   ],
-  exports: [ResourceOutletComponent, ResourceDataDirective, ResourceViewDirective, ApiLinkDirective]
+  exports: [
+    ResourceOutletComponent,
+    ResourceDataDirective,
+    ResourceViewDirective,
+    ApiLinkDirective,
+    ResourceLinkDirective,
+    ResourceLinkWithHrefDirective
+  ]
 })
 export class ResourceRouterModule {
 

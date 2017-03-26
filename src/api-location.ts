@@ -75,6 +75,16 @@ export class ApiLocation implements NavigationHandler {
     this.location.go('/');
   }
 
+  /**
+   * This is just wrapper around `Location.prepareExternalUrl` for convenience.
+   *
+   * @param url URL to be normalized for the link.
+   * @returns {string} Normalized URL.
+   */
+  prepareExternalUrl(url: string): string {
+    return this.location.prepareExternalUrl(url);
+  }
+
   private onLocationChanged() {
     const path = this.location.path();
 

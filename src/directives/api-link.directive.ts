@@ -4,7 +4,9 @@ import { ResourceViewRegistry } from '../resource-view-registry';
 import { ApiUrl } from '../api-url';
 
 
-// TODO on anchor and outside anchor, like routerLink
+/**
+ * @deprecated Use routerLink
+ */
 @Directive({selector: '[apiLink]'})
 export class ApiLinkDirective {
 
