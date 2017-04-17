@@ -28,7 +28,7 @@
     "gulp": "gulp",
     "clean": "gulp clean",
     "lint": "gulp tslint",
-    "pretest": "gulp clean ngc",
+    "pretest": "gulp clean && gulp ngc",
     "test": "gulp test:watch",
     "pretestonce": "gulp clean",
     "testonce": "gulp test",
