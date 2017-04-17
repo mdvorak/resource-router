@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { ResourceLinkDirective } from './resource-link';
+import { ResourceLinkDirective, TargetType } from './resource-link';
 import { Location } from '@angular/common';
 import { ApiUrl, APP_API_PREFIX } from '../api-url';
 import { ViewData } from '../view-data';
@@ -10,6 +10,9 @@ import { Headers } from '@angular/http';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
 import { asSpy, createClassSpyObj } from '../utils/class-mock.spec';
+
+
+const API_PREFIX = 'http://example.com/';
 
 
 describe(ResourceLinkDirective.name, () => {
@@ -44,7 +47,7 @@ describe(ResourceLinkDirective.name, () => {
         },
         {
           provide: APP_API_PREFIX,
-          useValue: '/foo'
+          useValue: API_PREFIX
         },
         ApiUrl,
         ApiLocation,
@@ -64,6 +67,67 @@ describe(ResourceLinkDirective.name, () => {
     it('should be initialized', () => {
       expect(el).toBeDefined();
     });
+
+    it('should change location onClick without target set', () => {
+      comp.link = API_PREFIX + 'foo/bar';
+      fixture.detectChanges();
+
+      // Test
+      de.triggerEventHandler('click', {button: 0});
+
+      // Verify
+      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+    });
+
+    it('should change location onClick with ctrlKey or metaKey', () => {
+      comp.link = API_PREFIX + 'foo/bar';
+      fixture.detectChanges();
+
+      // Test
+      de.triggerEventHandler('click', {button: 0, ctrlKey: true, metaKey: true});
+
+      // Verify
+      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+    });
+
+    it('should change location onClick with target _self', () => {
+      comp.link = API_PREFIX + 'foo/bar';
+      comp.target = '_self';
+      fixture.detectChanges();
+
+      // Test
+      de.triggerEventHandler('click', {button: 0});
+
+      // Verify
+      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+    });
+
+    it('should change location onClick with target _top', () => {
+      comp.link = API_PREFIX + 'foo/bar';
+      comp.target = '_top';
+      fixture.detectChanges();
+
+      // Test
+      de.triggerEventHandler('click', {button: 0});
+
+      // Verify
+      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+    });
+
+    it('should navigate onClick with explicit target', () => {
+      const navigationMock = createSpyNavigationHandler();
+
+      comp.link = API_PREFIX + 'foo/bar';
+      comp.target = navigationMock;
+      fixture.detectChanges();
+
+      // Test
+      de.triggerEventHandler('click', {button: 0});
+
+      // Verify
+      expect(navigationMock.go).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
+      expect(location.go).not.toHaveBeenCalled();
+    });
   });
 
   // With declared ViewData (typically inside resource-view directive)
@@ -72,7 +136,7 @@ describe(ResourceLinkDirective.name, () => {
 
     // Declare ViewData for DI
     beforeEach(async(() => {
-      navigationMock = jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
+      navigationMock = createSpyNavigationHandler();
 
       return TestBed.configureTestingModule({
         providers: [
@@ -103,7 +167,13 @@ describe(ResourceLinkDirective.name, () => {
 @Component({
   selector: 'my-test',
   template: `
-    <button type="button" resourceLink="">${ResourceLinkDirective.name}</button>`
+    <button type="button" [resourceLink]="link" [target]="target">${ResourceLinkDirective.name}</button>`
 })
 class TestComponent {
+  link?: string;
+  target?: TargetType;
+}
+
+function createSpyNavigationHandler() {
+  return jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
 }

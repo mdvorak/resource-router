@@ -1,7 +1,15 @@
-import { Injectable, Inject, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { normalizeUrl } from './normalize';
 
+
+/**
+ * Prefix for the URL. Can be base-relative, host-relative or absolute.
+ * Always should however end with slash ('/').
+ *
+ * @type {InjectionToken<string>}
+ */
 export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
+
 
 /**
  * It maps view URLs to API and vice versa.
@@ -55,7 +63,7 @@ export class ApiUrl {
    *                     <p>If the url equals to api prefix, empty string is returned.</p>
    * @returns {String} View path.
    */
-  mapApiToView(url: string): string|null {
+  mapApiToView(url: string): string | null {
     if (typeof url !== 'string') {
       throw new Error('url must be string');
     }

@@ -10,6 +10,7 @@ import { ApiLocation } from '../api-location';
 export const TARGET_SELF = '_self';
 export const TARGET_TOP = '_top';
 
+export type TargetType = NavigationHandler | typeof TARGET_SELF | typeof TARGET_TOP;
 
 @Directive({
   selector: ':not(a)[resourceLink]'
@@ -17,7 +18,7 @@ export const TARGET_TOP = '_top';
 export class ResourceLinkDirective {
 
   @Input() resourceLink: string;
-  @Input() target?: NavigationHandler | typeof TARGET_SELF | typeof TARGET_TOP;
+  @Input() target?: TargetType;
 
   constructor(private apiLocation: ApiLocation,
               @Optional() private view?: ViewData<any>) {
@@ -60,7 +61,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   @HostBinding() href: string;
   @Input() resourceLink: string;
   @Input() type?: string;
-  @Input() target?: NavigationHandler | string;
+  @Input() target?: TargetType;
   @Input() external = false;
 
   constructor(private apiUrl: ApiUrl,
