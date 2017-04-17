@@ -1,6 +1,6 @@
 import { SortedArray, defaultComparer } from './sorted-array';
 
-describe('SortedArray', () => {
+describe(SortedArray.name, () => {
   it('should insert single element', () => {
     const sorted = new SortedArray(defaultComparer);
     sorted.push(42);

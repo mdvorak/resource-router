@@ -8,7 +8,7 @@ import {
 import { Type } from '@angular/core';
 import { ViewDef } from './view-definition';
 
-describe('ResourceViewRegistry', () => {
+describe(ResourceViewRegistry.name, () => {
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       providers: [ResourceViewRegistry]
@@ -332,7 +332,7 @@ describe('ResourceViewRegistry', () => {
   }));
 });
 
-describe('normalizeStatusExpression', () => {
+describe(normalizeStatusExpression.name, () => {
   it('should normalize * as ?', () => {
     expect(normalizeStatusExpression('*')).toBe('???');
     expect(normalizeStatusExpression('1*')).toBe('1??');
@@ -366,7 +366,7 @@ describe('normalizeStatusExpression', () => {
   });
 });
 
-describe('normalizeStatus', () => {
+describe(normalizeStatus.name, () => {
   it('should pad left with zeroes for status < 100', () => {
     expect(normalizeStatus(0)).toBe('000');
     expect(normalizeStatus(1)).toBe('001');

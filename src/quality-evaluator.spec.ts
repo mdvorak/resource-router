@@ -1,6 +1,6 @@
 import { statusQualityEvaluator, simpleTypeQualityEvaluator } from './quality-evaluator';
 
-describe('simpleTypeQualityEvaluator', () => {
+describe(simpleTypeQualityEvaluator.name, () => {
   it('should evaluate exact type as 1', () => {
     expect(simpleTypeQualityEvaluator('foo')).toBe(1);
     expect(simpleTypeQualityEvaluator('image/png')).toBe(1);
@@ -20,7 +20,7 @@ describe('simpleTypeQualityEvaluator', () => {
   });
 });
 
-describe('statusQualityEvaluator', () => {
+describe(statusQualityEvaluator.name, () => {
   it('should evaluate exact value as 1', () => {
     expect(statusQualityEvaluator('500')).toBe(1);
     expect(statusQualityEvaluator('0')).toBe(1);

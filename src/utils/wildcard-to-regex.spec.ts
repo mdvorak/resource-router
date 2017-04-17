@@ -1,12 +1,12 @@
 import { wildcardToRegex, escapeRegExpPattern } from './wildcard-to-regex';
 
-describe('wildcardToRegex', () => {
+describe(wildcardToRegex.name, () => {
   it('TODO', () => {
     // TODO
   });
 });
 
-describe('escapeRegExpPattern', () => {
+describe(escapeRegExpPattern.name, () => {
   it('TODO', () => {
     // TODO
   });
