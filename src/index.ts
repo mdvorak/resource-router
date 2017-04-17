@@ -10,7 +10,7 @@ export { ApiLinkDirective } from './directives/api-link.directive';
 export { ResourceDataDirective } from './directives/resource-data';
 export { ResourceViewDirective } from './directives/resource-view';
 export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
-export { NavigationHandler } from './navigation-handler'
+export { NavigationHandler, supportsNavigation } from './navigation-handler'
 export { normalizeUrl, normalizeMediaType }from './normalize';
 export * from './system-media-types';
 export { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';

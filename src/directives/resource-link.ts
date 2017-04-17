@@ -3,12 +3,12 @@ import { Location } from '@angular/common';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ApiUrl } from '../api-url';
 import { ViewData } from '../view-data';
-import { NavigationHandler } from '../navigation-handler';
+import { NavigationHandler, supportsNavigation } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
 
 
-const TARGET_SELF = '_self';
-const TARGET_TOP = '_top';
+export const TARGET_SELF = '_self';
+export const TARGET_TOP = '_top';
 
 
 @Directive({
@@ -17,7 +17,7 @@ const TARGET_TOP = '_top';
 export class ResourceLinkDirective {
 
   @Input() resourceLink: string;
-  @Input() target?: NavigationHandler | '_self' | '_top';
+  @Input() target?: NavigationHandler | typeof TARGET_SELF | typeof TARGET_TOP;
 
   constructor(private apiLocation: ApiLocation,
               @Optional() private view?: ViewData<any>) {
@@ -45,7 +45,7 @@ export class ResourceLinkDirective {
     }
 
     // Navigate
-    if (typeof target.go === 'function') {
+    if (supportsNavigation(target)) {
       target.go(this.resourceLink);
     }
 
@@ -53,7 +53,6 @@ export class ResourceLinkDirective {
     return true;
   }
 }
-
 
 @Directive({selector: 'a[resourceLink]'})
 export class ResourceLinkWithHrefDirective implements OnChanges {
@@ -115,7 +114,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
     }
 
     // Custom target
-    if (target && typeof target.go === 'function') {
+    if (supportsNavigation(target)) {
       // Navigate
       target.go(this.resourceLink);
       return false;
