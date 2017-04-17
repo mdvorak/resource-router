@@ -36,6 +36,29 @@ import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-med
 export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOptions>('RESOURCE_ROUTER_CONFIGURATION');
 
 
+/**
+ * Set of global configuration options for {@link ResourceRouterModule}.
+ */
+export interface ResourceRouterOptions {
+  /**
+   * Prefix for the URL. Can be base-relative, host-relative or absolute.
+   * Always should however end with slash ('/').
+   */
+  prefix: string;
+
+  /**
+   * Enables hash-bang navigation mode. Default is HTML5 mode.
+   */
+  useHash?: boolean;
+
+  /**
+   * Changes implementation of {@link ViewTypeStrategy}.
+   * Default is {@link ContentTypeStrategy}.
+   */
+  viewTypeStrategy?: Type<ViewTypeStrategy>;
+}
+
+
 @NgModule({
   declarations: [
     ResourceOutletComponent,
@@ -97,7 +120,7 @@ export class ResourceRouterModule {
         },
         {
           provide: ViewTypeStrategy,
-          useClass: options.responseTypeStrategy || ContentTypeStrategy
+          useClass: options.viewTypeStrategy || ContentTypeStrategy
         },
         {
           provide: ViewDataLoader,
@@ -126,20 +149,19 @@ export class ResourceRouterModule {
   }
 }
 
-export interface ResourceRouterOptions {
-  prefix: string;
-  useHash?: boolean;
-  responseTypeStrategy?: Type<ViewTypeStrategy>;
-  fallbackView?: ViewDef;
-}
 
-
+/**
+ * Internal factory function, exported only for AOT support.
+ */
 export function provideLocationStrategy(platformLocationStrategy: PlatformLocation, baseHref: string, options: ResourceRouterOptions) {
   return options.useHash
     ? new HashLocationStrategy(platformLocationStrategy, baseHref)
     : new PathLocationStrategy(platformLocationStrategy, baseHref);
 }
 
+/**
+ * Internal factory function, exported only for AOT support.
+ */
 export function emptyView(): ViewDef {
   return {
     component: DefaultEmptyComponent,
@@ -149,6 +171,9 @@ export function emptyView(): ViewDef {
   };
 }
 
+/**
+ * Internal factory function, exported only for AOT support.
+ */
 export function errorView(): ViewDef {
   return {
     component: DefaultErrorComponent,
