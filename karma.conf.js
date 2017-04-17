@@ -29,7 +29,7 @@ module.exports = function (config) {
 
     // webpack
     webpack: {
-      devtool: 'eval-source-map',
+      devtool: 'inline-source-map',
       resolve: {
         extensions: ['.js', '.ts']
       },
