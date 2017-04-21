@@ -2,7 +2,7 @@ export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURAT
 export { ViewData } from './view-data';
 export { ViewDataLoader, HttpViewDataLoader, DefaultHttpViewDataLoader } from './view-data-loader';
 export { ViewDef, Data, StatusType } from './view-definition';
-export { ApiMapper, APP_API_PREFIX } from './api-url';
+export { ApiMapper, APP_API_PREFIX } from './api-mapper';
 export { ApiLocation } from './api-location';
 export { ResourceViewRegistry, RESOURCE_VIEWS, TYPE_QUALITY_EVALUATOR } from './resource-view-registry'
 export { ResourceOutletComponent } from './directives/resource-outlet';
@@ -17,3 +17,4 @@ export { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';
 export { escapeRegExpPattern, wildcardToRegex } from './utils/wildcard-to-regex';
 export { ResourceLinkDirective } from './directives/resource-link';
 export { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
+export { ApiUrl } from './api-url';

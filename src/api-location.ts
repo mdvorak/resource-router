@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { ApiMapper } from './api-url';
+import { ApiMapper } from './api-mapper';
 import { normalizeUrl } from './normalize';
 import { NavigationHandler } from './navigation-handler';
 

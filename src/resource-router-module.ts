@@ -17,7 +17,8 @@ import {
   Type
 } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ApiMapper, APP_API_PREFIX } from './api-url';
+import { ApiMapper, APP_API_PREFIX } from './api-mapper';
+import { ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
 import { ContentTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
 import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
@@ -98,6 +99,7 @@ export class ResourceRouterModule {
           ]
         },
         Location,
+        ApiUrl,
         ApiMapper,
         ApiLocation,
         ResourceViewRegistry,

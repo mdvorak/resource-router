@@ -1,7 +1,7 @@
 import { Directive, OnChanges, HostBinding, Input, Optional, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { TargetType, TARGET_SELF, TARGET_TOP } from './resource-link';
-import { ApiMapper } from '../api-url';
+import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ViewData } from '../view-data';
 import { supportsNavigation } from '../navigation-handler';

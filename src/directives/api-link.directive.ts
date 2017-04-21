@@ -1,7 +1,7 @@
 import { Directive, Input, HostBinding } from '@angular/core';
 import { Location } from '@angular/common';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { ApiMapper } from '../api-url';
+import { ApiMapper } from '../api-mapper';
 
 
 /**

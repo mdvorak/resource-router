@@ -3,7 +3,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ResourceLinkDirective, TargetType } from './resource-link';
 import { Location } from '@angular/common';
-import { ApiMapper, APP_API_PREFIX } from '../api-url';
+import { ApiMapper, APP_API_PREFIX } from '../api-mapper';
 import { ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { Headers } from '@angular/http';
