@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { ResourceLinkWithHrefDirective, TargetType } from './resource-link';
+import { TargetType } from './resource-link';
 import { Location } from '@angular/common';
 import { ApiUrl, APP_API_PREFIX } from '../api-url';
 import { ViewData } from '../view-data';
@@ -10,6 +10,7 @@ import { Headers } from '@angular/http';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
 import { asSpy, createClassSpyObj } from '../utils/class-mock.spec';
+import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
 
 
 const API_PREFIX = 'http://example.com/';

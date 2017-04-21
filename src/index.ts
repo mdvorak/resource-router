@@ -15,3 +15,5 @@ export { normalizeUrl, normalizeMediaType }from './normalize';
 export * from './system-media-types';
 export { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';
 export { escapeRegExpPattern, wildcardToRegex } from './utils/wildcard-to-regex';
+export { ResourceLinkDirective } from './directives/resource-link';
+export { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
