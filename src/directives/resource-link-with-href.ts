@@ -1,7 +1,7 @@
 import { Directive, OnChanges, HostBinding, Input, Optional, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { TargetType, TARGET_SELF, TARGET_TOP } from './resource-link';
-import { ApiUrl } from '../api-url';
+import { ApiMapper } from '../api-url';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ViewData } from '../view-data';
 import { supportsNavigation } from '../navigation-handler';
@@ -15,7 +15,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   @Input() target?: TargetType;
   @Input() external = false;
 
-  constructor(private apiUrl: ApiUrl,
+  constructor(private apiUrl: ApiMapper,
               private location: Location,
               private resourceViewRegistry: ResourceViewRegistry,
               @Optional() private view?: ViewData<any>) {

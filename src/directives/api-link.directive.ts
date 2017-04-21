@@ -1,7 +1,7 @@
 import { Directive, Input, HostBinding } from '@angular/core';
 import { Location } from '@angular/common';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { ApiUrl } from '../api-url';
+import { ApiMapper } from '../api-url';
 
 
 /**
@@ -18,7 +18,7 @@ export class ApiLinkDirective {
 
   private url: string|null;
 
-  constructor(private apiUrl: ApiUrl,
+  constructor(private apiUrl: ApiMapper,
               private location: Location,
               private dataRouteRegistry: ResourceViewRegistry) {
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { ApiUrl } from './api-url';
+import { ApiMapper } from './api-url';
 import { normalizeUrl } from './normalize';
 import { NavigationHandler } from './navigation-handler';
 
@@ -15,7 +15,7 @@ export class ApiLocation implements NavigationHandler {
 
   private urlValue: string;
 
-  constructor(private apiUrlService: ApiUrl,
+  constructor(private apiUrlService: ApiMapper,
               private location: Location) {
     this.location.subscribe(() => this.onLocationChanged());
     this.onLocationChanged();

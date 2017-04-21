@@ -15,7 +15,7 @@ export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
  * It maps view URLs to API and vice versa.
  */
 @Injectable()
-export class ApiUrl {
+export class ApiMapper {
   /**
    * API URL prefix. It's absolute URL, includes base href (if applicable).
    */

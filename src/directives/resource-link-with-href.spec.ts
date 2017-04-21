@@ -3,7 +3,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { TargetType } from './resource-link';
 import { Location } from '@angular/common';
-import { ApiUrl, APP_API_PREFIX } from '../api-url';
+import { ApiMapper, APP_API_PREFIX } from '../api-url';
 import { ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { Headers } from '@angular/http';
@@ -51,7 +51,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
           provide: APP_API_PREFIX,
           useValue: API_PREFIX
         },
-        ApiUrl,
+        ApiMapper,
         ApiLocation,
       ]
     });

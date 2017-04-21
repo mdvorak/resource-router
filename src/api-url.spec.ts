@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 
-describe('ApiUrl', () => {
+describe('ApiMapper', () => {
 
   beforeEach(async(() => {
 
