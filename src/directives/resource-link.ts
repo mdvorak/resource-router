@@ -38,7 +38,6 @@ export class ResourceLinkDirective {
     }
 
     // Fallback to page navigation
-    // TODO configurable by ViewDef.defaultNavigationTarget
     if (!target) {
       target = this.apiLocation;
     }

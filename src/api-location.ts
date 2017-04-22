@@ -61,18 +61,19 @@ export class ApiLocation implements NavigationHandler {
       throw new Error('url must be a string');
     }
 
+    // Map API url to View form
     const path = this.apiUrlService.mapApiToView(url);
-
-    if (path) {
-      this.location.go(path);
-    } else {
+    if (!path) {
       throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to the API prefix '${this.apiUrlService.prefix}'`);
     }
+
+    // Navigate
+    this.doNavigate(path);
   }
 
   home(): void {
     // We don't need API url here, / leads to root of the api, always
-    this.location.go('/');
+    this.doNavigate('/');
   }
 
   /**
@@ -83,6 +84,16 @@ export class ApiLocation implements NavigationHandler {
    */
   prepareExternalUrl(url: string): string {
     return this.location.prepareExternalUrl(url);
+  }
+
+  protected doNavigate(path: string) {
+    // Push state if needed
+    if (!this.location.isCurrentPathEqualTo(path)) {
+      this.location.go(path);
+    }
+
+    // Update our url
+    this.onLocationChanged();
   }
 
   private onLocationChanged() {
