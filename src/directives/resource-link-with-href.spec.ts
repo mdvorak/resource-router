@@ -29,7 +29,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
   beforeEach(async(() => {
     location = createClassSpyObj(Location);
     asSpy(location.path).and.returnValue('/');
-    asSpy(location.prepareExternalUrl).and.callFake((url: string) => url);
+    asSpy(location.prepareExternalUrl).and.callFake((url: string) => '#' + url);
 
     registry = createClassSpyObj(ResourceViewRegistry);
 
