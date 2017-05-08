@@ -18,12 +18,10 @@ import {
 } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ApiMapper, APP_API_PREFIX } from './api-mapper';
-import { ApiUrl } from './api-url';
 import { ApiLocation } from './api-location';
 import { ContentTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
 import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { ViewDef } from './view-definition';
-import { ApiLinkDirective } from './directives/api-link.directive';
 import { ResourceLinkDirective } from './directives/resource-link';
 import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
 import { ResourceOutletComponent } from './directives/resource-outlet';
@@ -66,7 +64,6 @@ export interface ResourceRouterOptions {
     ResourceOutletComponent,
     ResourceDataDirective,
     ResourceViewDirective,
-    ApiLinkDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective,
     DefaultEmptyComponent,
@@ -80,7 +77,6 @@ export interface ResourceRouterOptions {
     ResourceOutletComponent,
     ResourceDataDirective,
     ResourceViewDirective,
-    ApiLinkDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective
   ]
@@ -99,7 +95,6 @@ export class ResourceRouterModule {
           ]
         },
         Location,
-        ApiUrl,
         ApiMapper,
         ApiLocation,
         ResourceViewRegistry,
