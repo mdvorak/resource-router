@@ -25,6 +25,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "prepackage": "ng lint && ng test --watch=false",
     "package": "ng-packagr -p ng-package.json"
   },
   "dependencies": {
