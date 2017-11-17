@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter, Directive, ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
+import { Directive, EventEmitter, Input, OnInit, Output, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Headers } from '@angular/http';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
@@ -6,7 +6,7 @@ import { ViewDataLoader } from '../view-data-loader';
 import { ViewData } from '../view-data';
 import { NavigationHandler, UrlType } from '../navigation-handler';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from '../system-media-types';
+import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from '../system-media-types';
 
 
 export class ResourceDataContext {

@@ -5,7 +5,7 @@ export interface Data {
   [name: string]: any;
 }
 
-export type StatusType = number|string;
+export type StatusType = number | string;
 
 /**
  * Defines view for given type.
@@ -37,7 +37,7 @@ export interface ViewDef {
    * Note that both `status` and `type` must be matched. To match specific status without any type, set type to '*'.
    * To match anything, set both to '*'.
    */
-  status?: StatusType|StatusType[];
+  status?: StatusType | StatusType[];
 
   /**
    * Media type of the response.
@@ -47,7 +47,7 @@ export interface ViewDef {
    *
    * To match any type (that is, fallback view), set the type to '*'.
    */
-    type: string|string[];
+  type: string | string[];
 
   /**
    * Similar to quality in `Accept` header, except it accepts any number, not just range 0..1.

@@ -1,11 +1,12 @@
-import { Input, Output, EventEmitter, Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 
 @Component({
   selector: 'resource-outlet',
-  template: `<ng-template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
-    <resource-view [data]="data"></resource-view>
-</ng-template>`
+  template: `
+    <ng-template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
+      <resource-view [data]="data"></resource-view>
+    </ng-template>`
 })
 export class ResourceOutletComponent {
 

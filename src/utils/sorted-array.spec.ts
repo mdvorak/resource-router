@@ -1,4 +1,4 @@
-import { SortedArray, defaultComparer } from './sorted-array';
+import { defaultComparer, SortedArray } from './sorted-array';
 
 describe(SortedArray.name, () => {
   it('should insert single element', () => {

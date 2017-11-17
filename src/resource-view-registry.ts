@@ -1,8 +1,8 @@
-import { Inject, Injectable, Optional, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { ViewDef } from './view-definition';
 import { SortedArray } from './utils/sorted-array';
 import { wildcardToRegex } from './utils/wildcard-to-regex';
-import { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
+import { simpleTypeQualityEvaluator, statusQualityEvaluator, TypeQualityEvaluator } from './quality-evaluator';
 
 
 export const RESOURCE_VIEWS = new InjectionToken<ViewDef>('RESOURCE_VIEWS');
@@ -54,7 +54,7 @@ export class ResourceViewRegistry {
     return this._length;
   }
 
-  match(type: string, status: number): ViewDef|null {
+  match(type: string, status: number): ViewDef | null {
     // Convert number to padded string
     const statusStr = normalizeStatus(status);
 
@@ -76,7 +76,7 @@ export class ResourceViewRegistry {
     return null;
   }
 
-  addViews(config: ViewDef|ViewDef[]) {
+  addViews(config: ViewDef | ViewDef[]) {
     // Flatten array
     if (Array.isArray(config)) {
       // Recursive call
@@ -227,7 +227,7 @@ export function normalizeStatus(status: number): string {
   return status < 100 ? ('000' + status).substr(-3) : '' + status;
 }
 
-function qualityComparator(a: {quality: number}, b: {quality: number}) {
+function qualityComparator(a: { quality: number }, b: { quality: number }) {
   if (a.quality === b.quality) {
     return 0;
   }
@@ -240,6 +240,6 @@ function qualityComparator(a: {quality: number}, b: {quality: number}) {
  * @param value Single value or array of values.
  * @returns {T[]} Array or values.
  */
-function toArray<T>(value: T|T[]): Array<T> {
+function toArray<T>(value: T | T[]): Array<T> {
   return Array.isArray(value) ? value as T[] : [value] as T[];
 }

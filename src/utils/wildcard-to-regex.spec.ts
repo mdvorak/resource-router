@@ -1,4 +1,4 @@
-import { wildcardToRegex, escapeRegExpPattern } from './wildcard-to-regex';
+import { escapeRegExpPattern, wildcardToRegex } from './wildcard-to-regex';
 
 describe(wildcardToRegex.name, () => {
   it('TODO', () => {

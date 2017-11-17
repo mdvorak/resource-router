@@ -1,10 +1,5 @@
-import { async, TestBed, inject } from '@angular/core/testing';
-import {
-    ResourceViewRegistry,
-    RESOURCE_VIEWS,
-    normalizeStatusExpression,
-    normalizeStatus
-} from './resource-view-registry';
+import { async, inject, TestBed } from '@angular/core/testing';
+import { normalizeStatus, normalizeStatusExpression, RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { Type } from '@angular/core';
 import { ViewDef } from './view-definition';
 
@@ -23,7 +18,7 @@ describe(ResourceViewRegistry.name, () => {
     };
   }
 
-  function expectComponentName(config: ViewDef|null) {
+  function expectComponentName(config: ViewDef | null) {
     return expect(config ? config.component.toString() : null);
   }
 

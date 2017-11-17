@@ -1,14 +1,14 @@
 <p>See <a href="http://docs.resourcerouterexample.apiary.io/#">API definition</a></p>
 
 <ng-template [resourceData] let-data [resourceDataOf]="apiLocation.url"
-          (urlChange)="apiLocation.url=$event">
-    <h1>{{data.url}}</h1>
-    <resource-view [data]="data"></resource-view>
+             (urlChange)="apiLocation.url=$event">
+  <h1>{{data.url}}</h1>
+  <resource-view [data]="data"></resource-view>
 </ng-template>
 
- <!--TODO event not working-->
+<!--TODO event not working-->
 <!--<div *resourceData="let viewData of apiLocation.url"-->
-     <!--(urlChange)="navigate($event)">-->
-    <!--<h1>{{viewData.url}}</h1>-->
-    <!--<resource-view [data]="viewData"></resource-view>-->
+<!--(urlChange)="navigate($event)">-->
+<!--<h1>{{viewData.url}}</h1>-->
+<!--<resource-view [data]="viewData"></resource-view>-->
 <!--</div>-->

@@ -7,15 +7,7 @@ import {
   PathLocationStrategy,
   PlatformLocation
 } from '@angular/common';
-import {
-  ANALYZE_FOR_ENTRY_COMPONENTS,
-  Inject,
-  InjectionToken,
-  ModuleWithProviders,
-  NgModule,
-  Optional,
-  Type
-} from '@angular/core';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ApiMapper, APP_API_PREFIX } from './api-mapper';
 import { ApiLocation } from './api-location';

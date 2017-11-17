@@ -1,11 +1,4 @@
-import {
-    Input,
-    Directive,
-    ViewContainerRef,
-    ComponentRef,
-    ReflectiveInjector,
-    ComponentFactoryResolver
-} from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, ReflectiveInjector, ViewContainerRef } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { ViewData } from '../view-data';
 
@@ -14,7 +7,7 @@ import { ViewData } from '../view-data';
 })
 export class ResourceViewDirective {
 
-  protected current: ComponentRef<any>|null;
+  protected current: ComponentRef<any> | null;
   private dataValue: ViewData<any>;
 
   constructor(protected viewContainer: ViewContainerRef,

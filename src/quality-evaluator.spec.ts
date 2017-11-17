@@ -1,4 +1,4 @@
-import { statusQualityEvaluator, simpleTypeQualityEvaluator } from './quality-evaluator';
+import { simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
 
 describe(simpleTypeQualityEvaluator.name, () => {
   it('should evaluate exact type as 1', () => {
