@@ -1,14 +1,14 @@
-import { ExamplePage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('example App', () => {
-  let page: ExamplePage;
+describe('resource-router App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new ExamplePage();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });

@@ -1,3 +1,6 @@
+/**
+ * TODO
+ */
 export type TypeQualityEvaluator = (type: string) => number;
 
 export function simpleTypeQualityEvaluator(type: string): number {

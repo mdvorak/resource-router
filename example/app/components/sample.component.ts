@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewData } from 'angular-resource-router';
+import { ViewData } from '../../../public_api';
 
 
 export interface SampleData {
@@ -14,7 +14,7 @@ export interface SampleData {
 
 @Component({
   template: `<h2>SAmple</h2>
-  <form>
+  <form *ngIf="data">
     <label for="name">Name</label>
     <input id="name" name="name" type="text" [(ngModel)]="data.name">
 
@@ -25,11 +25,11 @@ export interface SampleData {
     <input id="age" name="age" type="number" [(ngModel)]="data.age">
   </form>
 
-  <a [apiLink]="data._links?.next?.href">{{data._links?.next?.title}}</a>`
+  <a [resourceLink]="data?._links?.next?.href">{{data?._links?.next?.title}}</a>`
 })
 export class SampleComponent {
 
-  data: SampleData;
+  data?: SampleData;
 
   constructor(public viewData: ViewData<SampleData>) {
     this.data = viewData.body;

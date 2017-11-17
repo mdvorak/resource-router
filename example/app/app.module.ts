@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ResourceRouterModule } from 'angular-resource-router';
+import { ResourceRouterModule } from '../../public_api';
 import { AppComponent } from './app.component';
 import { JsonComponent } from './components/json.component';
 import { SampleComponent } from './components/sample.component';

@@ -9,6 +9,28 @@ export const RESOURCE_VIEWS = new InjectionToken<ViewDef>('RESOURCE_VIEWS');
 export const TYPE_QUALITY_EVALUATOR = new InjectionToken<TypeQualityEvaluator>('TYPE_QUALITY_EVALUATOR');
 
 
+// Private classes
+class ViewsByStatus {
+  readonly status: string;
+  readonly statusExp: RegExp;
+  readonly quality: number;
+  readonly types = new SortedArray<ParsedViewDef>(qualityComparator);
+
+  constructor(status: string) {
+    this.status = status;
+    this.statusExp = wildcardToRegex(status);
+    this.quality = statusQualityEvaluator(status);
+  }
+}
+
+interface ParsedViewDef {
+  readonly config: ViewDef;
+  readonly quality: number;
+  readonly typeExp: RegExp;
+}
+
+
+// Public class
 @Injectable()
 export class ResourceViewRegistry {
 
@@ -135,27 +157,6 @@ export class ResourceViewRegistry {
 
     return byStatus;
   }
-}
-
-
-// Private classes
-class ViewsByStatus {
-  readonly status: string;
-  readonly statusExp: RegExp;
-  readonly quality: number;
-  readonly types = new SortedArray<ParsedViewDef>(qualityComparator);
-
-  constructor(status: string) {
-    this.status = status;
-    this.statusExp = wildcardToRegex(status);
-    this.quality = statusQualityEvaluator(status);
-  }
-}
-
-interface ParsedViewDef {
-  readonly config: ViewDef;
-  readonly quality: number;
-  readonly typeExp: RegExp;
 }
 
 

@@ -9,6 +9,12 @@ import { ResourceViewRegistry } from '../resource-view-registry';
 import { MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from '../system-media-types';
 
 
+export class ResourceDataContext {
+  constructor(public $implicit: ViewData<any>) {
+  }
+}
+
+
 @Directive({
   selector: '[resourceData][resourceDataOf]'
 })
@@ -75,10 +81,5 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
   private mockView(url: string, type: string, status: number, statusText: string, body?: any): ViewData<any> {
     const config = this.registry.match(type, status);
     return new ViewData<any>(this, config, type, url, status, statusText, new Headers(), body);
-  }
-}
-
-export class ResourceDataContext {
-  constructor(public $implicit: ViewData<any>) {
   }
 }

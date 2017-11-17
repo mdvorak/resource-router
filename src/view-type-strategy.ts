@@ -11,7 +11,7 @@ export abstract class ViewTypeStrategy {
 export class ContentTypeStrategy implements ViewTypeStrategy {
 
   extractType(response: Response): string|null {
-    const contentType = response.headers.get('content-type');
+    const contentType = response.headers ? response.headers.get('content-type') : null;
     return contentType ? this.normalizeMediaType(contentType) : null;
   }
 

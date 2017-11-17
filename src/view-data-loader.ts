@@ -55,7 +55,7 @@ export abstract class HttpViewDataLoader extends ViewDataLoader {
 
   //noinspection JSMethodCanBeStatic
   protected parseDefault(response: Response): any {
-    let type = response.headers.get('content-type');
+    let type = response.headers != null ? response.headers.get('content-type') : null;
     if (!type) {
       return null;
     }

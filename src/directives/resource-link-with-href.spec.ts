@@ -15,6 +15,21 @@ import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
 
 const API_PREFIX = 'http://example.com/';
 
+/**
+ * Helper component for tests.
+ */
+@Component({
+  selector: 'my-test',
+  template: `<a [resourceLink]="link" [target]="target">${ResourceLinkWithHrefDirective.name}</a>`
+})
+class TestComponent {
+  link?: string;
+  target?: TargetType;
+}
+
+function createSpyNavigationHandler() {
+  return jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
+}
 
 describe(ResourceLinkWithHrefDirective.name, () => {
   let location: Location;
@@ -184,19 +199,3 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
   });
 });
-
-/**
- * Helper component for tests.
- */
-@Component({
-  selector: 'my-test',
-  template: `<a [resourceLink]="link" [target]="target">${ResourceLinkWithHrefDirective.name}</a>`
-})
-class TestComponent {
-  link?: string;
-  target?: TargetType;
-}
-
-function createSpyNavigationHandler() {
-  return jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
-}

@@ -14,6 +14,22 @@ import { asSpy, createClassSpyObj } from '../utils/class-mock.spec';
 
 const API_PREFIX = 'http://example.com/';
 
+/**
+ * Helper component for tests.
+ */
+@Component({
+  selector: 'my-test',
+  template: `
+    <button type="button" [resourceLink]="link" [target]="target">${ResourceLinkDirective.name}</button>`
+})
+class TestComponent {
+  link?: string;
+  target?: TargetType;
+}
+
+function createSpyNavigationHandler() {
+  return jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
+}
 
 describe(ResourceLinkDirective.name, () => {
   let location: Location;
@@ -160,20 +176,3 @@ describe(ResourceLinkDirective.name, () => {
     });
   });
 });
-
-/**
- * Helper component for tests.
- */
-@Component({
-  selector: 'my-test',
-  template: `
-    <button type="button" [resourceLink]="link" [target]="target">${ResourceLinkDirective.name}</button>`
-})
-class TestComponent {
-  link?: string;
-  target?: TargetType;
-}
-
-function createSpyNavigationHandler() {
-  return jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
-}

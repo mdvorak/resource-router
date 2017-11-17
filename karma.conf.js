@@ -1,72 +1,33 @@
-// Karma configuration for Unit testing
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
-
-  let browsers = ['PhantomJS'];
-  if (!process.env.TRAVIS) {
-    browsers.push('Chrome');
-  }
-
-  const configuration = {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular/cli'],
     plugins: [
       require('karma-jasmine'),
-      require('karma-phantomjs-launcher'),
       require('karma-chrome-launcher'),
-      require('karma-webpack'),
-      require('karma-sourcemap-loader'),
-      require('karma-spec-reporter')
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular/cli/plugins/karma')
     ],
-
-    frameworks: ['jasmine'],
-
-    files: [
-      {pattern: 'test.js', watched: false}
-    ],
-
-    preprocessors: {
-      'test.js': ['webpack']
+    client:{
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-
-    // webpack
-    webpack: {
-      devtool: 'inline-source-map',
-      resolve: {
-        extensions: ['.js', '.ts']
-      },
-      module: {
-        rules: [
-          {
-            "enforce": "pre",
-            "test": /\.js$/,
-            "loader": "source-map-loader",
-            "exclude": [
-              /node_modules/
-            ]
-          },
-          {
-            test: /\.ts/,
-            loaders: ['ts-loader'],
-            "exclude": [
-              /\.d\.ts$/,
-              /node_modules/
-            ]
-          }
-        ],
-        exprContextCritical: false
-      },
-      performance: {hints: false}
+    coverageIstanbulReporter: {
+      reports: [ 'html', 'lcovonly' ],
+      fixWebpackSourcePaths: true
     },
-
-    webpackServer: {
-      noInfo: true
+    angularCli: {
+      environment: 'dev'
     },
-
-    reporters: ['progress'],
+    reporters: ['progress', 'kjhtml'],
+    port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: browsers
-  };
-
-  config.set(configuration);
+    browsers: ['Chrome'],
+    singleRun: false
+  });
 };
