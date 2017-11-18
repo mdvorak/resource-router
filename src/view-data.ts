@@ -6,6 +6,13 @@ export interface HeadersAccessor {
   get(name: string): string | null;
 }
 
+// noinspection JSUnusedLocalSymbols
+export const NO_HEADERS: HeadersAccessor = {
+  get(name: string): string | null {
+    return null;
+  }
+};
+
 export class ViewData<T> {
 
   constructor(public readonly navigation: NavigationHandler,

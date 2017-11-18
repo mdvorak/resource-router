@@ -19,6 +19,16 @@ export interface ViewDef {
   readonly component: Type<any>;
 
   /**
+   * Media type of the response.
+   * It supports wildcard characters '?' (any single character), '*' (zero or more characters).
+   *
+   * Unless status is set, this matches only 2xx (successful) status codes (see `status` property).
+   *
+   * To match any type (that is, fallback view), set the type to '*'.
+   */
+  readonly type: string | string[];
+
+  /**
    * HTTP response status code, which is 3-digit integer.
    * It supports wildcard characters '?' (any single character) at the end of the string - that is,
    * expression '?00' is forbidden. Character 'x' is alias for '?', for better readability.
@@ -38,16 +48,6 @@ export interface ViewDef {
    * To match anything, set both to '*'.
    */
   readonly status?: StatusType | StatusType[];
-
-  /**
-   * Media type of the response.
-   * It supports wildcard characters '?' (any single character), '*' (zero or more characters).
-   *
-   * Unless status is set, this matches only 2xx (successful) status codes (see `status` property).
-   *
-   * To match any type (that is, fallback view), set the type to '*'.
-   */
-  readonly type: string | string[];
 
   /**
    * Similar to quality in `Accept` header, except it accepts any number, not just range 0..1.

@@ -4,9 +4,8 @@ import { ResourceViewRegistry } from '../resource-view-registry';
 import { TargetType } from './resource-link';
 import { Location } from '@angular/common';
 import { ApiMapper, APP_API_PREFIX } from '../api-mapper';
-import { ViewData } from '../view-data';
+import { NO_HEADERS, ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
-import { Headers } from '@angular/http';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
 import { asSpy, createClassSpyObj } from '../utils/class-spy.spec';
@@ -181,7 +180,10 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         providers: [
           {
             provide: ViewData,
-            useValue: new ViewData(navigationMock, null, null, '', 0, '', new Headers())
+            useValue: new ViewData(navigationMock, {
+              type: 'test',
+              component: TestComponent
+            }, 'test', '', 0, '', NO_HEADERS)
           }
         ]
       });
