@@ -5,6 +5,7 @@ import { ResourceRouterModule } from '../../public_api';
 import { AppComponent } from './app.component';
 import { JsonComponent } from './components/json.component';
 import { SampleComponent } from './components/sample.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,10 +14,11 @@ import { SampleComponent } from './components/sample.component';
     SampleComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     ResourceRouterModule.configure({
-      prefix: 'https://private-d3b165-resourcerouterexample.apiary-mock.com/api/',
+      prefix: 'https://private-anon-5c8d0c0da6-resourcerouterexample.apiary-mock.com/api/',
       useHash: true
     }),
     ResourceRouterModule.forTypes([
@@ -32,7 +34,8 @@ import { SampleComponent } from './components/sample.component';
   ],
   exports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   bootstrap: [
     AppComponent

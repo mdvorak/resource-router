@@ -8,16 +8,15 @@ import {
   PlatformLocation
 } from '@angular/common';
 import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { ApiMapper, APP_API_PREFIX } from './api-mapper';
 import { ApiLocation } from './api-location';
-import { ContentTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
+import { HeaderViewTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
 import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { ViewDef } from './view-definition';
 import { ResourceLinkDirective } from './directives/resource-link';
 import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
 import { ResourceOutletComponent } from './directives/resource-outlet';
-import { DefaultHttpViewDataLoader, ViewDataLoader } from './view-data-loader';
+import { HttpClientViewDataLoader, ViewDataLoader } from './view-data-loader';
 import { ResourceDataDirective } from './directives/resource-data';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
@@ -36,18 +35,24 @@ export interface ResourceRouterOptions {
    * Prefix for the URL. Can be base-relative, host-relative or absolute.
    * Always should however end with slash ('/').
    */
-  prefix: string;
+  readonly prefix: string;
 
   /**
    * Enables hash-bang navigation mode. Default is HTML5 mode.
    */
-  useHash?: boolean;
+  readonly useHash?: boolean;
 
   /**
    * Changes implementation of {@link ViewTypeStrategy}.
-   * Default is {@link ContentTypeStrategy}.
+   * Default is {@link HeaderViewTypeStrategy} using `Content-Type` header.
    */
-  viewTypeStrategy?: Type<ViewTypeStrategy>;
+  readonly viewTypeStrategy?: Type<ViewTypeStrategy>;
+
+  /**
+   * Changes implementation of {@link ViewDataLoader}.
+   * Default is {@link HttpClientViewDataLoader}.
+   */
+  readonly viewDataLoader?: Type<ViewDataLoader>;
 }
 
 
@@ -62,8 +67,7 @@ export interface ResourceRouterOptions {
     DefaultErrorComponent
   ],
   imports: [
-    CommonModule,
-    HttpModule
+    CommonModule
   ],
   exports: [
     ResourceOutletComponent,
@@ -110,11 +114,11 @@ export class ResourceRouterModule {
         },
         {
           provide: ViewTypeStrategy,
-          useClass: options.viewTypeStrategy || ContentTypeStrategy
+          useClass: options.viewTypeStrategy || HeaderViewTypeStrategy
         },
         {
           provide: ViewDataLoader,
-          useClass: DefaultHttpViewDataLoader
+          useClass: options.viewDataLoader || HttpClientViewDataLoader
         }
       ]
     };
@@ -169,7 +173,7 @@ export function errorView(): ViewDef {
     component: DefaultErrorComponent,
     status: '*',
     type: '*',
-    body: 'text',
+    responseType: 'text',
     quality: Number.MIN_SAFE_INTEGER
   };
 }

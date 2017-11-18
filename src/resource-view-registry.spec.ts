@@ -91,7 +91,7 @@ describe(ResourceViewRegistry.name, () => {
     }));
 
     it('without definition as null', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expectComponentName(registry.match('foo', 500)).toBeFalsy();
+      expect(() => registry.match('foo', 500)).toThrow();
     }));
 
     it('with quality override', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
@@ -174,9 +174,11 @@ describe(ResourceViewRegistry.name, () => {
       expectComponentName(registry.match('image/jpg', 400)).toBe('??? image/*');
     }));
 
-    it('without definition as null', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
-      expectComponentName(registry.match('foo', 500)).toBeFalsy();
-      expectComponentName(registry.match('foobar', 500)).toBeFalsy();
+    it('without definition as Error', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
+      expect(() => registry.match('xxx', 200))
+        .toThrowError('No view definition found for type xxx and status 200 - please register default view');
+      expect(() => registry.match('FooBar', 500))
+        .toThrowError('No view definition found for type FooBar and status 500 - please register default view');
     }));
 
     it('with quality override', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
@@ -264,7 +266,7 @@ describe(ResourceViewRegistry.name, () => {
     expectComponentName(registry.match('foo', 200)).toBeTruthy();
     expectComponentName(registry.match('bar', 200)).toBeTruthy();
     expectComponentName(registry.match('foobar', 501)).toBeTruthy();
-    expectComponentName(registry.match('xxx', 200)).toBeFalsy();
+    expect(() => registry.match('xxx', 200)).toThrow();
   }));
 
   it('should validate quality type', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {

@@ -1,6 +1,6 @@
 export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURATION } from './resource-router-module';
 export { ViewData } from './view-data';
-export { ViewDataLoader, HttpViewDataLoader, DefaultHttpViewDataLoader } from './view-data-loader';
+export { ViewDataLoader, HttpClientViewDataLoader } from './view-data-loader';
 export { ViewDef, Data, StatusType } from './view-definition';
 export { ApiMapper, APP_API_PREFIX } from './api-mapper';
 export { ApiLocation } from './api-location';
@@ -12,7 +12,7 @@ export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluato
 export { NavigationHandler, supportsNavigation } from './navigation-handler';
 export { normalizeUrl, normalizeMediaType } from './normalize';
 export * from './system-media-types';
-export { ViewTypeStrategy, ContentTypeStrategy } from './view-type-strategy';
+export { ViewTypeStrategy, HeaderViewTypeStrategy } from './view-type-strategy';
 export { escapeRegExpPattern, wildcardToRegex } from './utils/wildcard-to-regex';
 export { ResourceLinkDirective } from './directives/resource-link';
 export { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';

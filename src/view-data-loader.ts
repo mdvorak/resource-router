@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -9,88 +9,94 @@ import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { NavigationHandler } from './navigation-handler';
+import { stringToJSON } from './utils/http-utils';
 
 
+/**
+ * Component that retrieves the data for given URL.
+ */
 export abstract class ViewDataLoader {
 
-  abstract fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>>;
+  /**
+   * Retrieves the data.
+   *
+   * @param {string} uri URI the data should be retrieved from. Usually it is URL for HTTP request.
+   * @param {NavigationHandler} navigation NavigationHandler instance, to be passed to ViewData constructor.
+   * @returns {Observable<ViewData<any>>} Retrieved ViewData instance.
+   */
+  abstract fetch(uri: string, navigation: NavigationHandler): Observable<ViewData<any>>;
 
 }
 
-export abstract class HttpViewDataLoader extends ViewDataLoader {
+/**
+ * Default ViewDataLoader implementation, which uses HttpClient as backend.
+ */
+@Injectable()
+export class HttpClientViewDataLoader extends ViewDataLoader {
 
   constructor(public strategy: ViewTypeStrategy,
-              public registry: ResourceViewRegistry) {
+              public registry: ResourceViewRegistry,
+              public http: HttpClient) {
     super();
   }
 
-  abstract fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>>;
+  fetch(uri: string, navigation: NavigationHandler): Observable<ViewData<any>> {
+    // Send request
+    return this
+      .get(uri)
+      // Swallow errors, treat them as normal response
+      .catch(response => Observable.of(response))
+      // This might throw exception, e.g. when response is malformed - it produces failed Observable then
+      .map(response => this.resolve(uri, response, navigation));
+  }
 
-  resolve(response: Response, navigation: NavigationHandler): ViewData<any> {
+  protected get(url: string): Observable<HttpResponse<string>> {
+    // Note: We need to set responseType to text, because if set to json,
+    // Angular will return error when response is not a valid JSON - We will rather parse it here.
+    // Its not nice, since we are duplicating bit of HttpClient, but I'm not aware of other way
+    return this.http.get(url, {observe: 'response', responseType: 'text'});
+  }
+
+  protected resolve(requestUrl: string, response: HttpResponse<string>, navigation: NavigationHandler): ViewData<any> {
     // Resolve type, if possible
-    const type = this.strategy.extractType(response);
-    const config = type ? this.registry.match(type, response.status) : null;
-
+    const type = this.strategy.extractType(response) || '';
+    // Find view
+    const config = this.registry.match(type, response.status);
     // Parse body
     const body = this.parse(response, config);
 
-    // Return
-    return ViewData.fromResponse(navigation, config, type, response, body);
+    // Construct and return ViewData
+    return new ViewData<any>(
+      navigation,
+      config,
+      type,
+      response.url || requestUrl,
+      response.status,
+      response.statusText,
+      response.headers,
+      body,
+    );
   }
 
-  //noinspection JSMethodCanBeStatic
-  protected parse(response: Response, config: ViewDef|null): any {
-    // Is it defined by the config?
-    if (config && config.body) {
-      // Resolve
-      let data = (response as any)[config.body];
-      if (typeof data === 'function') {
-        data = data.call(response);
-      }
-      return data;
-    }
-
-    return this.parseDefault(response);
-  }
-
-  //noinspection JSMethodCanBeStatic
-  protected parseDefault(response: Response): any {
-    let type = response.headers != null ? response.headers.get('content-type') : null;
-    if (!type) {
+  // noinspection JSMethodCanBeStatic
+  protected parse(response: HttpResponse<string>, config: ViewDef): any | null {
+    // Don't parse null
+    if (response.body === null) {
       return null;
     }
 
-    // Strip parameters
-    type = type.replace(/;.*$/, '');
+    const responseType = config.responseType || 'json';
+    switch (responseType) {
+      case 'json':
+        // Parse JSON - this assumes body is a string
+        return stringToJSON(response.body);
 
-    // Best-effort parsing
-    if (type.match(/\/(.+\+)?json$/)) {
-      return response.json();
-    } else if (type.match(/^text\//)) {
-      return response.text();
-    } else if (type === 'application/octet-stream' || type.match(/^image\//)) {
-      return response.blob();
+      case 'text':
+        // Return as-is - this assumes body is already string
+        return response.body;
+
+      default:
+        throw new Error(`Unsupported responseType: ${responseType}`);
     }
-  }
-}
-
-@Injectable()
-export class DefaultHttpViewDataLoader extends HttpViewDataLoader {
-
-  constructor(public http: Http,
-              strategy: ViewTypeStrategy,
-              registry: ResourceViewRegistry) {
-    super(strategy, registry);
-  }
-
-  fetch(url: string, navigation: NavigationHandler): Observable<ViewData<any>> {
-    // Swallow errors, treat them as normal response
-    return this.get(url)
-      .catch(response => Observable.of(response))
-      .map(response => this.resolve(response, navigation));
-  }
-
-  protected get(url: string): Observable<Response> {
-    return this.http.get(url);
   }
 }

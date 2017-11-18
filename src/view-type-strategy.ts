@@ -1,22 +1,53 @@
-import { Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { normalizeMediaType } from './normalize';
+import { HeadersAccessor } from './view-data';
+
+/**
+ * Helper interface with subset of HttpResponse fields, for better abstraction.
+ */
+export interface ViewTypeResponse {
+  /**
+   * All response headers.
+   */
+  readonly headers: HeadersAccessor;
+  /**
+   * Response status code.
+   */
+  readonly status: number;
+  /**
+   * The response body, or `null` if one was not returned.
+   */
+  readonly body: any;
+}
 
 export abstract class ViewTypeStrategy {
 
-  abstract extractType(response: Response): string | null;
+  /**
+   * Extracts type from the server response, understandable by application.
+   * Default implementation uses `Content-Type` header.
+   *
+   * @param {ViewTypeResponse} response Actual response.
+   * @returns {string} Found response type. Null if not found.
+   */
+  abstract extractType(response: ViewTypeResponse): string | null;
 }
 
+/**
+ * Extracts type from the HTTP header. By default its `Content-Type`.
+ */
 @Injectable()
-export class ContentTypeStrategy implements ViewTypeStrategy {
+export class HeaderViewTypeStrategy implements ViewTypeStrategy {
 
-  extractType(response: Response): string | null {
-    const contentType = response.headers ? response.headers.get('content-type') : null;
+  protected headerName = 'content-type';
+
+  extractType(response: ViewTypeResponse): string | null {
+    const contentType = response.headers ? response.headers.get(this.headerName) : null;
     return contentType ? this.normalizeMediaType(contentType) : null;
   }
 
   //noinspection JSMethodCanBeStatic
   normalizeMediaType(contentType: string): string {
+    // This is overridable
     return normalizeMediaType(contentType);
   }
 }

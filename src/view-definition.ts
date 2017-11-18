@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 
 
 export interface Data {
-  [name: string]: any;
+  readonly [name: string]: any;
 }
 
 export type StatusType = number | string;
@@ -16,7 +16,7 @@ export interface ViewDef {
    * Component that is viewed when this view definition is matched against response.
    * Mandatory. Don't forget to add it to modules `declarations`.
    */
-  component: Type<any>;
+  readonly component: Type<any>;
 
   /**
    * HTTP response status code, which is 3-digit integer.
@@ -24,7 +24,7 @@ export interface ViewDef {
    * expression '?00' is forbidden. Character 'x' is alias for '?', for better readability.
    * Wildcard character '*' is also supported, but has different meaning than usual - expression is still
    * expanded to 3 characters. Which means, '2*' == '2??', and '*' == '???'.
-   * It also supports ',' character as OR operator.
+   * It might be array of values, handling multiple disjunct values.
    *
    * Default is '2xx', that is >=200 and <300 codes.
    *
@@ -37,7 +37,7 @@ export interface ViewDef {
    * Note that both `status` and `type` must be matched. To match specific status without any type, set type to '*'.
    * To match anything, set both to '*'.
    */
-  status?: StatusType | StatusType[];
+  readonly status?: StatusType | StatusType[];
 
   /**
    * Media type of the response.
@@ -47,7 +47,7 @@ export interface ViewDef {
    *
    * To match any type (that is, fallback view), set the type to '*'.
    */
-  type: string | string[];
+  readonly type: string | string[];
 
   /**
    * Similar to quality in `Accept` header, except it accepts any number, not just range 0..1.
@@ -68,31 +68,34 @@ export interface ViewDef {
    * Example:
    * TODO show how same wildcards are treated and how to override quality.
    */
-  quality?: number;
+  readonly quality?: number;
 
   /**
    * Type of the parser, which should be used to produce final body.
-   * If unspecified, type is determined by response Content-Type header.
-   * Possible values: json, text, arrayBuffer, blob (functions of Response instance).
+   * Default is 'json'. If other response type is required (like blob for images), it must be set accordingly.
+   *
+   * Note that 'arraybuffer' and 'blob' are not supported right now. For proper support, responseType must be set before
+   * request is sent, however we don't know what view will consume the given request, so we don't know responseType
+   * when the request is being sent.
    */
-  body?: string;
+  readonly responseType?: 'json' | 'text';
 
   /**
    * Values that are passed to the view. These values are not resolved in any way - observables remains observables,
    * functions are not called.
    * To have resolved data, use `resolve` value.
    */
-  data?: Data;
+  readonly data?: Data;
 
   /**
    * TODO
    */
-  resolve?: Data;
+  readonly resolve?: Data;
 
   /**
    * Disables wildcard character parsing in type property.
    *
    * Note: Wildcards in status will still work.
    */
-  noWildcards?: boolean;
+  readonly noWildcards?: boolean;
 }

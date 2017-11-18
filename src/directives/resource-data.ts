@@ -62,7 +62,7 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
     if (url) {
       return this.loader
         .fetch(url, this)
-        .catch(err => Observable.of(this.mockView(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Router Error', err)));
+        .catch(err => Observable.of(this.mockView(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', err)));
     } else {
       return Observable.of(this.mockView('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
     }

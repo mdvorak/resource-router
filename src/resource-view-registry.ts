@@ -54,7 +54,7 @@ export class ResourceViewRegistry {
     return this._length;
   }
 
-  match(type: string, status: number): ViewDef | null {
+  match(type: string, status: number): ViewDef {
     // Convert number to padded string
     const statusStr = normalizeStatus(status);
 
@@ -73,7 +73,7 @@ export class ResourceViewRegistry {
     }
 
     // Not found
-    return null;
+    throw new Error(`No view definition found for type ${type} and status ${status} - please register default view`);
   }
 
   addViews(config: ViewDef | ViewDef[]) {
