@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
 import { NavigationHandler } from './navigation-handler';
 
+// TODO normalize URL, using LocationStrategy
+
 /**
  * It maps view URLs to API and vice versa.
  * Provides bindable `url` property, to be used with `resource-outlet` component.
