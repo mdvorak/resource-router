@@ -21,7 +21,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --sourcemaps",
+    "build": "ng build --target=production --env=prod --sourcemaps",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -43,7 +43,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.5.2",
+    "@angular/cli": "1.4.9",
     "@angular/compiler-cli": "4.4.6",
     "@angular/language-service": "4.4.6",
     "@types/jasmine": "2.5.53",
