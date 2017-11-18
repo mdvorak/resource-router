@@ -4,7 +4,7 @@ import { ApiMapper } from './api-mapper';
 import { normalizeUrl } from './normalize';
 import { NavigationHandler } from './navigation-handler';
 
-// TODO normalize location.href
+// TODO normalize location.href - trailing and double slashes, possible with history replace
 
 /**
  * It maps view URLs to API and vice versa.
@@ -17,8 +17,11 @@ export class ApiLocation implements NavigationHandler {
 
   constructor(private apiUrlService: ApiMapper,
               private location: Location) {
+    // Initialize
+    this.urlValue = this.mapLocationUrlToApi();
+
+    // Listen to Location changes
     this.location.subscribe(() => this.onLocationChanged());
-    this.onLocationChanged();
   }
 
   /**
@@ -44,18 +47,19 @@ export class ApiLocation implements NavigationHandler {
     // Normalize
     url = normalizeUrl(url);
 
-    // Only on change
+    // Navigate only on change
     if (url !== this.urlValue) {
-      // Navigate
+      // Note: This also sets urlValue to correct value
       this.go(url);
-
-      // This prevents race-conditions, when value would be immediately read after being set,
-      // and navigation has yet not been performed
-      this.urlValue = url;
     }
   }
 
-  // TODO this needs to issue outlet reload if url does not change, somehow
+  /**
+   * Navigates to given URL in the API.
+   * URL should be absolute, and provided by server (not constructed locally).
+   *
+   * @param url API url to navigate to. Cannot be null.
+   */
   go(url: string): void {
     if (typeof url !== 'string') {
       throw new Error('url must be a string');
@@ -71,13 +75,17 @@ export class ApiLocation implements NavigationHandler {
     this.doNavigate(path);
   }
 
+  // noinspection JSUnusedGlobalSymbols
+  /**
+   * Navigates to root of the API, that is '/' view path.
+   */
   home(): void {
     // We don't need API url here, / leads to root of the api, always
     this.doNavigate('/');
   }
 
   /**
-   * This is just wrapper around `Location.prepareExternalUrl` for convenience.
+   * This is just wrapper around {@link Location#prepareExternalUrl()} for convenience.
    *
    * @param url URL to be normalized for the link.
    * @returns {string} Normalized URL.
@@ -86,6 +94,11 @@ export class ApiLocation implements NavigationHandler {
     return this.location.prepareExternalUrl(url);
   }
 
+  /**
+   * Performs navigation to given view path.
+   *
+   * @param path View path to navigate to. Should be already mapped from API URL.
+   */
   protected doNavigate(path: string) {
     // Push state if needed
     if (!this.location.isCurrentPathEqualTo(path)) {
@@ -96,10 +109,21 @@ export class ApiLocation implements NavigationHandler {
     this.onLocationChanged();
   }
 
-  private onLocationChanged() {
+  /**
+   * Takes current {@link Location#path()} and maps it to API url.
+   * Might throw an {@link Error} if path() returns something unexpected, like null.
+   *
+   * @returns {string} Mapped url. Never null.
+   */
+  protected mapLocationUrlToApi() {
     const path = this.location.path();
+    return this.apiUrlService.mapViewToApi(path);
+  }
 
-    // Store API url
-    this.urlValue = this.apiUrlService.mapViewToApi(path);
+  /**
+   * Updates `currentUrl` and fires next value for `url` observable.
+   */
+  protected onLocationChanged() {
+    this.urlValue = this.mapLocationUrlToApi();
   }
 }
