@@ -9,7 +9,7 @@ import { NavigationHandler } from '../navigation-handler';
 import { Headers } from '@angular/http';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
-import { asSpy, createClassSpyObj } from '../utils/class-mock.spec';
+import { asSpy, createClassSpyObj } from '../utils/class-spy.spec';
 
 
 const API_PREFIX = 'http://example.com/';
