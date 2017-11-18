@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { normalizeUrl } from './normalize';
+import { Location } from '@angular/common';
 
 
 /**
@@ -21,9 +21,10 @@ export class ApiMapper {
    */
   readonly prefix: string;
 
-  constructor(@Inject(APP_API_PREFIX) prefix: string) {
+  constructor(@Inject(APP_API_PREFIX) prefix: string,
+              location: Location) {
     // Normalize prefix
-    this.prefix = normalizeUrl(prefix);
+    this.prefix = location.normalize(prefix) + '/';
   }
 
   /**
@@ -41,7 +42,7 @@ export class ApiMapper {
     }
 
     // This is for diagnostics only, but might be useful
-    if (/^https?:/.test(path)) {
+    if (/^\w+:/.test(path)) {
       throw new Error('path must be relative');
     }
 

@@ -1,14 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ResourceLinkDirective, TargetType } from './resource-link';
-import { Location } from '@angular/common';
+import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper, APP_API_PREFIX } from '../api-mapper';
 import { NO_HEADERS, ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
-import { asSpy, createClassSpyObj } from '../utils/class-spy.spec';
+import { createClassSpyObj } from '../utils/class-spy.spec';
+import { MockLocationStrategy } from '@angular/common/testing';
 
 
 const API_PREFIX = 'http://example.com/';
@@ -31,7 +32,7 @@ function createSpyNavigationHandler() {
 }
 
 describe(ResourceLinkDirective.name, () => {
-  let location: Location;
+  let mockLocationStrategy: MockLocationStrategy;
   let registry: ResourceViewRegistry;
 
   let comp: TestComponent;
@@ -41,9 +42,6 @@ describe(ResourceLinkDirective.name, () => {
 
   // Shared components
   beforeEach(async(() => {
-    location = createClassSpyObj(Location);
-    asSpy(location.path).and.returnValue('/');
-
     registry = createClassSpyObj(ResourceViewRegistry);
 
     return TestBed.configureTestingModule({
@@ -52,10 +50,8 @@ describe(ResourceLinkDirective.name, () => {
         TestComponent,
       ],
       providers: [
-        {
-          provide: Location,
-          useValue: location
-        },
+        {provide: LocationStrategy, useClass: MockLocationStrategy},
+        Location,
         {
           provide: ResourceViewRegistry,
           useValue: registry
@@ -72,18 +68,21 @@ describe(ResourceLinkDirective.name, () => {
 
   // Without declared ViewData (typically outside resource-view directive)
   describe('without ViewData', () => {
-    beforeEach(async(() => {
+    beforeEach(async(inject([LocationStrategy], (locationStrategy: MockLocationStrategy) => {
+      mockLocationStrategy = locationStrategy;
       fixture = TestBed.createComponent(TestComponent);
       comp = fixture.componentInstance;
       de = fixture.debugElement.query(By.directive(ResourceLinkDirective));
       el = de.nativeElement;
-    }));
+    })));
 
     it('should be initialized', () => {
       expect(el).toBeDefined();
     });
 
     it('should change location onClick without target set', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -91,10 +90,12 @@ describe(ResourceLinkDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
     it('should change location onClick with ctrlKey or metaKey', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -102,10 +103,12 @@ describe(ResourceLinkDirective.name, () => {
       de.triggerEventHandler('click', {button: 0, ctrlKey: true, metaKey: true});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
     it('should change location onClick with target _self', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       comp.target = '_self';
       fixture.detectChanges();
@@ -114,10 +117,12 @@ describe(ResourceLinkDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
     it('should change location onClick with target _top', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       comp.target = '_top';
       fixture.detectChanges();
@@ -126,10 +131,11 @@ describe(ResourceLinkDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
     it('should navigate onClick with explicit target', () => {
+      mockLocationStrategy.internalPath = '/init';
       const navigationMock = createSpyNavigationHandler();
 
       comp.link = API_PREFIX + 'foo/bar';
@@ -141,7 +147,7 @@ describe(ResourceLinkDirective.name, () => {
 
       // Verify
       expect(navigationMock.go).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
-      expect(location.go).not.toHaveBeenCalled();
+      expect(mockLocationStrategy.internalPath).toBe('/init');
     });
   });
 
@@ -173,6 +179,7 @@ describe(ResourceLinkDirective.name, () => {
       el = de.nativeElement;
     }));
 
+    // TODO
     it('should be initialized', () => {
       expect(el).toBeDefined();
     });

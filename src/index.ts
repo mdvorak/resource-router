@@ -10,7 +10,7 @@ export { ResourceDataDirective } from './directives/resource-data';
 export { ResourceViewDirective } from './directives/resource-view';
 export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
 export { NavigationHandler, supportsNavigation } from './navigation-handler';
-export { normalizeUrl, normalizeMediaType } from './normalize';
+export { normalizeMediaType } from './normalize';
 export * from './system-media-types';
 export { ViewTypeStrategy, HeaderViewTypeStrategy } from './view-type-strategy';
 export { escapeRegExpPattern, wildcardToRegex } from './utils/wildcard-to-regex';

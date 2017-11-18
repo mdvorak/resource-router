@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { TargetType } from './resource-link';
-import { Location } from '@angular/common';
+import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper, APP_API_PREFIX } from '../api-mapper';
 import { NO_HEADERS, ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
-import { asSpy, createClassSpyObj } from '../utils/class-spy.spec';
+import { createClassSpyObj } from '../utils/class-spy.spec';
 import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
+import { MockLocationStrategy } from '@angular/common/testing';
 
 
 const API_PREFIX = 'http://example.com/';
@@ -31,7 +32,7 @@ function createSpyNavigationHandler() {
 }
 
 describe(ResourceLinkWithHrefDirective.name, () => {
-  let location: Location;
+  let mockLocationStrategy: MockLocationStrategy;
   let registry: ResourceViewRegistry;
 
   let comp: TestComponent;
@@ -41,10 +42,6 @@ describe(ResourceLinkWithHrefDirective.name, () => {
 
   // Shared components
   beforeEach(async(() => {
-    location = createClassSpyObj(Location);
-    asSpy(location.path).and.returnValue('/');
-    asSpy(location.prepareExternalUrl).and.callFake((url: string) => '#' + url);
-
     registry = createClassSpyObj(ResourceViewRegistry);
 
     return TestBed.configureTestingModule({
@@ -53,10 +50,8 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         TestComponent,
       ],
       providers: [
-        {
-          provide: Location,
-          useValue: location
-        },
+        {provide: LocationStrategy, useClass: MockLocationStrategy},
+        Location,
         {
           provide: ResourceViewRegistry,
           useValue: registry
@@ -73,18 +68,21 @@ describe(ResourceLinkWithHrefDirective.name, () => {
 
   // Without declared ViewData (typically outside resource-view directive)
   describe('without ViewData', () => {
-    beforeEach(async(() => {
+    beforeEach(async(inject([LocationStrategy], (locationStrategy: MockLocationStrategy) => {
+      mockLocationStrategy = locationStrategy;
       fixture = TestBed.createComponent(TestComponent);
       comp = fixture.componentInstance;
       de = fixture.debugElement.query(By.directive(ResourceLinkWithHrefDirective));
       el = de.nativeElement;
-    }));
+    })));
 
     it('should be initialized', () => {
       expect(el).toBeDefined();
     });
 
     it('should change location onClick without target set', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -92,10 +90,12 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
-    it('should change not handle click with ctrlKey', () => {
+    it('should not handle click with ctrlKey', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -103,10 +103,12 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 0, ctrlKey: true});
 
       // Verify
-      expect(location.go).not.toHaveBeenCalled();
+      expect(mockLocationStrategy.internalPath).toBe('/init');
     });
 
-    it('should change not handle click with metaKey', () => {
+    it('should not handle click with metaKey', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -114,10 +116,12 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 0, metaKey: true});
 
       // Verify
-      expect(location.go).not.toHaveBeenCalled();
+      expect(mockLocationStrategy.internalPath).toBe('/init');
     });
 
     it('should not handle click with other mouse buttons', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -125,10 +129,12 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 1, metaKey: true});
 
       // Verify
-      expect(location.go).not.toHaveBeenCalled();
+      expect(mockLocationStrategy.internalPath).toBe('/init');
     });
 
     it('should change location onClick with target _self', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       comp.target = '_self';
       fixture.detectChanges();
@@ -137,10 +143,12 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
     it('should change location onClick with target _top', () => {
+      mockLocationStrategy.internalPath = '/init';
+
       comp.link = API_PREFIX + 'foo/bar';
       comp.target = '_top';
       fixture.detectChanges();
@@ -149,10 +157,11 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(location.go).toHaveBeenCalledWith('/foo/bar');
+      expect(mockLocationStrategy.internalPath).toBe('/foo/bar');
     });
 
     it('should navigate onClick with explicit target', () => {
+      mockLocationStrategy.internalPath = '/init';
       const navigationMock = createSpyNavigationHandler();
 
       comp.link = API_PREFIX + 'foo/bar';
@@ -164,10 +173,11 @@ describe(ResourceLinkWithHrefDirective.name, () => {
 
       // Verify
       expect(navigationMock.go).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
-      expect(location.go).not.toHaveBeenCalled();
+      expect(mockLocationStrategy.urlChanges.length).toBe(0);
     });
 
     it('should change location with external url', () => {
+      mockLocationStrategy.internalPath = '/init';
       const navigationMock = createSpyNavigationHandler();
 
       comp.link = 'http://another.example.com/foo/bar';
@@ -188,7 +198,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
 
       expect(cancel).toBe(true);
       expect(navigationMock.go).not.toHaveBeenCalled();
-      expect(location.go).not.toHaveBeenCalled();
+      expect(mockLocationStrategy.internalPath).toBe('/init');
     });
   });
 
@@ -220,6 +230,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       el = de.nativeElement;
     }));
 
+    // TODO
     it('should be initialized', () => {
       expect(el).toBeDefined();
     });

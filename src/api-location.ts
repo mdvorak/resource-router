@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { normalizeUrl } from './normalize';
 import { NavigationHandler } from './navigation-handler';
-
-// TODO normalize location.href - trailing and double slashes, possible with history replace
 
 /**
  * It maps view URLs to API and vice versa.
@@ -45,7 +42,7 @@ export class ApiLocation implements NavigationHandler {
    */
   set url(url: string) {
     // Normalize
-    url = normalizeUrl(url);
+    url = this.location.normalize(url);
 
     // Navigate only on change
     if (url !== this.urlValue) {
