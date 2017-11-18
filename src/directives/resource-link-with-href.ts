@@ -40,12 +40,14 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       if (url) {
         // Use mapped url, since its internal link
         viewUrl = url;
+      } else {
+        unsupported = true;
       }
     }
 
     // Store mapped URL to href
-    this.href = this.apiLocation.prepareExternalUrl(viewUrl);
     this.unsupported = unsupported;
+    this.href = unsupported ? viewUrl : this.apiLocation.prepareExternalUrl(viewUrl);
   }
 
   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])

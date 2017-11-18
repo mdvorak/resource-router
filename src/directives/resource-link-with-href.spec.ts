@@ -117,7 +117,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       expect(location.go).not.toHaveBeenCalled();
     });
 
-    it('should change not handle click with other buttons', () => {
+    it('should not handle click with other mouse buttons', () => {
       comp.link = API_PREFIX + 'foo/bar';
       fixture.detectChanges();
 
@@ -164,6 +164,30 @@ describe(ResourceLinkWithHrefDirective.name, () => {
 
       // Verify
       expect(navigationMock.go).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
+      expect(location.go).not.toHaveBeenCalled();
+    });
+
+    it('should change location with external url', () => {
+      const navigationMock = createSpyNavigationHandler();
+
+      comp.link = 'http://another.example.com/foo/bar';
+      comp.target = navigationMock;
+      fixture.detectChanges();
+
+      // Note: We digest listeners manually, because we want to check handler return value
+      const onClickHandler = de.listeners.find(listener => listener.name === 'click');
+      if (!onClickHandler) {
+        throw new Error();
+      }
+
+      // Test
+      const cancel = onClickHandler.callback({button: 0});
+
+      // Verify
+      expect(de.nativeElement.getAttribute('href')).toBe('http://another.example.com/foo/bar');
+
+      expect(cancel).toBe(true);
+      expect(navigationMock.go).not.toHaveBeenCalled();
       expect(location.go).not.toHaveBeenCalled();
     });
   });
