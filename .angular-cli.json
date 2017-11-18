@@ -5,27 +5,27 @@
   },
   "apps": [
     {
-      "root": "example",
+      "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico"
+        "example/assets",
+        "example/favicon.ico"
       ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
+      "index": "example/index.html",
+      "main": "example/main.ts",
+      "polyfills": "example/polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "example/styles.css"
       ],
       "scripts": [],
-      "environmentSource": "environments/environment.ts",
+      "environmentSource": "example/environments/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "dev": "example/environments/environment.ts",
+        "prod": "example/environments/environment.prod.ts"
       }
     }
   ],
@@ -35,10 +35,6 @@
     }
   },
   "lint": [
-    {
-      "project": "src/tsconfig.lib.json",
-      "exclude": "**/node_modules/**"
-    },
     {
       "project": "src/tsconfig.app.json",
       "exclude": "**/node_modules/**"
@@ -58,7 +54,7 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
+    "styleExt": "css",
     "component": {}
   }
 }
