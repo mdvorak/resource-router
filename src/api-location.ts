@@ -13,7 +13,7 @@ import { NavigationHandler } from './navigation-handler';
 @Injectable()
 export class ApiLocation implements NavigationHandler {
 
-  private urlValue: string;
+  private urlValue = '';
 
   constructor(private apiUrlService: ApiMapper,
               private location: Location) {
