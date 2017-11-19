@@ -24,7 +24,13 @@ export class ApiMapper {
   constructor(@Inject(APP_API_PREFIX) prefix: string,
               location: Location) {
     // Normalize prefix
-    this.prefix = location.normalize(prefix) + '/';
+    this.prefix = location.normalize(prefix);
+
+    // Note: normalize strips trailing slash, but we want to keep it.
+    // But instead of duplicating normalize code, its easier to simply add it afterwards.
+    if (prefix.endsWith('/')) {
+      this.prefix += '/';
+    }
   }
 
   /**
