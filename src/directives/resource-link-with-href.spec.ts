@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { createClassSpyObj } from '../utils/class-spy.spec';
 import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
 import { MockLocationStrategy } from '@angular/common/testing';
+import { ApiUrl, BrowserApiUrl } from '../api-url';
 
 
 const API_PREFIX = 'http://example.com/';
@@ -59,6 +60,10 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         {
           provide: APP_API_PREFIX,
           useValue: API_PREFIX
+        },
+        {
+          provide: ApiUrl,
+          useClass: BrowserApiUrl
         },
         ApiMapper,
         ApiLocation,

@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { DOCUMENT, Location, LocationStrategy } from '@angular/common';
+import { ApiUrl } from './api-url';
 
 
 /**
@@ -16,34 +16,17 @@ export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
  */
 @Injectable()
 export class ApiMapper {
-  constructor(@Inject(APP_API_PREFIX) prefix: string,
-              @Inject(DOCUMENT) document: Document,
-              platformStrategy: LocationStrategy,
-              location: Location) {
-    // Normalize prefix
-    this.prefix = location.normalize(prefix);
-
-    // Note: normalize strips trailing slash, but we want to keep it.
-    // But instead of duplicating normalize code, its easier to simply add it afterwards.
-    if (prefix.endsWith('/')) {
-      this.prefix += '/';
-    }
-
-    // If prefix is relative, add base-href before it
-    if (this.prefix[0] !== '/') {
-      this.prefix = platformStrategy.getBaseHref() + prefix;
-    }
-
-    // Add host
-    if (!/^\w+:/.test(this.prefix)) {
-      this.prefix = `${document.location.protocol}//${document.location.host}${this.prefix}`;
-    }
-  }
 
   /**
    * API URL prefix. It's absolute URL, includes base href (if applicable).
    */
   readonly prefix: string;
+
+  constructor(apiUrl: ApiUrl,
+              @Inject(APP_API_PREFIX) prefix: string) {
+    // Normalize prefix
+    this.prefix = apiUrl.normalize(prefix);
+  }
 
   /**
    * Maps view path to resource URL. Can be overridden during configuration.
@@ -55,10 +38,6 @@ export class ApiMapper {
    * @returns {String} Resource url, for e.g. HTTP requests.
    */
   mapViewToApi(path: string): string {
-    if (typeof path !== 'string') {
-      throw new Error('path must be string');
-    }
-
     // This is for diagnostics only, but might be useful
     if (/^\w+:/.test(path)) {
       throw new Error('path must be relative');
@@ -83,12 +62,9 @@ export class ApiMapper {
    * @returns {String} View path.
    */
   mapApiToView(url: string): string | null {
-    if (typeof url !== 'string') {
-      throw new Error('url must be string');
-    }
-
     // Remove prefix
-    if (url && url.indexOf(this.prefix) === 0) {
+    if (url.startsWith(this.prefix)) {
+      // Strip prefix, prepend /, remove trailing /
       return '/' + url.substring(this.prefix.length).replace(/\/$/, '');
     }
 

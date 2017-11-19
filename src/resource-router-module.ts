@@ -22,6 +22,7 @@ import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
+import { ApiUrl, BrowserApiUrl } from './api-url';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOptions>('RESOURCE_ROUTER_CONFIGURATION');
@@ -98,6 +99,10 @@ export class ResourceRouterModule {
           ]
         },
         Location,
+        {
+          provide: ApiUrl,
+          useClass: BrowserApiUrl
+        },
         ApiMapper,
         ApiLocation,
         ResourceViewRegistry,
