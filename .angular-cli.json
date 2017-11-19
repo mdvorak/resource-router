@@ -25,6 +25,8 @@
       "environmentSource": "example/environments/environment.ts",
       "environments": {
         "dev": "example/environments/environment.ts",
+        "hash": "example/environments/environment.hash.ts",
+        "remote": "example/environments/environment.remote.ts",
         "prod": "example/environments/environment.prod.ts"
       }
     }

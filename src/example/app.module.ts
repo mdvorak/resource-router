@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { JsonComponent } from './components/json.component';
 import { SampleComponent } from './components/sample.component';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from './environments/environment';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     ResourceRouterModule.configure({
-      prefix: 'https://private-anon-5c8d0c0da6-resourcerouterexample.apiary-mock.com/api/',
-      useHash: true
+      prefix: environment.prefix,
+      useHash: environment.useHash
     }),
     ResourceRouterModule.forTypes([
       {

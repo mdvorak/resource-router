@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config=proxy.conf.json",
     "build": "ng build --target=production --env=prod --sourcemaps",
     "test": "ng test",
     "lint": "ng lint",

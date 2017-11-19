@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location, LocationStrategy } from '@angular/common';
 
 
 /**
@@ -16,12 +16,9 @@ export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
  */
 @Injectable()
 export class ApiMapper {
-  /**
-   * API URL prefix. It's absolute URL, includes base href (if applicable).
-   */
-  readonly prefix: string;
-
   constructor(@Inject(APP_API_PREFIX) prefix: string,
+              @Inject(DOCUMENT) document: Document,
+              platformStrategy: LocationStrategy,
               location: Location) {
     // Normalize prefix
     this.prefix = location.normalize(prefix);
@@ -31,7 +28,22 @@ export class ApiMapper {
     if (prefix.endsWith('/')) {
       this.prefix += '/';
     }
+
+    // If prefix is relative, add base-href before it
+    if (this.prefix[0] !== '/') {
+      this.prefix = platformStrategy.getBaseHref() + prefix;
+    }
+
+    // Add host
+    if (!/^\w+:/.test(this.prefix)) {
+      this.prefix = `${document.location.protocol}//${document.location.host}${this.prefix}`;
+    }
   }
+
+  /**
+   * API URL prefix. It's absolute URL, includes base href (if applicable).
+   */
+  readonly prefix: string;
 
   /**
    * Maps view path to resource URL. Can be overridden during configuration.

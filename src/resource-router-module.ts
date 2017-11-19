@@ -34,11 +34,18 @@ export interface ResourceRouterOptions {
   /**
    * Prefix for the URL. Can be base-relative, host-relative or absolute.
    * Always should however end with slash ('/').
+   *
+   * When using hash-bang navigation mode ({@link useHash}=true), this must be either full context path or absolute path.
+   * That is, either '/my/context/api/' or 'http://example.com/my/context/api'. Relative path 'api/' won't work.
+   *
+   * Another way is to set {@link APP_BASE_HREF} explicitly - HashLocationStrategy does not use <base> tag.
    */
   readonly prefix: string;
 
   /**
    * Enables hash-bang navigation mode. Default is HTML5 mode.
+   *
+   * Read {@link #prefix} details when setting to true.
    */
   readonly useHash?: boolean;
 
