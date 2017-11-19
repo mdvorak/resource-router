@@ -3,6 +3,11 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "./",
+    "paths": {
+      "angular-resource-router": [
+        "./"
+      ]
+    },
     "module": "commonjs",
     "target": "es5",
     "types": [
