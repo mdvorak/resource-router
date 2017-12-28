@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BaseApiUrl } from 'angular-resource-router';
+import { BaseApiUrl, LocationInfo } from 'angular-resource-router';
 
 @Injectable()
 export class MockApiUrl extends BaseApiUrl {
 
-  internalLocationRoot = 'http://localhost';
-  internalBaseHref = '/';
+  internalProtocol = 'http:';
+  internalHost = 'localhost';
+  internalPathname = '/';
+  internalBaseHref = '';
 
-  init(locationRoot: string, baseHref: string) {
-    this.internalLocationRoot = locationRoot;
+  init(protocol: string, host: string, pathname: string, baseHref: string) {
+    this.internalProtocol = protocol;
+    this.internalHost = host;
+    this.internalPathname = pathname;
     this.internalBaseHref = baseHref;
 
     return this;
@@ -18,7 +22,11 @@ export class MockApiUrl extends BaseApiUrl {
     return this.internalBaseHref;
   }
 
-  getLocationRoot(): string {
-    return this.internalLocationRoot;
+  getLocation(): LocationInfo {
+    return {
+      protocol: this.internalProtocol,
+      host: this.internalHost,
+      pathname: this.internalPathname
+    };
   }
 }

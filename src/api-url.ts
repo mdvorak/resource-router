@@ -1,50 +1,51 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT, LocationStrategy } from '@angular/common';
+import { LocationInfo, parseUrl } from './utils/parse-url';
 
-const ABSOLUTE_URL_PATTERN = /^\w+:/;
 
+/**
+ * Component for API URLs normalization.
+ * Takes in account base-href, location etc.
+ */
 export abstract class ApiUrl {
 
+  /**
+   * Normalizes the URL, using current base-href.
+   *
+   * @param {string} url URL to normalize. Might be relative, host-relative or protocol-relative.
+   * @returns {string} Normalized absolute URL.
+   */
   abstract normalize(url: string): string;
 
 }
 
+/**
+ * Generic implementation of ApiUrl.
+ * Default is BrowserApiUrl.
+ */
 export abstract class BaseApiUrl extends ApiUrl {
 
   normalize(url: string): string {
+    // Analyze given URL - returns null when invalid
+    const urlInfo = parseUrl(url);
+
     // Is url absolute?
-    if (ABSOLUTE_URL_PATTERN.test(url)) {
-      // If so, just return it
+    if (urlInfo && urlInfo.protocol) {
+      // If so, just return original
       return url;
     }
 
-    const baseHref = this.getBaseHref();
+    // Parse base
+    const base = parseUrl(this.getBaseHref());
+    const location = this.getLocation();
 
-    // If base href is absolute
-    if (ABSOLUTE_URL_PATTERN.test(baseHref)) {
-      // And if url is absolutely relative
-      if (url[0] === '/') {
-        // Extract location root from the base tag
-        // Note: we already tested url for being absolute, this should not return null
-        const baseRoot = (baseHref.match(/^(\w+:\/\/[^/]*)/) || [])[0];
-        // And combine it with the url
-        return baseRoot + url;
-      } else {
-        // Url is relative (does not start with /), combine it with base href and return
-        return baseHref + url;
-      }
-    } else if (url[0] !== '/') {
-      // Url is relative, prepend base href
-      url = baseHref + url;
-    }
+    // Relative paths must be combined, not replaced
+    // Note: if URL contains pathname, it cannot contain pathrelative
+    const pathrelative = !urlInfo.pathname ? (base.pathrelative || '') + (urlInfo.pathrelative || '') : '';
 
-    // Make sure we have leading slash (base href does not have to include one)
-    if (url[0] !== '/') {
-      url = '/' + url;
-    }
-
-    // Prepend protocol and host
-    return this.getLocationRoot() + url;
+    // Build
+    const n = {...location, ...base, ...urlInfo};
+    return `${n.protocol}//${n.host}${n.pathname}${pathrelative}`;
   }
 
   /**
@@ -55,12 +56,11 @@ export abstract class BaseApiUrl extends ApiUrl {
   abstract getBaseHref(): string;
 
   /**
-   * Returns protocol and host.
-   * Example: `https://localhost:4200`.
+   * Returns current location. It is used to resolve baseHref.
    *
-   * @returns {string} Protocol and host as `protocol://host:port`.
+   * @returns {LocationInfo} Context path of the application.
    */
-  abstract getLocationRoot(): string;
+  abstract getLocation(): LocationInfo;
 }
 
 @Injectable()
@@ -77,8 +77,7 @@ export class BrowserApiUrl extends BaseApiUrl {
     return this.platformStrategy.getBaseHref();
   }
 
-  getLocationRoot(): string {
-    const location = this.document.location;
-    return `${location.protocol}//${location.host}`;
+  getLocation(): LocationInfo {
+    return this.document.location;
   }
 }

@@ -6,7 +6,7 @@ describe(ApiUrl.name, () => {
 
   describe('without base-href', () => {
     beforeEach(() => {
-      apiUrl = new MockApiUrl().init('test://localhost:42', '');
+      apiUrl = new MockApiUrl().init('test:', 'localhost:42', '/', '');
     });
 
     it('should have prefix my/api/ resolved to test://localhost:42/my/api/', () => {
@@ -32,7 +32,7 @@ describe(ApiUrl.name, () => {
 
   describe('with base-href context/', () => {
     beforeEach(() => {
-      apiUrl = new MockApiUrl().init('test://localhost:42', 'context/');
+      apiUrl = new MockApiUrl().init('test:', 'localhost:42', '/', 'context/');
     });
 
     it('should have prefix my/api/ resolved to test://localhost:42/context/my/api/', () => {
@@ -58,7 +58,7 @@ describe(ApiUrl.name, () => {
 
   describe('with base-href context', () => {
     beforeEach(() => {
-      apiUrl = new MockApiUrl().init('test://localhost:42', 'context');
+      apiUrl = new MockApiUrl().init('test:', 'localhost:42', '/', 'context');
     });
 
     it('should have prefix my/api/ resolved to test://localhost:42/contextmy/api/', () => {
@@ -84,7 +84,7 @@ describe(ApiUrl.name, () => {
 
   describe('with base-href /context/', () => {
     beforeEach(() => {
-      apiUrl = new MockApiUrl().init('test://localhost:42', '/context/');
+      apiUrl = new MockApiUrl().init('test:', 'localhost:42', '/', '/context/');
     });
 
     it('should have prefix my/api/ resolved to test://localhost:42/context/my/api/', () => {
@@ -110,7 +110,7 @@ describe(ApiUrl.name, () => {
 
   describe('with base-href http://example.com/context/', () => {
     beforeEach(() => {
-      apiUrl = new MockApiUrl().init('test://localhost:42', 'http://example.com/context/');
+      apiUrl = new MockApiUrl().init('test:', 'localhost:42', '/', 'http://example.com/context/');
     });
 
     it('should have prefix my/api/ resolved to http://example.com/context/my/api/', () => {
@@ -123,7 +123,6 @@ describe(ApiUrl.name, () => {
       expect(value).toBe('http://example.com/my/api/');
     });
 
-    // TODO verify this is correct
     it('should have prefix //some.example.com/my/api/ resolved to http://some.example.com/my/api/', () => {
       const value = apiUrl.normalize('//some.example.com/my/api/');
       expect(value).toBe('http://some.example.com/my/api/');
@@ -137,7 +136,7 @@ describe(ApiUrl.name, () => {
 
   describe('with base-href //example.com/context/', () => {
     beforeEach(() => {
-      apiUrl = new MockApiUrl().init('test://localhost:42', '//example.com/context/');
+      apiUrl = new MockApiUrl().init('test:', 'localhost:42', '/', '//example.com/context/');
     });
 
     it('should have prefix my/api/ resolved to test://example.com/context/my/api/', () => {
@@ -150,7 +149,7 @@ describe(ApiUrl.name, () => {
       expect(value).toBe('test://example.com/my/api/');
     });
 
-    // TODO verify this is correct
+    // TODO verify his is correct
     it('should have prefix //some.example.com/my/api/ resolved to test://some.example.com/my/api/', () => {
       const value = apiUrl.normalize('//some.example.com/my/api/');
       expect(value).toBe('test://some.example.com/my/api/');

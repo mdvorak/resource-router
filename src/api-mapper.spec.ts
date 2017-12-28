@@ -5,11 +5,11 @@ describe(ApiMapper.name, () => {
   let apiUrl: MockApiUrl;
 
   beforeEach(() => {
-    apiUrl = new MockApiUrl().init('http://example.com', '/context/');
+    apiUrl = new MockApiUrl().init('test:', 'example.com', '/', '/context/');
   });
 
   it('should have prefix my/api/ resolved to http://example.com/context/my/api/', () => {
     const apiMapper = new ApiMapper(apiUrl, 'my/api/');
-    expect(apiMapper.prefix).toBe('test://localhost:42/my/api/');
+    expect(apiMapper.prefix).toBe('test://example.com/context/my/api/');
   });
 });

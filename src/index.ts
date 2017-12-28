@@ -2,6 +2,7 @@ export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURAT
 export { ViewData } from './view-data';
 export { ViewDataLoader, HttpClientViewDataLoader } from './view-data-loader';
 export { ViewDef, Data, StatusType } from './view-definition';
+export { LocationInfo, parseUrl } from './utils/parse-url';
 export { ApiUrl, BaseApiUrl, BrowserApiUrl } from './api-url';
 export { ApiMapper, APP_API_PREFIX } from './api-mapper';
 export { ApiLocation } from './api-location';
