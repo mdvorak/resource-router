@@ -1,5 +1,5 @@
 {
-  "name": "angular-resource-router-project",
+  "name": "angular-resource-router",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,8 +13,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ng-packagr": "ng-packagr",
-    "prepackage": "ng lint && ng test --watch=false",
-    "package": "ng-packagr"
+    "prepackage": "ng lint",
+    "package": "ng-packagr && ng test --watch=false"
   },
   "dependencies": {
     "@angular/animations": "^4.4.6",
