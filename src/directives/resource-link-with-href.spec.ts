@@ -3,7 +3,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { TargetType } from './resource-link';
 import { Location, LocationStrategy } from '@angular/common';
-import { ApiMapper, APP_API_PREFIX } from '../api-mapper';
+import { ApiMapper } from '../api-mapper';
 import { NO_HEADERS, ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
@@ -12,6 +12,7 @@ import { createClassSpyObj } from '../utils/class-spy.spec';
 import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { ApiUrl, BrowserApiUrl } from '../api-url';
+import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
 
 
 const API_PREFIX = 'http://example.com/';
@@ -65,7 +66,10 @@ describe(ResourceLinkWithHrefDirective.name, () => {
           provide: ApiUrl,
           useClass: BrowserApiUrl
         },
-        ApiMapper,
+        {
+          provide: ApiMapper,
+          useClass: SingleApiMapper
+        },
         ApiLocation,
       ]
     });

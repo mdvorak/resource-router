@@ -1,14 +1,9 @@
 import {
-  APP_BASE_HREF,
-  CommonModule,
-  HashLocationStrategy,
-  Location,
-  LocationStrategy,
-  PathLocationStrategy,
+  APP_BASE_HREF, CommonModule, HashLocationStrategy, Location, LocationStrategy, PathLocationStrategy,
   PlatformLocation
 } from '@angular/common';
 import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
-import { ApiMapper, APP_API_PREFIX } from './api-mapper';
+import { ApiMapper } from './api-mapper';
 import { ApiLocation } from './api-location';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
 import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
@@ -23,6 +18,7 @@ import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 import { ApiUrl, BrowserApiUrl } from './api-url';
+import { APP_API_PREFIX, SingleApiMapper } from './single-api-mapper';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOptions>('RESOURCE_ROUTER_CONFIGURATION');
@@ -103,7 +99,10 @@ export class ResourceRouterModule {
           provide: ApiUrl,
           useClass: BrowserApiUrl
         },
-        ApiMapper,
+        {
+          provide: ApiMapper,
+          useClass: SingleApiMapper
+        },
         ApiLocation,
         ResourceViewRegistry,
         {

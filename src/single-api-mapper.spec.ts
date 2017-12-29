@@ -1,7 +1,7 @@
-import { ApiMapper } from './api-mapper';
 import { MockApiUrl } from './testing/src/mock-api-url';
+import { SingleApiMapper } from './single-api-mapper';
 
-describe(ApiMapper.name, () => {
+describe(SingleApiMapper.name, () => {
   let apiUrl: MockApiUrl;
 
   beforeEach(() => {
@@ -9,7 +9,7 @@ describe(ApiMapper.name, () => {
   });
 
   it('should have prefix my/api/ resolved to http://example.com/context/my/api/', () => {
-    const apiMapper = new ApiMapper(apiUrl, 'my/api/');
+    const apiMapper = new SingleApiMapper(apiUrl, 'my/api/');
     expect(apiMapper.prefix).toBe('test://example.com/context/my/api/');
   });
 });

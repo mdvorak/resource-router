@@ -14,7 +14,7 @@ export class ApiLocation implements NavigationHandler {
 
   private urlValue = '';
 
-  constructor(private apiUrlService: ApiMapper,
+  constructor(private apiMapper: ApiMapper,
               private location: Location) {
     // Initialize
     this.urlValue = this.mapLocationUrlToApi();
@@ -65,9 +65,9 @@ export class ApiLocation implements NavigationHandler {
     }
 
     // Map API url to View form
-    const path = this.apiUrlService.mapApiToView(url);
+    const path = this.apiMapper.mapApiToView(url);
     if (!path) {
-      throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to the API prefix '${this.apiUrlService.prefix}'`);
+      throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to known API prefix`);
     }
 
     // Navigate
@@ -116,7 +116,7 @@ export class ApiLocation implements NavigationHandler {
    */
   protected mapLocationUrlToApi() {
     const path = this.location.path();
-    return this.apiUrlService.mapViewToApi(path);
+    return this.apiMapper.mapViewToApi(path);
   }
 
   /**
