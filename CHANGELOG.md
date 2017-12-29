@@ -9,6 +9,7 @@ Moved from gulp custom build script to [ng-packagr](https://github.com/dherges/n
 * Upgraded to use `HttpClient` instead of deprecated `Http`
 * Refactored `ApiMapper` component - there is now `ApiUrl` and `ApiMapper` abstract classes, 
   with default implementations.
+* Typescript 2.3 (newer is not supported by Angular 4.x)
 
 ### Bug Fixes
 
