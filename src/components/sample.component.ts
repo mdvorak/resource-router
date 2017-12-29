@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewData } from '../../../public_api';
+import { ViewData } from '../../lib/public_api';
 
 
 export interface SampleData {

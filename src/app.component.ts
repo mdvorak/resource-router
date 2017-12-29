@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiLocation } from '../../public_api';
+import { ApiLocation } from '../lib/public_api';
 
 @Component({
   selector: 'app-root',

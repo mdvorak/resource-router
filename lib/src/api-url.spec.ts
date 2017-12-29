@@ -1,4 +1,4 @@
-import { MockApiUrl } from './testing/src/mock-api-url';
+import { MockApiUrl } from '../testing/src/mock-api-url';
 import { ApiUrl } from './api-url';
 
 describe(ApiUrl.name, () => {

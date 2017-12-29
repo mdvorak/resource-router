@@ -61,14 +61,27 @@ export class ExampleModule {
 
 TODO
 
+## Development
+
+TODO this is cumbersome but there seems to be no way around it atm.
+
+Run `npm run ng-packagr` once, but it will fail. 
+After that, run `npm link dist\angular-resource-router && npm link angular-resource-router`.
+Build should be working after that. Final build should be performed with
+```
+npm package
+```
+and can be published with
+```
+npm publish dist/angular-resource-router
+```
 
 ## TODO
 
 Things that are yet to be implemented
 
 * Complete README
-* <s>Support view matching by HTTP status codes</s>
-* Complete example and make it available online
+* Complete example
 * Support for `resolve` and `data` route configs
 * Support for <s>outlet layouts</s>, outlet resolve
 * Outlet context data (name etc)
@@ -76,6 +89,4 @@ Things that are yet to be implemented
 * Hide element if empty link
 * External navigation for unknown type
 * Build and publish docs
-* <s>Travis integration</s>
-* <s>Move to gulp, package.json became unreadable</s>
 * Typedoc

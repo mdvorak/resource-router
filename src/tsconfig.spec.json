@@ -2,21 +2,21 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "baseUrl": "./",
-    "paths": {
-      "angular-resource-router": [
-        "./"
-      ]
-    },
+    "baseUrl": ".",
     "module": "commonjs",
     "target": "es5",
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "paths": {
+      "angular-resource-router": [
+        "../dist/angular-resource-router"
+      ]
+    }
   },
   "files": [
-    "test.ts"
+    "../test.ts"
   ],
   "include": [
     "**/*.spec.ts",

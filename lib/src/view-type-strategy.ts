@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { normalizeMediaType } from './normalize';
+import { normalizeMediaType } from './utils/normalize-media-type';
 import { HeadersAccessor } from './view-data';
 
 /**

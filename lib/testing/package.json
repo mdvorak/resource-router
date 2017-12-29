@@ -1,0 +1,11 @@
+{
+  "name": "angular-resource-router/testing",
+  "ngPackage": {
+    "$schema": "../../node_modules/ng-packagr/package.schema.json",
+    "lib": {
+      "umdModuleIds": {
+        "angular-resource-router": "angular-resource-router"
+      }
+    }
+  }
+}

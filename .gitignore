@@ -2,7 +2,7 @@
 /docs/
 /dist/
 /coverage/
-/example/dist/
+/src/dist/
 /index.d.ts
 /index.js
 /index.js.map

@@ -6,28 +6,28 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "dist/example",
       "assets": [
-        "example/assets",
-        "example/favicon.ico"
+        "assets",
+        "favicon.ico"
       ],
-      "index": "example/index.html",
-      "main": "example/main.ts",
-      "polyfills": "example/polyfills.ts",
-      "test": "test.ts",
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "example/styles.css"
+        "styles.css"
       ],
       "scripts": [],
-      "environmentSource": "example/environments/environment.ts",
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "dev": "example/environments/environment.ts",
-        "hash": "example/environments/environment.hash.ts",
-        "remote": "example/environments/environment.remote.ts",
-        "prod": "example/environments/environment.prod.ts"
+        "dev": "environments/environment.ts",
+        "hash": "environments/environment.hash.ts",
+        "remote": "environments/environment.remote.ts",
+        "prod": "environments/environment.prod.ts"
       }
     }
   ],

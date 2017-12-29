@@ -1,4 +1,4 @@
-import { MockApiUrl } from './testing/src/mock-api-url';
+import { MockApiUrl } from '../testing/src/mock-api-url';
 import { SingleApiMapper } from './single-api-mapper';
 
 describe(SingleApiMapper.name, () => {

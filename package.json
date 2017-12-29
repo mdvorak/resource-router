@@ -1,23 +1,7 @@
 {
-  "name": "angular-resource-router",
-  "version": "1.0.0",
-  "homepage": "https://github.com/mdvorak/resource-router",
-  "author": "Michal Dvorak",
-  "license": "MIT",
-  "description": "Angular router for RESTful clients",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mdvorak/resource-router.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mdvorak/resource-router/issues"
-  },
-  "keywords": [
-    "angular",
-    "router",
-    "hateoas",
-    "rest"
-  ],
+  "name": "angular-resource-router-project",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config=proxy.conf.json",
@@ -25,9 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr",
+    "ng-packagr": "ng-packagr",
     "prepackage": "ng lint && ng test --watch=false",
-    "package": "ng-packagr -p ng-package.json"
+    "package": "ng-packagr"
   },
   "dependencies": {
     "@angular/animations": "^4.4.6",
@@ -38,15 +22,14 @@
     "@angular/http": "^4.4.6",
     "@angular/platform-browser": "^4.4.6",
     "@angular/platform-browser-dynamic": "^4.4.6",
-    "@angular/router": "^4.4.6",
     "core-js": "^2.5.3",
-    "karma-phantomjs-launcher": "^1.0.4",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
     "@angular/cli": "1.4.9",
     "@angular/compiler-cli": "^4.4.6",
+    "@angular/router": "^4.4.6",
     "@angular/language-service": "^4.4.6",
     "@types/jasmine": "2.5.53",
     "@types/jasminewd2": "2.0.2",
@@ -58,6 +41,7 @@
     "karma-chrome-launcher": "2.1.1",
     "karma-cli": "1.0.1",
     "karma-coverage-istanbul-reporter": "1.2.1",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-detect-browsers": "2.2.6",
     "karma-edge-launcher": "0.4.2",
     "karma-firefox-launcher": "1.0.1",
