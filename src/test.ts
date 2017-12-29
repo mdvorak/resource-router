@@ -10,8 +10,8 @@ import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
-declare const __karma__: any;
-declare const require: any;
+declare var __karma__: any;
+declare var require: any;
 
 // Prevent Karma from running prematurely.
 __karma__.loaded = function () {
@@ -23,12 +23,8 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 // Then we find all the tests.
-const contextLib = require.context('./lib', true, /\.spec\.ts$/);
-contextLib.keys().map((x: any) => console.log(x));
-contextLib.keys().map(contextLib);
-
-// const contextApp = require.context('./src', true, /\.spec\.ts$/);
-// contextApp.keys().map(contextApp);
-
+const context = require.context('./', true, /\.spec\.ts$/);
+// And load the modules.
+context.keys().map(context);
 // Finally, start Karma to run the tests.
 __karma__.start();
