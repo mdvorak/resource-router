@@ -1,1 +1,1 @@
-export * from './src/mock-api-url';
+export * from './src/index';

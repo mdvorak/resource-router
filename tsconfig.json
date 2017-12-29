@@ -22,6 +22,9 @@
     "paths": {
       "angular-resource-router": [
         "dist/angular-resource-router"
+      ],
+      "angular-resource-router/testing": [
+        "dist/angular-resource-router/testing"
       ]
     }
   }

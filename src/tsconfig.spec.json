@@ -8,12 +8,7 @@
     "types": [
       "jasmine",
       "node"
-    ],
-    "paths": {
-      "angular-resource-router": [
-        "../dist/angular-resource-router"
-      ]
-    }
+    ]
   },
   "files": [
     "test.ts"

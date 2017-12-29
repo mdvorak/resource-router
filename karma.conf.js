@@ -35,9 +35,6 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    singleRun: false,
-    detectBrowsers: {
-      usePhantomJS: true
-    }
+    singleRun: false
   });
 };

@@ -5,7 +5,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config=proxy.conf.json",
-    "build": "ng build --target=production --env=prod --sourcemaps",
+    "prebuild": "ng lint",
+    "build": "ng-packagr",
+    "buildapp": "ng build --target=production --env=prod --sourcemaps",
+    "pretest": "ng-packagr",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

@@ -1,4 +1,4 @@
-import { MockApiUrl } from '../testing/src/mock-api-url';
+import { MockApiUrl } from 'angular-resource-router/testing';
 import { ApiUrl } from './api-url';
 
 describe(ApiUrl.name, () => {

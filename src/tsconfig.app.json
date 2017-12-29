@@ -4,15 +4,11 @@
     "outDir": "../out-tsc/app",
     "baseUrl": ".",
     "module": "es2015",
-    "types": [],
-    "paths": {
-      "angular-resource-router": [
-        "../dist/angular-resource-router"
-      ]
-    }
+    "types": []
   },
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "lib/testing/**"
   ]
 }
