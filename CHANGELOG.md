@@ -1,15 +1,19 @@
-<a name="1.0.0-alpha.13"></a>
-# [1.0.0-alpha.13](https://github.com/mdvorak/resource-router/compare/0...0) (2017-05-08)
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/mdvorak/resource-router/compare/0...0) (2017-12-30)
 
-Moving from gulp custom build script to ng-packagr.
+Bumping to 4.x, to match Angular version.
+Moved from gulp custom build script to [ng-packagr](https://github.com/dherges/ng-packagr).
 
 ### Breaking Changes
 
-TODO
+* Upgraded to use `HttpClient` instead of deprecated `Http`
+* Refactored `ApiMapper` component - there is now `ApiUrl` and `ApiMapper` abstract classes, 
+  with default implementations.
 
-### Features
+### Bug Fixes
 
-TODO
+* `[resourceLink]` should now properly handle external URLs (those that cannot be mapped to an API endpoint)
+* Various fixes with API prefixes and URL handling in general
 
 <a name="1.0.0-alpha.12"></a>
 # [1.0.0-alpha.12](https://github.com/mdvorak/resource-router/compare/d1ab3bca8ea40991ed7b5e09aad06de3c828e6a1...fd09fc783ff8966c15d8c02cc95dd0a66d8f99e0) (2017-04-22)
