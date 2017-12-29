@@ -11,6 +11,7 @@
 /src/**/*.js.map
 *.tar.gz
 *.tgz
+.ng_pkg_build/
 
 # Node and bower directories
 node_modules/
