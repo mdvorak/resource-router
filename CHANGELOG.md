@@ -1,5 +1,5 @@
 <a name="4.0.0"></a>
-# [4.0.0](https://github.com/mdvorak/resource-router/compare/0...0) (2017-12-30)
+# [4.0.0](https://github.com/mdvorak/resource-router/compare/v1.0.0-alpha.12...v4.0.0) (2017-12-30)
 
 Bumping to 4.x, to match Angular version.
 Moved from gulp custom build script to [ng-packagr](https://github.com/dherges/ng-packagr).
