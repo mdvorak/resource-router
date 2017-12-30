@@ -64,6 +64,12 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
   }
 
   set url(value: string) {
+    // This is needed check, since during runtime binding, we cannot be sure value isn't null
+    if (!value) {
+      value = '';
+    }
+
+    // Emit event if value has actually changed
     if (this.urlValue !== value) {
       this.urlValue = value;
       this.urlSubject.next(value);
