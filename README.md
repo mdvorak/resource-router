@@ -7,7 +7,7 @@ it displays configured view. It is a replacement for original [Angular Router](h
 
 The aim of this library is to allow building of RESTful clients using Angular, following [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle.
 
-See [changelog](CHANGELOG.md) for release changes.
+See [CHANGELOG](CHANGELOG.md) for release changes.
 
 ## Installation
 
@@ -63,17 +63,29 @@ TODO
 
 ## Development
 
-TODO this is cumbersome but there seems to be no way around it atm.
+Before development, run
+```
+npm run bootstrap
+```
+it will create necessary symlinks for build to pass.
 
-Run `npm run ng-packagr` once, but it will fail. 
-After that, run `npm link dist\angular-resource-router && npm link angular-resource-router`.
-Build should be working after that. Final build should be performed with
+### Library
+
+Build of the library is performed with
 ```
-npm package
+npm run build
 ```
-and can be published with
+
+After building, it can be published to NPM repository with
 ```
 npm publish dist/angular-resource-router
+```
+
+### Demo app
+
+Local development server can be started with
+```
+npm start
 ```
 
 ## TODO

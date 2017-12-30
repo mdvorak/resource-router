@@ -14,11 +14,8 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - mkdir -p dist/angular-resource-router
-  - cp src/lib/package.json dist/angular-resource-router/
-  - npm link dist/angular-resource-router
-  - npm link angular-resource-router
-  - npm run package
+  - npm run bootstrap
+  - npm run build
   - npm run buildapp
 
 before_cache:
