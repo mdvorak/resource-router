@@ -80,8 +80,8 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
 
   // noinspection JSMethodCanBeStatic
   protected parse(response: HttpResponse<string>, config: ViewDef): any | null {
-    // Don't parse null
-    if (response.body === null) {
+    // Don't parse empty body
+    if (!response.body) {
       return null;
     }
 
