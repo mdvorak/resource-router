@@ -1,9 +1,9 @@
-export interface NavigationHandler {
+export interface Navigable {
   url: string;
 
-  go(url: string): void;
+  navigate(url: string): void;
 }
 
-export function supportsNavigation(obj: any): obj is NavigationHandler {
-  return obj && typeof obj.go === 'function';
+export function supportsNavigation(obj: any): obj is Navigable {
+  return obj && typeof obj.navigate === 'function';
 }

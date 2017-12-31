@@ -13,7 +13,7 @@ export { ResourceOutletComponent } from './directives/resource-outlet';
 export { ResourceDataDirective } from './directives/resource-data';
 export { ResourceViewDirective } from './directives/resource-view';
 export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
-export { NavigationHandler, supportsNavigation } from './navigation-handler';
+export { Navigable, supportsNavigation } from './navigation-handler';
 export { normalizeMediaType } from './utils/normalize-media-type';
 export * from './system-media-types';
 export { ViewTypeStrategy, HeaderViewTypeStrategy } from './view-type-strategy';

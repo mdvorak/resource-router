@@ -1,13 +1,13 @@
 import { Directive, HostListener, Input, Optional } from '@angular/core';
 import { ViewData } from '../view-data';
-import { NavigationHandler, supportsNavigation } from '../navigation-handler';
+import { Navigable, supportsNavigation } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
 
 
 export const TARGET_SELF = '_self';
 export const TARGET_TOP = '_top';
 
-export type TargetType = NavigationHandler | typeof TARGET_SELF | typeof TARGET_TOP;
+export type TargetType = Navigable | typeof TARGET_SELF | typeof TARGET_TOP;
 
 
 /**
@@ -48,7 +48,7 @@ export class ResourceLinkDirective {
 
     // Navigate
     if (supportsNavigation(target)) {
-      target.go(this.resourceLink);
+      target.navigate(this.resourceLink);
     }
 
     // And cancel click

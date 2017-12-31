@@ -74,11 +74,11 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
     // Custom target
     if (supportsNavigation(target)) {
       // Navigate using original non-mapped link
-      target.go(this.resourceLink);
+      target.navigate(this.resourceLink);
       return false;
     } else {
       // Default - navigate using page location
-      this.apiLocation.go(this.resourceLink);
+      this.apiLocation.navigate(this.resourceLink);
       return false;
     }
   }

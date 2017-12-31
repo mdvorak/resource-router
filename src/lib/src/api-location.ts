@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { NavigationHandler } from './navigation-handler';
+import { Navigable } from './navigation-handler';
 
 // TODO normalize URL, using LocationStrategy
 
@@ -10,7 +10,7 @@ import { NavigationHandler } from './navigation-handler';
  * Provides bindable `url` property, to be used with `resource-outlet` component.
  */
 @Injectable()
-export class ApiLocation implements NavigationHandler {
+export class ApiLocation implements Navigable {
 
   private urlValue = '';
 
@@ -49,7 +49,7 @@ export class ApiLocation implements NavigationHandler {
     // Navigate only on change
     if (url !== this.urlValue) {
       // Note: This also sets urlValue to correct value
-      this.go(url);
+      this.navigate(url);
     }
   }
 
@@ -59,7 +59,7 @@ export class ApiLocation implements NavigationHandler {
    *
    * @param url API url to navigate to. Cannot be null.
    */
-  go(url: string): void {
+  navigate(url: string): void {
     if (typeof url !== 'string') {
       throw new Error('url must be a string');
     }

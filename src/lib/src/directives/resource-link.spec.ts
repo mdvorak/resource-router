@@ -5,7 +5,7 @@ import { ResourceLinkDirective, TargetType } from './resource-link';
 import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
 import { ViewData } from '../view-data';
-import { NavigationHandler } from '../navigation-handler';
+import { Navigable } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
 import { createClassSpyObj } from '../utils/class-spy.spec';
@@ -30,8 +30,8 @@ class TestComponent {
   target?: TargetType;
 }
 
-function createSpyNavigationHandler() {
-  return jasmine.createSpyObj<NavigationHandler>('navigation', ['go']);
+function createSpyNavigable() {
+  return jasmine.createSpyObj<Navigable>('navigation', ['navigate']);
 }
 
 describe(ResourceLinkDirective.name, () => {
@@ -146,7 +146,7 @@ describe(ResourceLinkDirective.name, () => {
 
     it('should navigate onClick with explicit target', () => {
       mockLocationStrategy.internalPath = '/init';
-      const navigationMock = createSpyNavigationHandler();
+      const navigationMock = createSpyNavigable();
 
       comp.link = API_PREFIX + 'foo/bar';
       comp.target = navigationMock;
@@ -156,18 +156,18 @@ describe(ResourceLinkDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(navigationMock.go).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
+      expect(navigationMock.navigate).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
       expect(mockLocationStrategy.internalPath).toBe('/init');
     });
   });
 
   // With declared ViewData (typically inside resource-view directive)
   describe('with ViewData', () => {
-    let navigationMock: NavigationHandler;
+    let navigationMock: Navigable;
 
     // Declare ViewData for DI
     beforeEach(async(() => {
-      navigationMock = createSpyNavigationHandler();
+      navigationMock = createSpyNavigable();
 
       return TestBed.configureTestingModule({
         providers: [

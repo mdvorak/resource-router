@@ -3,7 +3,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { ViewDataLoader } from '../view-data-loader';
 import { ViewData } from '../view-data';
-import { NavigationHandler } from '../navigation-handler';
+import { Navigable } from '../navigation-handler';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from '../system-media-types';
 import { Subject } from 'rxjs/Subject';
@@ -19,7 +19,7 @@ export class ResourceDataContext {
 @Directive({
   selector: '[resourceData][resourceDataOf]'
 })
-export class ResourceDataDirective implements OnInit, NavigationHandler {
+export class ResourceDataDirective implements OnInit, Navigable {
 
   @Output()
   readonly urlChange = new EventEmitter<string>();
@@ -96,7 +96,7 @@ export class ResourceDataDirective implements OnInit, NavigationHandler {
     this.viewContainer.createEmbeddedView(this.templateRef, this.context);
   }
 
-  go(url: string): void {
+  navigate(url: string): void {
     // Update property if changed
     if (this.urlValue !== url) {
       this.urlValue = url;
