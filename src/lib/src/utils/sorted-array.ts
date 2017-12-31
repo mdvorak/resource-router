@@ -12,7 +12,7 @@ export class SortedArray<T> {
   /**
    * Inserts the value while maintaining order defined by the comparer.
    *
-   * @param value
+   * @param value Inserted value.
    */
   push(value: T) {
     const i = insertLocation(value, this.array, this.comparer);
@@ -25,7 +25,7 @@ export class SortedArray<T> {
  *
  * @param a First value to be compared.
  * @param b Second value to be compared.
- * @returns {number} 0 if elements equals, -1 if a < b, 1 otherwise.
+ * @returns 0 if elements equals, -1 if a < b, 1 otherwise.
  */
 export function defaultComparer<T>(a: T, b: T) {
   if (a === b) {

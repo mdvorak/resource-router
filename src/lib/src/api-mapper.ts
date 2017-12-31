@@ -9,8 +9,8 @@ export abstract class ApiMapper {
    *
    * Counterpart to {@link #mapApiToView}.
    *
-   * @param {String} path View path, as in `$location.path()`.
-   * @returns {String} Resource url, for e.g. HTTP requests.
+   * @param path View path, as in `$location.path()`.
+   * @returns Resource url, for e.g. HTTP requests.
    */
   abstract mapViewToApi(path: string): string;
 
@@ -20,9 +20,9 @@ export abstract class ApiMapper {
    *
    * Counterpart to {@link #mapViewToApi}.
    *
-   * @param {String} url Resource url. It must be inside API namespace. If it is not, `null` is returned.
+   * @param url Resource url. It must be inside API namespace. If it is not, `null` is returned.
    *                     <p>If the url equals to api prefix, empty string is returned.</p>
-   * @returns {String} View path.
+   * @returns View path.
    */
   abstract mapApiToView(url: string): string | null;
 }

@@ -10,8 +10,8 @@ export type TypeQualityEvaluator = (type: string) => number;
  * 0.5 for types containing wildcard (like 'aaa/*')
  * 1 for types without wildcard characters.
  *
- * @param {string} type
- * @returns {number}
+ * @param type Type to evaluate.
+ * @returns Quality, in range between 0.0 and 1.0
  */
 export function simpleTypeQualityEvaluator(type: string): number {
   // Any type is zero
@@ -32,8 +32,8 @@ export function simpleTypeQualityEvaluator(type: string): number {
  *
  * This function assumes all status strings has constant length. Otherwise values would be inconsistent.
  *
- * @param {string} status
- * @returns {number}
+ * @param status Status to evaluate.
+ * @returns Quality, in range between 0.0 and 1.0
  */
 export function statusQualityEvaluator(status: string): number {
   const m = status.match(/\d/g);

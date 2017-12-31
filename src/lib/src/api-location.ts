@@ -87,7 +87,7 @@ export class ApiLocation implements Navigable {
    * This is just wrapper around {@link Location#prepareExternalUrl()} for convenience.
    *
    * @param url URL to be normalized for the link.
-   * @returns {string} Normalized URL.
+   * @returns Normalized URL.
    */
   prepareExternalUrl(url: string): string {
     return this.location.prepareExternalUrl(url);
@@ -112,7 +112,7 @@ export class ApiLocation implements Navigable {
    * Takes current {@link Location#path()} and maps it to API url.
    * Might throw an {@link Error} if path() returns something unexpected, like null.
    *
-   * @returns {string} Mapped url. Never null.
+   * @returns Mapped url. Never null.
    */
   protected mapLocationUrlToApi() {
     const path = this.location.path();

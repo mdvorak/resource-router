@@ -10,7 +10,7 @@
  * ```
  *
  * @param wildcard Wildcard pattern, supports `?` and `*` characters.
- * @returns {RegExp}
+ * @returns Compiled RegExp.
  */
 export function wildcardToRegex(wildcard: string): RegExp {
   return new RegExp(
@@ -24,7 +24,7 @@ export function wildcardToRegex(wildcard: string): RegExp {
  * Converts any string to regular expression, which matches it. Handles special RegExp characters.
  *
  * @param s Any string.
- * @returns {string} Regular expression pattern.
+ * @returns Regular expression pattern.
  */
 export function escapeRegExpPattern(s: string): string {
   return s.replace(/([-()\[\]{}+.$\^|:#<>!\\=,*?])/g, '\\$1')

@@ -26,8 +26,8 @@ export abstract class ViewTypeStrategy {
    * Extracts type from the server response, understandable by application.
    * Default implementation uses `Content-Type` header.
    *
-   * @param {ViewTypeResponse} response Actual response.
-   * @returns {string} Found response type. Null if not found.
+   * @param response Actual response.
+   * @returns Found response type. Null if not found.
    */
   abstract extractType(response: ViewTypeResponse): string | null;
 }

@@ -20,9 +20,9 @@ export abstract class ViewDataLoader {
   /**
    * Retrieves the data.
    *
-   * @param {string} uri URI the data should be retrieved from. Usually it is URL for HTTP request.
-   * @param {Navigable} source Navigable instance, to be passed to ViewData constructor.
-   * @returns {Observable<ViewData<any>>} Retrieved ViewData instance.
+   * @param uri URI the data should be retrieved from. Usually it is URL for HTTP request.
+   * @param source Navigable instance, to be passed to ViewData constructor.
+   * @returns Retrieved ViewData instance.
    */
   abstract fetch(uri: string, source: Navigable): Observable<ViewData<any>>;
 
