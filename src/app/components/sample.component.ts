@@ -24,7 +24,7 @@ export interface SampleData {
     <input id="age" name="age" type="number" [(ngModel)]="data.age">
   </form>
 
-  <a [resourceLink]="data?._links?.next?.href">{{data?._links?.next?.title}}</a>`
+  <a *ngIf="data?._links?.next as link" [resourceLink]="link.href">{{link.title}}</a>`
 })
 export class SampleComponent implements OnInit {
 
