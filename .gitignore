@@ -13,6 +13,8 @@
 *.tgz
 .ng_pkg_build/
 
+!/src/typings.d.ts
+
 # Node and bower directories
 node_modules/
 bower_components/
