@@ -3,15 +3,15 @@ import { ReadOnlyHeaders } from './read-only-headers';
 import { Navigable } from './navigable';
 
 
-export class ViewData<T> {
+export interface ViewData<T> {
 
-  constructor(public readonly source: Navigable,
-              public readonly config: ViewDef,
-              public readonly type: string,
-              public readonly url: string,
-              public readonly status: number,
-              public readonly statusText: string | null,
-              public readonly headers: ReadOnlyHeaders,
-              public readonly body: T) {
-  }
+  readonly source: Navigable;
+  readonly config: ViewDef;
+  readonly type: string;
+  readonly url: string;
+  readonly status: number;
+  readonly statusText: string | null;
+  readonly headers: ReadOnlyHeaders;
+  readonly body: T;
+
 }

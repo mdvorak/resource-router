@@ -110,6 +110,16 @@ export class ResourceDataDirective implements OnInit, Navigable {
 
   private mockView(url: string, type: string, status: number, statusText: string, body?: any): ViewData<any> {
     const config = this.registry.match(type, status);
-    return new ViewData<any>(this, config, type, url, status, statusText, NO_HEADERS, body);
+
+    return {
+      source: this,
+      config: config,
+      type: type,
+      url: url,
+      status: status,
+      statusText: statusText,
+      headers: NO_HEADERS,
+      body: body
+    };
   }
 }

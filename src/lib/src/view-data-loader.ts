@@ -66,16 +66,16 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
     const body = this.parse(response, config);
 
     // Construct and return ViewData
-    return new ViewData<any>(
-      source,
-      config,
-      type,
-      response.url || requestUrl,
-      response.status,
-      response.statusText,
-      response.headers,
-      body,
-    );
+    return {
+      source: source,
+      config: config,
+      type: type,
+      url: response.url || requestUrl,
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+      body: body,
+    };
   }
 
   // noinspection JSMethodCanBeStatic

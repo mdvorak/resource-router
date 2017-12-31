@@ -225,10 +225,16 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     beforeEach(async(() => {
       navigationMock = createSpyNavigable();
 
-      viewData = new ViewData<any>(navigationMock, {
+      viewData = {
+        source: navigationMock,
+        config: {type: 'test', component: TestComponent},
         type: 'test',
-        component: TestComponent
-      }, 'test', '', 0, '', NO_HEADERS, undefined);
+        url: '',
+        status: 0,
+        statusText: '',
+        headers: NO_HEADERS,
+        body: undefined,
+      };
       viewDataSubject = new BehaviorSubject(viewData);
 
       return TestBed.configureTestingModule({
