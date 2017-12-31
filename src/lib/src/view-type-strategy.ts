@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { normalizeMediaType } from './utils/normalize-media-type';
-import { ReadOnlyHeaders } from './view-data';
+import { ReadOnlyHeaders } from './read-only-headers';
 
 /**
  * Helper interface with subset of HttpResponse fields, for better abstraction.

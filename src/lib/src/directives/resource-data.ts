@@ -2,11 +2,12 @@ import { Directive, EventEmitter, Input, OnInit, Output, TemplateRef, ViewContai
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { ViewDataLoader } from '../view-data-loader';
-import { NO_HEADERS, ViewData } from '../view-data';
+import { ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from '../system-media-types';
 import { Subject } from 'rxjs/Subject';
+import { NO_HEADERS } from '../read-only-headers';
 
 
 export class ResourceDataContext {

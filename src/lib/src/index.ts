@@ -1,4 +1,5 @@
 export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURATION } from './resource-router-module';
+export { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 export { ViewData } from './view-data';
 export { ViewDataLoader, HttpClientViewDataLoader } from './view-data-loader';
 export { ViewDef, Data, StatusType } from './view-definition';

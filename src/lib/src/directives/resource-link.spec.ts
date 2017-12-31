@@ -4,7 +4,7 @@ import { ResourceViewRegistry } from '../resource-view-registry';
 import { ResourceLinkDirective, TargetType } from './resource-link';
 import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
-import { NO_HEADERS, ViewData } from '../view-data';
+import { ViewData } from '../view-data';
 import { NavigationHandler } from '../navigation-handler';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import { createClassSpyObj } from '../utils/class-spy.spec';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { ApiUrl, BrowserApiUrl } from '../api-url';
 import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
+import { NO_HEADERS } from '../read-only-headers';
 
 
 const API_PREFIX = 'http://example.com/';
