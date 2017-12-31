@@ -1,6 +1,5 @@
 /**
  * Cross-site scripting prefix. Copied from HttpXhrBackend.
- * @type {RegExp}
  */
 const XSSI_PREFIX = /^\)]}',?\n/;
 
@@ -8,8 +7,8 @@ const XSSI_PREFIX = /^\)]}',?\n/;
  * Parses text as JSON, removing XSSI prefix, if present.
  * Follows Angular internal JSON handling.
  *
- * @param {string} input Source string.
- * @returns {any} Parsed object.
+ * @param input Source string.
+ * @returns Parsed object.
  */
 export function stringToJSON(input: string): any {
   // Attempt the parse. If it fails, a parse error should be delivered to the user.

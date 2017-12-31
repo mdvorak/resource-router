@@ -22,8 +22,6 @@ export interface ReadOnlyHeaders {
 
 /**
  * Dummy implementation of ReadOnlyHeaders that never returns anything.
- *
- * @type ReadOnlyHeaders
  */
 export const NO_HEADERS: ReadOnlyHeaders = {
   has(name: string): boolean {

@@ -13,8 +13,8 @@ export interface UrlInfo extends LocationInfo {
 /**
  * Rough URL parser.
  *
- * @param {string} url URL to be parsed. Must be well-formed.
- * @returns {LocationInfo | null} Parsed object or null for relative
+ * @param url URL to be parsed. Must be well-formed.
+ * @returns Parsed object or null for relative
  */
 export function parseUrl(url: string): UrlInfo {
   const match = url.match(URL_PATTERN);

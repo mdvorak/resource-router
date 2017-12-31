@@ -12,8 +12,8 @@ export abstract class ApiUrl {
   /**
    * Normalizes the URL, using current base-href.
    *
-   * @param {string} url URL to normalize. Might be relative, host-relative or protocol-relative.
-   * @returns {string} Normalized absolute URL.
+   * @param url URL to normalize. Might be relative, host-relative or protocol-relative.
+   * @returns Normalized absolute URL.
    */
   abstract normalize(url: string): string;
 
@@ -51,14 +51,14 @@ export abstract class BaseApiUrl extends ApiUrl {
   /**
    * Returns base href.
    *
-   * @returns {string} Context path of the application. Protocol and host excluded.
+   * @returns Context path of the application. Protocol and host excluded.
    */
   abstract getBaseHref(): string;
 
   /**
    * Returns current location. It is used to resolve baseHref.
    *
-   * @returns {LocationInfo} Context path of the application.
+   * @returns Context path of the application.
    */
   abstract getLocation(): LocationInfo;
 }
@@ -68,7 +68,7 @@ export class BrowserApiUrl extends BaseApiUrl {
 
   constructor(private platformStrategy: LocationStrategy,
               @Inject(DOCUMENT)
-              private document: Document) {
+              private document: any) {
     super();
   }
 

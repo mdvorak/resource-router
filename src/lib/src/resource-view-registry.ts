@@ -238,7 +238,7 @@ function qualityComparator(a: { quality: number }, b: { quality: number }) {
  * Returns value if it is array, otherwise it wraps the value in the array.
  *
  * @param value Single value or array of values.
- * @returns {T[]} Array or values.
+ * @returns Array or values.
  */
 function toArray<T>(value: T | T[]): Array<T> {
   return Array.isArray(value) ? value as T[] : [value] as T[];

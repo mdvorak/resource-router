@@ -6,8 +6,6 @@ import { ApiMapper } from './api-mapper';
 /**
  * Prefix for the URL. Can be base-relative, host-relative or absolute.
  * Always should however end with slash ('/').
- *
- * @type {InjectionToken<string>}
  */
 export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
 
