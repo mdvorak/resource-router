@@ -37,6 +37,7 @@ export function parseUrl(url: string): UrlInfo {
       info.pathname = match[3];
     }
 
+    // Return built object
     return info;
   } else if (url [0] === '/') {
     // Absolute url

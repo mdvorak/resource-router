@@ -1,7 +1,7 @@
 import { Directive, HostListener, Input, Optional } from '@angular/core';
-import { ViewData } from '../view-data';
-import { Navigable, supportsNavigation } from '../navigation-handler';
+import { Navigable, supportsNavigation } from '../navigable';
 import { ApiLocation } from '../api-location';
+import { ActivatedView } from '../activated-view';
 
 
 export const TARGET_SELF = '_self';
@@ -23,7 +23,7 @@ export class ResourceLinkDirective {
   @Input() target?: TargetType;
 
   constructor(private apiLocation: ApiLocation,
-              @Optional() private view?: ViewData<any>) {
+              @Optional() private view?: ActivatedView<any>) {
   }
 
   @HostListener('click')

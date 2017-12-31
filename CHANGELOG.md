@@ -1,3 +1,28 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2017-12-31)
+
+Changed data used in components to reactive pattern, which allows reuse of created view components.
+From now on, component should be initialized as follows:
+```
+@Component(...)
+export class SampleComponent {
+
+  public data: MyData;
+
+  constructor(public view: ActivatedView<MyData>) {
+  }
+
+  ngOnInit(): void {
+    this.view.data.subscribe(data => this.data = data.body);
+  }
+}
+```
+
+
+### Breaking Changes
+
+* `ViewData` is no longer available for injection, use `ActivatedView` instead
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/mdvorak/resource-router/compare/v1.0.0-alpha.12...v4.0.0) (2017-12-30)
 

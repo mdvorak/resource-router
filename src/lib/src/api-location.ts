@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { Navigable } from './navigation-handler';
+import { Navigable } from './navigable';
 
 // TODO normalize URL, using LocationStrategy
 

@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { ViewData } from '../../lib/public_api';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedView } from '../../lib/public_api';
 
 export interface SampleData {
 
@@ -27,11 +26,14 @@ export interface SampleData {
 
   <a [resourceLink]="data?._links?.next?.href">{{data?._links?.next?.title}}</a>`
 })
-export class SampleComponent {
+export class SampleComponent implements OnInit {
 
-  data?: SampleData;
+  data: SampleData;
 
-  constructor(public viewData: ViewData<SampleData>) {
-    this.data = viewData.body;
+  constructor(public view: ActivatedView<SampleData>) {
+  }
+
+  ngOnInit(): void {
+    this.view.data.subscribe(data => this.data = data.body);
   }
 }

@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
-import { ViewData } from '../../lib/public_api';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedView } from '../../lib/public_api';
 
 @Component({
-  template: `<h2>JSON {{data.type}}</h2>
-  <pre>{{data.body | json}}</pre>
+  template: `<h2>JSON {{viewData.type}}</h2>
+  <pre>{{viewData.body | json}}</pre>
 
-  <a *ngIf="data.body?._links?.self as link"
+  <a *ngIf="viewData.body?._links?.self as link"
      [resourceLink]="link.href" [type]="link.type" target="_self">{{link.title}}</a>
 
-  <!-- TODO data.target -->
   <button type="button"
-          *ngIf="data.body?._links?.self as link"
-          [resourceLink]="link.href" [target]="data.target">
+          *ngIf="viewData.body?._links?.self as link"
+          [resourceLink]="link.href" [target]="view.navigation">
     {{link.title}}
   </button>
   `
 })
-export class JsonComponent {
+export class JsonComponent implements OnInit {
 
-  constructor(public data: ViewData<any>) {
-    console.log(data);
+  viewData: any;
+
+  constructor(public view: ActivatedView<any>) {
+  }
+
+  ngOnInit(): void {
+    this.view.data.subscribe(data => this.viewData = data);
   }
 }

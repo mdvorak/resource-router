@@ -2,9 +2,9 @@ import { Directive, HostBinding, HostListener, Input, OnChanges, Optional } from
 import { TARGET_SELF, TARGET_TOP, TargetType } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { ViewData } from '../view-data';
-import { supportsNavigation } from '../navigation-handler';
+import { supportsNavigation } from '../navigable';
 import { ApiLocation } from '../api-location';
+import { ActivatedView } from '../activated-view';
 
 @Directive({selector: 'a[resourceLink]'})
 export class ResourceLinkWithHrefDirective implements OnChanges {
@@ -19,7 +19,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   constructor(private apiMapper: ApiMapper,
               private apiLocation: ApiLocation,
               private resourceViewRegistry: ResourceViewRegistry,
-              @Optional() private view?: ViewData<any>) {
+              @Optional() private view?: ActivatedView<any>) {
   }
 
   ngOnChanges(): void {

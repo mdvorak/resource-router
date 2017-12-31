@@ -5,7 +5,7 @@ import { ResourceLinkDirective, TargetType } from './resource-link';
 import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
 import { ViewData } from '../view-data';
-import { Navigable } from '../navigation-handler';
+import { Navigable } from '../navigable';
 import { ApiLocation } from '../api-location';
 import { By } from '@angular/platform-browser';
 import { createClassSpyObj } from '../utils/class-spy.spec';
@@ -13,6 +13,8 @@ import { MockLocationStrategy } from '@angular/common/testing';
 import { ApiUrl, BrowserApiUrl } from '../api-url';
 import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
 import { NO_HEADERS } from '../read-only-headers';
+import { ActivatedView } from '../activated-view';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 const API_PREFIX = 'http://example.com/';
@@ -76,8 +78,8 @@ describe(ResourceLinkDirective.name, () => {
     });
   }));
 
-  // Without declared ViewData (typically outside resource-view directive)
-  describe('without ViewData', () => {
+  // Without declared ActivatedView (typically outside resource-view directive)
+  describe('without ActivatedView', () => {
     beforeEach(async(inject([LocationStrategy], (locationStrategy: MockLocationStrategy) => {
       mockLocationStrategy = locationStrategy;
       fixture = TestBed.createComponent(TestComponent);
@@ -161,22 +163,28 @@ describe(ResourceLinkDirective.name, () => {
     });
   });
 
-  // With declared ViewData (typically inside resource-view directive)
-  describe('with ViewData', () => {
+  // With declared ActivatedView (typically inside resource-view directive)
+  describe('with ActivatedView', () => {
     let navigationMock: Navigable;
+
+    let viewData: ViewData<any>;
+    let viewDataSubject: BehaviorSubject<ViewData<any>>;
 
     // Declare ViewData for DI
     beforeEach(async(() => {
       navigationMock = createSpyNavigable();
 
+      viewData = new ViewData<any>(navigationMock, {
+        type: 'test',
+        component: TestComponent
+      }, 'test', '', 0, '', NO_HEADERS, undefined);
+      viewDataSubject = new BehaviorSubject(viewData);
+
       return TestBed.configureTestingModule({
         providers: [
           {
-            provide: ViewData,
-            useValue: new ViewData(navigationMock, {
-              type: 'test',
-              component: TestComponent
-            }, 'test', '', 0, '', NO_HEADERS)
+            provide: ActivatedView,
+            useValue: new ActivatedView(navigationMock, viewDataSubject)
           }
         ]
       });

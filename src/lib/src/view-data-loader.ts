@@ -8,7 +8,7 @@ import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
-import { Navigable } from './navigation-handler';
+import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
 
 
@@ -21,10 +21,10 @@ export abstract class ViewDataLoader {
    * Retrieves the data.
    *
    * @param {string} uri URI the data should be retrieved from. Usually it is URL for HTTP request.
-   * @param {Navigable} navigation Navigable instance, to be passed to ViewData constructor.
+   * @param {Navigable} source Navigable instance, to be passed to ViewData constructor.
    * @returns {Observable<ViewData<any>>} Retrieved ViewData instance.
    */
-  abstract fetch(uri: string, navigation: Navigable): Observable<ViewData<any>>;
+  abstract fetch(uri: string, source: Navigable): Observable<ViewData<any>>;
 
 }
 
@@ -40,14 +40,14 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
     super();
   }
 
-  fetch(uri: string, navigation: Navigable): Observable<ViewData<any>> {
+  fetch(uri: string, source: Navigable): Observable<ViewData<any>> {
     // Send request
     return this
       .get(uri)
       // Swallow errors, treat them as normal response
       .catch(response => Observable.of(response))
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
-      .map(response => this.resolve(uri, response, navigation));
+      .map(response => this.resolve(uri, response, source));
   }
 
   protected get(url: string): Observable<HttpResponse<string>> {
@@ -57,7 +57,7 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
     return this.http.get(url, {observe: 'response', responseType: 'text'});
   }
 
-  protected resolve(requestUrl: string, response: HttpResponse<string>, navigation: Navigable): ViewData<any> {
+  protected resolve(requestUrl: string, response: HttpResponse<string>, source: Navigable): ViewData<any> {
     // Resolve type, if possible
     const type = this.strategy.extractType(response) || '';
     // Find view
@@ -67,7 +67,7 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
 
     // Construct and return ViewData
     return new ViewData<any>(
-      navigation,
+      source,
       config,
       type,
       response.url || requestUrl,
