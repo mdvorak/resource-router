@@ -54,16 +54,18 @@ export interface ViewDef {
    * Usually it won't have to be overridden, since typical application configuration is to have many specific types
    * and one wildcard as the fallback view.
    *
-   * If undefined, it is calculated from type` by following rules:
+   * If undefined, it is calculated from type by following rules:
    * * Type equal to '*' has quality of `0.0`.
    * * Type with any wildcard has quality of `0.5`
    * * Type without wildcard has quality of `1.0`.
-   * * Number of wildcards is insignificant.
+   *
+   * Number of wildcard characters is insignificant.
    *
    * Otherwise it maintains order of definition (note that you should never rely on this across modules).
    *
-   * It is recommended to define views with low quality only on application module level, domain-specific modules
-   * should always match domain-specific types.
+   * It is recommended to define views with low quality (wildcards) only on application module level, domain-specific modules
+   * should always match domain-specific types. Defining it all across application makes it hard to maintain and application
+   * behavior might be non-deterministic.
    *
    * Example:
    * TODO show how same wildcards are treated and how to override quality.
