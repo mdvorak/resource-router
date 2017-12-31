@@ -83,7 +83,7 @@ export interface ViewDef {
   /**
    * Values that are passed to the view. These values are not resolved in any way - observables remains observables,
    * functions are not called.
-   * To have resolved data, use `resolve` value.
+   * To have resolved data, use `resolve` property.
    */
   readonly data?: Data;
 
