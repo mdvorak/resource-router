@@ -1,5 +1,5 @@
 import {
-  ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, ReflectiveInjector, SimpleChanges,
+  ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, OnChanges, SimpleChanges, StaticProvider,
   ViewContainerRef
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
@@ -78,13 +78,14 @@ export class ResourceViewDirective implements OnChanges {
 
     // Create component
     const factory = this.resolver.resolveComponentFactory(this.data.config.component);
-    const providers = ReflectiveInjector.resolve([
+    const providers: StaticProvider[] = [
       {
         provide: ActivatedView,
         useValue: new ActivatedView<any>(this.data.source, dataObservable)
       }
-    ]);
-    const injector = ReflectiveInjector.fromResolvedProviders(providers, this.viewContainer.parentInjector);
+    ];
+
+    const injector = Injector.create(providers, this.viewContainer.parentInjector);
     const component = this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
 
     // Store reference
