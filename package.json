@@ -17,6 +17,8 @@
     "lint": "ng lint",
     "predocs": "rimraf dist/docs",
     "docs": "compodoc -p src/tsconfig.doc.json -d dist/docs --disablePrivate src/lib",
+    "preghpages": "npm run docs",
+    "ghpages": "gh-pages -d dist/docs",
     "e2e": "ng e2e",
     "ng-packagr": "ng-packagr"
   },
@@ -45,6 +47,7 @@
     "ajv": "5.0.0",
     "codelyzer": "3.2.0",
     "cpr": "3.0.1",
+    "gh-pages": "1.1.0",
     "jasmine-core": "2.6.2",
     "jasmine-spec-reporter": "4.1.0",
     "karma": "1.7.1",
