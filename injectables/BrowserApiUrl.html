@@ -1,0 +1,886 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>angular-resource-router documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	    <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">angular-resource-router documentation</a>
+            <button type="button" class="btn btn-default btn-menu fa fa-bars" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+            <div id="book-search-input" role="search">
+                <input type="text" placeholder="Type to search">
+            </div>
+            <nav>
+            
+                <ul class="list">
+            
+                    <li class="title">
+                        <a href="../index.html">angular-resource-router documentation</a>
+                    </li>
+            
+                    <li class="divider"></li>
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../index.html"><span class="fa fa-home"></span>Getting started</a>
+                        <ul class="links">
+                                <li class="link">
+                                    <a 
+                                        
+                                         href="../overview.html" 
+                                         href="../overview.html" 
+                                        >
+                                        <span class="fa fa-th"></span>Overview
+                                    </a>
+                                </li>
+                                <li class="link">
+                                  <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
+                                </li>
+                                <li class="link">
+                                        <a href="../changelog.html"
+                                    >
+                                        <span class="fa fa-file-text-o"></span>CHANGELOG
+                                    </a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../modules.html" >
+                            <div class="menu-toggler linked" data-toggle="collapse"
+                                    data-target="#xs-modules-links"
+                            >
+                                <span class="fa fa-archive"></span>
+                                <span class="link-name">Modules</span>
+                                <span class="fa fa-angle-down"></span>
+                            </div>
+                        </a>
+                        <ul class="links collapse "
+                                id="xs-modules-links"
+                            >
+                                <li class="link">
+                                    <a href="../modules/ResourceRouterModule.html" >ResourceRouterModule</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-components-links"
+                            >
+                            <span class="fa fa-cogs"></span>
+                            <span>Components</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-components-links"
+                            >
+                                <li class="link">
+                                    <a href="../components/DefaultEmptyComponent.html" >DefaultEmptyComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/DefaultErrorComponent.html" >DefaultErrorComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResourceOutletComponent.html" >ResourceOutletComponent</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-directives-links"
+                            >
+                            <span class="fa fa-code"></span>
+                            <span>Directives</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-directives-links"
+                            >
+                                <li class="link">
+                                    <a href="../directives/ResourceDataDirective.html" >ResourceDataDirective</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../directives/ResourceLinkDirective.html" >ResourceLinkDirective</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../directives/ResourceLinkWithHrefDirective.html" >ResourceLinkWithHrefDirective</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../directives/ResourceViewDirective.html" >ResourceViewDirective</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-classes-links"
+                            >
+                            <span class="fa fa-file-code-o"></span>
+                            <span>Classes</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-classes-links"
+                            >
+                                <li class="link">
+                                    <a href="../classes/ApiMapper.html" >ApiMapper</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/ApiUrl.html" >ApiUrl</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/BaseApiUrl.html" >BaseApiUrl</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/ResourceDataContext.html" >ResourceDataContext</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/SortedArray.html" >SortedArray</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/ViewData.html" >ViewData</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/ViewDataLoader.html" >ViewDataLoader</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-injectables-links"
+                            >
+                            <span class="fa fa-long-arrow-down"></span>
+                            <span>Injectables</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-injectables-links"
+                            >
+                                <li class="link">
+                                    <a href="../injectables/ApiLocation.html" >ApiLocation</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/BrowserApiUrl.html"  data-type="entity-link" class="active" >BrowserApiUrl</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/HeaderViewTypeStrategy.html" >HeaderViewTypeStrategy</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/HttpClientViewDataLoader.html" >HttpClientViewDataLoader</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/MockApiUrl.html" >MockApiUrl</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/ResourceViewRegistry.html" >ResourceViewRegistry</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/SingleApiMapper.html" >SingleApiMapper</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-interfaces-links"
+                            >
+                            <span class="fa fa-info"></span>
+                            <span>Interfaces</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-interfaces-links"
+                            >
+                                <li class="link">
+                                    <a href="../interfaces/Data.html" >Data</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/LocationInfo.html" >LocationInfo</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/NavigationHandler.html" >NavigationHandler</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/ResourceRouterOptions.html" >ResourceRouterOptions</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/UrlInfo.html" >UrlInfo</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/ViewDef.html" >ViewDef</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../interfaces/ViewTypeResponse.html" >ViewTypeResponse</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-miscellaneous-links"
+                            >
+                            <span class="fa fa-cubes"></span>
+                            <span>Miscellaneous</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-miscellaneous-links"
+                            >
+                                <li class="link">
+                                  <a href="../miscellaneous/functions.html" data-type="entity-link" >Functions</a>
+                                </li>
+                                <li class="link">
+                                  <a href="../miscellaneous/typealiases.html" data-type="entity-link" >Type aliases</a>
+                                </li>
+                                <li class="link">
+                                  <a href="../miscellaneous/variables.html" data-type="entity-link" >Variables</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../coverage.html" ><span class="fa fa-tasks"></span>Documentation coverage</a>
+                    </li>
+            
+                    <li class="divider"></li>
+                    <li class="copyright">
+                            Documentation generated using <a href="https://compodoc.github.io/website/" target="_blank">
+                                        <img src="..//images/compodoc-vectorise.svg" class="img-responsive">
+                            </a>
+                    </li>
+            
+                </ul>
+            
+            </nav>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <nav>
+                   
+                       <ul class="list">
+                   
+                           <li class="title">
+                               <a href="../index.html">angular-resource-router documentation</a>
+                           </li>
+                   
+                           <li class="divider"></li>
+                   
+                               <div id="book-search-input" role="search">
+                                   <input type="text" placeholder="Type to search">
+                               </div>
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../index.html"><span class="fa fa-home"></span>Getting started</a>
+                               <ul class="links">
+                                       <li class="link">
+                                           <a 
+                                               
+                                                href="../overview.html" 
+                                                href="../overview.html" 
+                                               >
+                                               <span class="fa fa-th"></span>Overview
+                                           </a>
+                                       </li>
+                                       <li class="link">
+                                         <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
+                                       </li>
+                                       <li class="link">
+                                               <a href="../changelog.html"
+                                           >
+                                               <span class="fa fa-file-text-o"></span>CHANGELOG
+                                           </a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../modules.html" >
+                                   <div class="menu-toggler linked" data-toggle="collapse"
+                                           data-target="#modules-links"
+                                   >
+                                       <span class="fa fa-archive"></span>
+                                       <span class="link-name">Modules</span>
+                                       <span class="fa fa-angle-down"></span>
+                                   </div>
+                               </a>
+                               <ul class="links collapse "
+                                       id="modules-links"
+                   >
+                                       <li class="link">
+                                           <a href="../modules/ResourceRouterModule.html" >ResourceRouterModule</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#components-links"
+                   >
+                                   <span class="fa fa-cogs"></span>
+                                   <span>Components</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="components-links"
+                   >
+                                       <li class="link">
+                                           <a href="../components/DefaultEmptyComponent.html" >DefaultEmptyComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/DefaultErrorComponent.html" >DefaultErrorComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResourceOutletComponent.html" >ResourceOutletComponent</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#directives-links"
+                   >
+                                   <span class="fa fa-code"></span>
+                                   <span>Directives</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="directives-links"
+                   >
+                                       <li class="link">
+                                           <a href="../directives/ResourceDataDirective.html" >ResourceDataDirective</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../directives/ResourceLinkDirective.html" >ResourceLinkDirective</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../directives/ResourceLinkWithHrefDirective.html" >ResourceLinkWithHrefDirective</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../directives/ResourceViewDirective.html" >ResourceViewDirective</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#classes-links"
+                   >
+                                   <span class="fa fa-file-code-o"></span>
+                                   <span>Classes</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="classes-links"
+                   >
+                                       <li class="link">
+                                           <a href="../classes/ApiMapper.html" >ApiMapper</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/ApiUrl.html" >ApiUrl</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/BaseApiUrl.html" >BaseApiUrl</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/ResourceDataContext.html" >ResourceDataContext</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/SortedArray.html" >SortedArray</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/ViewData.html" >ViewData</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/ViewDataLoader.html" >ViewDataLoader</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#injectables-links"
+                   >
+                                   <span class="fa fa-long-arrow-down"></span>
+                                   <span>Injectables</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="injectables-links"
+                   >
+                                       <li class="link">
+                                           <a href="../injectables/ApiLocation.html" >ApiLocation</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/BrowserApiUrl.html"  data-type="entity-link" class="active" >BrowserApiUrl</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/HeaderViewTypeStrategy.html" >HeaderViewTypeStrategy</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/HttpClientViewDataLoader.html" >HttpClientViewDataLoader</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/MockApiUrl.html" >MockApiUrl</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/ResourceViewRegistry.html" >ResourceViewRegistry</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/SingleApiMapper.html" >SingleApiMapper</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#interfaces-links"
+                   >
+                                   <span class="fa fa-info"></span>
+                                   <span>Interfaces</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="interfaces-links"
+                   >
+                                       <li class="link">
+                                           <a href="../interfaces/Data.html" >Data</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/LocationInfo.html" >LocationInfo</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/NavigationHandler.html" >NavigationHandler</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/ResourceRouterOptions.html" >ResourceRouterOptions</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/UrlInfo.html" >UrlInfo</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/ViewDef.html" >ViewDef</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/ViewTypeResponse.html" >ViewTypeResponse</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#miscellaneous-links"
+                   >
+                                   <span class="fa fa-cubes"></span>
+                                   <span>Miscellaneous</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="miscellaneous-links"
+                   >
+                                       <li class="link">
+                                         <a href="../miscellaneous/functions.html" data-type="entity-link" >Functions</a>
+                                       </li>
+                                       <li class="link">
+                                         <a href="../miscellaneous/typealiases.html" data-type="entity-link" >Type aliases</a>
+                                       </li>
+                                       <li class="link">
+                                         <a href="../miscellaneous/variables.html" data-type="entity-link" >Variables</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../coverage.html" ><span class="fa fa-tasks"></span>Documentation coverage</a>
+                           </li>
+                   
+                           <li class="divider"></li>
+                           <li class="copyright">
+                                   Documentation generated using <a href="https://compodoc.github.io/website/" target="_blank">
+                                               <img src="..//images/compodoc-vectorise.svg" class="img-responsive">
+                                   </a>
+                           </li>
+                   
+                       </ul>
+                   
+                   </nav>
+               </div>
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>BrowserApiUrl</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#info" id="info-tab" role="tab" data-toggle="tab" data-link="info">Info</a>
+    </li>
+
+
+    <li>
+        <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/lib/src/api-url.ts</code>
+        </p>
+
+
+
+            <section>
+                <h3 id="index">Index</h3>
+                <table class="table table-sm table-bordered index-table">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-4">
+                                <h6><b>Methods</b></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <ul class="index-list">
+                                    <li>
+                                        <a href="#getBaseHref">getBaseHref</a>
+                                    </li>
+                                    <li>
+                                        <a href="#getLocation">getLocation</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3 id="constructor">Constructor</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>constructor(platformStrategy: <a href="https://angular.io/api/common/LocationStrategy" target="_blank">LocationStrategy</a>, document: Document)</code>
+                                </td>
+                            </tr>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/lib/src/api-url.ts:67</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div>
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>platformStrategy</td>
+                                                              <td>
+                                                                        <code><a href="https://angular.io/api/common/LocationStrategy" target="_blank" >LocationStrategy</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>document</td>
+                                                              <td>
+                                                                        <code>Document</code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td></td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+
+            <section>
+                
+                    <h3 id="methods">
+                        Methods
+                    </h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="getBaseHref"></a>
+                                    <span class="name">
+                                        <b>
+                                        getBaseHref
+                                        </b>
+                                        <a href="#getBaseHref"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>getBaseHref()</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/lib/src/api-url.ts:75</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+            
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="getLocation"></a>
+                                    <span class="name">
+                                        <b>
+                                        getLocation
+                                        </b>
+                                        <a href="#getLocation"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>getLocation()</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/lib/src/api-url.ts:80</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code><a href="../interfaces/LocationInfo.html" target="_self" >LocationInfo</a></code>
+            
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade tab-source-code" id="c-source">
+        <pre class="line-numbers"><code class="language-typescript">import { Inject, Injectable } from &#x27;@angular/core&#x27;;
+import { DOCUMENT, LocationStrategy } from &#x27;@angular/common&#x27;;
+import { LocationInfo, parseUrl } from &#x27;./utils/parse-url&#x27;;
+
+
+/**
+ * Component for API URLs normalization.
+ * Takes in account base-href, location etc.
+ */
+export abstract class ApiUrl {
+
+  /**
+   * Normalizes the URL, using current base-href.
+   *
+   * @param {string} url URL to normalize. Might be relative, host-relative or protocol-relative.
+   * @returns {string} Normalized absolute URL.
+   */
+  abstract normalize(url: string): string;
+
+}
+
+/**
+ * Generic implementation of ApiUrl.
+ * Default is BrowserApiUrl.
+ */
+export abstract class BaseApiUrl extends ApiUrl {
+
+  normalize(url: string): string {
+    // Analyze given URL - returns null when invalid
+    const urlInfo &#x3D; parseUrl(url);
+
+    // Is url absolute?
+    if (urlInfo &amp;&amp; urlInfo.protocol) {
+      // If so, just return original
+      return url;
+    }
+
+    // Parse base
+    const base &#x3D; parseUrl(this.getBaseHref());
+    const location &#x3D; this.getLocation();
+
+    // Relative paths must be combined, not replaced
+    // Note: if URL contains pathname, it cannot contain pathrelative
+    const pathrelative &#x3D; !urlInfo.pathname ? (base.pathrelative || &#x27;&#x27;) + (urlInfo.pathrelative || &#x27;&#x27;) : &#x27;&#x27;;
+
+    // Build
+    const n &#x3D; {...location, ...base, ...urlInfo};
+    return &#x60;${n.protocol}//${n.host}${n.pathname}${pathrelative}&#x60;;
+  }
+
+  /**
+   * Returns base href.
+   *
+   * @returns {string} Context path of the application. Protocol and host excluded.
+   */
+  abstract getBaseHref(): string;
+
+  /**
+   * Returns current location. It is used to resolve baseHref.
+   *
+   * @returns {LocationInfo} Context path of the application.
+   */
+  abstract getLocation(): LocationInfo;
+}
+
+@Injectable()
+export class BrowserApiUrl extends BaseApiUrl {
+
+  constructor(private platformStrategy: LocationStrategy,
+              @Inject(DOCUMENT)
+              private document: Document) {
+    super();
+  }
+
+  getBaseHref(): string {
+    // Note: We are using LocationStrategy, instead of getDom().getBaseHref(), so it can be mocked during tests
+    return this.platformStrategy.getBaseHref();
+  }
+
+  getLocation(): LocationInfo {
+    return this.document.location;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+           </div>
+       </div>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script>var COMPODOC_CURRENT_PAGE_DEPTH = 1;</script>
+
+       <script src="../js/search/search.js"></script>
+       <script src="../js/search/lunr.min.js"></script>
+       <script src="../js/search/search-lunr.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+       <script src="../js/search/search_index.js"></script>
+
+    </body>
+</html>
