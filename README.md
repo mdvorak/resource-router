@@ -69,6 +69,8 @@ npm run bootstrap
 ```
 it will create necessary symlinks for build to pass.
 
+_Note: Under linux, you need to change global npm prefix to user accessible directory, see [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-started/fixing-npm-permissions)._
+
 ### Library
 
 Build of the library is performed with
