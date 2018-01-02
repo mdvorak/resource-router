@@ -1,3 +1,9 @@
+/**
+ * Interface that serves as read-only accessor to the {@link HttpHeaders}.
+ * Also allows easy custom implementation and decouples it from HTTP.
+ *
+ * Empty header collection is provided in the {@link NO_HEADERS}.
+ */
 export interface ReadOnlyHeaders {
   /**
    * Checks for existence of header by given name.
@@ -10,7 +16,7 @@ export interface ReadOnlyHeaders {
   get(name: string): string | null;
 
   /**
-   * Returns the names of the headers
+   * Returns the names of the headers.
    */
   keys(): string[];
 
@@ -21,7 +27,7 @@ export interface ReadOnlyHeaders {
 }
 
 /**
- * Dummy implementation of ReadOnlyHeaders that never returns anything.
+ * Dummy implementation of {@link ReadOnlyHeaders} that never returns anything.
  */
 export const NO_HEADERS: ReadOnlyHeaders = {
   has(name: string): boolean {
