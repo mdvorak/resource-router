@@ -1,5 +1,5 @@
 <a name="4.1.0"></a>
-# [4.1.0](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2017-12-31)
+# [4.1.0](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (TODO)
 
 Changed data used in components to reactive pattern, which allows reuse of created view components.
 From now on, component should be initialized as follows:
