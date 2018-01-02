@@ -10,7 +10,7 @@ export interface ViewData<T> {
   readonly type: string;
   readonly url: string;
   readonly status: number;
-  readonly statusText: string | null;
+  readonly statusText: string;
   readonly headers: ReadOnlyHeaders;
   readonly body: T;
 
