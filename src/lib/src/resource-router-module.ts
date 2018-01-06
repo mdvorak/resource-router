@@ -11,7 +11,7 @@ import { ViewDef } from './view-definition';
 import { ResourceLinkDirective } from './directives/resource-link';
 import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
 import { ResourceOutletComponent } from './directives/resource-outlet';
-import { HttpClientViewDataLoader, ViewDataLoader } from './view-data-loader';
+import { HttpResourceClient, ResourceClient } from './resource-client';
 import { ResourceDataDirective } from './directives/resource-data';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
@@ -53,10 +53,10 @@ export interface ResourceRouterOptions {
   readonly viewTypeStrategy?: Type<ViewTypeStrategy>;
 
   /**
-   * Changes implementation of {@link ViewDataLoader}.
-   * Default is {@link HttpClientViewDataLoader}.
+   * Changes implementation of {@link ResourceClient}.
+   * Default is {@link HttpResourceClient}.
    */
-  readonly viewDataLoader?: Type<ViewDataLoader>;
+  readonly viewDataLoader?: Type<ResourceClient>;
 }
 
 
@@ -128,8 +128,8 @@ export class ResourceRouterModule {
           useClass: options.viewTypeStrategy || HeaderViewTypeStrategy
         },
         {
-          provide: ViewDataLoader,
-          useClass: options.viewDataLoader || HttpClientViewDataLoader
+          provide: ResourceClient,
+          useClass: options.viewDataLoader || HttpResourceClient
         }
       ]
     };

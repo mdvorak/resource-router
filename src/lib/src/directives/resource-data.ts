@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, OnInit, Output, TemplateRef, ViewContainerRef } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
-import { ViewDataLoader } from '../view-data-loader';
+import { ResourceClient } from '../resource-client';
 import { ViewData } from '../view-data';
 import { Navigable } from '../navigable';
 import { ResourceViewRegistry } from '../resource-view-registry';
@@ -10,12 +10,18 @@ import { Subject } from 'rxjs/Subject';
 import { NO_HEADERS } from '../read-only-headers';
 
 
+/**
+ * @deprecated
+ */
 export class ResourceDataContext {
   constructor(public $implicit: ViewData<any>) {
   }
 }
 
 
+/**
+ * @deprecated
+ */
 @Directive({
   selector: '[resourceData][resourceDataOf]'
 })
@@ -30,7 +36,7 @@ export class ResourceDataDirective implements OnInit, Navigable {
 
   constructor(protected viewContainer: ViewContainerRef,
               protected templateRef: TemplateRef<ResourceDataContext>,
-              protected loader: ViewDataLoader,
+              protected loader: ResourceClient,
               protected registry: ResourceViewRegistry) {
     this.context = new ResourceDataContext(this.mockView('', MEDIA_TYPE_ROUTER_LOADING, 204, 'OK'));
 

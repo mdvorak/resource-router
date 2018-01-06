@@ -15,7 +15,7 @@ import { stringToJSON } from './utils/http-utils';
 /**
  * Component that retrieves the data for given URL.
  */
-export abstract class ViewDataLoader {
+export abstract class ResourceClient {
 
   /**
    * Retrieves the data.
@@ -29,10 +29,10 @@ export abstract class ViewDataLoader {
 }
 
 /**
- * Default ViewDataLoader implementation, which uses HttpClient as backend.
+ * Default ResourceClient implementation, which uses HttpClient as backend.
  */
 @Injectable()
-export class HttpClientViewDataLoader extends ViewDataLoader {
+export class HttpResourceClient extends ResourceClient {
 
   constructor(public strategy: ViewTypeStrategy,
               public registry: ResourceViewRegistry,
