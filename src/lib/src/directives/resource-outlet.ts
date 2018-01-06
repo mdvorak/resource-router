@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ResourceData } from '../resource-data';
+import { ISubscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -6,30 +8,32 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <ng-template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
       <resource-view [data]="data"></resource-view>
-    </ng-template>`
+    </ng-template>`,
+  providers: [ResourceData]
 })
-export class ResourceOutletComponent {
+export class ResourceOutletComponent implements OnInit, OnDestroy {
 
   @Output()
-  srcChange: EventEmitter<string> = new EventEmitter();
+  public readonly srcChange = new EventEmitter<string>();
+  private subscription: ISubscription;
 
-  private srcValue = '';
+  constructor(private readonly resourceData: ResourceData) {
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.resourceData.urlChange.subscribe((value: string) => this.srcChange.emit(value));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   @Input()
   set src(value: string) {
-    // This is needed check, since during runtime binding, we cannot be sure value isn't null
-    if (!value) {
-      value = '';
-    }
-
-    // Emit event if value has actually changed
-    if (this.srcValue !== value) {
-      this.srcValue = value;
-      this.srcChange.emit(value);
-    }
+    this.resourceData.url = value;
   }
 
   get src(): string {
-    return this.srcValue;
+    return this.resourceData.url;
   }
 }
