@@ -22,8 +22,8 @@ export class ResourceLinkDirective {
   @Input() resourceLink: string;
   @Input() target?: TargetType;
 
-  constructor(private apiLocation: ApiLocation,
-              @Optional() private view?: ActivatedView<any>) {
+  constructor(private readonly apiLocation: ApiLocation,
+              @Optional() private readonly view?: ActivatedView<any>) {
   }
 
   @HostListener('click')

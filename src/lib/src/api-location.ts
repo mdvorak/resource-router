@@ -14,8 +14,8 @@ export class ApiLocation implements Navigable {
 
   private urlValue = '';
 
-  constructor(private apiMapper: ApiMapper,
-              private location: Location) {
+  constructor(private readonly apiMapper: ApiMapper,
+              private readonly location: Location) {
     // Initialize
     this.urlValue = this.mapLocationUrlToApi();
 

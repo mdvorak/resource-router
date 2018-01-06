@@ -16,10 +16,10 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   @Input() external = false;
   private unsupported = false;
 
-  constructor(private apiMapper: ApiMapper,
-              private apiLocation: ApiLocation,
-              private resourceViewRegistry: ResourceViewRegistry,
-              @Optional() private view?: ActivatedView<any>) {
+  constructor(private readonly apiMapper: ApiMapper,
+              private readonly apiLocation: ApiLocation,
+              private readonly resourceViewRegistry: ResourceViewRegistry,
+              @Optional() private readonly view?: ActivatedView<any>) {
   }
 
   ngOnChanges(): void {

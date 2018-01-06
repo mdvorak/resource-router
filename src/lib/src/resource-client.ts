@@ -34,9 +34,9 @@ export abstract class ResourceClient {
 @Injectable()
 export class HttpResourceClient extends ResourceClient {
 
-  constructor(public strategy: ViewTypeStrategy,
-              public registry: ResourceViewRegistry,
-              public http: HttpClient) {
+  constructor(public readonly strategy: ViewTypeStrategy,
+              public readonly registry: ResourceViewRegistry,
+              public readonly http: HttpClient) {
     super();
   }
 

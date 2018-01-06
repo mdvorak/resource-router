@@ -10,9 +10,9 @@ import { Navigable } from '../navigable';
 
 class ResourceViewContext<T> {
 
-  constructor(public component: ComponentRef<any>,
-              public source: Navigable,
-              public data: BehaviorSubject<ViewData<T>>) {
+  constructor(public readonly component: ComponentRef<any>,
+              public readonly source: Navigable,
+              public readonly data: BehaviorSubject<ViewData<T>>) {
   }
 
   get componentType() {
@@ -33,8 +33,8 @@ export class ResourceViewDirective implements OnChanges {
 
   private current: ResourceViewContext<any> | null = null;
 
-  constructor(private viewContainer: ViewContainerRef,
-              private resolver: ComponentFactoryResolver) {
+  constructor(private readonly viewContainer: ViewContainerRef,
+              private readonly resolver: ComponentFactoryResolver) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

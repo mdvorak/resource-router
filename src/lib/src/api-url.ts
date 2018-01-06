@@ -66,9 +66,9 @@ export abstract class BaseApiUrl extends ApiUrl {
 @Injectable()
 export class BrowserApiUrl extends BaseApiUrl {
 
-  constructor(private platformStrategy: LocationStrategy,
+  constructor(private readonly platformStrategy: LocationStrategy,
               @Inject(DOCUMENT)
-              private document: any) {
+              private readonly document: any) {
     super();
   }
 
