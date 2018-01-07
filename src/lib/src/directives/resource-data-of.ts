@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, EventEmitter, Host, Input, OnDestroy, OnInit, Output, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
 import { ISubscription } from 'rxjs/Subscription';
@@ -31,9 +31,9 @@ export class ResourceDataOfDirective implements OnInit, OnDestroy {
   private context: ResourceDataOfContext;
   private subscription: ISubscription;
 
-  constructor(private  viewContainer: ViewContainerRef,
+  constructor(private viewContainer: ViewContainerRef,
               private templateRef: TemplateRef<ResourceDataOfContext>,
-              private resource: ResourceData) {
+              @Host() private resource: ResourceData) {
     this.context = new ResourceDataOfContext(resource);
   }
 

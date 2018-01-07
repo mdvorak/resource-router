@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Host, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ResourceData } from '../resource-data';
 import { ISubscription } from 'rxjs/Subscription';
 
@@ -15,7 +15,7 @@ export class ResourceOutletComponent implements OnInit, OnDestroy {
   public readonly srcChange = new EventEmitter<string>();
   private subscription: ISubscription;
 
-  constructor(public readonly resource: ResourceData) {
+  constructor(@Host() public readonly resource: ResourceData) {
   }
 
   ngOnInit(): void {
