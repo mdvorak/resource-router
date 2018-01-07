@@ -1,6 +1,0 @@
-{
-  "/test/foo/api": {
-    "target": "https://private-anon-5c8d0c0da6-resourcerouterexample.apiary-mock.com",
-    "secure": false
-  }
-}
