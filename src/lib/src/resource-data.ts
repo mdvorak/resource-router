@@ -1,28 +1,40 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
-import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR } from './system-media-types';
-import { Observable } from 'rxjs/Observable';
-import { NO_HEADERS } from './read-only-headers';
-import { Injectable } from '@angular/core';
+import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
+import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
+import { Navigable } from './navigable';
 
 @Injectable()
-export class ResourceData {
+export class ResourceData implements Navigable {
 
-  public readonly urlChange = new Subject<string>();
+  public readonly dataChange: Observable<ViewData<any>>;
+  public readonly urlChange: Observable<string>;
 
-  private loadingValue = false;
-  private data: ViewData<any>;
   private urlValue = '';
-
+  private loadingValue = false;
+  private readonly dataChangeSource: BehaviorSubject<ViewData<any>>;
+  private readonly urlChangeSource = new Subject<string>();
   private readonly loadDataEvent = new Subject<string>();
 
   constructor(public readonly client: ResourceClient,
               public readonly registry: ResourceViewRegistry) {
-    // Note: this.load never fails
+    // Initialize
+    const initialData = this.mockViewData('', MEDIA_TYPE_ROUTER_LOADING, 204, 'OK');
+
+    this.dataChangeSource = new BehaviorSubject<ViewData<any>>(initialData);
+    this.dataChange = this.dataChangeSource.asObservable();
+
+    this.urlChange = this.urlChangeSource.asObservable();
+
+    // Using Subject in combination with switchMap allows us to easily use only latest value
+    // Note: this.load is private and produces failing observable
     this.loadDataEvent
       .switchMap(url => {
         this.loadingValue = true;
@@ -31,20 +43,26 @@ export class ResourceData {
       .subscribe(data => {
         // Update data
         this.loadingValue = false;
-        this.data = data;
-        // TODO observable?
+        this.dataChangeSource.next(data);
 
         // This propagates back the actual url when server-side redirect was performed
         if (data.url !== this.urlValue) {
           this.urlValue = data.url;
-          this.urlChange.next(this.urlValue);
+          this.urlChangeSource.next(this.urlValue);
         }
       });
   }
 
+  get data(): ViewData<any> {
+    return this.dataChangeSource.getValue();
+  }
+
+  get url(): string {
+    return this.urlValue;
+  }
+
   set url(value: string) {
-    // Normalize undefined (from binding) to empty string
-    // TODO this might break binding change detection
+    // Normalize undefined (possibly from binding) to empty string - don't rely on typescript
     if (!value) {
       value = '';
     }
@@ -56,15 +74,11 @@ export class ResourceData {
     }
   }
 
-  get url(): string {
-    return this.urlValue;
-  }
-
   navigate(url: string): void {
     // Update property if changed
     if (this.urlValue !== url) {
       this.urlValue = url;
-      this.urlChange.next(url);
+      this.urlChangeSource.next(url);
     }
 
     // Load data (always)
@@ -79,14 +93,15 @@ export class ResourceData {
           // Log it, this should not happen normally
           console.error(err);
           // Return error view
-          return Observable.of(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', err));
+          return Observable.of(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', NO_HEADERS, err));
         });
     } else {
       return Observable.of(this.mockViewData('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
     }
   }
 
-  private mockViewData(url: string, type: string, status: number, statusText: string, body?: any): ViewData<any> {
+  private mockViewData(url: string, type: string, status: number, statusText: string,
+                       headers?: ReadOnlyHeaders, body?: any): ViewData<any> {
     const config = this.registry.match(type, status);
 
     return {
@@ -96,7 +111,7 @@ export class ResourceData {
       url: url,
       status: status,
       statusText: statusText,
-      headers: NO_HEADERS,
+      headers: headers || NO_HEADERS,
       body: body
     };
   }

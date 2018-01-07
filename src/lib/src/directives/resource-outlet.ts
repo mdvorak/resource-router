@@ -6,9 +6,7 @@ import { ISubscription } from 'rxjs/Subscription';
 @Component({
   selector: 'resource-outlet',
   template: `
-    <ng-template [resourceData] let-data [resourceDataOf]="src" (urlChange)="src=$event">
-      <resource-view [data]="data"></resource-view>
-    </ng-template>`,
+    <resource-view [data]="resource.data"></resource-view>`,
   providers: [ResourceData]
 })
 export class ResourceOutletComponent implements OnInit, OnDestroy {
@@ -17,23 +15,23 @@ export class ResourceOutletComponent implements OnInit, OnDestroy {
   public readonly srcChange = new EventEmitter<string>();
   private subscription: ISubscription;
 
-  constructor(private readonly resourceData: ResourceData) {
+  constructor(public readonly resource: ResourceData) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.resourceData.urlChange.subscribe((value: string) => this.srcChange.emit(value));
+    this.subscription = this.resource.urlChange.subscribe((value: string) => this.srcChange.emit(value));
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  @Input()
-  set src(value: string) {
-    this.resourceData.url = value;
+  get src(): string {
+    return this.resource.url;
   }
 
-  get src(): string {
-    return this.resourceData.url;
+  @Input()
+  set src(value: string) {
+    this.resource.url = value;
   }
 }

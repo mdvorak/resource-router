@@ -12,7 +12,7 @@ import { ResourceLinkDirective } from './directives/resource-link';
 import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
 import { ResourceOutletComponent } from './directives/resource-outlet';
 import { HttpResourceClient, ResourceClient } from './resource-client';
-import { ResourceDataDirective } from './directives/resource-data';
+import { ResourceDataOfDirective } from './directives/resource-data-of';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultErrorComponent } from './components/default-error.component';
@@ -63,7 +63,7 @@ export interface ResourceRouterOptions {
 @NgModule({
   declarations: [
     ResourceOutletComponent,
-    ResourceDataDirective,
+    ResourceDataOfDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective,
@@ -75,7 +75,7 @@ export interface ResourceRouterOptions {
   ],
   exports: [
     ResourceOutletComponent,
-    ResourceDataDirective,
+    ResourceDataOfDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective
