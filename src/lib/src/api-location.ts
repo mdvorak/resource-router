@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
 import { Navigable } from './navigable';
 
-// TODO normalize URL, using LocationStrategy
+// TODO normalize URL, using possibly LocationStrategy (that means remove trailing slash directly in the browser if its present)
 
 /**
  * It maps view URLs to API and vice versa.
