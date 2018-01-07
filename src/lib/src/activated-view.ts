@@ -9,7 +9,7 @@ export class ActivatedView<T> {
 
   constructor(public readonly navigation: Navigable,
               private readonly _data: BehaviorSubject<ViewData<T>>) {
-    this.data = _data;
+    this.data = _data.asObservable();
   }
 
   get snapshot() {
