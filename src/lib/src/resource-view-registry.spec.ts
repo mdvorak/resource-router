@@ -1,5 +1,10 @@
 import { async, inject, TestBed } from '@angular/core/testing';
-import { normalizeStatus, normalizeStatusExpression, RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
+import {
+  normalizeStatus,
+  normalizeStatusExpression,
+  RESOURCE_VIEWS,
+  ResourceViewRegistry
+} from './resource-view-registry';
 import { Type } from '@angular/core';
 import { ViewDef } from './view-definition';
 

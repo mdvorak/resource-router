@@ -1,20 +1,20 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import {Component, DebugElement} from '@angular/core';
-import {ResourceViewRegistry} from '../resource-view-registry';
-import {ResourceLinkDirective, TargetType} from './resource-link';
-import {Location, LocationStrategy} from '@angular/common';
-import {ApiMapper} from '../api-mapper';
-import {ViewData} from '../view-data';
-import {Navigable} from '../navigation';
-import {ApiLocation} from '../api-location';
-import {By} from '@angular/platform-browser';
-import {createClassSpyObj} from '../utils/class-spy.spec';
-import {MockLocationStrategy} from '@angular/common/testing';
-import {ApiUrl, BrowserApiUrl} from '../api-url';
-import {APP_API_PREFIX, SingleApiMapper} from '../single-api-mapper';
-import {NO_HEADERS} from '../read-only-headers';
-import {ActivatedView} from '../activated-view';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { ResourceViewRegistry } from '../resource-view-registry';
+import { ResourceLinkDirective, TargetType } from './resource-link';
+import { Location, LocationStrategy } from '@angular/common';
+import { ApiMapper } from '../api-mapper';
+import { ViewData } from '../view-data';
+import { Navigable } from '../navigation';
+import { ApiLocation } from '../api-location';
+import { By } from '@angular/platform-browser';
+import { createClassSpyObj } from '../utils/class-spy.spec';
+import { MockLocationStrategy } from '@angular/common/testing';
+import { ApiUrl, BrowserApiUrl } from '../api-url';
+import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
+import { NO_HEADERS } from '../read-only-headers';
+import { ActivatedView } from '../activated-view';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 const API_PREFIX = 'http://example.com/';

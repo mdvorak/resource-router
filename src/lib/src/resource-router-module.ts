@@ -1,8 +1,21 @@
 import {
-  APP_BASE_HREF, CommonModule, HashLocationStrategy, Location, LocationStrategy, PathLocationStrategy,
+  APP_BASE_HREF,
+  CommonModule,
+  HashLocationStrategy,
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
   PlatformLocation
 } from '@angular/common';
-import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
+import {
+  ANALYZE_FOR_ENTRY_COMPONENTS,
+  Inject,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  Type
+} from '@angular/core';
 import { ApiMapper } from './api-mapper';
 import { ApiLocation } from './api-location';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from './view-type-strategy';

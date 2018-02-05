@@ -1,4 +1,14 @@
-import { Directive, EventEmitter, Host, Input, OnDestroy, OnInit, Output, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  Host,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewContainerRef
+} from '@angular/core';
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
 import { ISubscription } from 'rxjs/Subscription';

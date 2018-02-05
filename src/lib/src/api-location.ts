@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { Navigable } from './navigation';
+import { Navigable, NavigationSource } from './navigation';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 // TODO normalize URL, using possibly LocationStrategy (that means remove trailing slash directly in the browser if its present)
 
@@ -10,13 +12,17 @@ import { Navigable } from './navigation';
  * Provides bindable `url` property, to be used with `resource-outlet` component.
  */
 @Injectable()
-export class ApiLocation implements Navigable {
+export class ApiLocation implements Navigable, NavigationSource {
 
+  readonly navigate: Observable<string>;
+
+  private navigateSubject = new Subject<string>();
   private urlValue = '';
 
   constructor(private readonly apiMapper: ApiMapper,
               private readonly location: Location) {
     // Initialize
+    this.navigate = this.navigateSubject.asObservable();
     this.urlValue = this.mapLocationUrlToApi();
 
     // Listen to Location changes
@@ -124,5 +130,6 @@ export class ApiLocation implements Navigable {
    */
   protected onLocationChanged() {
     this.urlValue = this.mapLocationUrlToApi();
+    this.navigateSubject.next(this.urlValue);
   }
 }

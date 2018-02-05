@@ -1,5 +1,11 @@
 import {
-  ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, ReflectiveInjector, SimpleChanges,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  Input,
+  OnChanges,
+  ReflectiveInjector,
+  SimpleChanges,
   ViewContainerRef
 } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
