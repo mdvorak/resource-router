@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input, Optional } from '@angular/core';
-import { Navigable, supportsNavigation } from '../navigable';
+import { Navigable, supportsNavigation } from '../navigation';
 import { ApiLocation } from '../api-location';
 import { ActivatedView } from '../activated-view';
 
@@ -48,7 +48,7 @@ export class ResourceLinkDirective {
 
     // Navigate
     if (supportsNavigation(target)) {
-      target.navigate(this.resourceLink);
+      target.go(this.resourceLink);
     }
 
     // And cancel click

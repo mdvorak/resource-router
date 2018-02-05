@@ -1,4 +1,4 @@
-import { Navigable } from './navigable';
+import { Navigable } from './navigation';
 import { Observable } from 'rxjs/Observable';
 import { ViewData } from './view-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';

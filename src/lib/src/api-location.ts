@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { Navigable } from './navigable';
+import { Navigable } from './navigation';
 
 // TODO normalize URL, using possibly LocationStrategy (that means remove trailing slash directly in the browser if its present)
 
@@ -49,7 +49,7 @@ export class ApiLocation implements Navigable {
     // Navigate only on change
     if (url !== this.urlValue) {
       // Note: This also sets urlValue to correct value
-      this.navigate(url);
+      this.go(url);
     }
   }
 
@@ -59,7 +59,7 @@ export class ApiLocation implements Navigable {
    *
    * @param url API url to navigate to. Cannot be null.
    */
-  navigate(url: string): void {
+  go(url: string): void {
     if (typeof url !== 'string') {
       throw new Error('url must be a string');
     }

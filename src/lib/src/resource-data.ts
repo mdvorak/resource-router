@@ -9,7 +9,7 @@ import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
-import { Navigable } from './navigable';
+import { Navigable } from './navigation';
 
 @Injectable()
 export class ResourceData implements Navigable {
@@ -74,7 +74,7 @@ export class ResourceData implements Navigable {
     }
   }
 
-  navigate(url: string): void {
+  go(url: string): void {
     // Update property if changed
     if (this.urlValue !== url) {
       this.urlValue = url;
@@ -105,7 +105,7 @@ export class ResourceData implements Navigable {
     const config = this.registry.match(type, status);
 
     return {
-      source: this,
+      target: this,
       config: config,
       type: type,
       url: url,

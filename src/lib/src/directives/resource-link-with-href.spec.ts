@@ -1,21 +1,21 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
-import { ResourceViewRegistry } from '../resource-view-registry';
-import { TargetType } from './resource-link';
-import { Location, LocationStrategy } from '@angular/common';
-import { ApiMapper } from '../api-mapper';
-import { ViewData } from '../view-data';
-import { Navigable } from '../navigable';
-import { ApiLocation } from '../api-location';
-import { By } from '@angular/platform-browser';
-import { createClassSpyObj } from '../utils/class-spy.spec';
-import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
-import { MockLocationStrategy } from '@angular/common/testing';
-import { ApiUrl, BrowserApiUrl } from '../api-url';
-import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
-import { NO_HEADERS } from '../read-only-headers';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ActivatedView } from '../activated-view';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {Component, DebugElement} from '@angular/core';
+import {ResourceViewRegistry} from '../resource-view-registry';
+import {TargetType} from './resource-link';
+import {Location, LocationStrategy} from '@angular/common';
+import {ApiMapper} from '../api-mapper';
+import {ViewData} from '../view-data';
+import {Navigable} from '../navigation';
+import {ApiLocation} from '../api-location';
+import {By} from '@angular/platform-browser';
+import {createClassSpyObj} from '../utils/class-spy.spec';
+import {ResourceLinkWithHrefDirective} from './resource-link-with-href';
+import {MockLocationStrategy} from '@angular/common/testing';
+import {ApiUrl, BrowserApiUrl} from '../api-url';
+import {APP_API_PREFIX, SingleApiMapper} from '../single-api-mapper';
+import {NO_HEADERS} from '../read-only-headers';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ActivatedView} from '../activated-view';
 
 
 const API_PREFIX = 'http://example.com/';
@@ -33,7 +33,7 @@ class TestComponent {
 }
 
 function createSpyNavigable() {
-  return jasmine.createSpyObj<Navigable>('navigation', ['navigate']);
+  return jasmine.createSpyObj<Navigable>('navigable', ['go']);
 }
 
 describe(ResourceLinkWithHrefDirective.name, () => {
@@ -184,7 +184,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       de.triggerEventHandler('click', {button: 0});
 
       // Verify
-      expect(navigationMock.navigate).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
+      expect(navigationMock.go).toHaveBeenCalledWith(API_PREFIX + 'foo/bar');
       expect(mockLocationStrategy.urlChanges.length).toBe(0);
     });
 
@@ -209,7 +209,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       expect(de.nativeElement.getAttribute('href')).toBe('http://another.example.com/foo/bar');
 
       expect(cancel).toBe(true);
-      expect(navigationMock.navigate).not.toHaveBeenCalled();
+      expect(navigationMock.go).not.toHaveBeenCalled();
       expect(mockLocationStrategy.internalPath).toBe('/init');
     });
   });
@@ -226,7 +226,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       navigationMock = createSpyNavigable();
 
       viewData = {
-        source: navigationMock,
+        target: navigationMock,
         config: {type: 'test', component: TestComponent},
         type: 'test',
         url: '',

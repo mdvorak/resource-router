@@ -15,7 +15,7 @@ export { ResourceOutletComponent } from './directives/resource-outlet';
 export { ResourceDataOfDirective } from './directives/resource-data-of';
 export { ResourceViewDirective } from './directives/resource-view';
 export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
-export { Navigable, supportsNavigation } from './navigable';
+export { Navigable, supportsNavigation } from './navigation';
 export { normalizeMediaType } from './utils/normalize-media-type';
 export * from './system-media-types';
 export { ViewTypeStrategy, HeaderViewTypeStrategy } from './view-type-strategy';

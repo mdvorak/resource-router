@@ -6,12 +6,12 @@ import 'rxjs/add/operator/switchMap';
 import { ViewData } from '../view-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ActivatedView } from '../activated-view';
-import { Navigable } from '../navigable';
+import { Navigable } from '../navigation';
 
 class ResourceViewContext<T> {
 
   constructor(public readonly component: ComponentRef<any>,
-              public readonly source: Navigable,
+              public readonly target: Navigable,
               public readonly data: BehaviorSubject<ViewData<T>>) {
   }
 
@@ -52,7 +52,7 @@ export class ResourceViewDirective implements OnChanges {
     // Is this same component as currently visible?
     if (this.current
       && this.data.config.component === this.current.componentType
-      && this.data.source === this.current.source) {
+      && this.data.target === this.current.target) {
       // Propagate new value instead of component recreation
       this.current.next(this.data);
     } else {
@@ -85,13 +85,13 @@ export class ResourceViewDirective implements OnChanges {
     const providers = ReflectiveInjector.resolve([
       {
         provide: ActivatedView,
-        useValue: new ActivatedView<any>(this.data.source, dataSource)
+        useValue: new ActivatedView<any>(this.data.target, dataSource)
       }
     ]);
     const injector = ReflectiveInjector.fromResolvedProviders(providers, this.viewContainer.parentInjector);
     const component = this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
 
     // Store reference
-    this.current = new ResourceViewContext<any>(component, this.data.source, dataSource);
+    this.current = new ResourceViewContext<any>(component, this.data.target, dataSource);
   }
 }

@@ -1,11 +1,11 @@
 import { ViewDef } from './view-definition';
 import { ReadOnlyHeaders } from './read-only-headers';
-import { Navigable } from './navigable';
+import { Navigable } from './navigation';
 
 
 export interface ViewData<T> {
 
-  readonly source: Navigable;
+  readonly target: Navigable;
   readonly config: ViewDef;
   readonly type: string;
   readonly url: string;

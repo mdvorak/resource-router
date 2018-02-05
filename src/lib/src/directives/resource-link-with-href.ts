@@ -2,7 +2,7 @@ import { Directive, HostBinding, HostListener, Input, OnChanges, Optional } from
 import { TARGET_SELF, TARGET_TOP, TargetType } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { supportsNavigation } from '../navigable';
+import { supportsNavigation } from '../navigation';
 import { ApiLocation } from '../api-location';
 import { ActivatedView } from '../activated-view';
 
@@ -74,11 +74,11 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
     // Custom target
     if (supportsNavigation(target)) {
       // Navigate using original non-mapped link
-      target.navigate(this.resourceLink);
+      target.go(this.resourceLink);
       return false;
     } else {
       // Default - navigate using page location
-      this.apiLocation.navigate(this.resourceLink);
+      this.apiLocation.go(this.resourceLink);
       return false;
     }
   }
