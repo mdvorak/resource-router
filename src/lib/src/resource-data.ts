@@ -37,7 +37,7 @@ export class ResourceData implements Navigable, LocationReference {
     this.urlChange = this.urlChangeSource.asObservable();
 
     // Using Subject in combination with switchMap allows us to easily use only latest value
-    // Note: this.load is private and produces failing observable
+    // Note: this.load is private and produces a never failing observable
     this.loadDataEvent
       .switchMap(url => {
         this.loadingValue = true;
