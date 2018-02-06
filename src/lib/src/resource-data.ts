@@ -43,9 +43,9 @@ export class ResourceData implements Navigable, LocationReference {
         this.loadingValue = true;
         return this.load(url);
       })
-      .finally(() => this.loadingValue = false)
       .subscribe(data => {
         // Update data
+        this.loadingValue = false;
         this.dataChangeSource.next(data);
 
         // This propagates back the actual url when server-side redirect was performed

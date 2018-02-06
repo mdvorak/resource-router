@@ -12,15 +12,21 @@ import {
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
 import { Subscription } from 'rxjs/Subscription';
+import { bindUrl, isLocationReference, LocationReference } from '../location-reference';
 
 
 export class ResourceDataOfContext {
-  constructor(private resource: ResourceData) {
+  constructor(private readonly resource: ResourceData) {
   }
 
   // noinspection JSUnusedGlobalSymbols
   get $implicit(): ViewData<any> {
     return this.resource.data;
+  }
+
+// noinspection JSUnusedGlobalSymbols
+  get loading(): boolean {
+    return this.resource.loading;
   }
 }
 
@@ -34,10 +40,11 @@ export class ResourceDataOfDirective implements OnInit, OnDestroy {
   readonly urlChange = new EventEmitter<string>();
   private urlSubscription = Subscription.EMPTY;
   private readonly context: ResourceDataOfContext;
+  private sourceSubscription = Subscription.EMPTY;
 
-  constructor(private viewContainer: ViewContainerRef,
-              private templateRef: TemplateRef<ResourceDataOfContext>,
-              @Host() private resource: ResourceData) {
+  constructor(@Host() public readonly resource: ResourceData,
+              private readonly viewContainer: ViewContainerRef,
+              private readonly templateRef: TemplateRef<ResourceDataOfContext>) {
     this.context = new ResourceDataOfContext(resource);
   }
 
@@ -50,18 +57,23 @@ export class ResourceDataOfDirective implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.urlSubscription.unsubscribe();
+    this.sourceSubscription.unsubscribe();
   }
 
   @Input()
-  set resourceDataOf(value: string) {
-    this.resource.url = value;
-  }
+  set resourceDataOf(value: string | LocationReference | undefined) {
+    // Remove old source (if any)
+    this.sourceSubscription.unsubscribe();
 
-  get url(): string {
-    return this.resource.url;
-  }
-
-  set url(value: string) {
-    this.resource.url = value;
+    if (typeof value === 'string') {
+      // Simple one-way URL bind
+      this.resource.url = value;
+    } else if (isLocationReference(value)) {
+      // Bind urls to new
+      this.sourceSubscription = bindUrl(value, this.resource);
+    } else {
+      // Reset
+      this.resource.url = '';
+    }
   }
 }

@@ -6,6 +6,10 @@ export interface LocationReference {
   urlChange: Observable<string>;
 }
 
+export function isLocationReference(obj: any): obj is LocationReference {
+  return obj && 'url' in obj && obj.urlChange instanceof Observable;
+}
+
 export function bindUrl(source: LocationReference, target: LocationReference): Subscription {
   // Two-way binding, and return combined subscription for both
   let s = source.urlChange.subscribe(url => target.url = url);
