@@ -2,9 +2,9 @@ import { Directive, HostBinding, HostListener, Input, OnChanges, Optional } from
 import { TARGET_SELF, TARGET_TOP, TargetType } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { supportsNavigation } from '../navigation';
-import { ApiLocation } from '../api-location';
-import { ActivatedView } from '../activated-view';
+import { isNavigable } from '../navigable';
+import { ResourceData } from '../resource-data';
+import { Location } from '@angular/common';
 
 @Directive({selector: 'a[resourceLink]'})
 export class ResourceLinkWithHrefDirective implements OnChanges {
@@ -17,9 +17,13 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   private unsupported = false;
 
   constructor(private readonly apiMapper: ApiMapper,
-              private readonly apiLocation: ApiLocation,
+              private readonly location: Location,
               private readonly resourceViewRegistry: ResourceViewRegistry,
-              @Optional() private readonly view?: ActivatedView<any>) {
+              @Optional() private readonly resourceData: ResourceData) {
+    // Note: Combination of @Optional with this custom error is to provide better error for troubleshooting
+    if (!resourceData) {
+      throw new Error(`resourceLink must be nested inside component that provides ${ResourceData.name} service`);
+    }
   }
 
   ngOnChanges(): void {
@@ -47,7 +51,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
 
     // Store mapped URL to href
     this.unsupported = unsupported;
-    this.href = unsupported ? viewUrl : this.apiLocation.prepareExternalUrl(viewUrl);
+    this.href = unsupported ? viewUrl : this.location.prepareExternalUrl(viewUrl);
   }
 
   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
@@ -62,7 +66,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
 
     if (typeof target === 'string') {
       if (target === TARGET_SELF) {
-        target = this.view && this.view.navigation;
+        target = this.resourceData;
       } else if (target === TARGET_TOP) {
         target = undefined;
       } else {
@@ -72,13 +76,13 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
     }
 
     // Custom target
-    if (supportsNavigation(target)) {
+    if (isNavigable(target)) {
       // Navigate using original non-mapped link
       target.go(this.resourceLink);
       return false;
     } else {
       // Default - navigate using page location
-      this.apiLocation.go(this.resourceLink);
+      this.resourceData.go(this.resourceLink);
       return false;
     }
   }

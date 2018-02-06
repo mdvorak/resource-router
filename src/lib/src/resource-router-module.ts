@@ -30,7 +30,7 @@ import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
-import { ApiUrl, BrowserApiUrl } from './api-url';
+import { BrowserUrlNormalizer, UrlNormalizer } from './url-normalizer';
 import { APP_API_PREFIX, SingleApiMapper } from './single-api-mapper';
 
 
@@ -109,8 +109,8 @@ export class ResourceRouterModule {
         },
         Location,
         {
-          provide: ApiUrl,
-          useClass: BrowserApiUrl
+          provide: UrlNormalizer,
+          useClass: BrowserUrlNormalizer
         },
         {
           provide: ApiMapper,

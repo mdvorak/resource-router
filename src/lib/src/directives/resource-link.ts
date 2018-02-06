@@ -1,7 +1,6 @@
 import { Directive, HostListener, Input, Optional } from '@angular/core';
-import { Navigable, supportsNavigation } from '../navigation';
-import { ApiLocation } from '../api-location';
-import { ActivatedView } from '../activated-view';
+import { isNavigable, Navigable } from '../navigable';
+import { ResourceData } from '../resource-data';
 
 
 export const TARGET_SELF = '_self';
@@ -22,8 +21,11 @@ export class ResourceLinkDirective {
   @Input() resourceLink: string;
   @Input() target?: TargetType;
 
-  constructor(private readonly apiLocation: ApiLocation,
-              @Optional() private readonly view?: ActivatedView<any>) {
+  constructor(@Optional() private readonly resourceData: ResourceData) {
+    // Note: Combination of @Optional with this custom error is to provide better error for troubleshooting
+    if (!resourceData) {
+      throw new Error(`resourceLink must be nested inside component that provides ${ResourceData.name} service`);
+    }
   }
 
   @HostListener('click')
@@ -33,7 +35,7 @@ export class ResourceLinkDirective {
 
     if (typeof target === 'string' && target) {
       if (target === TARGET_SELF) {
-        target = this.view && this.view.navigation;
+        target = this.resourceData;
       } else if (target === TARGET_TOP) {
         target = undefined;
       } else {
@@ -43,11 +45,11 @@ export class ResourceLinkDirective {
 
     // Fallback to page navigation
     if (!target) {
-      target = this.apiLocation;
+      target = this.resourceData;
     }
 
     // Navigate
-    if (supportsNavigation(target)) {
+    if (isNavigable(target)) {
       target.go(this.resourceLink);
     }
 

@@ -8,7 +8,7 @@ import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
-import { Navigable } from './navigation';
+import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
 
 

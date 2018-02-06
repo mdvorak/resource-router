@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseApiUrl, LocationInfo } from 'angular-resource-router';
+import { BaseUrlNormalizer, LocationInfo } from 'angular-resource-router';
 
 @Injectable()
-export class MockApiUrl extends BaseApiUrl {
+export class MockUrlNormalizer extends BaseUrlNormalizer {
 
   internalProtocol = 'http:';
   internalHost = 'localhost';

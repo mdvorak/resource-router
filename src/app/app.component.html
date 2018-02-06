@@ -1,7 +1,12 @@
 <p>See <a href="http://docs.resourcerouterexample.apiary.io/#">API definition</a></p>
 
-<ng-template [resourceData] let-data [resourceDataOf]="apiLocation.url"
-             (urlChange)="apiLocation.url=$event">
-  <h1>{{data.url}}</h1>
+<h1>ROOT</h1>
+<h2>{{resource.url}}</h2>
+<resource-view [data]="resource.data"></resource-view>
+
+<h1>*resourceData</h1>
+<div *resourceData="let data of apiLocation.url">
+  <h2>{{data.url}}</h2>
   <resource-view [data]="data"></resource-view>
-</ng-template>
+</div>
+

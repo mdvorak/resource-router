@@ -1,4 +1,4 @@
-const TARGET = "http://private-anon-5c8d0c0da6-resourcerouterexample.apiary-mock.com";
+const TARGET = "http://private-anon-39155185b1-resourcerouterexample.apiary-mock.com";
 
 function replaceHost(data, req) {
   const hostRegExp = new RegExp(TARGET.replace(/([^a-zA-Z0-9])/g, '\\$1') + '/', 'g');

@@ -1,6 +1,6 @@
 import { ViewDef } from './view-definition';
 import { ReadOnlyHeaders } from './read-only-headers';
-import { Navigable } from './navigation';
+import { Navigable } from './navigable';
 
 
 export interface ViewData<T> {

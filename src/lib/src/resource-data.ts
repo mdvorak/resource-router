@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/switchMap';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
-import { Navigable } from './navigation';
+import { Navigable } from './navigable';
+import { LocationReference } from './location-reference';
+
 
 @Injectable()
-export class ResourceData implements Navigable {
+export class ResourceData implements Navigable, LocationReference {
 
   public readonly dataChange: Observable<ViewData<any>>;
   public readonly urlChange: Observable<string>;
@@ -40,9 +43,9 @@ export class ResourceData implements Navigable {
         this.loadingValue = true;
         return this.load(url);
       })
+      .finally(() => this.loadingValue = false)
       .subscribe(data => {
         // Update data
-        this.loadingValue = false;
         this.dataChangeSource.next(data);
 
         // This propagates back the actual url when server-side redirect was performed
@@ -51,6 +54,10 @@ export class ResourceData implements Navigable {
           this.urlChangeSource.next(this.urlValue);
         }
       });
+  }
+
+  get loading() {
+    return this.loadingValue;
   }
 
   get data(): ViewData<any> {
@@ -67,7 +74,7 @@ export class ResourceData implements Navigable {
       value = '';
     }
 
-    // Emit event if value has actually changed
+    // Start load if value has actually changed
     if (this.urlValue !== value) {
       this.urlValue = value;
       this.loadDataEvent.next(value);

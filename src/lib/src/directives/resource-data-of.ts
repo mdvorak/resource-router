@@ -11,35 +11,29 @@ import {
 } from '@angular/core';
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
-import { ISubscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 
-/**
- * @deprecated
- */
 export class ResourceDataOfContext {
   constructor(private resource: ResourceData) {
   }
 
+  // noinspection JSUnusedGlobalSymbols
   get $implicit(): ViewData<any> {
     return this.resource.data;
   }
 }
 
-
-/**
- * @deprecated
- */
 @Directive({
-  selector: '[resourceDataOf]',
+  selector: '[resourceData][resourceDataOf]',
   providers: [ResourceData]
 })
 export class ResourceDataOfDirective implements OnInit, OnDestroy {
 
   @Output()
   readonly urlChange = new EventEmitter<string>();
-  private context: ResourceDataOfContext;
-  private subscription: ISubscription;
+  private urlSubscription = Subscription.EMPTY;
+  private readonly context: ResourceDataOfContext;
 
   constructor(private viewContainer: ViewContainerRef,
               private templateRef: TemplateRef<ResourceDataOfContext>,
@@ -49,23 +43,18 @@ export class ResourceDataOfDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.viewContainer.createEmbeddedView(this.templateRef, this.context);
-    this.subscription = this.resource.urlChange.subscribe((value: string) => this.urlChange.emit(value));
+
+    // Note: We don't need listen to this.urlChange, since we don't store the url, we just propagate event
+    this.urlSubscription = this.resource.urlChange.subscribe((value: string) => this.urlChange.emit(value));
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  /**
-   * @deprecated
-   */
-  @Input()
-  set resourceData(value: any) {
+    this.urlSubscription.unsubscribe();
   }
 
   @Input()
   set resourceDataOf(value: string) {
-    this.url = value;
+    this.resource.url = value;
   }
 
   get url(): string {

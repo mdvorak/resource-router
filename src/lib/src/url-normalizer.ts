@@ -7,7 +7,7 @@ import { LocationInfo, parseUrl } from './utils/parse-url';
  * Component for API URLs normalization.
  * Takes in account base-href, location etc.
  */
-export abstract class ApiUrl {
+export abstract class UrlNormalizer {
 
   /**
    * Normalizes the URL, using current base-href.
@@ -23,7 +23,7 @@ export abstract class ApiUrl {
  * Generic implementation of ApiUrl.
  * Default is BrowserApiUrl.
  */
-export abstract class BaseApiUrl extends ApiUrl {
+export abstract class BaseUrlNormalizer extends UrlNormalizer {
 
   normalize(url: string): string {
     // Analyze given URL - returns null when invalid
@@ -64,7 +64,7 @@ export abstract class BaseApiUrl extends ApiUrl {
 }
 
 @Injectable()
-export class BrowserApiUrl extends BaseApiUrl {
+export class BrowserUrlNormalizer extends BaseUrlNormalizer {
 
   constructor(private readonly platformStrategy: LocationStrategy,
               @Inject(DOCUMENT)

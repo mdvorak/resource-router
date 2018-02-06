@@ -12,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
 import { ViewData } from '../view-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ActivatedView } from '../activated-view';
-import { Navigable } from '../navigation';
+import { Navigable } from '../navigable';
 
 class ResourceViewContext<T> {
 
@@ -34,6 +34,7 @@ class ResourceViewContext<T> {
   selector: 'resource-view'
 })
 export class ResourceViewDirective implements OnChanges {
+
   @Input()
   public data?: ViewData<any>;
 
