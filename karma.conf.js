@@ -35,6 +35,22 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    singleRun: false
+    singleRun: false,
+    detectBrowsers: {
+      postDetection: function (browsers) {
+        // When overriden, use command line
+        if (config.browsers) {
+          return config.browsers;
+        }
+
+        // Run in headless mode
+        return browsers.map(function (b) {
+          if (b === 'Chrome' || b === 'Firefox') {
+            return b + 'Headless';
+          }
+          return b;
+        });
+      }
+    }
   });
 };
