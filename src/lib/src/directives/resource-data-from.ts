@@ -15,10 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { bindUrl, isLocationReference, LocationReference } from '../location-reference';
 
 
-/**
- * @deprecated
- */
-export class ResourceDataOfContext {
+export class ResourceDataFromContext {
   constructor(private readonly resource: ResourceData) {
   }
 
@@ -33,25 +30,22 @@ export class ResourceDataOfContext {
   }
 }
 
-/**
- * @deprecated Renamed to resourceDataFrom, with syntax *resourceData="let data from url"
- */
 @Directive({
-  selector: '[resourceData][resourceDataOf]',
+  selector: '[resourceData][resourceDataFrom]',
   providers: [ResourceData]
 })
-export class ResourceDataOfDirective implements OnInit, OnDestroy {
+export class ResourceDataFromDirective implements OnInit, OnDestroy {
 
   @Output()
   readonly urlChange = new EventEmitter<string>();
+  private readonly context: ResourceDataFromContext;
   private urlSubscription = Subscription.EMPTY;
-  private readonly context: ResourceDataOfContext;
   private sourceSubscription = Subscription.EMPTY;
 
   constructor(@Host() public readonly resource: ResourceData,
               private readonly viewContainer: ViewContainerRef,
-              private readonly templateRef: TemplateRef<ResourceDataOfContext>) {
-    this.context = new ResourceDataOfContext(resource);
+              private readonly templateRef: TemplateRef<ResourceDataFromContext>) {
+    this.context = new ResourceDataFromContext(resource);
   }
 
   ngOnInit(): void {
@@ -67,7 +61,7 @@ export class ResourceDataOfDirective implements OnInit, OnDestroy {
   }
 
   @Input()
-  set resourceDataOf(value: string | LocationReference | undefined) {
+  set resourceDataFrom(value: string | LocationReference | undefined) {
     // Remove old source (if any)
     this.sourceSubscription.unsubscribe();
 
