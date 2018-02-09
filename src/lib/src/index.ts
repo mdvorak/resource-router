@@ -1,5 +1,3 @@
-import { ResourceDataFromDirective } from './directives/resource-data-from';
-
 export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURATION } from './resource-router-module';
 export { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 export { ViewData } from './view-data';
@@ -15,7 +13,6 @@ export { ApiLocation } from './api-location';
 export { ResourceViewRegistry, RESOURCE_VIEWS, TYPE_QUALITY_EVALUATOR } from './resource-view-registry';
 export { ResourceOutletComponent } from './directives/resource-outlet';
 export { ResourceDataOfDirective, ResourceDataOfContext } from './directives/resource-data-of';
-export { ResourceDataFromDirective, ResourceDataFromContext } from './directives/resource-data-from';
 export { ResourceViewDirective } from './directives/resource-view';
 export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
 export { Navigable, isNavigable } from './navigable';
