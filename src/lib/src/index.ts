@@ -18,6 +18,7 @@ export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluato
 export { Navigable, isNavigable } from './navigable';
 export { normalizeMediaType } from './utils/normalize-media-type';
 export * from './system-media-types';
+export { Link } from './hal-link';
 export { ViewTypeStrategy, HeaderViewTypeStrategy } from './view-type-strategy';
 export { escapeRegExpPattern, wildcardToRegex } from './utils/wildcard-to-regex';
 export { ResourceLinkDirective } from './directives/resource-link';
