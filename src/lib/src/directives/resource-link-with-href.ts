@@ -1,9 +1,8 @@
 import { Directive, HostBinding, HostListener, Input, OnChanges, Optional } from '@angular/core';
-import { TARGET_SELF, TARGET_TOP, TargetType } from './resource-link';
+import { TARGET_SELF, TARGET_TOP } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { isNavigable } from '../navigable';
-import { ResourceData } from '../resource-data';
+import { isNavigable, Navigable, NavigableRef } from '../navigable';
 import { Location } from '@angular/common';
 
 @Directive({selector: 'a[resourceLink]'})
@@ -12,18 +11,14 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   @HostBinding() href: string;
   @Input() resourceLink: string;
   @Input() type?: string;
-  @Input() target?: TargetType;
+  @Input() target?: Navigable | string;
   @Input() external = false;
   private unsupported = false;
 
   constructor(private readonly apiMapper: ApiMapper,
               private readonly location: Location,
               private readonly resourceViewRegistry: ResourceViewRegistry,
-              @Optional() private readonly resourceData: ResourceData) {
-    // Note: Combination of @Optional with this custom error is to provide better error for troubleshooting
-    if (!resourceData) {
-      throw new Error(`resourceLink must be nested inside component that provides ${ResourceData.name} service`);
-    }
+              @Optional() private readonly navigableRef?: NavigableRef) {
   }
 
   ngOnChanges(): void {
@@ -67,7 +62,11 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
 
     if (typeof target === 'string') {
       if (target === TARGET_SELF) {
-        target = this.resourceData;
+        target = this.navigableRef && this.navigableRef.value;
+        // TODO warn if undefined
+        if (!target) {
+          console.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
+        }
       } else if (target === TARGET_TOP) {
         target = undefined;
       } else {
@@ -76,15 +75,23 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       }
     }
 
-    // Custom target
+    // If custom target is not provided
+    if (!target) {
+      // Default - navigate using page location
+      target = this.navigableRef && this.navigableRef.root;
+      // TODO warn if undefined
+      if (!target) {
+        console.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
+          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" cancelled`);
+      }
+    }
+
     if (isNavigable(target)) {
       // Navigate using original non-mapped link
       target.go(this.resourceLink);
-      return false;
-    } else {
-      // Default - navigate using page location
-      this.resourceData.go(this.resourceLink);
-      return false;
     }
+
+    // Cancel click
+    return false;
   }
 }

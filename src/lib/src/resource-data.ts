@@ -15,7 +15,6 @@ import { LocationReference } from './location-reference';
 
 let nextId = 1;
 
-
 @Injectable()
 export class ResourceData implements Navigable, LocationReference {
 

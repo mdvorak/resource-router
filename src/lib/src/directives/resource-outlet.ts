@@ -1,16 +1,19 @@
 import { Component, EventEmitter, Host, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ResourceData } from '../resource-data';
 import { ISubscription } from 'rxjs/Subscription';
+import { Navigable } from '../navigable';
 
 
 @Component({
   selector: 'resource-outlet',
   template: `
-    <resource-view [data]="resource.data"></resource-view>`,
+    <resource-view [data]="resource.data" [root]="root"></resource-view>`,
   providers: [ResourceData]
 })
 export class ResourceOutletComponent implements OnInit, OnDestroy {
 
+  @Input()
+  root?: Navigable;
   @Output()
   public readonly srcChange = new EventEmitter<string>();
   private subscription: ISubscription;
