@@ -49,12 +49,6 @@ export class ResourceViewDirective implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Ignore other changes
-    // TODO pri zmene top je treba take neco delat
-    // if (!changes['data']) {
-    //   return;
-    // }
-
     // Show nothing when there is nothing to show
     if (!this.data || !this.data.config || !this.data.config.component) {
       this.destroy();
@@ -64,10 +58,11 @@ export class ResourceViewDirective implements OnChanges {
     // Is this same component as currently visible?
     if (this.current
       && this.data.config.component === this.current.componentType
+      // Note: data.target won't change during normal use
       && this.data.target === this.current.target
-      // TODO tohle tu urcite nechceme
-      && !changes['top']) {
-      // Propagate new value instead of component recreation
+      // Note: root also won't change during normal use
+      && !changes['root']) {
+      // Propagate new value instead of component re-creation
       this.current.next(this.data);
     } else {
       // Display new component (destroys old one)
