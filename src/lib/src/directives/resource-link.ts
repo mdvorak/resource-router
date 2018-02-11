@@ -1,5 +1,6 @@
 import { Directive, HostListener, Input, Optional } from '@angular/core';
 import { isNavigable, Navigable, NavigableRef } from '../navigable';
+import { debugLog } from '../debug-log';
 
 
 export const TARGET_SELF = '_self';
@@ -31,9 +32,9 @@ export class ResourceLinkDirective {
     if (typeof target === 'string' && target) {
       if (target === TARGET_SELF) {
         target = this.navigableRef && this.navigableRef.value;
-        // TODO warn if undefined
+        // Warn if undefined
         if (!target) {
-          console.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
+          debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
         }
       } else if (target === TARGET_TOP) {
         target = undefined;
@@ -45,9 +46,9 @@ export class ResourceLinkDirective {
     // Fallback to page navigation
     if (!target) {
       target = this.navigableRef && this.navigableRef.root;
-      // TODO warn if undefined
+      // Warn if undefined
       if (!target) {
-        console.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
+        debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
           `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" cancelled`);
       }
     }

@@ -4,6 +4,7 @@ import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { isNavigable, Navigable, NavigableRef } from '../navigable';
 import { Location } from '@angular/common';
+import { debugLog } from '../debug-log';
 
 @Directive({selector: 'a[resourceLink]'})
 export class ResourceLinkWithHrefDirective implements OnChanges {
@@ -63,9 +64,9 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
     if (typeof target === 'string') {
       if (target === TARGET_SELF) {
         target = this.navigableRef && this.navigableRef.value;
-        // TODO warn if undefined
+        // Warn if undefined
         if (!target) {
-          console.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
+          debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
         }
       } else if (target === TARGET_TOP) {
         target = undefined;
@@ -79,9 +80,9 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
     if (!target) {
       // Default - navigate using page location
       target = this.navigableRef && this.navigableRef.root;
-      // TODO warn if undefined
       if (!target) {
-        console.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
+        // Warn if undefined
+        debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
           `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" cancelled`);
       }
     }
