@@ -42,9 +42,10 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       // Map API to View
       const url = this.apiMapper.mapApiToView(viewUrl);
       if (url) {
-        // Use mapped url, since its internal link
+        // Use mapped url, since its application link
         viewUrl = url;
       } else {
+        // Unsupported location
         unsupported = true;
       }
     }
