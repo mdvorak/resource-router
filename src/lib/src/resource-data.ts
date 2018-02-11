@@ -13,9 +13,17 @@ import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 import { Navigable } from './navigable';
 import { LocationReference } from './location-reference';
 
+let nextId = 1;
+
 
 @Injectable()
 export class ResourceData implements Navigable, LocationReference {
+
+  // noinspection JSUnusedGlobalSymbols
+  /**
+   * Diagnostic identifier, not used by any logic.
+   */
+  public readonly id = nextId++;
 
   public readonly dataChange: Observable<ViewData<any>>;
   public readonly urlChange: Observable<string>;
