@@ -7,15 +7,7 @@ import {
   PathLocationStrategy,
   PlatformLocation
 } from '@angular/common';
-import {
-  ANALYZE_FOR_ENTRY_COMPONENTS,
-  Inject,
-  InjectionToken,
-  ModuleWithProviders,
-  NgModule,
-  Optional,
-  Type
-} from '@angular/core';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
 import { ApiMapper } from './api-mapper';
 import { ApiLocation } from './api-location';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
@@ -70,7 +62,7 @@ export interface ResourceRouterOptions {
    * Changes implementation of {@link ResourceClient}.
    * Default is {@link HttpResourceClient}.
    */
-  readonly viewDataLoader?: Type<ResourceClient>;
+  readonly resourceClient?: Type<ResourceClient>;
 }
 
 
@@ -107,7 +99,9 @@ export class ResourceRouterModule {
           provide: LocationStrategy,
           useFactory: provideLocationStrategy,
           deps: [
-            PlatformLocation, [new Inject(APP_BASE_HREF), new Optional()], RESOURCE_ROUTER_CONFIGURATION
+            PlatformLocation,
+            [new Inject(APP_BASE_HREF), new Optional()],
+            RESOURCE_ROUTER_CONFIGURATION
           ]
         },
         Location,
@@ -145,7 +139,7 @@ export class ResourceRouterModule {
         },
         {
           provide: ResourceClient,
-          useClass: options.viewDataLoader || HttpResourceClient
+          useClass: options.resourceClient || HttpResourceClient
         }
       ]
     };
