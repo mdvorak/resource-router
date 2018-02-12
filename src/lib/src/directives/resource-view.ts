@@ -38,8 +38,6 @@ export class ResourceViewDirective implements OnChanges {
 
   @Input()
   data?: ViewData<any>;
-  @Input()
-  root?: Navigable;
 
   private current: ResourceViewContext<any> | null = null;
 
@@ -59,9 +57,7 @@ export class ResourceViewDirective implements OnChanges {
     if (this.current
       && this.data.config.component === this.current.componentType
       // Note: data.target won't change during normal use
-      && this.data.target === this.current.target
-      // Note: root also won't change during normal use
-      && !changes['root']) {
+      && this.data.target === this.current.target) {
       // Propagate new value instead of component re-creation
       this.current.next(this.data);
     } else {
@@ -96,11 +92,7 @@ export class ResourceViewDirective implements OnChanges {
       {
         provide: ActivatedView,
         useValue: new ActivatedView<any>(target, dataSource)
-      },
-      {
-        provide: NavigableRef,
-        useValue: new NavigableRef(target, this.root || (this.navigableRef ? this.navigableRef.root : undefined))
-      },
+      }
     ]);
     const injector = ReflectiveInjector.fromResolvedProviders(providers, this.viewContainer.parentInjector);
     const component = this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);

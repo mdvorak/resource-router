@@ -1,8 +1,8 @@
-import { Directive, HostBinding, HostListener, Input, OnChanges, Optional } from '@angular/core';
+import { Directive, HostBinding, HostListener, Inject, Input, OnChanges, Optional } from '@angular/core';
 import { TARGET_SELF, TARGET_TOP } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { isNavigable, Navigable, NavigableRef } from '../navigable';
+import { isNavigable, Navigable, NavigableRef, ROOT_NAVIGABLE } from '../navigable';
 import { Location } from '@angular/common';
 import { debugLog } from '../debug-log';
 
@@ -19,7 +19,8 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   constructor(private readonly apiMapper: ApiMapper,
               private readonly location: Location,
               private readonly resourceViewRegistry: ResourceViewRegistry,
-              @Optional() private readonly navigableRef?: NavigableRef) {
+              @Optional() private readonly currentNavigable?: NavigableRef,
+              @Inject(ROOT_NAVIGABLE) @Optional() private readonly rootNavigable?: NavigableRef) {
   }
 
   ngOnChanges(): void {
@@ -63,7 +64,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
 
     if (typeof target === 'string') {
       if (target === TARGET_SELF) {
-        target = this.navigableRef && this.navigableRef.value;
+        target = this.currentNavigable && this.currentNavigable.navigable;
         // Warn if undefined
         if (!target) {
           debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
@@ -76,14 +77,15 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       }
     }
 
-    // If custom target is not provided
+    // Fallback to page navigation
     if (!target) {
-      // Default - navigate using page location
-      target = this.navigableRef && this.navigableRef.root;
+      // Fallback to current when root is unavailable
+      const root = this.rootNavigable || this.currentNavigable;
+      target = root && root.navigable;
+      // Warn if undefined
       if (!target) {
-        // Warn if undefined
         debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
-          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" cancelled`);
+          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" canceled`);
       }
     }
 

@@ -26,6 +26,7 @@ import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-h
 import { ResourceOutletComponent } from './directives/resource-outlet';
 import { HttpResourceClient, ResourceClient } from './resource-client';
 import { ResourceDataOfDirective } from './directives/resource-data-of';
+import { ResourceContextDirective } from './directives/resource-context';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultErrorComponent } from './components/default-error.component';
@@ -77,6 +78,7 @@ export interface ResourceRouterOptions {
   declarations: [
     ResourceOutletComponent,
     ResourceDataOfDirective,
+    ResourceContextDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective,
@@ -89,6 +91,7 @@ export interface ResourceRouterOptions {
   exports: [
     ResourceOutletComponent,
     ResourceDataOfDirective,
+    ResourceContextDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective

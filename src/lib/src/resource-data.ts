@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { FactoryProvider, Injectable, Self } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -10,7 +10,7 @@ import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
-import { Navigable } from './navigable';
+import { Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
 
 let nextId = 1;
@@ -18,14 +18,14 @@ let nextId = 1;
 @Injectable()
 export class ResourceData implements Navigable, LocationReference {
 
+  public readonly dataChange: Observable<ViewData<any>>;
+  public readonly urlChange: Observable<string>;
+
   // noinspection JSUnusedGlobalSymbols
   /**
    * Diagnostic identifier, not used by any logic.
    */
   public readonly id = nextId++;
-
-  public readonly dataChange: Observable<ViewData<any>>;
-  public readonly urlChange: Observable<string>;
 
   private urlValue = '';
   private loadingValue = false;
@@ -130,4 +130,13 @@ export class ResourceData implements Navigable, LocationReference {
       body: body
     };
   }
+}
+
+
+export function resourceDataNavigableRef(): FactoryProvider {
+  return {
+    provide: NavigableRef,
+    useFactory: NavigableRef.create,
+    deps: [[ResourceData, new Self()]]
+  };
 }

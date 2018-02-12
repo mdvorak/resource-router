@@ -1,5 +1,5 @@
-import { Directive, HostListener, Input, Optional } from '@angular/core';
-import { isNavigable, Navigable, NavigableRef } from '../navigable';
+import { Directive, HostListener, Inject, Input, Optional } from '@angular/core';
+import { isNavigable, Navigable, NavigableRef, ROOT_NAVIGABLE } from '../navigable';
 import { debugLog } from '../debug-log';
 
 
@@ -21,7 +21,8 @@ export class ResourceLinkDirective {
   @Input() resourceLink: string;
   @Input() target?: TargetType;
 
-  constructor(@Optional() private readonly navigableRef?: NavigableRef) {
+  constructor(@Optional() private readonly currentNavigable?: NavigableRef,
+              @Inject(ROOT_NAVIGABLE) @Optional() private readonly rootNavigable?: NavigableRef) {
   }
 
   @HostListener('click')
@@ -31,7 +32,7 @@ export class ResourceLinkDirective {
 
     if (typeof target === 'string' && target) {
       if (target === TARGET_SELF) {
-        target = this.navigableRef && this.navigableRef.value;
+        target = this.currentNavigable && this.currentNavigable.navigable;
         // Warn if undefined
         if (!target) {
           debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
@@ -45,11 +46,13 @@ export class ResourceLinkDirective {
 
     // Fallback to page navigation
     if (!target) {
-      target = this.navigableRef && this.navigableRef.root;
+      // Fallback to current when root is unavailable
+      const root = this.rootNavigable || this.currentNavigable;
+      target = root && root.navigable;
       // Warn if undefined
       if (!target) {
         debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
-          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" cancelled`);
+          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" canceled`);
       }
     }
 

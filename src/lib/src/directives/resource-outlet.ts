@@ -1,24 +1,25 @@
-import { Component, EventEmitter, Host, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ResourceData } from '../resource-data';
-import { ISubscription } from 'rxjs/Subscription';
-import { Navigable } from '../navigable';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Self } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { ResourceData, resourceDataNavigableRef } from '../resource-data';
+import { rootNavigableRef } from '../navigable';
 
 
 @Component({
   selector: 'resource-outlet',
-  template: `
-    <resource-view [data]="resource.data" [root]="root"></resource-view>`,
-  providers: [ResourceData]
+  template: '<resource-view [data]="resource.data"></resource-view>',
+  providers: [
+    ResourceData,
+    resourceDataNavigableRef(),
+    rootNavigableRef()
+  ]
 })
 export class ResourceOutletComponent implements OnInit, OnDestroy {
 
-  @Input()
-  root?: Navigable;
   @Output()
   public readonly srcChange = new EventEmitter<string>();
-  private subscription: ISubscription;
+  private subscription = Subscription.EMPTY;
 
-  constructor(@Host() public readonly resource: ResourceData) {
+  constructor(@Self() public readonly resource: ResourceData) {
   }
 
   ngOnInit(): void {

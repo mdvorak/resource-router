@@ -2,7 +2,7 @@ export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURAT
 export { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 export { ViewData } from './view-data';
 export { ResourceClient, HttpResourceClient } from './resource-client';
-export { ResourceData } from './resource-data';
+export { ResourceData, resourceDataNavigableRef } from './resource-data';
 export { ViewDef, Data, StatusType } from './view-definition';
 export { ActivatedView } from './activated-view';
 export { LocationInfo, parseUrl } from './utils/parse-url';
@@ -15,7 +15,13 @@ export { ResourceOutletComponent } from './directives/resource-outlet';
 export { ResourceDataOfDirective, ResourceDataOfContext } from './directives/resource-data-of';
 export { ResourceViewDirective } from './directives/resource-view';
 export { TypeQualityEvaluator, simpleTypeQualityEvaluator, statusQualityEvaluator } from './quality-evaluator';
-export { Navigable, isNavigable } from './navigable';
+export {
+  Navigable,
+  NavigableRef,
+  isNavigable,
+  rootNavigableRef,
+  ROOT_NAVIGABLE
+} from './navigable';
 export { normalizeMediaType } from './utils/normalize-media-type';
 export * from './system-media-types';
 export { Link } from './hal-link';
@@ -26,3 +32,4 @@ export { ResourceLinkWithHrefDirective } from './directives/resource-link-with-h
 export { LocationReference, isLocationReference, bindUrl } from './location-reference';
 export { DefaultEmptyComponent } from './components/default-empty.component';
 export { DefaultErrorComponent } from './components/default-error.component';
+export { ResourceContextDirective } from './directives/resource-context';

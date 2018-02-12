@@ -1,19 +1,22 @@
 import {
   Directive,
   EventEmitter,
-  Host,
   Input,
   OnDestroy,
   OnInit,
   Output,
+  Self,
   TemplateRef,
   ViewContainerRef
 } from '@angular/core';
 import { ViewData } from '../view-data';
-import { ResourceData } from '../resource-data';
+import { ResourceData, resourceDataNavigableRef } from '../resource-data';
 import { Subscription } from 'rxjs/Subscription';
 import { bindUrl, isLocationReference, LocationReference } from '../location-reference';
 import { ResourceOutletComponent } from './resource-outlet';
+import { rootNavigableRef } from '../navigable';
+import { ResourceContextDirective } from './resource-context';
+
 
 /**
  * Context for structural directive {@link ResourceDataOfDirective}.
@@ -54,15 +57,19 @@ export class ResourceDataOfContext {
   }
 }
 
+
 /**
  * Structural directive, that loads the data from given source, and allows custom data representation.
  *
  * This is more complex variant of {@link ResourceOutletComponent}. It is needed when you need to show
  * some generic content along with viewed directive, which also depends on loaded data, like menu.
  *
+ * Note that until issue [#15998]{@link https://github.com/angular/angular/issues/15998} is resolved,
+ * this directive must be used in conjunction with {@link ResourceContextDirective}, as seen in the example.
+ *
  * @example
- * <!-- apiLocation is normal public component property -->
- * <div *resourceData="let data of apiLocation">
+ * <!-- apiLocation is host component property -->
+ * <div *resourceData="let data of apiLocation" [resourceContext]="data">
  *   <!-- Render navigation component as separate resource -->
  *   <resource-outlet [src]="data._links?.nav?.href"></resource-outlet>
  *
@@ -78,7 +85,11 @@ export class ResourceDataOfContext {
  */
 @Directive({
   selector: '[resourceData][resourceDataOf]',
-  providers: [ResourceData]
+  providers: [
+    ResourceData,
+    resourceDataNavigableRef(),
+    rootNavigableRef()
+  ]
 })
 export class ResourceDataOfDirective implements OnInit, OnDestroy {
 
@@ -103,7 +114,7 @@ export class ResourceDataOfDirective implements OnInit, OnDestroy {
   private urlSubscription = Subscription.EMPTY;
   private sourceSubscription = Subscription.EMPTY;
 
-  constructor(@Host() public readonly resource: ResourceData,
+  constructor(@Self() public readonly resource: ResourceData,
               private readonly viewContainer: ViewContainerRef,
               private readonly templateRef: TemplateRef<ResourceDataOfContext>) {
     this.context = new ResourceDataOfContext(resource);
