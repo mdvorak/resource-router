@@ -2,7 +2,7 @@ import { Directive, HostBinding, HostListener, Inject, Input, OnChanges, Optiona
 import { TARGET_SELF, TARGET_TOP } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { isNavigable, Navigable, NavigableRef, ROOT_NAVIGABLE } from '../navigable';
+import { isNavigable, Navigable, NavigableRef, TOP_LEVEL_NAVIGABLE } from '../navigable';
 import { Location } from '@angular/common';
 import { debugLog } from '../debug-log';
 
@@ -20,7 +20,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
               private readonly location: Location,
               private readonly resourceViewRegistry: ResourceViewRegistry,
               @Optional() private readonly currentNavigable?: NavigableRef,
-              @Inject(ROOT_NAVIGABLE) @Optional() private readonly rootNavigable?: NavigableRef) {
+              @Optional() @Inject(TOP_LEVEL_NAVIGABLE) private readonly topLevelNavigable?: NavigableRef) {
   }
 
   ngOnChanges(): void {
@@ -79,9 +79,9 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
 
     // Fallback to page navigation
     if (!target) {
-      // Fallback to current when root is unavailable
-      const root = this.rootNavigable || this.currentNavigable;
-      target = root && root.navigable;
+      // Fallback to current when top-level is unavailable
+      const topLevel = this.topLevelNavigable || this.currentNavigable;
+      target = topLevel && topLevel.navigable;
       // Warn if undefined
       if (!target) {
         debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +

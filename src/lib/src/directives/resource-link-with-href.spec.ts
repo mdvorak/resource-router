@@ -4,7 +4,7 @@ import { ResourceViewRegistry } from '../resource-view-registry';
 import { TargetType } from './resource-link';
 import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
-import { Navigable, rootNavigableRef } from '../navigable';
+import { Navigable, topLevelNavigableRef } from '../navigable';
 import { By } from '@angular/platform-browser';
 import { createClassSpyObj } from '../utils/class-spy.spec';
 import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
@@ -88,12 +88,12 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         },
         ResourceData,
         resourceDataNavigableRef(),
-        rootNavigableRef(),
+        topLevelNavigableRef(),
       ]
     });
   }));
 
-  // Created with ROOT_NAVIGATION and NavigationRef
+  // Created with TOP_LEVEL_NAVIGABLE and NavigationRef
   describe('with navigation context', () => {
     beforeEach(async(inject([ResourceData], (_resourceData: ResourceData) => {
       resourceData = _resourceData;

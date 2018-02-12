@@ -45,39 +45,39 @@ class NavigableRefImpl extends NavigableRef {
 }
 
 /**
- * Token for root (top-level) {@link NavigableRef} instance.
+ * Token for top-level (root) {@link NavigableRef} instance.
  *
- * To provide it in your component, you might use {@link rootNavigableRef}, however see its docs for proper usage.
+ * To provide it in your component, you might use {@link topLevelNavigableRef}, however see its docs for proper usage.
  */
-export const ROOT_NAVIGABLE = new InjectionToken<NavigableRef>('ROOT_NAVIGABLE');
+export const TOP_LEVEL_NAVIGABLE = new InjectionToken<NavigableRef>('TOP_LEVEL_NAVIGABLE');
 
 
 /**
- * Provides {@link ROOT_NAVIGABLE} reference. It honors existing root, therefore its safe to declare it
+ * Provides {@link TOP_LEVEL_NAVIGABLE} reference. It honors existing instance, therefore its safe to declare it
  * in the nested components.
- * When there is no existing root available, current {@link NavigableRef} is used.
+ * When there is no existing top-level reference available, current {@link NavigableRef} is used.
  *
  * Note that this requires {@link NavigableRef} to be provided by current component, regardless it being used or not.
  *
- * @see ROOT_NAVIGABLE
+ * @see TOP_LEVEL_NAVIGABLE
  * @see NavigationRef
  * @see resourceDataNavigableRef
  */
-export function rootNavigableRef(): FactoryProvider {
+export function topLevelNavigableRef(): FactoryProvider {
   return {
-    provide: ROOT_NAVIGABLE,
-    useFactory: rootNavigableFactory,
+    provide: TOP_LEVEL_NAVIGABLE,
+    useFactory: topLevelNavigableFactory,
     deps: [
       [NavigableRef, new Self()],
-      [new Inject(ROOT_NAVIGABLE), new SkipSelf(), new Optional()]
+      [new Inject(TOP_LEVEL_NAVIGABLE), new SkipSelf(), new Optional()]
     ]
   };
 }
 
 /**
  * @internal
- * @see rootNavigableRef
+ * @see topLevelNavigableRef
  */
-export function rootNavigableFactory(current: NavigableRef, root?: NavigableRef): NavigableRef {
-  return root || current;
+export function topLevelNavigableFactory(current: NavigableRef, existing?: NavigableRef): NavigableRef {
+  return existing || current;
 }

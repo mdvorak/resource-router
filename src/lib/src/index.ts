@@ -19,8 +19,8 @@ export {
   Navigable,
   NavigableRef,
   isNavigable,
-  rootNavigableRef,
-  ROOT_NAVIGABLE
+  topLevelNavigableRef,
+  TOP_LEVEL_NAVIGABLE
 } from './navigable';
 export { normalizeMediaType } from './utils/normalize-media-type';
 export * from './system-media-types';

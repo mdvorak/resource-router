@@ -1,5 +1,5 @@
 import { Directive, Input, Self } from '@angular/core';
-import { isNavigable, Navigable, NavigableRef, rootNavigableRef } from '../navigable';
+import { isNavigable, Navigable, NavigableRef, topLevelNavigableRef } from '../navigable';
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
 import { ResourceDataOfDirective } from './resource-data-of';
@@ -49,7 +49,7 @@ const NOOP_NAVIGABLE: Navigable = {
         [ResourceContextDirective, new Self()]
       ]
     },
-    rootNavigableRef()
+    topLevelNavigableRef()
   ]
 })
 export class ResourceContextDirective extends NavigableRef {

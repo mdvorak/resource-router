@@ -1,5 +1,5 @@
 import { Directive, HostListener, Inject, Input, Optional } from '@angular/core';
-import { isNavigable, Navigable, NavigableRef, ROOT_NAVIGABLE } from '../navigable';
+import { isNavigable, Navigable, NavigableRef, TOP_LEVEL_NAVIGABLE } from '../navigable';
 import { debugLog } from '../debug-log';
 
 
@@ -22,7 +22,7 @@ export class ResourceLinkDirective {
   @Input() target?: TargetType;
 
   constructor(@Optional() private readonly currentNavigable?: NavigableRef,
-              @Inject(ROOT_NAVIGABLE) @Optional() private readonly rootNavigable?: NavigableRef) {
+              @Optional() @Inject(TOP_LEVEL_NAVIGABLE) private readonly topLevelNavigable?: NavigableRef) {
   }
 
   @HostListener('click')
@@ -46,9 +46,9 @@ export class ResourceLinkDirective {
 
     // Fallback to page navigation
     if (!target) {
-      // Fallback to current when root is unavailable
-      const root = this.rootNavigable || this.currentNavigable;
-      target = root && root.navigable;
+      // Fallback to current when top-level is unavailable
+      const topLevel = this.topLevelNavigable || this.currentNavigable;
+      target = topLevel && topLevel.navigable;
       // Warn if undefined
       if (!target) {
         debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +

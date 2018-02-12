@@ -14,7 +14,7 @@ import { ResourceData, resourceDataNavigableRef } from '../resource-data';
 import { Subscription } from 'rxjs/Subscription';
 import { bindUrl, isLocationReference, LocationReference } from '../location-reference';
 import { ResourceOutletComponent } from './resource-outlet';
-import { rootNavigableRef } from '../navigable';
+import { topLevelNavigableRef } from '../navigable';
 import { ResourceContextDirective } from './resource-context';
 
 
@@ -88,7 +88,7 @@ export class ResourceDataOfContext {
   providers: [
     ResourceData,
     resourceDataNavigableRef(),
-    rootNavigableRef()
+    topLevelNavigableRef()
   ]
 })
 export class ResourceDataOfDirective implements OnInit, OnDestroy {

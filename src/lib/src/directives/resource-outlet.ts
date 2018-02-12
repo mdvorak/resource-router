@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Self } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ResourceData, resourceDataNavigableRef } from '../resource-data';
-import { rootNavigableRef } from '../navigable';
+import { topLevelNavigableRef } from '../navigable';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { rootNavigableRef } from '../navigable';
   providers: [
     ResourceData,
     resourceDataNavigableRef(),
-    rootNavigableRef()
+    topLevelNavigableRef()
   ]
 })
 export class ResourceOutletComponent implements OnInit, OnDestroy {
