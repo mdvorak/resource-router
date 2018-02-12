@@ -4,18 +4,14 @@ import { ResourceViewRegistry } from '../resource-view-registry';
 import { TargetType } from './resource-link';
 import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
-import { ViewData } from '../view-data';
-import { Navigable } from '../navigable';
+import { Navigable, rootNavigableRef } from '../navigable';
 import { By } from '@angular/platform-browser';
 import { createClassSpyObj } from '../utils/class-spy.spec';
 import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { BrowserUrlNormalizer, UrlNormalizer } from '../url-normalizer';
 import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
-import { NO_HEADERS } from '../read-only-headers';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ActivatedView } from '../activated-view';
-import { ResourceData } from '../resource-data';
+import { ResourceData, resourceDataNavigableRef } from '../resource-data';
 import { HttpResourceClient, ResourceClient } from '../resource-client';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from '../view-type-strategy';
@@ -91,12 +87,14 @@ describe(ResourceLinkWithHrefDirective.name, () => {
           useClass: HeaderViewTypeStrategy
         },
         ResourceData,
+        resourceDataNavigableRef(),
+        rootNavigableRef(),
       ]
     });
   }));
 
-  // Without declared ActivatedView (typically outside resource-view directive)
-  describe('without ActivatedView', () => {
+  // Created with ROOT_NAVIGATION and NavigationRef
+  describe('with navigation context', () => {
     beforeEach(async(inject([ResourceData], (_resourceData: ResourceData) => {
       resourceData = _resourceData;
       fixture = TestBed.createComponent(TestComponent);
@@ -213,52 +211,6 @@ describe(ResourceLinkWithHrefDirective.name, () => {
       expect(cancel).toBe(true);
       expect(navigationMock.go).not.toHaveBeenCalled();
       expect(resourceData.url).toBe('');
-    });
-  });
-
-  // With declared ActivatedView (typically inside resource-view directive)
-  describe('with ActivatedView', () => {
-    let navigationMock: Navigable;
-
-    let viewData: ViewData<any>;
-    let viewDataSubject: BehaviorSubject<ViewData<any>>;
-
-    // Declare ViewData for DI
-    beforeEach(async(() => {
-      navigationMock = createSpyNavigable();
-
-      viewData = {
-        target: navigationMock,
-        config: {type: 'test', component: TestComponent},
-        type: 'test',
-        url: '',
-        status: 0,
-        statusText: '',
-        headers: NO_HEADERS,
-        body: undefined,
-      };
-      viewDataSubject = new BehaviorSubject(viewData);
-
-      return TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ActivatedView,
-            useValue: new ActivatedView(navigationMock, viewDataSubject)
-          }
-        ]
-      });
-    }));
-
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestComponent);
-      comp = fixture.componentInstance;
-      de = fixture.debugElement.query(By.directive(ResourceLinkWithHrefDirective));
-      el = de.nativeElement;
-    }));
-
-    // TODO
-    it('should be initialized', () => {
-      expect(el).toBeDefined();
     });
   });
 });
