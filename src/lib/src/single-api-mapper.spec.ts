@@ -1,11 +1,11 @@
-import { MockApiUrl } from 'angular-resource-router/testing';
+import { MockUrlNormalizer } from 'angular-resource-router/testing';
 import { SingleApiMapper } from './single-api-mapper';
 
 describe(SingleApiMapper.name, () => {
-  let apiUrl: MockApiUrl;
+  let apiUrl: MockUrlNormalizer;
 
   beforeEach(() => {
-    apiUrl = new MockApiUrl().init('test:', 'example.com', '/', '/context/');
+    apiUrl = new MockUrlNormalizer().init('test:', 'example.com', '/', '/context/');
   });
 
   it('should have prefix my/api/ resolved to http://example.com/context/my/api/', () => {

@@ -1,8 +1,21 @@
 import {
-  APP_BASE_HREF, CommonModule, HashLocationStrategy, Location, LocationStrategy, PathLocationStrategy,
+  APP_BASE_HREF,
+  CommonModule,
+  HashLocationStrategy,
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
   PlatformLocation
 } from '@angular/common';
-import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
+import {
+  ANALYZE_FOR_ENTRY_COMPONENTS,
+  Inject,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  Type
+} from '@angular/core';
 import { ApiMapper } from './api-mapper';
 import { ApiLocation } from './api-location';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
@@ -11,13 +24,14 @@ import { ViewDef } from './view-definition';
 import { ResourceLinkDirective } from './directives/resource-link';
 import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
 import { ResourceOutletComponent } from './directives/resource-outlet';
-import { HttpClientViewDataLoader, ViewDataLoader } from './view-data-loader';
-import { ResourceDataDirective } from './directives/resource-data';
+import { HttpResourceClient, ResourceClient } from './resource-client';
+import { ResourceDataOfDirective } from './directives/resource-data-of';
+import { ResourceContextDirective } from './directives/resource-context';
 import { ResourceViewDirective } from './directives/resource-view';
 import { DefaultEmptyComponent } from './components/default-empty.component';
 import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
-import { ApiUrl, BrowserApiUrl } from './api-url';
+import { BrowserUrlNormalizer, UrlNormalizer } from './url-normalizer';
 import { APP_API_PREFIX, SingleApiMapper } from './single-api-mapper';
 
 
@@ -53,17 +67,18 @@ export interface ResourceRouterOptions {
   readonly viewTypeStrategy?: Type<ViewTypeStrategy>;
 
   /**
-   * Changes implementation of {@link ViewDataLoader}.
-   * Default is {@link HttpClientViewDataLoader}.
+   * Changes implementation of {@link ResourceClient}.
+   * Default is {@link HttpResourceClient}.
    */
-  readonly viewDataLoader?: Type<ViewDataLoader>;
+  readonly viewDataLoader?: Type<ResourceClient>;
 }
 
 
 @NgModule({
   declarations: [
     ResourceOutletComponent,
-    ResourceDataDirective,
+    ResourceDataOfDirective,
+    ResourceContextDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective,
@@ -75,7 +90,8 @@ export interface ResourceRouterOptions {
   ],
   exports: [
     ResourceOutletComponent,
-    ResourceDataDirective,
+    ResourceDataOfDirective,
+    ResourceContextDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective
@@ -96,8 +112,8 @@ export class ResourceRouterModule {
         },
         Location,
         {
-          provide: ApiUrl,
-          useClass: BrowserApiUrl
+          provide: UrlNormalizer,
+          useClass: BrowserUrlNormalizer
         },
         {
           provide: ApiMapper,
@@ -128,8 +144,8 @@ export class ResourceRouterModule {
           useClass: options.viewTypeStrategy || HeaderViewTypeStrategy
         },
         {
-          provide: ViewDataLoader,
-          useClass: options.viewDataLoader || HttpClientViewDataLoader
+          provide: ResourceClient,
+          useClass: options.viewDataLoader || HttpResourceClient
         }
       ]
     };

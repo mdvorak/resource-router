@@ -1,10 +1,10 @@
-import { Directive, HostBinding, HostListener, Input, OnChanges, Optional } from '@angular/core';
-import { TARGET_SELF, TARGET_TOP, TargetType } from './resource-link';
+import { Directive, HostBinding, HostListener, Inject, Input, OnChanges, Optional } from '@angular/core';
+import { TARGET_SELF, TARGET_TOP } from './resource-link';
 import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
-import { supportsNavigation } from '../navigable';
-import { ApiLocation } from '../api-location';
-import { ActivatedView } from '../activated-view';
+import { isNavigable, Navigable, NavigableRef, TOP_LEVEL_NAVIGABLE } from '../navigable';
+import { Location } from '@angular/common';
+import { debugLog } from '../debug-log';
 
 @Directive({selector: 'a[resourceLink]'})
 export class ResourceLinkWithHrefDirective implements OnChanges {
@@ -12,14 +12,15 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
   @HostBinding() href: string;
   @Input() resourceLink: string;
   @Input() type?: string;
-  @Input() target?: TargetType;
+  @Input() target?: Navigable | string;
   @Input() external = false;
   private unsupported = false;
 
-  constructor(private apiMapper: ApiMapper,
-              private apiLocation: ApiLocation,
-              private resourceViewRegistry: ResourceViewRegistry,
-              @Optional() private view?: ActivatedView<any>) {
+  constructor(private readonly apiMapper: ApiMapper,
+              private readonly location: Location,
+              private readonly resourceViewRegistry: ResourceViewRegistry,
+              @Optional() private readonly currentNavigable?: NavigableRef,
+              @Optional() @Inject(TOP_LEVEL_NAVIGABLE) private readonly topLevelNavigable?: NavigableRef) {
   }
 
   ngOnChanges(): void {
@@ -38,16 +39,17 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       // Map API to View
       const url = this.apiMapper.mapApiToView(viewUrl);
       if (url) {
-        // Use mapped url, since its internal link
+        // Use mapped url, since its application link
         viewUrl = url;
       } else {
+        // Unsupported location
         unsupported = true;
       }
     }
 
     // Store mapped URL to href
     this.unsupported = unsupported;
-    this.href = unsupported ? viewUrl : this.apiLocation.prepareExternalUrl(viewUrl);
+    this.href = unsupported ? viewUrl : this.location.prepareExternalUrl(viewUrl);
   }
 
   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
@@ -62,7 +64,11 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
 
     if (typeof target === 'string') {
       if (target === TARGET_SELF) {
-        target = this.view && this.view.navigation;
+        target = this.currentNavigable && this.currentNavigable.navigable;
+        // Warn if undefined
+        if (!target) {
+          debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
+        }
       } else if (target === TARGET_TOP) {
         target = undefined;
       } else {
@@ -71,15 +77,24 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       }
     }
 
-    // Custom target
-    if (supportsNavigation(target)) {
-      // Navigate using original non-mapped link
-      target.navigate(this.resourceLink);
-      return false;
-    } else {
-      // Default - navigate using page location
-      this.apiLocation.navigate(this.resourceLink);
-      return false;
+    // Fallback to page navigation
+    if (!target) {
+      // Fallback to current when top-level is unavailable
+      const topLevel = this.topLevelNavigable || this.currentNavigable;
+      target = topLevel && topLevel.navigable;
+      // Warn if undefined
+      if (!target) {
+        debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
+          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" canceled`);
+      }
     }
+
+    if (isNavigable(target)) {
+      // Navigate using original non-mapped link
+      target.go(this.resourceLink);
+    }
+
+    // Cancel click
+    return false;
   }
 }

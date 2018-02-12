@@ -28,6 +28,10 @@ import { environment } from './environments/environment';
         component: JsonComponent
       },
       {
+        type: 'application/x.question',
+        component: JsonComponent
+      },
+      {
         type: 'application/x.sample',
         component: SampleComponent
       }

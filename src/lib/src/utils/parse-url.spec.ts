@@ -14,9 +14,21 @@ describe(parseUrl.name, () => {
     'http://example.com/foo/bar': {protocol: 'http:', host: 'example.com', pathname: '/foo/bar'},
     'http://example.com:123/foo/bar': {protocol: 'http:', host: 'example.com:123', pathname: '/foo/bar'},
     'http://user:pass@example.com/foo/bar': {protocol: 'http:', host: 'user:pass@example.com', pathname: '/foo/bar'},
-    'http://user:pass@example.com:123/foo/bar': {protocol: 'http:', host: 'user:pass@example.com:123', pathname: '/foo/bar'},
-    'http://user:pass@example.com:123/foo/bar?a=42': {protocol: 'http:', host: 'user:pass@example.com:123', pathname: '/foo/bar?a=42'},
-    'http://user:pass@example.com:123/foo/bar#tag': {protocol: 'http:', host: 'user:pass@example.com:123', pathname: '/foo/bar#tag'},
+    'http://user:pass@example.com:123/foo/bar': {
+      protocol: 'http:',
+      host: 'user:pass@example.com:123',
+      pathname: '/foo/bar'
+    },
+    'http://user:pass@example.com:123/foo/bar?a=42': {
+      protocol: 'http:',
+      host: 'user:pass@example.com:123',
+      pathname: '/foo/bar?a=42'
+    },
+    'http://user:pass@example.com:123/foo/bar#tag': {
+      protocol: 'http:',
+      host: 'user:pass@example.com:123',
+      pathname: '/foo/bar#tag'
+    },
     // Scheme relative
     '//example.com': {host: 'example.com'},
     '//example.com:123': {host: 'example.com:123'},

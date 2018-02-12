@@ -5,7 +5,7 @@ import { Navigable } from './navigable';
 
 export interface ViewData<T> {
 
-  readonly source: Navigable;
+  readonly target: Navigable;
   readonly config: ViewDef;
   readonly type: string;
   readonly url: string;

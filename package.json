@@ -7,13 +7,13 @@
     "bootstrap": "npm link dist/angular-resource-router && npm link angular-resource-router",
     "postbootstrap": "rimraf dist/",
     "ng": "ng",
-    "start": "ng serve --proxy-config=proxy.conf.json",
+    "start": "ng serve --proxy-config=proxy.conf.js",
     "prebuild": "ng lint",
     "build": "ng-packagr -p src/lib/ng-package.json && cpr README.md dist/angular-resource-router/README.md && cpr LICENSE.txt dist/angular-resource-router/LICENSE.txt",
     "postbuild": "ng test --watch=false",
     "buildapp": "ng build --target=production --env=prod --sourcemaps",
     "pretest": "ng-packagr -p src/lib/ng-package.json",
-    "test": "ng test",
+    "test": "ng test --browsers Chrome",
     "lint": "ng lint",
     "predocs": "rimraf dist/docs",
     "docs": "compodoc -p src/tsconfig.doc.json -d dist/docs --disablePrivate src/lib",
@@ -32,7 +32,7 @@
     "@angular/platform-browser-dynamic": "^4.4.6",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
     "@angular-devkit/schematics": "0.0.34",
@@ -56,7 +56,7 @@
     "karma-coverage-istanbul-reporter": "1.2.1",
     "karma-detect-browsers": "2.2.6",
     "karma-edge-launcher": "0.4.2",
-    "karma-firefox-launcher": "1.0.1",
+    "karma-firefox-launcher": "1.1.0",
     "karma-ie-launcher": "1.0.0",
     "karma-jasmine": "1.1.0",
     "karma-jasmine-html-reporter": "0.2.2",

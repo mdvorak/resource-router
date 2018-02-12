@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { ApiUrl } from './api-url';
+import { UrlNormalizer } from './url-normalizer';
 import { ApiMapper } from './api-mapper';
 
 
@@ -21,7 +21,7 @@ export class SingleApiMapper extends ApiMapper {
    */
   readonly prefix: string;
 
-  constructor(apiUrl: ApiUrl,
+  constructor(apiUrl: UrlNormalizer,
               @Inject(APP_API_PREFIX) prefix: string) {
     super();
 
