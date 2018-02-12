@@ -19,6 +19,7 @@ export {
   Navigable,
   NavigableRef,
   isNavigable,
+  makeNavigableRef,
   topLevelNavigableRef,
   TOP_LEVEL_NAVIGABLE
 } from './navigable';

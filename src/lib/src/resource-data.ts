@@ -10,7 +10,7 @@ import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
-import { Navigable, NavigableRef } from './navigable';
+import { makeNavigableRef, Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
 
 let nextId = 1;
@@ -136,7 +136,7 @@ export class ResourceData implements Navigable, LocationReference {
 export function resourceDataNavigableRef(): FactoryProvider {
   return {
     provide: NavigableRef,
-    useFactory: NavigableRef.create,
+    useFactory: makeNavigableRef,
     deps: [[ResourceData, new Self()]]
   };
 }

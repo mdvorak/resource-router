@@ -28,13 +28,13 @@ export abstract class NavigableRef {
    * Therefore its recommended to always keep the {@link NavigableRef} instance instead of dereferencing it.
    */
   abstract get navigable(): Navigable;
+}
 
-  /**
-   * Creates immutable {@link NavigableRef} instance from given value.
-   */
-  static create(value: Navigable): NavigableRef {
-    return new NavigableRefImpl(value);
-  }
+/**
+ * Creates immutable {@link NavigableRef} instance from given value.
+ */
+export function makeNavigableRef(value: Navigable): NavigableRef {
+  return new NavigableRefImpl(value);
 }
 
 class NavigableRefImpl extends NavigableRef {
