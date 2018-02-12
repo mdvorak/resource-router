@@ -30,11 +30,14 @@ const NOOP_NAVIGABLE: Navigable = {
  * }
  * ```
  * ```html
- * <div [resourceContext]="resource">
+ * <ng-container [resourceContext]="resource">
  *   <a *ngIf="resource.data._links?.next as link" [resourceLink]="link.href">Next</a>
  *   <resource-view [data]="resource.data"></resource-view>
- * </div>
+ * </ng-container>
  * ```
+ *
+ * Note that in previous example, `[resourceContext]` directive could be replaced by programmatically
+ * providing navigation context in the `AppComponent`, which is exactly what this directive does.
  */
 @Directive({
   selector: '[resourceContext]',

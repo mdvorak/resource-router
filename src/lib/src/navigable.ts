@@ -1,4 +1,5 @@
 import { FactoryProvider, Inject, Injectable, InjectionToken, Optional, Self, SkipSelf } from '@angular/core';
+import { resourceDataNavigableRef } from './resource-data';
 
 export interface Navigable {
 
@@ -45,10 +46,23 @@ class NavigableRefImpl extends NavigableRef {
 
 /**
  * Token for root (top-level) {@link NavigableRef} instance.
+ *
+ * To provide it in your component, you might use {@link rootNavigableRef}, however see its docs for proper usage.
  */
 export const ROOT_NAVIGABLE = new InjectionToken<NavigableRef>('ROOT_NAVIGABLE');
 
 
+/**
+ * Provides {@link ROOT_NAVIGABLE} reference. It honors existing root, therefore its safe to declare it
+ * in the nested components.
+ * When there is no existing root available, current {@link NavigableRef} is used.
+ *
+ * Note that this requires {@link NavigableRef} to be provided by current component, regardless it being used or not.
+ *
+ * @see ROOT_NAVIGABLE
+ * @see NavigationRef
+ * @see resourceDataNavigableRef
+ */
 export function rootNavigableRef(): FactoryProvider {
   return {
     provide: ROOT_NAVIGABLE,
