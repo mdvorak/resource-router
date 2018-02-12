@@ -1,4 +1,4 @@
-import { Directive, Input, Self } from '@angular/core';
+import { Directive, FactoryProvider, Input, Self } from '@angular/core';
 import { isNavigable, Navigable, NavigableRef, topLevelNavigableRef } from '../navigable';
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
@@ -42,13 +42,7 @@ const NOOP_NAVIGABLE: Navigable = {
 @Directive({
   selector: '[resourceContext]',
   providers: [
-    {
-      provide: NavigableRef,
-      useFactory: resourceContextNavigableRefFactory,
-      deps: [
-        [ResourceContextDirective, new Self()]
-      ]
-    },
+    resourceContextNavigableRef(),
     topLevelNavigableRef()
   ]
 })
@@ -70,6 +64,16 @@ export class ResourceContextDirective extends NavigableRef {
       this.navigable = NOOP_NAVIGABLE;
     }
   }
+}
+
+export function resourceContextNavigableRef(): FactoryProvider {
+  return {
+    provide: NavigableRef,
+    useFactory: resourceContextNavigableRefFactory,
+    deps: [
+      [ResourceContextDirective, new Self()]
+    ]
+  };
 }
 
 /**

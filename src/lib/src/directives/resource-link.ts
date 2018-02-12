@@ -1,6 +1,6 @@
 import { Directive, HostListener, Inject, Input, Optional } from '@angular/core';
 import { isNavigable, Navigable, NavigableRef, TOP_LEVEL_NAVIGABLE } from '../navigable';
-import { debugLog } from '../debug-log';
+import { debugLog } from '../utils/debug-log';
 
 
 export const TARGET_SELF = '_self';

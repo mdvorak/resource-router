@@ -4,7 +4,7 @@ import { ApiMapper } from '../api-mapper';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { isNavigable, Navigable, NavigableRef, TOP_LEVEL_NAVIGABLE } from '../navigable';
 import { Location } from '@angular/common';
-import { debugLog } from '../debug-log';
+import { debugLog } from '../utils/debug-log';
 
 @Directive({selector: 'a[resourceLink]'})
 export class ResourceLinkWithHrefDirective implements OnChanges {
