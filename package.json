@@ -9,7 +9,7 @@
     "ng": "ng",
     "start": "ng serve --proxy-config=proxy.conf.js",
     "prebuild": "ng lint",
-    "build": "ng-packagr -p src/lib/ng-package.json && cpr README.md dist/angular-resource-router/README.md && cpr LICENSE.txt dist/angular-resource-router/LICENSE.txt",
+    "build": "ng-packagr -p src/lib/ng-package.json && cpr README.md dist/angular-resource-router/README.md && cpr LICENSE dist/angular-resource-router/LICENSE",
     "postbuild": "ng test --watch=false",
     "buildapp": "ng build --target=production --env=prod --sourcemaps",
     "pretest": "ng-packagr -p src/lib/ng-package.json",

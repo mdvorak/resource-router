@@ -1,7 +1,8 @@
 {
   "ngPackage": {
     "lib": {
-      "entryFile": "public_api.ts"
+      "entryFile": "public_api.ts",
+      "licensePath": "../../../LICENSE"
     }
   }
 }
