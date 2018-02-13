@@ -146,7 +146,7 @@
                                 id="xs-classes-links"
                             >
                                 <li class="link">
-                                    <a href="../classes/ActivatedView.html" >ActivatedView</a>
+                                    <a href="../classes/ActivatedView.html"  data-type="entity-link" class="active" >ActivatedView</a>
                                 </li>
                                 <li class="link">
                                     <a href="../classes/ApiMapper.html" >ApiMapper</a>
@@ -265,7 +265,7 @@
                                     <a href="../interfaces/ViewData.html" >ViewData</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../interfaces/ViewDef.html"  data-type="entity-link" class="active" >ViewDef</a>
+                                    <a href="../interfaces/ViewDef.html" >ViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ViewTypeResponse.html" >ViewTypeResponse</a>
@@ -445,7 +445,7 @@
                                        id="classes-links"
                    >
                                        <li class="link">
-                                           <a href="../classes/ActivatedView.html" >ActivatedView</a>
+                                           <a href="../classes/ActivatedView.html"  data-type="entity-link" class="active" >ActivatedView</a>
                                        </li>
                                        <li class="link">
                                            <a href="../classes/ApiMapper.html" >ApiMapper</a>
@@ -564,7 +564,7 @@
                                            <a href="../interfaces/ViewData.html" >ViewData</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../interfaces/ViewDef.html"  data-type="entity-link" class="active" >ViewDef</a>
+                                           <a href="../interfaces/ViewDef.html" >ViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ViewTypeResponse.html" >ViewTypeResponse</a>
@@ -612,7 +612,7 @@
                    
                    </nav>
                </div>
-               <div class="content interface">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -623,10 +623,9 @@
 
 
 
-
 <ol class="breadcrumb">
-  <li>Interfaces</li>
-  <li>ViewDef</li>
+  <li>Classes</li>
+  <li>ActivatedView</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -646,416 +645,277 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/lib/src/view-definition.ts</code>
+            <code>src/lib/src/activated-view.ts</code>
         </p>
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>Defines view for given type.</p>
 
-            </p>
-
-
-        <section>
-            <h3 id="index">Index</h3>
-            <table class="table table-sm table-bordered index-table">
-                <tbody>
-                    <tr>
-                        <td class="col-md-4">
-                            <h6><b>Properties</b></h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <ul class="index-list">
-                                <li>
-                                        <a href="#component">component</a>
-                                </li>
-                                <li>
-                                        <a href="#data">data</a>
-                                </li>
-                                <li>
-                                        <a href="#noWildcards">noWildcards</a>
-                                </li>
-                                <li>
-                                        <a href="#quality">quality</a>
-                                </li>
-                                <li>
-                                        <a href="#resolve">resolve</a>
-                                </li>
-                                <li>
-                                        <a href="#responseType">responseType</a>
-                                </li>
-                                <li>
-                                        <a href="#status">status</a>
-                                </li>
-                                <li>
-                                        <a href="#type">type</a>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
 
 
 
             <section>
-                <h3 id="inputs">Properties</h3>
+                <h3 id="index">Index</h3>
+                <table class="table table-sm table-bordered index-table">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-4">
+                                <h6><b>Properties</b></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <ul class="index-list">
+                                    <li>
+                                            <span class="modifier">Readonly</span>
+                                            <span class="modifier">Public</span>
+                                        <a href="#data">data</a>
+                                    </li>
+                                    <li>
+                                            <span class="modifier">Readonly</span>
+                                            <span class="modifier">Public</span>
+                                        <a href="#navigation">navigation</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <h6><b>Methods</b></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <ul class="index-list">
+                                    <li>
+                                        <a href="#reload">reload</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <h6><b>Accessors</b></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <ul class="index-list">
+                                    <li>
+                                        <a href="#snapshot">snapshot</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3 id="constructor">Constructor</h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="component"></a>
-                                        <span class="name"><b>component</b><a href="#component"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>component:     <code>Type&lt;any&gt;</code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code>Type&lt;any&gt;</code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/lib/src/view-definition.ts:19</a></div>
-                                        </td>
-                                    </tr>
-
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Component that is viewed when this view definition is matched against response.
-Mandatory. Don&#39;t forget to add it to modules <code>declarations</code>.</p>
-</div>
+                                    <code>constructor(navigation: <a href="../interfaces/Navigable.html">Navigable</a>, _data: <a href="../interfaces/ViewData.html">BehaviorSubject<ViewData<T>></a>)</code>
+                                </td>
+                            </tr>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/lib/src/activated-view.ts:8</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div>
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>navigation</td>
+                                                              <td>
+                                                                        <code><a href="../interfaces/Navigable.html" target="_self" >Navigable</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>_data</td>
+                                                              <td>
+                                                                        <code><a href="../interfaces/ViewData.html" target="_self" >BehaviorSubject&lt;ViewData&lt;T&gt;&gt;</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td></td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+            </section>
+
+            <section>
+                
+                    <h3 id="methods">
+                        Methods
+                    </h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="data"></a>
-                                        <span class="name"><b>data</b><a href="#data"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>data:     <code><a href="../interfaces/Data.html" target="_self" >Data</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code><a href="../interfaces/Data.html" target="_self" >Data</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/lib/src/view-definition.ts:90</a></div>
-                                        </td>
-                                    </tr>
-
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Values that are passed to the view. These values are not resolved in any way - observables remains observables,
-functions are not called.
-To have resolved data, use <code>resolve</code> property.</p>
-</div>
+                                    <a name="reload"></a>
+                                    <span class="name">
+                                        <b>
+                                        reload
+                                        </b>
+                                        <a href="#reload"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>reload()</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/lib/src/activated-view.ts:24</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Forces reload of the data (remaining on the current URL).</p>
+            <p>This is identical to calling {@code activatedView.navigation.go(activatedView.snapshot.url)}.</p>
+            </div>
+            
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+            
+                                        </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+            </section>
+
+
+            <section>
+                
+                    <h3 id="inputs">
+                        Properties
+                    </h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="noWildcards"></a>
-                                        <span class="name"><b>noWildcards</b><a href="#noWildcards"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>noWildcards:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/lib/src/view-definition.ts:102</a></div>
-                                        </td>
-                                    </tr>
-
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Disables wildcard character parsing in type property.</p>
-<p>Note: Wildcards in status will still work.</p>
-</div>
+                                    <a name="data"></a>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Readonly</span>
+                                            <span class="modifier">Public</span>
+                                        data
+                                        </b>
+                                        <a href="#data"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <span class="modifier-icon fa fa-reset"></span><code>data:     <code><a href="../interfaces/ViewData.html" target="_self" >Observable&lt;ViewData&lt;T&gt;&gt;</a></code>
+            </code>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Type : </i>    <code><a href="../interfaces/ViewData.html" target="_self" >Observable&lt;ViewData&lt;T&gt;&gt;</a></code>
+            
+                                    </td>
+                                </tr>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/lib/src/activated-view.ts:8</a></div>
+                                        </td>
+                                    </tr>
+            
+            
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="quality"></a>
-                                        <span class="name"><b>quality</b><a href="#quality"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>quality:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/lib/src/view-definition.ts:73</a></div>
-                                        </td>
-                                    </tr>
-
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Similar to quality in <code>Accept</code> header, except it accepts any number, not just range 0..1.
-Usually it won&#39;t have to be overridden, since typical application configuration is to have many specific types
-and one wildcard as the fallback view.</p>
-<p>If undefined, it is calculated from type by following rules:</p>
-<ul>
-<li>Type equal to &#39;*&#39; has quality of <code>0.0</code>.</li>
-<li>Type with any wildcard has quality of <code>0.5</code></li>
-<li>Type without wildcard has quality of <code>1.0</code>.</li>
-</ul>
-<p>Number of wildcard characters is insignificant.</p>
-<p>Otherwise it maintains order of definition (note that you should never rely on this across modules).</p>
-<p>It is recommended to define views with low quality (wildcards) only on application module level, domain-specific modules
-should always match domain-specific types. Defining it all across application makes it hard to maintain and application
-behavior might be non-deterministic.</p>
-<p>Example:
-TODO show how same wildcards are treated and how to override quality.</p>
-</div>
+                                    <a name="navigation"></a>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Readonly</span>
+                                            <span class="modifier">Public</span>
+                                        navigation
+                                        </b>
+                                        <a href="#navigation"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <span class="modifier-icon fa fa-reset"></span><code>navigation:     <code><a href="../interfaces/Navigable.html" target="_self" >Navigable</a></code>
+            </code>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Type : </i>    <code><a href="../interfaces/Navigable.html" target="_self" >Navigable</a></code>
+            
+                                    </td>
+                                </tr>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/lib/src/activated-view.ts:10</a></div>
+                                        </td>
+                                    </tr>
+            
+            
                         </tbody>
                     </table>
+            </section>
+
+            <section>
+                <h3 id="accessors">
+                    Accessors
+                </h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="resolve"></a>
-                                        <span class="name"><b>resolve</b><a href="#resolve"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>resolve:     <code><a href="../interfaces/Data.html" target="_self" >Data</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code><a href="../interfaces/Data.html" target="_self" >Data</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/lib/src/view-definition.ts:95</a></div>
-                                        </td>
-                                    </tr>
-
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>TODO</p>
-</div>
+                                    <a name="snapshot"></a>
+                                    <span class="name"><b>snapshot</b><a href="#snapshot"><span class="fa fa-link"></span></a></span>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="responseType"></a>
-                                        <span class="name"><b>responseType</b><a href="#responseType"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>responseType:     <code>&quot;json&quot; | &quot;text&quot;</code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code>&quot;json&quot; | &quot;text&quot;</code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/lib/src/view-definition.ts:83</a></div>
-                                        </td>
-                                    </tr>
-
+            
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Type of the parser, which should be used to produce final body.
-Default is &#39;json&#39;. If other response type is required (like blob for images), it must be set accordingly.</p>
-<p>Note that &#39;arraybuffer&#39; and &#39;blob&#39; are not supported right now. For proper support, responseType must be set before
-request is sent, however we don&#39;t know what view will consume the given request, so we don&#39;t know responseType
-when the request is being sent.</p>
-</div>
+                                    <span class="accessor"><b>get</b><code>snapshot()</code></span>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="status"></a>
-                                        <span class="name"><b>status</b><a href="#status"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>status:     <code><a href="../miscellaneous/typealiases.html#StatusType" target="_self" >StatusType | []</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code><a href="../miscellaneous/typealiases.html#StatusType" target="_self" >StatusType | []</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/lib/src/view-definition.ts:50</a></div>
-                                        </td>
-                                    </tr>
-
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-description"><p>HTTP response status code, which is 3-digit integer.
-It supports wildcard characters &#39;?&#39; (any single character) at the end of the string - that is,
-expression &#39;?00&#39; is forbidden. Character &#39;x&#39; is alias for &#39;?&#39;, for better readability.
-Wildcard character &#39;<em>&#39; is also supported, but has different meaning than usual - expression is still
-expanded to 3 characters. Which means, &#39;2</em>&#39; == &#39;2??&#39;, and &#39;*&#39; == &#39;???&#39;.
-It might be array of values, handling multiple disjunct values.</p>
-<p>Default is &#39;2xx&#39;, that is &gt;=200 and &lt;300 codes.</p>
-<p>Specificity is calculated by number of wildcard positions (since there is 3 character limit):</p>
-<ul>
-<li><code>999</code></li>
-<li><code>99?</code></li>
-<li><code>9??</code></li>
-<li><code>???</code></li>
-</ul>
-<p>Note that both <code>status</code> and <code>type</code> must be matched. To match specific status without any type, set type to &#39;<em>&#39;.
-To match anything, set both to &#39;</em>&#39;.</p>
-</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="type"></a>
-                                        <span class="name"><b>type</b><a href="#type"><span class="fa fa-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>type:     <code>string | []</code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>    <code>string | []</code>
-
-                                        </td>
-                                    </tr>
-
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/lib/src/view-definition.ts:29</a></div>
-                                        </td>
-                                    </tr>
-
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-description"><p>Media type of the response.
-It supports wildcard characters &#39;?&#39; (any single character), &#39;*&#39; (zero or more characters).</p>
-<p>Unless status is set, this matches only 2xx (successful) status codes (see <code>status</code> property).</p>
-<p>To match any type (that is, fallback view), set the type to &#39;*&#39;.</p>
-</div>
-                                </td>
-                            </tr>
+                                        <tr>
+                                            <td class="col-md-4">
+                                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/lib/src/activated-view.ts:15</a></div>
+                                            </td>
+                                        </tr>
+            
                         </tbody>
                     </table>
             </section>
@@ -1063,112 +923,37 @@ It supports wildcard characters &#39;?&#39; (any single character), &#39;*&#39; 
 
 
     <div class="tab-pane fade tab-source-code" id="c-source">
-        <pre class="line-numbers"><code class="language-typescript">import { Type } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers"><code class="language-typescript">import { Navigable } from &#x27;./navigable&#x27;;
+import { Observable } from &#x27;rxjs/Observable&#x27;;
+import { ViewData } from &#x27;./view-data&#x27;;
+import { BehaviorSubject } from &#x27;rxjs/BehaviorSubject&#x27;;
 
+export class ActivatedView&lt;T&gt; {
 
-export interface Data {
-  readonly [name: string]: any;
-}
+  public readonly data: Observable&lt;ViewData&lt;T&gt;&gt;;
 
-export type StatusType &#x3D; number | string;
+  constructor(public readonly navigation: Navigable,
+              private readonly _data: BehaviorSubject&lt;ViewData&lt;T&gt;&gt;) {
+    this.data &#x3D; _data.asObservable();
+  }
 
-/**
- * Defines view for given type.
- */
-export interface ViewDef {
-
-  /**
-   * Component that is viewed when this view definition is matched against response.
-   * Mandatory. Don&#x27;t forget to add it to modules &#x60;declarations&#x60;.
-   */
-  readonly component: Type&lt;any&gt;;
+  get snapshot() {
+    return this._data.getValue();
+  }
 
   /**
-   * Media type of the response.
-   * It supports wildcard characters &#x27;?&#x27; (any single character), &#x27;*&#x27; (zero or more characters).
+   * Forces reload of the data (remaining on the current URL).
    *
-   * Unless status is set, this matches only 2xx (successful) status codes (see &#x60;status&#x60; property).
-   *
-   * To match any type (that is, fallback view), set the type to &#x27;*&#x27;.
+   * This is identical to calling {@code activatedView.navigation.go(activatedView.snapshot.url)}.
    */
-  readonly type: string | string[];
-
-  /**
-   * HTTP response status code, which is 3-digit integer.
-   * It supports wildcard characters &#x27;?&#x27; (any single character) at the end of the string - that is,
-   * expression &#x27;?00&#x27; is forbidden. Character &#x27;x&#x27; is alias for &#x27;?&#x27;, for better readability.
-   * Wildcard character &#x27;*&#x27; is also supported, but has different meaning than usual - expression is still
-   * expanded to 3 characters. Which means, &#x27;2*&#x27; &#x3D;&#x3D; &#x27;2??&#x27;, and &#x27;*&#x27; &#x3D;&#x3D; &#x27;???&#x27;.
-   * It might be array of values, handling multiple disjunct values.
-   *
-   * Default is &#x27;2xx&#x27;, that is &gt;&#x3D;200 and &lt;300 codes.
-   *
-   * Specificity is calculated by number of wildcard positions (since there is 3 character limit):
-   * * &#x60;999&#x60;
-   * * &#x60;99?&#x60;
-   * * &#x60;9??&#x60;
-   * * &#x60;???&#x60;
-   *
-   * Note that both &#x60;status&#x60; and &#x60;type&#x60; must be matched. To match specific status without any type, set type to &#x27;*&#x27;.
-   * To match anything, set both to &#x27;*&#x27;.
-   */
-  readonly status?: StatusType | StatusType[];
-
-  /**
-   * Similar to quality in &#x60;Accept&#x60; header, except it accepts any number, not just range 0..1.
-   * Usually it won&#x27;t have to be overridden, since typical application configuration is to have many specific types
-   * and one wildcard as the fallback view.
-   *
-   * If undefined, it is calculated from type by following rules:
-   * * Type equal to &#x27;*&#x27; has quality of &#x60;0.0&#x60;.
-   * * Type with any wildcard has quality of &#x60;0.5&#x60;
-   * * Type without wildcard has quality of &#x60;1.0&#x60;.
-   *
-   * Number of wildcard characters is insignificant.
-   *
-   * Otherwise it maintains order of definition (note that you should never rely on this across modules).
-   *
-   * It is recommended to define views with low quality (wildcards) only on application module level, domain-specific modules
-   * should always match domain-specific types. Defining it all across application makes it hard to maintain and application
-   * behavior might be non-deterministic.
-   *
-   * Example:
-   * TODO show how same wildcards are treated and how to override quality.
-   */
-  readonly quality?: number;
-
-  /**
-   * Type of the parser, which should be used to produce final body.
-   * Default is &#x27;json&#x27;. If other response type is required (like blob for images), it must be set accordingly.
-   *
-   * Note that &#x27;arraybuffer&#x27; and &#x27;blob&#x27; are not supported right now. For proper support, responseType must be set before
-   * request is sent, however we don&#x27;t know what view will consume the given request, so we don&#x27;t know responseType
-   * when the request is being sent.
-   */
-  readonly responseType?: &#x27;json&#x27; | &#x27;text&#x27;;
-
-  /**
-   * Values that are passed to the view. These values are not resolved in any way - observables remains observables,
-   * functions are not called.
-   * To have resolved data, use &#x60;resolve&#x60; property.
-   */
-  readonly data?: Data;
-
-  /**
-   * TODO
-   */
-  readonly resolve?: Data;
-
-  /**
-   * Disables wildcard character parsing in type property.
-   *
-   * Note: Wildcards in status will still work.
-   */
-  readonly noWildcards?: boolean;
+  reload(): void {
+    this.navigation.go(this.snapshot.url);
+  }
 }
 </code></pre>
     </div>
 </div>
+
 
 
 
