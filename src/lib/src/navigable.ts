@@ -29,18 +29,18 @@ export abstract class NavigableRef {
   abstract get navigable(): Navigable;
 }
 
-/**
- * Creates immutable {@link NavigableRef} instance from given value.
- */
-export function makeNavigableRef(value: Navigable): NavigableRef {
-  return new NavigableRefImpl(value);
-}
-
 class NavigableRefImpl extends NavigableRef {
 
   constructor(public readonly navigable: Navigable) {
     super();
   }
+}
+
+/**
+ * Creates immutable {@link NavigableRef} instance from given value.
+ */
+export function makeNavigableRef(value: Navigable): NavigableRef {
+  return new NavigableRefImpl(value);
 }
 
 /**
