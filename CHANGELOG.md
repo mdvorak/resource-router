@@ -10,7 +10,7 @@ Changed data used in components to reactive pattern, which allows reuse of creat
 * `ViewData` is no longer available for injection, use `ActivatedView` instead:
   ```ts
   @Component(...)
-  export class SampleComponent {
+  export class SampleComponent implements OnInit {
   
     public data: MyData;
   
