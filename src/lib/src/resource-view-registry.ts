@@ -61,6 +61,11 @@ export class ResourceViewRegistry {
   }
 
   match(type: string, status: number): ViewDef {
+    // Despite status being mandatory, in runtime we still might receive undefined or others, and default error is misleading
+    if (typeof status !== 'number') {
+      throw new Error(`Wrong status type (${typeof status}), no view can be matched`);
+    }
+
     // Convert number to padded string
     const statusStr = normalizeStatus(status);
 
@@ -81,7 +86,7 @@ export class ResourceViewRegistry {
     }
 
     // Not found
-    throw new Error(`No view definition found for type ${type} and status ${status} - please register default view`);
+    throw new Error(`No view definition found for type '${type}' and status '${statusStr}' - please register default view`);
   }
 
   addViews(config: ViewDef | ViewDef[]) {

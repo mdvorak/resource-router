@@ -1,3 +1,10 @@
+<a name="4.1.1"></a>
+# [4.1.1](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2018-02-14)
+
+### Resolved Issues
+
+* [#26](https://github.com/mdvorak/resource-router/issues/26) When HttpResourceClient request fails, error is swallowed
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2018-02-12)
 
@@ -24,7 +31,9 @@ Changed data used in components to reactive pattern, which allows reuse of creat
   ```
 * ResourceData directive now needs to be accompanied by `[resourceContext]` directive:
   ```angular2html
-  <div *resourceData="let data of apiLocation" [resourceContext]="data">...</div>
+  <div *resourceData="let data of apiLocation" [resourceContext]="data">
+    <resource-view [data]="data"></resource-view>
+  </div>
   ```
   Otherwise navigation (resourceLinks) won't work.
   

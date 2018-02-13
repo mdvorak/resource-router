@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -10,6 +10,7 @@ import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 
 /**
@@ -44,8 +45,8 @@ export class HttpResourceClient extends ResourceClient {
     // Send request
     return this
       .get(uri)
-      // Swallow errors, treat them as normal response
-      .catch(response => Observable.of(response))
+      // Convert failure to success, if we know how to handle it (rethrow if we don't)
+      .catch(err => this.handleError(err))
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
       .map(response => this.resolve(uri, response, target));
   }
@@ -57,13 +58,57 @@ export class HttpResourceClient extends ResourceClient {
     return this.http.get(url, {observe: 'response', responseType: 'text'});
   }
 
+  // noinspection JSMethodCanBeStatic
+  protected handleError(err: any): Observable<HttpResponse<string>> | ErrorObservable {
+    // Depends on the type
+    if (err instanceof HttpResponse) {
+      // Pass it through
+      return Observable.of(err);
+    }
+    if (err instanceof HttpErrorResponse) {
+      let body: string | undefined;
+
+      if (!err.error) {
+        // No body provided, fallback to response error message
+        body = err.message;
+      } else if (typeof err.error.message === 'string') {
+        // Network failures and such
+        // err.error might be either Error or ErrorEvent, both having message property
+        body = err.error.message;
+      } else if (typeof err.error === 'string') {
+        // Generic error, usually returned by server as response body
+        // This assumes that since we used responseType:'text', error (body) should be un-parsed string as well
+        // Note: We don't handle json parse errors, since these should not happen
+        body = err.error;
+      } else {
+        // To avoid returning something unexpected, better to rethrow the error
+        return Observable.throw(err);
+      }
+
+      // Treat is as non-failing response
+      return Observable.of(new HttpResponse<string>({
+        body: body,
+        headers: err.headers,
+        status: err.status,
+        statusText: err.statusText,
+        url: err.url || undefined
+      }));
+    } else {
+      // Other errors propagate (resolve won't be called)
+      return Observable.throw(err);
+    }
+  }
+
   protected resolve(requestUrl: string, response: HttpResponse<string>, target: Navigable): ViewData<any> {
+    // Note: In browsers, this does not throw exception, ind NodeJS, it does
+    console.assert(response instanceof HttpResponse, 'response is not instanceof HttpResponse', response);
+
     // Resolve type, if possible
     const type = this.strategy.extractType(response) || '';
     // Find view
     const config = this.registry.match(type, response.status);
     // Parse body
-    const body = this.parse(response, config);
+    const body = this.parse(response.body, config);
 
     // Construct and return ViewData
     return {
@@ -79,9 +124,9 @@ export class HttpResourceClient extends ResourceClient {
   }
 
   // noinspection JSMethodCanBeStatic
-  protected parse(response: HttpResponse<string>, config: ViewDef): any | null {
+  protected parse(body: string | null, config: ViewDef): any | null {
     // Don't parse empty body
-    if (!response.body) {
+    if (!body) {
       return null;
     }
 
@@ -89,11 +134,11 @@ export class HttpResourceClient extends ResourceClient {
     switch (responseType) {
       case 'json':
         // Parse JSON - this assumes body is a string
-        return stringToJSON(response.body);
+        return stringToJSON(body);
 
       case 'text':
         // Return as-is - this assumes body is already string
-        return response.body;
+        return body;
 
       default:
         throw new Error(`Unsupported responseType: ${responseType}`);
