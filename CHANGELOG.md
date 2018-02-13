@@ -1,5 +1,5 @@
 <a name="4.1.1"></a>
-# [4.1.1](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2018-02-14)
+# [4.1.1](https://github.com/mdvorak/resource-router/compare/v4.1.0...v4.1.1) (2018-02-14)
 
 ### Resolved Issues
 
