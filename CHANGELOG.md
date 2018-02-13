@@ -5,6 +5,11 @@
 
 * [#26](https://github.com/mdvorak/resource-router/issues/26) When HttpResourceClient request fails, error is swallowed
 
+### Known Problems
+
+* As result of [#26](https://github.com/mdvorak/resource-router/issues/26), error value might be now consumed in some cases.
+  Created [#27](https://github.com/mdvorak/resource-router/issues/27) to address the issue.
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2018-02-12)
 
