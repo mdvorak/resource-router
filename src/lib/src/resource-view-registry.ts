@@ -59,7 +59,9 @@ export class ResourceViewRegistry {
     const statusStr = normalizeStatus(status);
 
     // Find all matching groups by status
-    for (const group of this.viewsByStatus.array) {
+    for (let i = 0, a = this.viewsByStatus.array, l = a.length; i < l; i++) {
+      const group = a[i];
+
       // Match
       if (!group.statusExp.test(statusStr)) {
         continue;
