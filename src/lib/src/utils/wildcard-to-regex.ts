@@ -27,6 +27,6 @@ export function wildcardToRegex(wildcard: string): RegExp {
  * @returns Regular expression pattern.
  */
 export function escapeRegExpPattern(s: string): string {
-  return s.replace(/([-()\[\]{}+.$\^|:#<>!\\=,*?])/g, '\\$1')
+  return s.replace(/([-()\[\]{}+.$^|:#<>!\\=,*?])/g, '\\$1')
     .replace(/\x08/g, '\\x08');
 }

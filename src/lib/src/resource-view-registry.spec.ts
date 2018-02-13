@@ -181,9 +181,11 @@ describe(ResourceViewRegistry.name, () => {
 
     it('without definition as Error', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
       expect(() => registry.match('xxx', 200))
-        .toThrowError('No view definition found for type xxx and status 200 - please register default view');
+        .toThrowError(`No view definition found for type 'xxx' and status '200' - please register default view`);
       expect(() => registry.match('FooBar', 500))
-        .toThrowError('No view definition found for type FooBar and status 500 - please register default view');
+        .toThrowError(`No view definition found for type 'FooBar' and status '500' - please register default view`);
+      expect(() => registry.match('', <any>undefined))
+        .toThrowError(`Wrong status type (undefined), no view can be matched`);
     }));
 
     it('with quality override', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
