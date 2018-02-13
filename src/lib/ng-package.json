@@ -4,8 +4,8 @@
   "workingDirectory": "../../.ng_pkg_build",
   "lib": {
     "entryFile": "public_api.ts",
-    "externals": {
-      "angular-resource-router": "angular-resource-router"
+    "umdModuleIds": {
+      "angular-resource-router": "angularResourceRouter"
     }
   }
 }
