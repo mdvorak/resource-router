@@ -16,7 +16,7 @@
     "test": "ng test --browsers Chrome",
     "lint": "ng lint",
     "predocs": "rimraf dist/docs",
-    "docs": "compodoc -p src/tsconfig.doc.json -d dist/docs --disablePrivate src/lib",
+    "docs": "compodoc -p src/tsconfig.doc.json -d dist/docs --disablePrivate --disableInternal src/lib",
     "preghpages": "npm run docs",
     "ghpages": "gh-pages -d dist/docs",
     "e2e": "ng e2e",

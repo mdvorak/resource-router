@@ -13,6 +13,9 @@ import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 import { makeNavigableRef, Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
 
+/**
+ * @internal
+ */
 let nextId = 1;
 
 @Injectable()
