@@ -1,4 +1,4 @@
-import { FactoryProvider, Inject, Injectable, InjectionToken, Optional, Self, SkipSelf } from '@angular/core';
+import { FactoryProvider, Inject, InjectionToken, Optional, Self, SkipSelf } from '@angular/core';
 import { resourceDataNavigableRef } from './resource-data';
 
 export interface Navigable {
@@ -18,7 +18,6 @@ export function isNavigable(obj: any): obj is Navigable {
  * Injectable reference to {@link Navigable}.
  * Note that this doesn't have to be immutable class.
  */
-@Injectable()
 export abstract class NavigableRef {
 
   /**

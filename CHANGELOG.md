@@ -1,7 +1,7 @@
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0) (2018-02-12)
 
-<strong>This is breaking release, despite it breaking semantic versioning. Its for Angular v4.x applications to allow migration to new model and Angular v5.x</strong>
+<strong>This is breaking release, despite it breaks semantic versioning. Its for Angular v4.x applications to allow migration to new model and Angular v5.x</strong>
 
 Changed data used in components to reactive pattern, which allows reuse of created view components.
 
