@@ -1,14 +1,24 @@
 <p>See <a href="http://docs.resourcerouterexample.apiary.io/#">API definition</a></p>
 
-<ng-template [resourceData] let-data [resourceDataOf]="apiLocation.url"
-             (urlChange)="apiLocation.url=$event">
-  <h1>{{data.url}}</h1>
-  <resource-view [data]="data"></resource-view>
-</ng-template>
+<ng-container [resourceContext]="resource">
+  <div>
+    <a [resourceLink]="resource.url + '/a'" [target]="resource">+A</a>
+    <a [resourceLink]="resource.url + '/..'" [target]="resource">-A</a>
+  </div>
 
-<!--TODO event not working-->
-<!--<div *resourceData="let viewData of apiLocation.url"-->
-<!--(urlChange)="apiLocation.navigate($event)">-->
-<!--<h1>{{viewData.url}}</h1>-->
-<!--<resource-view [data]="viewData"></resource-view>-->
+  <h1>ROOT</h1>
+  <h2>{{resource.url}}</h2>
+  <p>{{resource.loading ? 'Loading...' : 'Loaded!'}}</p>
+  <resource-view [data]="resource.data"></resource-view>
+</ng-container>
+
+<!--<h1>*resourceData</h1>-->
+<!--<p>apiLocation.url={{apiLocation.url}}</p>-->
+<!--<div *resourceData="let data of apiLocation; let loading = loading" [resourceContext]="data">-->
+<!--<h2>{{data.url}}</h2>-->
+<!--<p>{{loading ? 'Loading...' : 'Loaded!'}}</p>-->
+<!--<resource-view [data]="data"></resource-view>-->
+
+<!--<h2>Menu like</h2>-->
+<!--<resource-outlet [src]="data.url + '/246'"></resource-outlet>-->
 <!--</div>-->

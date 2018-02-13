@@ -15,39 +15,39 @@ import { stringToJSON } from './utils/http-utils';
 /**
  * Component that retrieves the data for given URL.
  */
-export abstract class ViewDataLoader {
+export abstract class ResourceClient {
 
   /**
    * Retrieves the data.
    *
    * @param uri URI the data should be retrieved from. Usually it is URL for HTTP request.
-   * @param source Navigable instance, to be passed to ViewData constructor.
+   * @param target Navigable instance, to be passed to ViewData constructor.
    * @returns Retrieved ViewData instance.
    */
-  abstract fetch(uri: string, source: Navigable): Observable<ViewData<any>>;
+  abstract fetch(uri: string, target: Navigable): Observable<ViewData<any>>;
 
 }
 
 /**
- * Default ViewDataLoader implementation, which uses HttpClient as backend.
+ * Default ResourceClient implementation, which uses HttpClient as backend.
  */
 @Injectable()
-export class HttpClientViewDataLoader extends ViewDataLoader {
+export class HttpResourceClient extends ResourceClient {
 
-  constructor(public strategy: ViewTypeStrategy,
-              public registry: ResourceViewRegistry,
-              public http: HttpClient) {
+  constructor(public readonly strategy: ViewTypeStrategy,
+              public readonly registry: ResourceViewRegistry,
+              public readonly http: HttpClient) {
     super();
   }
 
-  fetch(uri: string, source: Navigable): Observable<ViewData<any>> {
+  fetch(uri: string, target: Navigable): Observable<ViewData<any>> {
     // Send request
     return this
       .get(uri)
       // Swallow errors, treat them as normal response
       .catch(response => Observable.of(response))
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
-      .map(response => this.resolve(uri, response, source));
+      .map(response => this.resolve(uri, response, target));
   }
 
   protected get(url: string): Observable<HttpResponse<string>> {
@@ -57,7 +57,7 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
     return this.http.get(url, {observe: 'response', responseType: 'text'});
   }
 
-  protected resolve(requestUrl: string, response: HttpResponse<string>, source: Navigable): ViewData<any> {
+  protected resolve(requestUrl: string, response: HttpResponse<string>, target: Navigable): ViewData<any> {
     // Resolve type, if possible
     const type = this.strategy.extractType(response) || '';
     // Find view
@@ -67,7 +67,7 @@ export class HttpClientViewDataLoader extends ViewDataLoader {
 
     // Construct and return ViewData
     return {
-      source: source,
+      target: target,
       config: config,
       type: type,
       url: response.url || requestUrl,

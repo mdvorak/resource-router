@@ -5,12 +5,12 @@ import { Navigable } from './navigable';
 
 export interface ViewData<T> {
 
-  readonly source: Navigable;
+  readonly target: Navigable;
   readonly config: ViewDef;
   readonly type: string;
   readonly url: string;
   readonly status: number;
-  readonly statusText: string | null;
+  readonly statusText: string;
   readonly headers: ReadOnlyHeaders;
   readonly body: T;
 

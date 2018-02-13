@@ -1,1 +1,1 @@
-export { MockApiUrl } from './mock-api-url';
+export { MockUrlNormalizer } from './mock-url-normalizer';

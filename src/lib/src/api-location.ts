@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { Navigable } from './navigable';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { LocationReference } from './location-reference';
 
-// TODO normalize URL, using LocationStrategy
+// TODO normalize URL, using possibly LocationStrategy (that means remove trailing slash directly in the browser if its present)
 
 /**
  * It maps view URLs to API and vice versa.
  * Provides bindable `url` property, to be used with `resource-outlet` component.
  */
 @Injectable()
-export class ApiLocation implements Navigable {
+export class ApiLocation implements LocationReference {
 
+  readonly urlChange: Observable<string>;
+  private readonly urlChangeSubject = new Subject<string>();
   private urlValue = '';
 
-  constructor(private apiMapper: ApiMapper,
-              private location: Location) {
+  constructor(private readonly apiMapper: ApiMapper,
+              private readonly location: Location) {
     // Initialize
+    this.urlChange = this.urlChangeSubject.asObservable();
     this.urlValue = this.mapLocationUrlToApi();
 
     // Listen to Location changes
@@ -43,44 +48,24 @@ export class ApiLocation implements Navigable {
    * @param url API url. The navigation in browser is performed to the `view URL`, that is, without API prefix.
    */
   set url(url: string) {
+    if (typeof url !== 'string') {
+      throw new Error('url must be a string');
+    }
+
     // Normalize
     url = this.location.normalize(url);
 
     // Navigate only on change
     if (url !== this.urlValue) {
-      // Note: This also sets urlValue to correct value
-      this.navigate(url);
+      // Map API url to View form
+      const path = this.apiMapper.mapApiToView(url);
+      if (!path) {
+        throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to known API prefix`);
+      }
+
+      // Navigate
+      this.doNavigate(path);
     }
-  }
-
-  /**
-   * Navigates to given URL in the API.
-   * URL should be absolute, and provided by server (not constructed locally).
-   *
-   * @param url API url to navigate to. Cannot be null.
-   */
-  navigate(url: string): void {
-    if (typeof url !== 'string') {
-      throw new Error('url must be a string');
-    }
-
-    // Map API url to View form
-    const path = this.apiMapper.mapApiToView(url);
-    if (!path) {
-      throw new Error(`Cannot navigate to URL '${url}', it cannot be mapped to known API prefix`);
-    }
-
-    // Navigate
-    this.doNavigate(path);
-  }
-
-  // noinspection JSUnusedGlobalSymbols
-  /**
-   * Navigates to root of the API, that is '/' view path.
-   */
-  home(): void {
-    // We don't need API url here, / leads to root of the api, always
-    this.doNavigate('/');
   }
 
   /**
@@ -124,5 +109,6 @@ export class ApiLocation implements Navigable {
    */
   protected onLocationChanged() {
     this.urlValue = this.mapLocationUrlToApi();
+    this.urlChangeSubject.next(this.urlValue);
   }
 }

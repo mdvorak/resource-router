@@ -1,7 +1,6 @@
-import { Directive, HostListener, Input, Optional } from '@angular/core';
-import { Navigable, supportsNavigation } from '../navigable';
-import { ApiLocation } from '../api-location';
-import { ActivatedView } from '../activated-view';
+import { Directive, HostListener, Inject, Input, Optional } from '@angular/core';
+import { isNavigable, Navigable, NavigableRef, TOP_LEVEL_NAVIGABLE } from '../navigable';
+import { debugLog } from '../utils/debug-log';
 
 
 export const TARGET_SELF = '_self';
@@ -22,8 +21,8 @@ export class ResourceLinkDirective {
   @Input() resourceLink: string;
   @Input() target?: TargetType;
 
-  constructor(private apiLocation: ApiLocation,
-              @Optional() private view?: ActivatedView<any>) {
+  constructor(@Optional() private readonly currentNavigable?: NavigableRef,
+              @Optional() @Inject(TOP_LEVEL_NAVIGABLE) private readonly topLevelNavigable?: NavigableRef) {
   }
 
   @HostListener('click')
@@ -33,7 +32,11 @@ export class ResourceLinkDirective {
 
     if (typeof target === 'string' && target) {
       if (target === TARGET_SELF) {
-        target = this.view && this.view.navigation;
+        target = this.currentNavigable && this.currentNavigable.navigable;
+        // Warn if undefined
+        if (!target) {
+          debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
+        }
       } else if (target === TARGET_TOP) {
         target = undefined;
       } else {
@@ -43,15 +46,22 @@ export class ResourceLinkDirective {
 
     // Fallback to page navigation
     if (!target) {
-      target = this.apiLocation;
+      // Fallback to current when top-level is unavailable
+      const topLevel = this.topLevelNavigable || this.currentNavigable;
+      target = topLevel && topLevel.navigable;
+      // Warn if undefined
+      if (!target) {
+        debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
+          `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" canceled`);
+      }
     }
 
     // Navigate
-    if (supportsNavigation(target)) {
-      target.navigate(this.resourceLink);
+    if (isNavigable(target)) {
+      target.go(this.resourceLink);
     }
 
     // And cancel click
-    return true;
+    return false;
   }
 }
