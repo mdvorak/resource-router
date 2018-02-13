@@ -9,6 +9,7 @@ const XSSI_PREFIX = /^\)]}',?\n/;
  *
  * @param input Source string.
  * @returns Parsed object.
+ * @internal
  */
 export function stringToJSON(input: string): any {
   // Attempt the parse. If it fails, a parse error should be delivered to the user.

@@ -1,3 +1,5 @@
+import { UrlInfo } from './utils/parse-url';
+
 export { ResourceRouterModule, ResourceRouterOptions, RESOURCE_ROUTER_CONFIGURATION } from './resource-router-module';
 export { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 export { ViewData } from './view-data';
@@ -5,7 +7,7 @@ export { ResourceClient, HttpResourceClient } from './resource-client';
 export { ResourceData, resourceDataNavigableRef } from './resource-data';
 export { ViewDef, Data, StatusType } from './view-definition';
 export { ActivatedView } from './activated-view';
-export { LocationInfo, parseUrl } from './utils/parse-url';
+export { LocationInfo, UrlInfo, parseUrl } from './utils/parse-url';
 export { UrlNormalizer, BaseUrlNormalizer, BrowserUrlNormalizer } from './url-normalizer';
 export { ApiMapper } from './api-mapper';
 export { SingleApiMapper, APP_API_PREFIX } from './single-api-mapper';

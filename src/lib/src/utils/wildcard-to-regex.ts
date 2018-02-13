@@ -1,7 +1,7 @@
 /**
  * Converts wildcard pattern with `?` and `*` characters to regular expression.
  *
- * Usage:
+ * ## Usage:
  * ```
  * wildcardToRegex('*.js').test('foo.js') == true
  * wildcardToRegex('*.js').test('foo.jsx') == false
@@ -27,6 +27,6 @@ export function wildcardToRegex(wildcard: string): RegExp {
  * @returns Regular expression pattern.
  */
 export function escapeRegExpPattern(s: string): string {
-  return s.replace(/([-()\[\]{}+.$\^|:#<>!\\=,*?])/g, '\\$1')
+  return s.replace(/([-()\[\]{}+.$^|:#<>!\\=,*?])/g, '\\$1')
     .replace(/\x08/g, '\\x08');
 }

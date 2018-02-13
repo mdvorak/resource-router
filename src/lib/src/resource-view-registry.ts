@@ -10,6 +10,9 @@ export const TYPE_QUALITY_EVALUATOR = new InjectionToken<TypeQualityEvaluator>('
 
 
 // Private classes
+/**
+ * @internal
+ */
 class ViewsByStatus {
   readonly status: string;
   readonly statusExp: RegExp;
@@ -23,6 +26,9 @@ class ViewsByStatus {
   }
 }
 
+/**
+ * @internal
+ */
 interface ParsedViewDef {
   readonly config: ViewDef;
   readonly quality: number;
@@ -163,6 +169,9 @@ export class ResourceViewRegistry {
 
 
 // Validation functions
+/**
+ * @internal
+ */
 function validateType(config: ViewDef) {
   if (Array.isArray(config.type)) {
     if (config.type.find(t => typeof t !== 'string')) {
@@ -173,6 +182,9 @@ function validateType(config: ViewDef) {
   }
 }
 
+/**
+ * @internal
+ */
 function validateStatus(config: ViewDef) {
   if (config.status) {
     if (Array.isArray(config.status)) {
@@ -188,6 +200,9 @@ function validateStatus(config: ViewDef) {
   }
 }
 
+/**
+ * @internal
+ */
 function validateStatusExpression(config: ViewDef, status: string) {
   if (status.length < 1 || status.length > 3) {
     throw newValidationError(config, 'status pattern must be between 1 and 3 characters long');
@@ -202,11 +217,17 @@ function validateStatusExpression(config: ViewDef, status: string) {
   }
 }
 
+/**
+ * @internal
+ */
 function newValidationError(config: any, text: string): Error {
   return new Error('Invalid view configuration, ' + text + ':\n' + JSON.stringify(config));
 }
 
 // Utils
+/**
+ * @internal
+ */
 export function normalizeStatusExpression(pattern: string): string {
   // Handle * wildcard
   if (pattern.endsWith('*')) {
@@ -224,11 +245,17 @@ export function normalizeStatusExpression(pattern: string): string {
   return pattern.length < 3 ? ('000' + pattern).substr(-3) : pattern;
 }
 
+/**
+ * @internal
+ */
 export function normalizeStatus(status: number): string {
   // Pad left with zeroes
   return status < 100 ? ('000' + status).substr(-3) : '' + status;
 }
 
+/**
+ * @internal
+ */
 function qualityComparator(a: { quality: number }, b: { quality: number }) {
   if (a.quality === b.quality) {
     return 0;
@@ -241,6 +268,7 @@ function qualityComparator(a: { quality: number }, b: { quality: number }) {
  *
  * @param value Single value or array of values.
  * @returns Array or values.
+ * @internal
  */
 function toArray<T>(value: T | T[]): Array<T> {
   return Array.isArray(value) ? value as T[] : [value] as T[];

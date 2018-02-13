@@ -7,7 +7,15 @@ import {
   PathLocationStrategy,
   PlatformLocation
 } from '@angular/common';
-import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from '@angular/core';
+import {
+  ANALYZE_FOR_ENTRY_COMPONENTS,
+  Inject,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  Type
+} from '@angular/core';
 import { ApiMapper } from './api-mapper';
 import { ApiLocation } from './api-location';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from './view-type-strategy';
@@ -176,6 +184,7 @@ export function provideLocationStrategy(platformLocationStrategy: PlatformLocati
 
 /**
  * Internal factory function, exported only for AOT support.
+ * @internal
  */
 export function emptyView(): ViewDef {
   return {
@@ -188,6 +197,7 @@ export function emptyView(): ViewDef {
 
 /**
  * Internal factory function, exported only for AOT support.
+ * @internal
  */
 export function errorView(): ViewDef {
   return {

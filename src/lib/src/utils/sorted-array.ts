@@ -34,7 +34,10 @@ export function defaultComparer<T>(a: T, b: T) {
   return a < b ? -1 : 1;
 }
 
-// Based on https://github.com/jo/quick-insert
+/**
+ * Based on https://github.com/jo/quick-insert
+ * @internal
+ */
 function locationFor<T>(element: T, array: T[], comparer: Comparer<T>, start: number, end: number): number {
   if (array.length === 0) {
     return -1;
@@ -56,7 +59,10 @@ function locationFor<T>(element: T, array: T[], comparer: Comparer<T>, start: nu
   }
 }
 
-// This is for "push" behavior, we need to preserve insert order for equal values
+/**
+ * This is for "push" behavior, we need to preserve insert order for equal values.
+ * @internal
+ */
 function insertLocation<T>(element: T, array: T[], comparer: Comparer<T>): number {
   // Find possible insert location
   let i = locationFor(element, array, comparer, 0, array.length);
