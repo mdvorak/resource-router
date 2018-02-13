@@ -1,4 +1,4 @@
-import { Directive, FactoryProvider, Input, Self } from '@angular/core';
+import { Directive, FactoryProvider, forwardRef, Input, Self } from '@angular/core';
 import { isNavigable, Navigable, NavigableRef, topLevelNavigableRef } from '../navigable';
 import { ViewData } from '../view-data';
 import { ResourceData } from '../resource-data';
@@ -71,7 +71,7 @@ export function resourceContextNavigableRef(): FactoryProvider {
     provide: NavigableRef,
     useFactory: resourceContextNavigableRefFactory,
     deps: [
-      [ResourceContextDirective, new Self()]
+      [forwardRef(() => ResourceContextDirective), new Self()]
     ]
   };
 }
