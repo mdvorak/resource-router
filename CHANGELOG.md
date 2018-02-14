@@ -4,7 +4,7 @@
 ### Resolved Issues
 
 * [#26](https://github.com/mdvorak/resource-router/issues/26) When HttpResourceClient request fails, error is swallowed
-* [#27](https://github.com/mdvorak/resource-router/issues/26) v4.1.0 is broken in production mode
+* [#28](https://github.com/mdvorak/resource-router/issues/28) v4.1.0 is broken in production mode
 
 ### Known Problems
 
