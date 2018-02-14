@@ -86,7 +86,7 @@ To publish new library version to [npm repository](https://www.npmjs.com/package
 1. Make sure there are release notes in the [CHANGELOG](CHANGELOG.md).
 1. Commit and push changes, if any
 1. Create a new [release on GitHub](https://github.com/mdvorak/resource-router/releases),
-   on format v0.0.0, (or alternatively use git directly and push tag)
+   in the format `v0.0.0` (or alternatively use git directly)
 1. Copy changelog markdown text to the release
 1. Build the library and make sure all tests passed
    ```
