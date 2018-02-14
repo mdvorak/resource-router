@@ -109,7 +109,7 @@ export class ResourceData implements Navigable, LocationReference {
         .catch(err => {
           // Log it, this should not happen normally
           // Note: We are intentionally not using debugLog here - print this in production log as well
-          console.error(err);
+          console.error('Routing Error:', err);
           // Return error view
           return Observable.of(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', NO_HEADERS, err));
         });

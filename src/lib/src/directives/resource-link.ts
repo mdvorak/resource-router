@@ -35,7 +35,7 @@ export class ResourceLinkDirective {
         target = this.currentNavigable && this.currentNavigable.navigable;
         // Warn if undefined
         if (!target) {
-          debugLog.warn('When resourceLink is not in a resource-view, target="_self" is not supported');
+          debugLog().warn('When resourceLink is not in a resource-view, target="_self" is not supported');
         }
       } else if (target === TARGET_TOP) {
         target = undefined;
@@ -51,7 +51,7 @@ export class ResourceLinkDirective {
       target = topLevel && topLevel.navigable;
       // Warn if undefined
       if (!target) {
-        debugLog.warn(`When resourceLink is not embedded in a <resource-view> component, ` +
+        debugLog().warn(`When resourceLink is not embedded in a <resource-view> component, ` +
           `it must have target set to a Navigable instance - navigation to "${this.resourceLink}" canceled`);
       }
     }

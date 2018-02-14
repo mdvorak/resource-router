@@ -78,10 +78,26 @@ Build of the library is performed with
 npm run build
 ```
 
-After building, it can be published to NPM repository with
-```
-npm publish dist/angular-resource-router
-```
+### Publishing
+
+To publish new library version to [npm repository](https://www.npmjs.com/package/angular-resource-router): 
+
+1. Verify/set library version in `src/lib/package.json`
+1. Make sure there are release notes in the [CHANGELOG](CHANGELOG.md).
+1. Commit and push changes, if any
+1. Create a new [release on GitHub](https://github.com/mdvorak/resource-router/releases),
+   in the format `v0.0.0` (or alternatively use git directly)
+1. Copy changelog markdown text to the release
+1. Build the library and make sure all tests passed
+   ```
+   npm run bootstrap
+   npm run build
+   ```
+1. Publish the library
+   ```
+   npm publish dist/angular-resource-router
+   ```
+1. Merge the branches if needed
 
 ### Demo app
 

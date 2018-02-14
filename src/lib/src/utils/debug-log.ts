@@ -15,12 +15,15 @@ function noOpLogFn(message: string, ...args: any[]) {
 /**
  * @internal
  */
-export const debugLog: {
-  log: LogFnType,
-  warn: LogFnType,
-  error: LogFnType
-} = isDevMode() && typeof console === 'object' ? console : {
+const NOOP_CONSOLE = {
   log: noOpLogFn,
   warn: noOpLogFn,
   error: noOpLogFn
 };
+
+/**
+ * Diagnostic logging for the router when {@link isDevMode()} is enabled.
+ */
+export function debugLog(): { log: LogFnType, warn: LogFnType, error: LogFnType } {
+  return isDevMode() ? console : NOOP_CONSOLE;
+}
