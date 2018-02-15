@@ -21,10 +21,10 @@
     ],
     "paths": {
       "angular-resource-router": [
-        "dist/angular-resource-router"
+        "src/lib/public_api.ts"
       ],
       "angular-resource-router/testing": [
-        "dist/angular-resource-router/testing"
+        "src/lib/testing/public_api.ts"
       ]
     }
   }

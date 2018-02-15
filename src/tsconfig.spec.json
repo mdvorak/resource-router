@@ -4,11 +4,18 @@
     "outDir": "../out-tsc/spec",
     "baseUrl": ".",
     "module": "commonjs",
-    "target": "es5",
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "paths": {
+      "angular-resource-router": [
+        "lib/public_api.ts"
+      ],
+      "angular-resource-router/testing": [
+        "lib/testing/public_api.ts"
+      ]
+    }
   },
   "files": [
     "test.ts"
