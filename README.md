@@ -15,7 +15,7 @@ See [CHANGELOG](CHANGELOG.md) for release changes.
     
 ## Documentation
 
-See [API documentation](mdvorak.github.io/resource-router/) for latest released version.
+See [API documentation](https://mdvorak.github.io/resource-router/) for latest released version.
 
 
 ## Configuration
