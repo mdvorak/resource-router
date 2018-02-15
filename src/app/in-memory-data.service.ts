@@ -1,7 +1,7 @@
 import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
-import { Hero } from './hero';
+import { Hero, Heroes } from './hero';
 
 const DASHBOARD_TYPE = 'application/x.dashboard';
 const HEROES_TYPE = 'application/x.heroes';
@@ -10,16 +10,16 @@ const HERO_TYPE = 'application/x.hero';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const heroes = [
-      createHero({id: 11, name: 'Mr. Nice'}),
-      createHero({id: 12, name: 'Narco'}),
-      createHero({id: 13, name: 'Bombasto'}),
-      createHero({id: 14, name: 'Celeritas'}),
-      createHero({id: 15, name: 'Magneta'}),
-      createHero({id: 16, name: 'RubberMan'}),
-      createHero({id: 17, name: 'Dynama'}),
-      createHero({id: 18, name: 'Dr IQ'}),
-      createHero({id: 19, name: 'Magma'}),
-      createHero({id: 20, name: 'Tornado'})
+      {id: 11, name: 'Mr. Nice'},
+      {id: 12, name: 'Narco'},
+      {id: 13, name: 'Bombasto'},
+      {id: 14, name: 'Celeritas'},
+      {id: 15, name: 'Magneta'},
+      {id: 16, name: 'RubberMan'},
+      {id: 17, name: 'Dynama'},
+      {id: 18, name: 'Dr IQ'},
+      {id: 19, name: 'Magma'},
+      {id: 20, name: 'Tornado'},
     ];
     return {heroes};
   }
@@ -31,7 +31,7 @@ export class InMemoryDataService implements InMemoryDbService {
       if (data) {
         return request.utils.createResponse$(() => ({
           url: request.url,
-          body: JSON.stringify(data),
+          body: JSON.stringify(hyperHero(<any>data)),
           status: 200,
           statusText: 'OK',
           headers: new HttpHeaders({
@@ -42,7 +42,12 @@ export class InMemoryDataService implements InMemoryDbService {
     } else if (request.collectionName === 'heroes') {
       return request.utils.createResponse$(() => ({
         url: request.url,
-        body: JSON.stringify(request.collection),
+        body: JSON.stringify(<Heroes>{
+          items: request.collection.map(hyperHero),
+          _links: {
+            self: {href: '/api/heroes'},
+          }
+        }),
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
@@ -50,11 +55,16 @@ export class InMemoryDataService implements InMemoryDbService {
         })
       }));
     } else if (request.url.endsWith('/api/dashboard')) {
-      const collection: Hero[] = (request.utils.getDb() as any).heroes;
+      const collection = (request.utils.getDb() as any).heroes;
 
       return request.utils.createResponse$(() => ({
         url: request.url,
-        body: JSON.stringify(collection.slice(1, 5)),
+        body: JSON.stringify(<Heroes>{
+          items: collection.slice(1, 5).map(hyperHero),
+          _links: {
+            self: {href: '/api/dashboard'},
+          }
+        }),
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
@@ -65,12 +75,12 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 }
 
-function createHero(obj: { id: number, name: string }) {
+function hyperHero({id, name}: { id: number, name: string }, index?: number): Hero {
   return {
-    id: obj.id,
-    name: obj.name,
+    id: id,
+    name: name,
     _links: {
-      self: {href: '/api/heroes/' + obj.id}
+      self: {href: '/api/heroes/' + id}
     }
   };
 }

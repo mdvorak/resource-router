@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
+import { Hero, Heroes } from '../hero';
 import { ActivatedView } from 'angular-resource-router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
 
-  constructor(private readonly view: ActivatedView<Hero[]>) {
+  heroes: Heroes;
+
+  constructor(private readonly view: ActivatedView<Heroes>,
+              private readonly http: HttpClient) {
   }
 
   ngOnInit() {
@@ -22,19 +24,17 @@ export class HeroesComponent implements OnInit {
     if (!name) {
       return;
     }
-    /* TODO
-    this.heroService.addHero({name} as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
-      });
-      */
+
+    const hero = {name} as Hero;
+
+    this.heroes.items.push(hero);
+    this.http.post(this.heroes._links.self.href, hero)
+      .subscribe(undefined, undefined, () => this.view.reload());
   }
 
   delete(hero: Hero): void {
-    /* TODO
-    this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero).subscribe();
-    */
+    this.heroes.items = this.heroes.items.filter(h => h !== hero);
+    this.http.delete(hero._links.self.href)
+      .subscribe(undefined, undefined, () => this.view.reload());
   }
-
 }

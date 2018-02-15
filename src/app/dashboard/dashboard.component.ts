@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
+import { Heroes } from '../hero';
 import { ActivatedView } from 'angular-resource-router';
 
 @Component({
@@ -8,9 +8,9 @@ import { ActivatedView } from 'angular-resource-router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  heroes: Heroes;
 
-  constructor(private readonly view: ActivatedView<Hero[]>) {
+  constructor(private readonly view: ActivatedView<Heroes>) {
   }
 
   ngOnInit() {
