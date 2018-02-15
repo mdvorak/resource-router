@@ -21,12 +21,12 @@ export class SingleApiMapper extends ApiMapper {
    */
   readonly prefix: string;
 
-  constructor(apiUrl: UrlNormalizer,
+  constructor(private readonly urlNormalizer: UrlNormalizer,
               @Inject(APP_API_PREFIX) prefix: string) {
     super();
 
     // Normalize prefix
-    this.prefix = apiUrl.normalize(prefix);
+    this.prefix = urlNormalizer.normalize(prefix);
   }
 
   mapViewToApi(path: string): string {
@@ -44,6 +44,11 @@ export class SingleApiMapper extends ApiMapper {
   }
 
   mapApiToView(url: string): string | null {
+    // Normalize relative URLs
+    if (url[0] === '/') {
+      url = this.urlNormalizer.normalize(url);
+    }
+
     // Remove prefix
     if (url.startsWith(this.prefix)) {
       // Strip prefix, prepend /, remove trailing /

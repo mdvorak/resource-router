@@ -4,6 +4,7 @@
 ### Features
 
 * Added `body: Observable<T>` to `ActivatedView<T>` class, which is same as `view.data.subscribe(data => ... = data.body);`
+* `SingleApiMapper` now supports host-relative urls (`/api/foobar`)
 
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/mdvorak/resource-router/compare/v4.1.1...v5.0.0) (2018-02-15)

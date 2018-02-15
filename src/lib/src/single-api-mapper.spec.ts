@@ -12,4 +12,9 @@ describe(SingleApiMapper.name, () => {
     const apiMapper = new SingleApiMapper(apiUrl, 'my/api/');
     expect(apiMapper.prefix).toBe('test://example.com/context/my/api/');
   });
+
+  it('should map relative api url /my/api/foobar to view url /foobar', () => {
+    const apiMapper = new SingleApiMapper(apiUrl, '/my/api/');
+    expect(apiMapper.mapApiToView('/my/api/foobar')).toBe('/foobar');
+  });
 });
