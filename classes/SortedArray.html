@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -944,7 +932,10 @@ export function defaultComparer&lt;T&gt;(a: T, b: T) {
   return a &lt; b ? -1 : 1;
 }
 
-// Based on https://github.com/jo/quick-insert
+/**
+ * Based on https://github.com/jo/quick-insert
+ * @internal
+ */
 function locationFor&lt;T&gt;(element: T, array: T[], comparer: Comparer&lt;T&gt;, start: number, end: number): number {
   if (array.length &#x3D;&#x3D;&#x3D; 0) {
     return -1;
@@ -966,7 +957,10 @@ function locationFor&lt;T&gt;(element: T, array: T[], comparer: Comparer&lt;T&gt
   }
 }
 
-// This is for &quot;push&quot; behavior, we need to preserve insert order for equal values
+/**
+ * This is for &quot;push&quot; behavior, we need to preserve insert order for equal values.
+ * @internal
+ */
 function insertLocation&lt;T&gt;(element: T, array: T[], comparer: Comparer&lt;T&gt;): number {
   // Find possible insert location
   let i &#x3D; locationFor(element, array, comparer, 0, array.length);

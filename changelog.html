@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="./classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="./classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="./interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="./interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="./interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="./classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="./classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -549,9 +540,6 @@
                                            <a href="./interfaces/Navigable.html" >Navigable</a>
                                        </li>
                                        <li class="link">
-                                           <a href="./interfaces/ParsedViewDef.html" >ParsedViewDef</a>
-                                       </li>
-                                       <li class="link">
                                            <a href="./interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
                                        </li>
                                        <li class="link">
@@ -615,6 +603,27 @@
                <div class="content getting-started">
                    <div class="content-data">
 
+<p><a name="5.0.0"></a></p>
+<h1 id="-5-0-0-https-github-com-mdvorak-resource-router-compare-v4-1-1-v5-0-0-2018-02-15-"><a href="https://github.com/mdvorak/resource-router/compare/v4.1.1...v5.0.0">5.0.0</a> (2018-02-15)</h1>
+<p>Version for Angular 5.x, otherwise almost identical with 4.1.1.</p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Improved <code>DefaultErrorComponent</code>, now it renders html as content instead of code</li>
+<li>Docs no longer contain internal components</li>
+<li>Internally improved config, tests now no longer needs library to be built</li>
+</ul>
+<p><a name="4.1.1"></a></p>
+<h1 id="-4-1-1-https-github-com-mdvorak-resource-router-compare-v4-1-0-v4-1-1-2018-02-14-"><a href="https://github.com/mdvorak/resource-router/compare/v4.1.0...v4.1.1">4.1.1</a> (2018-02-14)</h1>
+<h3 id="resolved-issues">Resolved Issues</h3>
+<ul>
+<li><a href="https://github.com/mdvorak/resource-router/issues/26">#26</a> When HttpResourceClient request fails, error is swallowed</li>
+<li><a href="https://github.com/mdvorak/resource-router/issues/28">#28</a> v4.1.0 is broken in production mode</li>
+</ul>
+<h3 id="known-problems">Known Problems</h3>
+<ul>
+<li>As result of <a href="https://github.com/mdvorak/resource-router/issues/26">#26</a>, error value might be now consumed in some cases.
+Created <a href="https://github.com/mdvorak/resource-router/issues/27">#27</a> to address the issue.</li>
+</ul>
 <p><a name="4.1.0"></a></p>
 <h1 id="-4-1-0-https-github-com-mdvorak-resource-router-compare-v4-0-0-v4-1-0-2018-02-12-"><a href="https://github.com/mdvorak/resource-router/compare/v4.0.0...v4.1.0">4.1.0</a> (2018-02-12)</h1>
 <p><strong>This is breaking release, despite it breaks semantic versioning. Its for Angular v4.x applications to allow migration to new model and Angular v5.x</strong></p>
@@ -623,7 +632,7 @@
 <ul>
 <li><p><code>ViewData</code> is no longer available for injection, use <code>ActivatedView</code> instead:</p>
 <pre class="line-numbers"><code class="language-ts">&#64;Component(...)
-export class SampleComponent {
+export class SampleComponent implements OnInit {
 
   public data: MyData;
 
@@ -635,7 +644,9 @@ export class SampleComponent {
   }
 }</code></pre></li>
 <li><p>ResourceData directive now needs to be accompanied by <code>[resourceContext]</code> directive:</p>
-<pre class="line-numbers"><code class="language-angular2html">&lt;div *resourceData=&quot;let data of apiLocation&quot; [resourceContext]=&quot;data&quot;&gt;...&lt;/div&gt;</code></pre><p>Otherwise navigation (resourceLinks) won&#39;t work.</p>
+<pre class="line-numbers"><code class="language-angular2html">&lt;div *resourceData=&quot;let data of apiLocation&quot; [resourceContext]=&quot;data&quot;&gt;
+  &lt;resource-view [data]=&quot;data&quot;&gt;&lt;/resource-view&gt;
+&lt;/div&gt;</code></pre><p>Otherwise navigation (resourceLinks) won&#39;t work.</p>
 <p><em>Note that navigation internals might change in future releases.</em></p>
 </li>
 <li>Many internal components were changed or moved. See <a href="https://github.com/mdvorak/resource-router/pull/24/commits">https://github.com/mdvorak/resource-router/pull/24/commits</a> for whole changelog</li>

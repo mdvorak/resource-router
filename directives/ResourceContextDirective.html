@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -758,7 +746,7 @@ providing navigation context in the <code>AppComponent</code>, which is exactly 
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/lib/src/directives/resource-context.ts:54</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/lib/src/directives/resource-context.ts:57</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -801,7 +789,7 @@ providing navigation context in the <code>AppComponent</code>, which is exactly 
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/lib/src/directives/resource-context.ts:51</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/lib/src/directives/resource-context.ts:54</a></div>
                                         </td>
                                     </tr>
             
@@ -831,7 +819,7 @@ providing navigation context in the <code>AppComponent</code>, which is exactly 
                             </tr>
                                         <tr>
                                             <td class="col-md-4">
-                                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/lib/src/directives/resource-context.ts:54</a></div>
+                                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/lib/src/directives/resource-context.ts:57</a></div>
                                             </td>
                                         </tr>
                         </tbody>
@@ -842,13 +830,16 @@ providing navigation context in the <code>AppComponent</code>, which is exactly 
 
 
     <div class="tab-pane fade tab-source-code" id="c-source">
-        <pre class="line-numbers"><code class="language-typescript">import { Directive, FactoryProvider, Input, Self } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers"><code class="language-typescript">import { Directive, FactoryProvider, forwardRef, Input, Self } from &#x27;@angular/core&#x27;;
 import { isNavigable, Navigable, NavigableRef, topLevelNavigableRef } from &#x27;../navigable&#x27;;
 import { ViewData } from &#x27;../view-data&#x27;;
 import { ResourceData } from &#x27;../resource-data&#x27;;
 import { ResourceDataOfDirective } from &#x27;./resource-data-of&#x27;;
 
 
+/**
+ * @internal
+ */
 const NOOP_NAVIGABLE: Navigable &#x3D; {
   go() {
   }
@@ -910,12 +901,15 @@ export class ResourceContextDirective extends NavigableRef {
   }
 }
 
+/**
+ * @internal
+ */
 export function resourceContextNavigableRef(): FactoryProvider {
   return {
     provide: NavigableRef,
     useFactory: resourceContextNavigableRefFactory,
     deps: [
-      [ResourceContextDirective, new Self()]
+      [forwardRef(() &#x3D;&gt; ResourceContextDirective), new Self()]
     ]
   };
 }

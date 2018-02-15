@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -633,6 +621,9 @@
     </li>
 
     <li>
+        <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+    </li>
+    <li>
         <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
     </li>
 </ul>
@@ -645,6 +636,32 @@
     <code>src/lib/src/components/default-error.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Default view that is used when no other view has been matched.</p>
+<p>To replace it, register own view with <code>*</code> type nad status (don&#39;t forget <code>responseType</code>):</p>
+<pre class="line-numbers"><code class="language-ts">ResourceRouterModule.forTypes([
+   {
+     component: MyGenericErrorComponent,
+     status: &#39;*&#39;,
+     type: &#39;*&#39;,
+     responseType: &#39;text&#39;
+   }
+]);</code></pre><p>If you want to have custom view only for specific content type (e.g. specific defined error), register it as follows:</p>
+<pre class="line-numbers"><code class="language-ts">ResourceRouterModule.forTypes([
+   {
+     component: MyApiErrorComponent,
+     status: &#39;*&#39;,
+     type: &#39;application/vnd.company.error&#39;,
+     responseType: &#39;json&#39;
+   }
+]);</code></pre><p>Note: since <code>responseType: &#39;json&#39;</code> is default, it can be omitted.</p>
+<p>Both above views can co-exist - when well-defined error is received, <code>MyApiErrorComponent</code> is used,
+and for unexpected there is <code>MyGenericErrorComponent</code>.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -674,13 +691,11 @@
 
 
 
-            <tr>
-                <td class="col-md-3">template</td>
-                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;p&gt;Error loading a view&lt;code *ngIf&#x3D;&quot;data.type&quot;&gt; {{data.type}}&lt;/code&gt; from resource    &lt;code&gt;{{data.url}}&lt;/code&gt;
-  &lt;p&gt;{{data.status}} {{data.statusText}}&lt;/p&gt;
-  &lt;pre *ngIf&#x3D;&quot;data.body&quot;&gt;{{data.body}}&lt;/pre&gt;</code></pre></td>
-            </tr>
 
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./default-error.component.html</code></td>
+            </tr>
 
 
         </tbody>
@@ -700,7 +715,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Public</span>
                                 <a href="#data">data</a>
                             </li>
                             <li>
@@ -724,6 +738,20 @@
                         </ul>
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Accessors</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#html">html</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </section>
@@ -739,7 +767,7 @@
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/lib/src/components/default-error.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/lib/src/components/default-error.component.ts:42</a></div>
                                 </td>
                             </tr>
     
@@ -806,7 +834,7 @@
     
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/lib/src/components/default-error.component.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/lib/src/components/default-error.component.ts:47</a></div>
                                 </td>
                             </tr>
     
@@ -835,7 +863,6 @@
                             <a name="data"></a>
                             <span class="name">
                                 <b>
-                                    <span class="modifier">Public</span>
                                 data
                                 </b>
                                 <a href="#data"><span class="fa fa-link"></span></a>
@@ -844,7 +871,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <span class="modifier-icon fa fa-reset"></span><code>data:     <code><a href="../interfaces/ViewData.html" target="_self" >ViewData&lt;any&gt;</a></code>
+                            <code>data:     <code><a href="../interfaces/ViewData.html" target="_self" >ViewData&lt;any&gt;</a></code>
     </code>
                         </td>
                     </tr>
@@ -856,7 +883,7 @@
                         </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/lib/src/components/default-error.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/lib/src/components/default-error.component.ts:42</a></div>
                                 </td>
                             </tr>
     
@@ -891,7 +918,7 @@
                         </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/lib/src/components/default-error.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/lib/src/components/default-error.component.ts:44</a></div>
                                 </td>
                             </tr>
     
@@ -900,6 +927,33 @@
             </table>
     </section>
 
+    <section>
+        <h3 id="accessors">
+            Accessors
+        </h3>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <a name="html"></a>
+                            <span class="name"><b>html</b><a href="#html"><span class="fa fa-link"></span></a></span>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="accessor"><b>get</b><code>html()</code></span>
+                        </td>
+                    </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/lib/src/components/default-error.component.ts:51</a></div>
+                                    </td>
+                                </tr>
+    
+                </tbody>
+            </table>
+    </section>
 </div>
 
 
@@ -908,15 +962,44 @@
 import { ActivatedView } from &#x27;../activated-view&#x27;;
 import { ViewData } from &#x27;../view-data&#x27;;
 
+
+/**
+ * Default view that is used when no other view has been matched.
+ *
+ * To replace it, register own view with &#x60;*&#x60; type nad status (don&#x27;t forget &#x60;responseType&#x60;):
+ * &#x60;&#x60;&#x60;ts
+ * ResourceRouterModule.forTypes([
+ *   {
+ *     component: MyGenericErrorComponent,
+ *     status: &#x27;*&#x27;,
+ *     type: &#x27;*&#x27;,
+ *     responseType: &#x27;text&#x27;
+ *   }
+ * ]);
+ * &#x60;&#x60;&#x60;
+ *
+ * If you want to have custom view only for specific content type (e.g. specific defined error), register it as follows:
+ * &#x60;&#x60;&#x60;ts
+ * ResourceRouterModule.forTypes([
+ *   {
+ *     component: MyApiErrorComponent,
+ *     status: &#x27;*&#x27;,
+ *     type: &#x27;application/vnd.company.error&#x27;,
+ *     responseType: &#x27;json&#x27;
+ *   }
+ * ]);
+ * &#x60;&#x60;&#x60;
+ * Note: since &#x60;responseType: &#x27;json&#x27;&#x60; is default, it can be omitted.
+ *
+ * Both above views can co-exist - when well-defined error is received, &#x60;MyApiErrorComponent&#x60; is used,
+ * and for unexpected there is &#x60;MyGenericErrorComponent&#x60;.
+ */
 @Component({
-  template: &#x60;&lt;p&gt;Error loading a view&lt;code *ngIf&#x3D;&quot;data.type&quot;&gt; {{data.type}}&lt;/code&gt; from resource
-    &lt;code&gt;{{data.url}}&lt;/code&gt;
-  &lt;p&gt;{{data.status}} {{data.statusText}}&lt;/p&gt;
-  &lt;pre *ngIf&#x3D;&quot;data.body&quot;&gt;{{data.body}}&lt;/pre&gt;&#x60;
+  templateUrl: &#x27;./default-error.component.html&#x27;
 })
 export class DefaultErrorComponent implements OnInit {
 
-  public data: ViewData&lt;any&gt;;
+  data: ViewData&lt;any&gt;;
 
   constructor(public view: ActivatedView&lt;any&gt;) {
   }
@@ -924,10 +1007,32 @@ export class DefaultErrorComponent implements OnInit {
   ngOnInit(): void {
     this.view.data.subscribe(data &#x3D;&gt; this.data &#x3D; data);
   }
+
+  get html() {
+    return this.data.type &#x3D;&#x3D;&#x3D; &#x27;text/html&#x27;;
+  }
 }
 </code></pre>
     </div>
 
+    <div class="tab-pane fade" id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;p&gt;
+  Error loading a view&lt;code *ngIf&#x3D;&quot;data.type&quot;&gt; {{data.type}}&lt;/code&gt;
+  from resource &lt;code&gt;{{data.url}}&lt;/code&gt; with &lt;code&gt;{{data.status}} {{data.statusText}}&lt;/code&gt;
+&lt;/p&gt;
+&lt;ng-container *ngIf&#x3D;&quot;data.body as body&quot;&gt;
+  &lt;!-- Plain text --&gt;
+  &lt;pre *ngIf&#x3D;&quot;!html; else htmlTemplate&quot;&gt;{{body}}&lt;/pre&gt;
+  &lt;!-- HTML --&gt;
+  &lt;ng-template #htmlTemplate&gt;
+    &lt;!-- Note: body is automatically sanitized by angular,
+         which may lead to displaying some garbage from head element,
+         but its perfectly safe to display it - NEVER use DomSanitizer.bypassSecurityTrustHtml --&gt;
+    &lt;div [innerHTML]&#x3D;&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-container&gt;
+</code></pre>
+    </div>
 
     <div class="tab-pane fade" id="c-tree">
         <div id="tree-container"></div>
@@ -952,7 +1057,7 @@ export class DefaultErrorComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>Error loading a view<code *ngIf="data.type"> {{data.type}}</code> from resource    <code>{{data.url}}</code>  <p>{{data.status}} {{data.statusText}}</p>  <pre *ngIf="data.body">{{data.body}}</pre></div>'
+        var COMPONENT_TEMPLATE = '<div><p>  Error loading a view<code *ngIf="data.type"> {{data.type}}</code>  from resource <code>{{data.url}}</code> with <code>{{data.status}} {{data.statusText}}</code></p><ng-container *ngIf="data.body as body">  <!-- Plain text -->  <pre *ngIf="!html; else htmlTemplate">{{body}}</pre>  <!-- HTML -->  <ng-template #htmlTemplate>    <!-- Note: body is automatically sanitized by angular,         which may lead to displaying some garbage from head element,         but its perfectly safe to display it - NEVER use DomSanitizer.bypassSecurityTrustHtml -->    <div [innerHTML]="body"></div>  </ng-template></ng-container></div>'
     var COMPONENTS = [{'name': 'DefaultEmptyComponent', 'selector': ''},{'name': 'DefaultErrorComponent', 'selector': ''},{'name': 'ResourceOutletComponent', 'selector': 'resource-outlet'}];
     var DIRECTIVES = [{'name': 'ResourceContextDirective', 'selector': '[resourceContext]'},{'name': 'ResourceDataOfDirective', 'selector': '[resourceData][resourceDataOf]'},{'name': 'ResourceLinkDirective', 'selector': ':not(a)[resourceLink]'},{'name': 'ResourceLinkWithHrefDirective', 'selector': 'a[resourceLink]'},{'name': 'ResourceViewDirective', 'selector': 'resource-view'}];
     var ACTUAL_COMPONENT = {'name': 'DefaultErrorComponent'};

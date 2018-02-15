@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -725,7 +713,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/lib/src/directives/resource-view.ts:18</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/lib/src/directives/resource-view.ts:19</a></div>
                                         </td>
                                     </tr>
             
@@ -806,7 +794,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/lib/src/directives/resource-view.ts:29</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/lib/src/directives/resource-view.ts:30</a></div>
                                         </td>
                                     </tr>
             
@@ -887,7 +875,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/lib/src/directives/resource-view.ts:20</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/lib/src/directives/resource-view.ts:21</a></div>
                                         </td>
                                     </tr>
             
@@ -923,7 +911,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/lib/src/directives/resource-view.ts:22</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/lib/src/directives/resource-view.ts:23</a></div>
                                         </td>
                                     </tr>
             
@@ -959,7 +947,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/lib/src/directives/resource-view.ts:21</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/lib/src/directives/resource-view.ts:22</a></div>
                                         </td>
                                     </tr>
             
@@ -988,7 +976,7 @@
                             </tr>
                                         <tr>
                                             <td class="col-md-4">
-                                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/lib/src/directives/resource-view.ts:25</a></div>
+                                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/lib/src/directives/resource-view.ts:26</a></div>
                                             </td>
                                         </tr>
             
@@ -1003,11 +991,12 @@
   ComponentFactoryResolver,
   ComponentRef,
   Directive,
+  Injector,
   Input,
   OnChanges,
   Optional,
-  ReflectiveInjector,
   SimpleChanges,
+  StaticProvider,
   ViewContainerRef
 } from &#x27;@angular/core&#x27;;
 import &#x27;rxjs/add/operator/switchMap&#x27;;
@@ -1089,13 +1078,14 @@ export class ResourceViewDirective implements OnChanges {
 
     // Create component
     const factory &#x3D; this.resolver.resolveComponentFactory(this.data.config.component);
-    const providers &#x3D; ReflectiveInjector.resolve([
+    const providers: StaticProvider[] &#x3D; [
       {
         provide: ActivatedView,
         useValue: new ActivatedView&lt;any&gt;(target, dataSource)
       }
-    ]);
-    const injector &#x3D; ReflectiveInjector.fromResolvedProviders(providers, this.viewContainer.parentInjector);
+    ];
+
+    const injector &#x3D; Injector.create({providers: providers, parent: this.viewContainer.parentInjector});
     const component &#x3D; this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
 
     // Store reference

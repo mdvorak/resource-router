@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="./classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="./classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="./interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="./interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="./interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="./classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="./classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="./interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="./interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="./interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -622,7 +610,9 @@ it displays configured view. It is a replacement for original <a href="https://a
 <p>The aim of this library is to allow building of RESTful clients using Angular, following <a href="http://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> principle.</p>
 <p>See <a href="CHANGELOG.md">CHANGELOG</a> for release changes.</p>
 <h2 id="installation">Installation</h2>
-<pre class="line-numbers"><code class="language-none">npm i angular-resource-router --save</code></pre><h2 id="configuration">Configuration</h2>
+<pre class="line-numbers"><code class="language-none">npm i angular-resource-router --save</code></pre><h2 id="documentation">Documentation</h2>
+<p>See <a href="https://mdvorak.github.io/resource-router/">API documentation</a> for latest released version.</p>
+<h2 id="configuration">Configuration</h2>
 <p>Sample snippet how is the router configured.
 It is very similar to original router, but instead of registering paths, we are registering media types.</p>
 <pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#39;&#64;angular/core&#39;;
@@ -667,8 +657,22 @@ export class ExampleModule {
 <p><em>Note: Under linux, you need to change global npm prefix to user accessible directory, see <a href="https://docs.npmjs.com/getting-started/fixing-npm-permissions">How to Prevent Permissions Errors</a>.</em></p>
 <h3 id="library">Library</h3>
 <p>Build of the library is performed with</p>
-<pre class="line-numbers"><code class="language-none">npm run build</code></pre><p>After building, it can be published to NPM repository with</p>
-<pre class="line-numbers"><code class="language-none">npm publish dist/angular-resource-router</code></pre><h3 id="demo-app">Demo app</h3>
+<pre class="line-numbers"><code class="language-none">npm run build</code></pre><h3 id="publishing">Publishing</h3>
+<p>To publish new library version to <a href="https://www.npmjs.com/package/angular-resource-router">npm repository</a>: </p>
+<ol>
+<li>Verify/set library version in <code>src/lib/package.json</code></li>
+<li>Make sure there are release notes in the <a href="CHANGELOG.md">CHANGELOG</a>.</li>
+<li>Commit and push changes, if any</li>
+<li>Create a new <a href="https://github.com/mdvorak/resource-router/releases">release on GitHub</a>,
+in the format <code>v0.0.0</code> (or alternatively use git directly)</li>
+<li>Copy changelog markdown text to the release</li>
+<li>Build the library and make sure all tests passed<pre class="line-numbers"><code class="language-none">npm run bootstrap
+npm run build</code></pre></li>
+<li>Publish the library<pre class="line-numbers"><code class="language-none">npm publish dist/angular-resource-router</code></pre></li>
+<li>Publish docs, if this is head release<pre class="line-numbers"><code class="language-none">npm run ghpages</code></pre></li>
+<li>Merge the branches if needed</li>
+</ol>
+<h3 id="demo-app">Demo app</h3>
 <p>Local development server can be started with</p>
 <pre class="line-numbers"><code class="language-none">npm start</code></pre><h2 id="todo">TODO</h2>
 <p>Things that are yet to be implemented</p>

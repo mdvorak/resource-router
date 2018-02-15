@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -645,6 +633,14 @@
     <code>src/lib/src/directives/resource-outlet.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Loads and renders data from given URL. Support navigation via <code>_self</code>.</p>
+<p>For more complicated use-cases, see <a href="../directives/ResourceDataOfDirective.html">ResourceDataOfDirective</a>.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -655,6 +651,18 @@
                 <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
     </p>
 
+    <p class="comment">
+        <h3>Example</h3>
+    </p>
+    <div class="io-description">
+                <div>
+                    <pre class="line-numbers"><code class="language-html">&lt;!-- To bind to browser location, provide apiLocation as component property and use its url --&gt;
+&lt;resource-outlet [(src)]=&quot;apiLocation.url&quot;&gt;&lt;/resource-outlet&gt;
+
+&lt;!-- To view referenced content, use link href --&gt;
+&lt;resource-outlet [(src)]=&quot;data._links?.content?.href&quot;&gt;&lt;/resource-outlet&gt;</code></pre>
+                </div>
+    </div>
 
 <section>
     <h3>Metadata</h3>
@@ -794,7 +802,7 @@
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:33</a></div>
                                 </td>
                             </tr>
     
@@ -848,7 +856,7 @@
                     </tr>
                             <tr>
                                 <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:38</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:51</a></div>
                                 </td>
                             </tr>
                 </tbody>
@@ -871,7 +879,7 @@
                     </tr>
                             <tr>
                                 <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:32</a></div>
                                 </td>
                             </tr>
                 </tbody>
@@ -907,7 +915,7 @@
     
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:42</a></div>
                                 </td>
                             </tr>
     
@@ -944,7 +952,7 @@
     
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:38</a></div>
                                 </td>
                             </tr>
     
@@ -1000,7 +1008,7 @@
                         </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:35</a></div>
                                 </td>
                             </tr>
     
@@ -1029,7 +1037,7 @@
                     </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:33</a></div>
+                                        <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:46</a></div>
                                     </td>
                                 </tr>
     
@@ -1040,7 +1048,7 @@
                     </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:38</a></div>
+                                        <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/lib/src/directives/resource-outlet.ts:51</a></div>
                                     </td>
                                 </tr>
                 </tbody>
@@ -1054,8 +1062,21 @@
 import { Subscription } from &#x27;rxjs/Subscription&#x27;;
 import { ResourceData, resourceDataNavigableRef } from &#x27;../resource-data&#x27;;
 import { topLevelNavigableRef } from &#x27;../navigable&#x27;;
+import { ResourceDataOfDirective } from &#x27;./resource-data-of&#x27;;
 
 
+/**
+ * Loads and renders data from given URL. Support navigation via &#x60;_self&#x60;.
+ *
+ * For more complicated use-cases, see {@link ResourceDataOfDirective}.
+ *
+ * @example
+ * &lt;!-- To bind to browser location, provide apiLocation as component property and use its url --&gt;
+ * &lt;resource-outlet [(src)]&#x3D;&quot;apiLocation.url&quot;&gt;&lt;/resource-outlet&gt;
+ *
+ * &lt;!-- To view referenced content, use link href --&gt;
+ * &lt;resource-outlet [(src)]&#x3D;&quot;data._links?.content?.href&quot;&gt;&lt;/resource-outlet&gt;
+ */
 @Component({
   selector: &#x27;resource-outlet&#x27;,
   template: &#x27;&lt;resource-view [data]&#x3D;&quot;resource.data&quot;&gt;&lt;/resource-view&gt;&#x27;,

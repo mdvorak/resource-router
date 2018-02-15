@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -701,6 +689,10 @@
                                     </li>
                                     <li>
                                             <span class="modifier">Protected</span>
+                                        <a href="#handleError">handleError</a>
+                                    </li>
+                                    <li>
+                                            <span class="modifier">Protected</span>
                                         <a href="#parse">parse</a>
                                     </li>
                                     <li>
@@ -725,7 +717,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/lib/src/resource-client.ts:35</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/lib/src/resource-client.ts:36</a></div>
                                         </td>
                                     </tr>
             
@@ -806,7 +798,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/lib/src/resource-client.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/lib/src/resource-client.ts:44</a></div>
                                         </td>
                                     </tr>
             
@@ -883,7 +875,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/lib/src/resource-client.ts:53</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/lib/src/resource-client.ts:54</a></div>
                                         </td>
                                     </tr>
             
@@ -931,27 +923,27 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <a name="parse"></a>
+                                    <a name="handleError"></a>
                                     <span class="name">
                                         <b>
                                             <span class="modifier">Protected</span>
-                                        parse
+                                        handleError
                                         </b>
-                                        <a href="#parse"><span class="fa fa-link"></span></a>
+                                        <a href="#handleError"><span class="fa fa-link"></span></a>
                                     </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-md-4">
                                         <span class="modifier-icon fa fa-reset"></span>
-                                    <code>parse(response: HttpResponse<string>, config: <a href="../interfaces/ViewDef.html">ViewDef</a>)</code>
+                                    <code>handleError(err: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                                 </td>
                             </tr>
             
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/lib/src/resource-client.ts:82</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/lib/src/resource-client.ts:62</a></div>
                                         </td>
                                     </tr>
             
@@ -971,9 +963,77 @@
                                                     </thead>
                                                     <tbody>
                                                             <tr>
-                                                              <td>response</td>
+                                                              <td>err</td>
                                                               <td>
-                                                                      <code>HttpResponse&lt;string&gt;</code>
+                                                                      <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td></td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code>Observable | ErrorObservable</code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="parse"></a>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Protected</span>
+                                        parse
+                                        </b>
+                                        <a href="#parse"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                        <span class="modifier-icon fa fa-reset"></span>
+                                    <code>parse(body: string | null, config: <a href="../interfaces/ViewDef.html">ViewDef</a>)</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/lib/src/resource-client.ts:127</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>body</td>
+                                                              <td>
+                                                                      <code>string | null</code>
                                                               </td>
                                                               <td>
                                                               </td>
@@ -1028,7 +1088,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/lib/src/resource-client.ts:60</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/lib/src/resource-client.ts:102</a></div>
                                         </td>
                                     </tr>
             
@@ -1126,7 +1186,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/lib/src/resource-client.ts:39</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/lib/src/resource-client.ts:40</a></div>
                                         </td>
                                     </tr>
             
@@ -1162,7 +1222,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/lib/src/resource-client.ts:38</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/lib/src/resource-client.ts:39</a></div>
                                         </td>
                                     </tr>
             
@@ -1198,7 +1258,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/lib/src/resource-client.ts:37</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/lib/src/resource-client.ts:38</a></div>
                                         </td>
                                     </tr>
             
@@ -1213,7 +1273,7 @@
     <div class="tab-pane fade tab-source-code" id="c-source">
         <pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { Observable } from &#x27;rxjs/Observable&#x27;;
-import { HttpClient, HttpResponse } from &#x27;@angular/common/http&#x27;;
+import { HttpClient, HttpErrorResponse, HttpResponse } from &#x27;@angular/common/http&#x27;;
 import &#x27;rxjs/add/operator/map&#x27;;
 import &#x27;rxjs/add/operator/catch&#x27;;
 import &#x27;rxjs/add/observable/of&#x27;;
@@ -1223,6 +1283,7 @@ import { ViewData } from &#x27;./view-data&#x27;;
 import { ViewDef } from &#x27;./view-definition&#x27;;
 import { Navigable } from &#x27;./navigable&#x27;;
 import { stringToJSON } from &#x27;./utils/http-utils&#x27;;
+import { ErrorObservable } from &#x27;rxjs/observable/ErrorObservable&#x27;;
 
 
 /**
@@ -1257,8 +1318,8 @@ export class HttpResourceClient extends ResourceClient {
     // Send request
     return this
       .get(uri)
-      // Swallow errors, treat them as normal response
-      .catch(response &#x3D;&gt; Observable.of(response))
+      // Convert failure to success, if we know how to handle it (rethrow if we don&#x27;t)
+      .catch(err &#x3D;&gt; this.handleError(err))
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
       .map(response &#x3D;&gt; this.resolve(uri, response, target));
   }
@@ -1270,13 +1331,57 @@ export class HttpResourceClient extends ResourceClient {
     return this.http.get(url, {observe: &#x27;response&#x27;, responseType: &#x27;text&#x27;});
   }
 
+  // noinspection JSMethodCanBeStatic
+  protected handleError(err: any): Observable&lt;HttpResponse&lt;string&gt;&gt; | ErrorObservable {
+    // Depends on the type
+    if (err instanceof HttpResponse) {
+      // Pass it through
+      return Observable.of(err);
+    }
+    if (err instanceof HttpErrorResponse) {
+      let body: string | undefined;
+
+      if (!err.error) {
+        // No body provided, fallback to response error message
+        body &#x3D; err.message;
+      } else if (typeof err.error.message &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+        // Network failures and such
+        // err.error might be either Error or ErrorEvent, both having message property
+        body &#x3D; err.error.message;
+      } else if (typeof err.error &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+        // Generic error, usually returned by server as response body
+        // This assumes that since we used responseType:&#x27;text&#x27;, error (body) should be un-parsed string as well
+        // Note: We don&#x27;t handle json parse errors, since these should not happen
+        body &#x3D; err.error;
+      } else {
+        // To avoid returning something unexpected, better to rethrow the error
+        return Observable.throw(err);
+      }
+
+      // Treat is as non-failing response
+      return Observable.of(new HttpResponse&lt;string&gt;({
+        body: body,
+        headers: err.headers,
+        status: err.status,
+        statusText: err.statusText,
+        url: err.url || undefined
+      }));
+    } else {
+      // Other errors propagate (resolve won&#x27;t be called)
+      return Observable.throw(err);
+    }
+  }
+
   protected resolve(requestUrl: string, response: HttpResponse&lt;string&gt;, target: Navigable): ViewData&lt;any&gt; {
+    // Note: In browsers, this does not throw exception, ind NodeJS, it does
+    console.assert(response instanceof HttpResponse, &#x27;response is not instanceof HttpResponse&#x27;, response);
+
     // Resolve type, if possible
     const type &#x3D; this.strategy.extractType(response) || &#x27;&#x27;;
     // Find view
     const config &#x3D; this.registry.match(type, response.status);
     // Parse body
-    const body &#x3D; this.parse(response, config);
+    const body &#x3D; this.parse(response.body, config);
 
     // Construct and return ViewData
     return {
@@ -1292,9 +1397,9 @@ export class HttpResourceClient extends ResourceClient {
   }
 
   // noinspection JSMethodCanBeStatic
-  protected parse(response: HttpResponse&lt;string&gt;, config: ViewDef): any | null {
+  protected parse(body: string | null, config: ViewDef): any | null {
     // Don&#x27;t parse empty body
-    if (!response.body) {
+    if (!body) {
       return null;
     }
 
@@ -1302,11 +1407,11 @@ export class HttpResourceClient extends ResourceClient {
     switch (responseType) {
       case &#x27;json&#x27;:
         // Parse JSON - this assumes body is a string
-        return stringToJSON(response.body);
+        return stringToJSON(body);
 
       case &#x27;text&#x27;:
         // Return as-is - this assumes body is already string
-        return response.body;
+        return body;
 
       default:
         throw new Error(&#x60;Unsupported responseType: ${responseType}&#x60;);

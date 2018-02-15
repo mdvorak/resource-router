@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -720,7 +708,7 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/lib/src/resource-router-module.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/lib/src/resource-router-module.ts:54</a></div>
                                         </td>
                                     </tr>
 
@@ -763,7 +751,7 @@ That is, either &#39;/my/context/api/&#39; or &#39;<a href="http://example.com/m
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/lib/src/resource-router-module.ts:65</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/lib/src/resource-router-module.ts:73</a></div>
                                         </td>
                                     </tr>
 
@@ -803,7 +791,7 @@ Default is <a href="../injectables/HttpResourceClient.html">HttpResourceClient</
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/lib/src/resource-router-module.ts:53</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/lib/src/resource-router-module.ts:61</a></div>
                                         </td>
                                     </tr>
 
@@ -843,7 +831,7 @@ Default is <a href="../injectables/HttpResourceClient.html">HttpResourceClient</
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/lib/src/resource-router-module.ts:59</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/lib/src/resource-router-module.ts:67</a></div>
                                         </td>
                                     </tr>
 
@@ -870,7 +858,15 @@ Default is <a href="../injectables/HeaderViewTypeStrategy.html">HeaderViewTypeSt
   PathLocationStrategy,
   PlatformLocation
 } from &#x27;@angular/common&#x27;;
-import { ANALYZE_FOR_ENTRY_COMPONENTS, Inject, InjectionToken, ModuleWithProviders, NgModule, Optional, Type } from &#x27;@angular/core&#x27;;
+import {
+  ANALYZE_FOR_ENTRY_COMPONENTS,
+  Inject,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  Type
+} from &#x27;@angular/core&#x27;;
 import { ApiMapper } from &#x27;./api-mapper&#x27;;
 import { ApiLocation } from &#x27;./api-location&#x27;;
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from &#x27;./view-type-strategy&#x27;;
@@ -1039,6 +1035,7 @@ export function provideLocationStrategy(platformLocationStrategy: PlatformLocati
 
 /**
  * Internal factory function, exported only for AOT support.
+ * @internal
  */
 export function emptyView(): ViewDef {
   return {
@@ -1051,6 +1048,7 @@ export function emptyView(): ViewDef {
 
 /**
  * Internal factory function, exported only for AOT support.
+ * @internal
  */
 export function errorView(): ViewDef {
   return {

@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -1106,7 +1094,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
         target &#x3D; this.currentNavigable &amp;&amp; this.currentNavigable.navigable;
         // Warn if undefined
         if (!target) {
-          debugLog.warn(&#x27;When resourceLink is not in a resource-view, target&#x3D;&quot;_self&quot; is not supported&#x27;);
+          debugLog().warn(&#x27;When resourceLink is not in a resource-view, target&#x3D;&quot;_self&quot; is not supported&#x27;);
         }
       } else if (target &#x3D;&#x3D;&#x3D; TARGET_TOP) {
         target &#x3D; undefined;
@@ -1123,7 +1111,7 @@ export class ResourceLinkWithHrefDirective implements OnChanges {
       target &#x3D; topLevel &amp;&amp; topLevel.navigable;
       // Warn if undefined
       if (!target) {
-        debugLog.warn(&#x60;When resourceLink is not embedded in a &lt;resource-view&gt; component, &#x60; +
+        debugLog().warn(&#x60;When resourceLink is not embedded in a &lt;resource-view&gt; component, &#x60; +
           &#x60;it must have target set to a Navigable instance - navigation to &quot;${this.resourceLink}&quot; canceled&#x60;);
       }
     }

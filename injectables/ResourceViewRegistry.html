@@ -178,9 +178,6 @@
                                 <li class="link">
                                     <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                 </li>
-                                <li class="link">
-                                    <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                </li>
                         </ul>
                     </li>
             
@@ -248,9 +245,6 @@
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/Navigable.html" >Navigable</a>
-                                </li>
-                                <li class="link">
-                                    <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -477,9 +471,6 @@
                                        <li class="link">
                                            <a href="../classes/ViewTypeStrategy.html" >ViewTypeStrategy</a>
                                        </li>
-                                       <li class="link">
-                                           <a href="../classes/ViewsByStatus.html" >ViewsByStatus</a>
-                                       </li>
                                </ul>
                            </li>
                    
@@ -547,9 +538,6 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/Navigable.html" >Navigable</a>
-                                       </li>
-                                       <li class="link">
-                                           <a href="../interfaces/ParsedViewDef.html" >ParsedViewDef</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ReadOnlyHeaders.html" >ReadOnlyHeaders</a>
@@ -705,7 +693,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/lib/src/resource-view-registry.ts:39</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/lib/src/resource-view-registry.ts:45</a></div>
                                         </td>
                                     </tr>
             
@@ -781,7 +769,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/lib/src/resource-view-registry.ts:90</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/lib/src/resource-view-registry.ts:103</a></div>
                                         </td>
                                     </tr>
             
@@ -847,7 +835,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/lib/src/resource-view-registry.ts:79</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/lib/src/resource-view-registry.ts:92</a></div>
                                         </td>
                                     </tr>
             
@@ -913,7 +901,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/lib/src/resource-view-registry.ts:57</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/lib/src/resource-view-registry.ts:63</a></div>
                                         </td>
                                     </tr>
             
@@ -990,7 +978,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">src/lib/src/resource-view-registry.ts:108</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/lib/src/resource-view-registry.ts:121</a></div>
                                         </td>
                                     </tr>
             
@@ -1057,7 +1045,7 @@
                             </tr>
                                         <tr>
                                             <td class="col-md-4">
-                                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/lib/src/resource-view-registry.ts:53</a></div>
+                                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/lib/src/resource-view-registry.ts:59</a></div>
                                             </td>
                                         </tr>
             
@@ -1080,6 +1068,9 @@ export const TYPE_QUALITY_EVALUATOR &#x3D; new InjectionToken&lt;TypeQualityEval
 
 
 // Private classes
+/**
+ * @internal
+ */
 class ViewsByStatus {
   readonly status: string;
   readonly statusExp: RegExp;
@@ -1093,6 +1084,9 @@ class ViewsByStatus {
   }
 }
 
+/**
+ * @internal
+ */
 interface ParsedViewDef {
   readonly config: ViewDef;
   readonly quality: number;
@@ -1125,11 +1119,18 @@ export class ResourceViewRegistry {
   }
 
   match(type: string, status: number): ViewDef {
+    // Despite status being mandatory, in runtime we still might receive undefined or others, and default error is misleading
+    if (typeof status !&#x3D;&#x3D; &#x27;number&#x27;) {
+      throw new Error(&#x60;Wrong status type (${typeof status}), no view can be matched&#x60;);
+    }
+
     // Convert number to padded string
     const statusStr &#x3D; normalizeStatus(status);
 
     // Find all matching groups by status
-    for (const group of this.viewsByStatus.array) {
+    for (let i &#x3D; 0, a &#x3D; this.viewsByStatus.array, l &#x3D; a.length; i &lt; l; i++) {
+      const group &#x3D; a[i];
+
       // Match
       if (!group.statusExp.test(statusStr)) {
         continue;
@@ -1143,7 +1144,7 @@ export class ResourceViewRegistry {
     }
 
     // Not found
-    throw new Error(&#x60;No view definition found for type ${type} and status ${status} - please register default view&#x60;);
+    throw new Error(&#x60;No view definition found for type &#x27;${type}&#x27; and status &#x27;${statusStr}&#x27; - please register default view&#x60;);
   }
 
   addViews(config: ViewDef | ViewDef[]) {
@@ -1231,6 +1232,9 @@ export class ResourceViewRegistry {
 
 
 // Validation functions
+/**
+ * @internal
+ */
 function validateType(config: ViewDef) {
   if (Array.isArray(config.type)) {
     if (config.type.find(t &#x3D;&gt; typeof t !&#x3D;&#x3D; &#x27;string&#x27;)) {
@@ -1241,6 +1245,9 @@ function validateType(config: ViewDef) {
   }
 }
 
+/**
+ * @internal
+ */
 function validateStatus(config: ViewDef) {
   if (config.status) {
     if (Array.isArray(config.status)) {
@@ -1256,6 +1263,9 @@ function validateStatus(config: ViewDef) {
   }
 }
 
+/**
+ * @internal
+ */
 function validateStatusExpression(config: ViewDef, status: string) {
   if (status.length &lt; 1 || status.length &gt; 3) {
     throw newValidationError(config, &#x27;status pattern must be between 1 and 3 characters long&#x27;);
@@ -1270,11 +1280,17 @@ function validateStatusExpression(config: ViewDef, status: string) {
   }
 }
 
+/**
+ * @internal
+ */
 function newValidationError(config: any, text: string): Error {
   return new Error(&#x27;Invalid view configuration, &#x27; + text + &#x27;:\n&#x27; + JSON.stringify(config));
 }
 
 // Utils
+/**
+ * @internal
+ */
 export function normalizeStatusExpression(pattern: string): string {
   // Handle * wildcard
   if (pattern.endsWith(&#x27;*&#x27;)) {
@@ -1292,11 +1308,17 @@ export function normalizeStatusExpression(pattern: string): string {
   return pattern.length &lt; 3 ? (&#x27;000&#x27; + pattern).substr(-3) : pattern;
 }
 
+/**
+ * @internal
+ */
 export function normalizeStatus(status: number): string {
   // Pad left with zeroes
   return status &lt; 100 ? (&#x27;000&#x27; + status).substr(-3) : &#x27;&#x27; + status;
 }
 
+/**
+ * @internal
+ */
 function qualityComparator(a: { quality: number }, b: { quality: number }) {
   if (a.quality &#x3D;&#x3D;&#x3D; b.quality) {
     return 0;
@@ -1309,6 +1331,7 @@ function qualityComparator(a: { quality: number }, b: { quality: number }) {
  *
  * @param value Single value or array of values.
  * @returns Array or values.
+ * @internal
  */
 function toArray&lt;T&gt;(value: T | T[]): Array&lt;T&gt; {
   return Array.isArray(value) ? value as T[] : [value] as T[];
