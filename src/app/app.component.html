@@ -1,24 +1,11 @@
-<p>See <a href="http://docs.resourcerouterexample.apiary.io/#">API definition</a></p>
+<h1>{{title}}</h1>
+<ng-container *resourceData="let data of apiLocation" [resourceContext]="data">
+  <nav>
+    <!-- TODO -->
+    <a [resourceLink]="'/api/dashboard'">Dashboard</a>
+    <a [resourceLink]="'/api/heroes'">Heroes</a>
+  </nav>
 
-<ng-container [resourceContext]="resource">
-  <div>
-    <a [resourceLink]="resource.url + '/a'" [target]="resource">+A</a>
-    <a [resourceLink]="resource.url + '/..'" [target]="resource">-A</a>
-  </div>
-
-  <h1>ROOT</h1>
-  <h2>{{resource.url}}</h2>
-  <p>{{resource.loading ? 'Loading...' : 'Loaded!'}}</p>
-  <resource-view [data]="resource.data"></resource-view>
+  <resource-view [data]="data"></resource-view>
 </ng-container>
-
-<!--<h1>*resourceData</h1>-->
-<!--<p>apiLocation.url={{apiLocation.url}}</p>-->
-<!--<div *resourceData="let data of apiLocation; let loading = loading" [resourceContext]="data">-->
-<!--<h2>{{data.url}}</h2>-->
-<!--<p>{{loading ? 'Loading...' : 'Loaded!'}}</p>-->
-<!--<resource-view [data]="data"></resource-view>-->
-
-<!--<h2>Menu like</h2>-->
-<!--<resource-outlet [src]="data.url + '/246'"></resource-outlet>-->
-<!--</div>-->
+<app-messages></app-messages>

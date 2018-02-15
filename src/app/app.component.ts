@@ -1,28 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ApiLocation, bindUrl, ResourceData } from '../lib/src';
-import { Subscription } from 'rxjs/Subscription';
-
-// TODO asi by to chtelo prejmenovat ResourceData, protoze to nepopisuje, co trida dela - drzi location a aktualni data,
-// TODO tedy takovy container - pak se da prejmenovat i ViewData.target
+import { Component } from '@angular/core';
+import { ApiLocation } from '../lib/src';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [ResourceData]
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 
-  private urlSubscription = Subscription.EMPTY;
+  title = 'Tour of Heroes';
 
-  constructor(public apiLocation: ApiLocation,
-              public resource: ResourceData) {
-  }
-
-  ngOnInit() {
-    this.urlSubscription = bindUrl(this.apiLocation, this.resource);
-  }
-
-  ngOnDestroy() {
-    this.urlSubscription.unsubscribe();
+  constructor(public apiLocation: ApiLocation) {
   }
 }
