@@ -12,6 +12,10 @@ See [CHANGELOG](CHANGELOG.md) for release changes.
 ## Installation
 
     npm i angular-resource-router --save
+    
+## Documentation
+
+See [API documentation](mdvorak.github.io/resource-router/) for latest released version.
 
 
 ## Configuration

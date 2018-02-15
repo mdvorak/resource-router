@@ -1,3 +1,14 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/mdvorak/resource-router/compare/v4.1.1...v5.0.0) (2018-02-15)
+
+Version for Angular 5.x, otherwise almost identical with 4.1.1.
+
+### Features
+
+* Improved `DefaultErrorComponent`, now it renders html as content instead of code
+* Docs no longer contain internal components
+* Internally improved config, tests now no longer needs library to be built
+
 <a name="4.1.1"></a>
 # [4.1.1](https://github.com/mdvorak/resource-router/compare/v4.1.0...v4.1.1) (2018-02-14)
 
