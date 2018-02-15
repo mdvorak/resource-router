@@ -1,16 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessagesComponent } from './messages.component';
+import { MessageService } from '../message.service';
+import { createClassSpyObj } from '../../lib/src/utils/class-spy.spec';
 
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
   let fixture: ComponentFixture<MessagesComponent>;
+  let messageService: MessageService;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MessagesComponent]
-    })
-      .compileComponents();
+    messageService = createClassSpyObj(MessageService);
+    messageService.messages = [];
+
+    return TestBed.configureTestingModule({
+      declarations: [MessagesComponent],
+      providers: [
+        {provide: MessageService, useValue: messageService},
+      ]
+    });
   }));
 
   beforeEach(() => {
