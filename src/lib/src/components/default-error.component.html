@@ -1,0 +1,15 @@
+<p>
+  Error loading a view<code *ngIf="data.type"> {{data.type}}</code>
+  from resource <code>{{data.url}}</code> with <code>{{data.status}} {{data.statusText}}</code>
+</p>
+<ng-container *ngIf="data.body as body">
+  <!-- Plain text -->
+  <pre *ngIf="!html; else htmlTemplate">{{body}}</pre>
+  <!-- HTML -->
+  <ng-template #htmlTemplate>
+    <!-- Note: body is automatically sanitized by angular,
+         which may lead to displaying some garbage from head element,
+         but its perfectly safe to display it - NEVER use DomSanitizer.bypassSecurityTrustHtml -->
+    <div [innerHTML]="body"></div>
+  </ng-template>
+</ng-container>
