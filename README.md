@@ -101,6 +101,10 @@ To publish new library version to [npm repository](https://www.npmjs.com/package
    ```
    npm publish dist/angular-resource-router
    ```
+1. Publish docs, if this is head release
+   ```
+   npm run ghpages
+   ```
 1. Merge the branches if needed
 
 ### Demo app
