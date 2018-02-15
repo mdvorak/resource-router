@@ -5,6 +5,9 @@ import { ResourceData } from '../resource-data';
 import { ResourceDataOfDirective } from './resource-data-of';
 
 
+/**
+ * @internal
+ */
 const NOOP_NAVIGABLE: Navigable = {
   go() {
   }
@@ -66,6 +69,9 @@ export class ResourceContextDirective extends NavigableRef {
   }
 }
 
+/**
+ * @internal
+ */
 export function resourceContextNavigableRef(): FactoryProvider {
   return {
     provide: NavigableRef,
