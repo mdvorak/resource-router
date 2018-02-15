@@ -4,7 +4,15 @@
     "outDir": "../out-tsc/app",
     "baseUrl": ".",
     "module": "es2015",
-    "types": []
+    "types": [],
+    "paths": {
+      "angular-resource-router": [
+        "lib/public_api.ts"
+      ],
+      "angular-resource-router/testing": [
+        "lib/testing/public_api.ts"
+      ]
+    }
   },
   "exclude": [
     "**/*.spec.ts"

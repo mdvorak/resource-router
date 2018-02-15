@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedView } from '../../lib/public_api';
+import { ActivatedView } from 'angular-resource-router';
 
 @Component({
   template: `<h2>JSON {{viewData.type}}</h2>

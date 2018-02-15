@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ResourceRouterModule } from '../lib/public_api';
 import { AppComponent } from './app.component';
 import { JsonComponent } from './components/json.component';
 import { SampleComponent } from './components/sample.component';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from './environments/environment';
+import { ResourceRouterModule } from 'angular-resource-router';
 
 @NgModule({
   declarations: [
