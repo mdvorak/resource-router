@@ -6,10 +6,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class ActivatedView<T> {
 
   public readonly data: Observable<ViewData<T>>;
+  public readonly body: Observable<T>;
 
   constructor(public readonly navigation: Navigable,
               private readonly _data: BehaviorSubject<ViewData<T>>) {
     this.data = _data.asObservable();
+    this.body = this.data.map(data => data.body);
   }
 
   get snapshot() {

@@ -1,3 +1,10 @@
+<a name="5.0.1"></a>
+# [5.0.1](https://github.com/mdvorak/resource-router/compare/v5.0.0...v5.0.1) (2018-02-16)
+
+### Features
+
+* Added `body: Observable<T>` to `ActivatedView<T>` class, which is same as `view.data.subscribe(data => ... = data.body);`
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/mdvorak/resource-router/compare/v4.1.1...v5.0.0) (2018-02-15)
 
