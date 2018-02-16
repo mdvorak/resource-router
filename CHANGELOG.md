@@ -9,10 +9,11 @@ take a look at [Live Demo](https://stackblitz.com/edit/angular-restful-heroes).
 * Added `body: Observable<T>` to `ActivatedView<T>` class, which is same as `view.data.subscribe(data => ... = data.body);`
 * `SingleApiMapper` now supports host-relative urls (`/api/foobar`)
 * Example app is now adapted Tour of Heroes from Angular. Uses mock in-memory API.
+* [#31](https://github.com/mdvorak/resource-router/issues/31) `npm run buildapp` now requires library to be built in dist folder, and tests whether it is AOT compilable
 
 ### Bug Fixes
 
-* `ResourceClient` was missing import of `Observable.throw`
+* Fixed several `Observable` operator imports
 
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/mdvorak/resource-router/compare/v4.1.1...v5.0.0) (2018-02-15)
