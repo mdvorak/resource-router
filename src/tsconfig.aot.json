@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": ".",
+    "module": "es2015",
+    "types": [],
+    "paths": {
+      "angular-resource-router": [
+        "../dist/angular-resource-router"
+      ],
+      "angular-resource-router/testing": [
+        "../dist/angular-resource-router/testing"
+      ]
+    }
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "lib/testing/**"
+  ]
+}

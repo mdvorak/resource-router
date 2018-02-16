@@ -26,7 +26,31 @@
       "environments": {
         "dev": "app/environments/environment.ts",
         "hash": "app/environments/environment.hash.ts",
-        "remote": "app/environments/environment.remote.ts",
+        "prod": "app/environments/environment.prod.ts"
+      }
+    },
+    {
+      "root": "src",
+      "outDir": "dist/example-aot",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "app/main.ts",
+      "polyfills": "app/polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.aot.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "app/styles.css"
+      ],
+      "scripts": [],
+      "environmentSource": "app/environments/environment.ts",
+      "environments": {
+        "dev": "app/environments/environment.ts",
+        "hash": "app/environments/environment.hash.ts",
         "prod": "app/environments/environment.prod.ts"
       }
     }
