@@ -97,6 +97,10 @@ To publish new library version to [npm repository](https://www.npmjs.com/package
    npm run bootstrap
    npm run build
    ```
+1. Verify library is built correctly using
+   ```
+   npm run buildapp
+   ```
 1. Publish the library
    ```
    npm publish dist/angular-resource-router
