@@ -10,9 +10,8 @@ import {
   StaticProvider,
   ViewContainerRef
 } from '@angular/core';
-import 'rxjs/add/operator/switchMap';
-import { ViewData } from '../view-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ViewData } from '../view-data';
 import { ActivatedView } from '../activated-view';
 import { Navigable, NavigableRef } from '../navigable';
 

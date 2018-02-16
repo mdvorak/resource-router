@@ -1,7 +1,8 @@
-import { Navigable } from './navigable';
 import { Observable } from 'rxjs/Observable';
-import { ViewData } from './view-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+import { Navigable } from './navigable';
+import { ViewData } from './view-data';
 
 export class ActivatedView<T> {
 
