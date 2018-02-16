@@ -1,10 +1,14 @@
 <a name="5.0.1"></a>
 # [5.0.1](https://github.com/mdvorak/resource-router/compare/v5.0.0...v5.0.1) (2018-02-16)
 
+Adapted original [Tour of Heroes](https://stackblitz.com/angular/oarvopmjgjv) Angular example to use this router. It is missing some features, but
+take a look at [Live Demo](https://stackblitz.com/edit/angular-restful-heroes).
+
 ### Features
 
 * Added `body: Observable<T>` to `ActivatedView<T>` class, which is same as `view.data.subscribe(data => ... = data.body);`
 * `SingleApiMapper` now supports host-relative urls (`/api/foobar`)
+* Example app is now adapted Tour of Heroes from Angular. Uses mock in-memory API.
 
 ### Bug Fixes
 
