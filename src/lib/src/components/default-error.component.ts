@@ -51,4 +51,8 @@ export class DefaultErrorComponent implements OnInit {
   get html() {
     return this.data.type === 'text/html';
   }
+
+  get object() {
+    return typeof this.data.body === 'object';
+  }
 }
