@@ -655,6 +655,11 @@
                                     <li>
                                             <span class="modifier">Readonly</span>
                                             <span class="modifier">Public</span>
+                                        <a href="#body">body</a>
+                                    </li>
+                                    <li>
+                                            <span class="modifier">Readonly</span>
+                                            <span class="modifier">Public</span>
                                         <a href="#data">data</a>
                                     </li>
                                     <li>
@@ -708,7 +713,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/lib/src/activated-view.ts:8</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/lib/src/activated-view.ts:10</a></div>
                                         </td>
                                     </tr>
             
@@ -780,7 +785,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/lib/src/activated-view.ts:24</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/lib/src/activated-view.ts:27</a></div>
                                         </td>
                                     </tr>
             
@@ -810,6 +815,42 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
+                                    <a name="body"></a>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Readonly</span>
+                                            <span class="modifier">Public</span>
+                                        body
+                                        </b>
+                                        <a href="#body"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <span class="modifier-icon fa fa-reset"></span><code>body:     <code>Observable&lt;T&gt;</code>
+            </code>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Type : </i>    <code>Observable&lt;T&gt;</code>
+            
+                                    </td>
+                                </tr>
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/lib/src/activated-view.ts:10</a></div>
+                                        </td>
+                                    </tr>
+            
+            
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
                                     <a name="data"></a>
                                     <span class="name">
                                         <b>
@@ -835,7 +876,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/lib/src/activated-view.ts:8</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/lib/src/activated-view.ts:9</a></div>
                                         </td>
                                     </tr>
             
@@ -871,7 +912,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/lib/src/activated-view.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/lib/src/activated-view.ts:12</a></div>
                                         </td>
                                     </tr>
             
@@ -900,7 +941,7 @@
                             </tr>
                                         <tr>
                                             <td class="col-md-4">
-                                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/lib/src/activated-view.ts:15</a></div>
+                                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/lib/src/activated-view.ts:18</a></div>
                                             </td>
                                         </tr>
             
@@ -911,18 +952,21 @@
 
 
     <div class="tab-pane fade tab-source-code" id="c-source">
-        <pre class="line-numbers"><code class="language-typescript">import { Navigable } from &#x27;./navigable&#x27;;
-import { Observable } from &#x27;rxjs/Observable&#x27;;
-import { ViewData } from &#x27;./view-data&#x27;;
+        <pre class="line-numbers"><code class="language-typescript">import { Observable } from &#x27;rxjs/Observable&#x27;;
 import { BehaviorSubject } from &#x27;rxjs/BehaviorSubject&#x27;;
+import &#x27;rxjs/add/operator/map&#x27;;
+import { Navigable } from &#x27;./navigable&#x27;;
+import { ViewData } from &#x27;./view-data&#x27;;
 
 export class ActivatedView&lt;T&gt; {
 
   public readonly data: Observable&lt;ViewData&lt;T&gt;&gt;;
+  public readonly body: Observable&lt;T&gt;;
 
   constructor(public readonly navigation: Navigable,
               private readonly _data: BehaviorSubject&lt;ViewData&lt;T&gt;&gt;) {
     this.data &#x3D; _data.asObservable();
+    this.body &#x3D; this.data.map(data &#x3D;&gt; data.body);
   }
 
   get snapshot() {

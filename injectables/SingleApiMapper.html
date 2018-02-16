@@ -688,7 +688,7 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <code>constructor(apiUrl: <a href="../classes/UrlNormalizer.html">UrlNormalizer</a>, prefix: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                                    <code>constructor(urlNormalizer: <a href="../classes/UrlNormalizer.html">UrlNormalizer</a>, prefix: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                                 </td>
                             </tr>
                                     <tr>
@@ -712,7 +712,7 @@
                                                     </thead>
                                                     <tbody>
                                                             <tr>
-                                                              <td>apiUrl</td>
+                                                              <td>urlNormalizer</td>
                                                               <td>
                                                                         <code><a href="../classes/UrlNormalizer.html" target="_self" >UrlNormalizer</a></code>
                                                               </td>
@@ -952,12 +952,12 @@ export class SingleApiMapper extends ApiMapper {
    */
   readonly prefix: string;
 
-  constructor(apiUrl: UrlNormalizer,
+  constructor(private readonly urlNormalizer: UrlNormalizer,
               @Inject(APP_API_PREFIX) prefix: string) {
     super();
 
     // Normalize prefix
-    this.prefix &#x3D; apiUrl.normalize(prefix);
+    this.prefix &#x3D; urlNormalizer.normalize(prefix);
   }
 
   mapViewToApi(path: string): string {
@@ -975,6 +975,11 @@ export class SingleApiMapper extends ApiMapper {
   }
 
   mapApiToView(url: string): string | null {
+    // Normalize relative URLs
+    if (url[0] &#x3D;&#x3D;&#x3D; &#x27;/&#x27;) {
+      url &#x3D; this.urlNormalizer.normalize(url);
+    }
+
     // Remove prefix
     if (url.startsWith(this.prefix)) {
       // Strip prefix, prepend /, remove trailing /

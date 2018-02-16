@@ -603,6 +603,21 @@
                <div class="content getting-started">
                    <div class="content-data">
 
+<p><a name="5.0.1"></a></p>
+<h1 id="-5-0-1-https-github-com-mdvorak-resource-router-compare-v5-0-0-v5-0-1-2018-02-16-"><a href="https://github.com/mdvorak/resource-router/compare/v5.0.0...v5.0.1">5.0.1</a> (2018-02-16)</h1>
+<p>Adapted original <a href="https://stackblitz.com/angular/oarvopmjgjv">Tour of Heroes</a> Angular example to use this router. It is missing some features, but
+take a look at <a href="https://stackblitz.com/edit/angular-restful-heroes">Live Demo</a>.</p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Added <code>body: Observable&lt;T&gt;</code> to <code>ActivatedView&lt;T&gt;</code> class, which is same as <code>view.data.subscribe(data =&gt; ... = data.body);</code></li>
+<li><code>SingleApiMapper</code> now supports host-relative urls (<code>/api/foobar</code>)</li>
+<li>Example app is now adapted Tour of Heroes from Angular. Uses mock in-memory API.</li>
+<li><a href="https://github.com/mdvorak/resource-router/issues/31">#31</a> <code>npm run buildapp</code> now requires library to be built in dist folder, and tests whether it is AOT compilable</li>
+</ul>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li>Fixed several <code>Observable</code> operator imports</li>
+</ul>
 <p><a name="5.0.0"></a></p>
 <h1 id="-5-0-0-https-github-com-mdvorak-resource-router-compare-v4-1-1-v5-0-0-2018-02-15-"><a href="https://github.com/mdvorak/resource-router/compare/v4.1.1...v5.0.0">5.0.0</a> (2018-02-15)</h1>
 <p>Version for Angular 5.x, otherwise almost identical with 4.1.1.</p>
