@@ -134,8 +134,8 @@ export class HttpResourceClient extends ResourceClient {
     const responseType = config.responseType || 'json';
     switch (responseType) {
       case 'json':
-        // Parse JSON - this assumes body is a string
-        return stringToJSON(body);
+        // Parse JSON - unless body is already object, otherwise we expect string
+        return typeof body === 'object' ? body : stringToJSON(body);
 
       case 'text':
         // Return as-is - this assumes body is already string

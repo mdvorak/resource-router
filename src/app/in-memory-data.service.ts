@@ -31,7 +31,7 @@ export class InMemoryDataService implements InMemoryDbService {
       if (data) {
         return request.utils.createResponse$(() => ({
           url: request.url,
-          body: JSON.stringify(hyperHero(<any>data)),
+          body: hyperHero(<any>data),
           status: 200,
           statusText: 'OK',
           headers: new HttpHeaders({
@@ -42,12 +42,12 @@ export class InMemoryDataService implements InMemoryDbService {
     } else if (request.collectionName === 'heroes') {
       return request.utils.createResponse$(() => ({
         url: request.url,
-        body: JSON.stringify(<Heroes>{
+        body: <Heroes>{
           items: request.collection.map(hyperHero),
           _links: {
             self: {href: '/api/heroes'},
           }
-        }),
+        },
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
@@ -59,12 +59,12 @@ export class InMemoryDataService implements InMemoryDbService {
 
       return request.utils.createResponse$(() => ({
         url: request.url,
-        body: JSON.stringify(<Heroes>{
+        body: <Heroes>{
           items: collection.slice(1, 5).map(hyperHero),
           _links: {
             self: {href: '/api'},
           }
-        }),
+        },
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
