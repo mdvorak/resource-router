@@ -54,7 +54,7 @@ export class InMemoryDataService implements InMemoryDbService {
           'Content-Type': HEROES_TYPE
         })
       }));
-    } else if (request.url.endsWith('/api/dashboard')) {
+    } else if (request.url.endsWith('/api')) {
       const collection = (request.utils.getDb() as any).heroes;
 
       return request.utils.createResponse$(() => ({
@@ -62,7 +62,7 @@ export class InMemoryDataService implements InMemoryDbService {
         body: JSON.stringify(<Heroes>{
           items: collection.slice(1, 5).map(hyperHero),
           _links: {
-            self: {href: '/api/dashboard'},
+            self: {href: '/api'},
           }
         }),
         status: 200,

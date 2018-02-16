@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpHeaders,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponseBase
+} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { MessageService } from './message.service';
@@ -10,13 +17,18 @@ import { MessageService } from './message.service';
 @Injectable()
 export class MessageHttpInterceptor implements HttpInterceptor {
 
+  private static nextId = 1;
+
   constructor(private readonly messageService: MessageService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const id = MessageHttpInterceptor.nextId++;
+    this.messageService.add(`[${id}] ${req.method} ${req.url} (${dumpHeaders(req.headers)})`);
+
     return next.handle(req).do((res: HttpEvent<any>) => {
       if (res instanceof HttpResponseBase) {
-        this.messageService.add(`${req.method} ${req.url} => ${res.status} ${res.statusText} (${dumpHeaders(res.headers)})`);
+        this.messageService.add(`[${id}] => ${res.status} ${res.statusText} (${dumpHeaders(res.headers)})`);
       }
     });
   }
