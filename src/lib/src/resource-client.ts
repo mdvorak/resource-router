@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
+import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { catchError } from 'rxjs/operators/catchError';
+import { map } from 'rxjs/operators/map';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 
 
 /**
@@ -44,12 +43,12 @@ export class HttpResourceClient extends ResourceClient {
 
   fetch(uri: string, target: Navigable): Observable<ViewData<any>> {
     // Send request
-    return this
-      .get(uri)
+    return this.get(uri).pipe(
       // Convert failure to success, if we know how to handle it (rethrow if we don't)
-      .catch(err => this.handleError(err))
+      catchError(err => this.handleError(err)),
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
-      .map(response => this.resolve(uri, response, target));
+      map(response => this.resolve(uri, response, target)),
+    );
   }
 
   protected get(url: string): Observable<HttpResponse<string>> {
@@ -64,7 +63,7 @@ export class HttpResourceClient extends ResourceClient {
     // Depends on the type
     if (err instanceof HttpResponse) {
       // Pass it through
-      return Observable.of(err);
+      return ScalarObservable.create(err);
     }
     if (err instanceof HttpErrorResponse) {
       let body: string | undefined;
@@ -83,11 +82,11 @@ export class HttpResourceClient extends ResourceClient {
         body = err.error;
       } else {
         // To avoid returning something unexpected, better to rethrow the error
-        return Observable.throw(err);
+        return ErrorObservable.create(err);
       }
 
       // Treat is as non-failing response
-      return Observable.of(new HttpResponse<string>({
+      return ScalarObservable.create(new HttpResponse<string>({
         body: body,
         headers: err.headers,
         status: err.status,
@@ -96,7 +95,7 @@ export class HttpResourceClient extends ResourceClient {
       }));
     } else {
       // Other errors propagate (resolve won't be called)
-      return Observable.throw(err);
+      return ErrorObservable.create(err);
     }
   }
 

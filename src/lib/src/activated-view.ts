@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators/map';
 import { Navigable } from './navigable';
 import { ViewData } from './view-data';
 
@@ -12,7 +12,7 @@ export class ActivatedView<T> {
   constructor(public readonly navigation: Navigable,
               private readonly _data: BehaviorSubject<ViewData<T>>) {
     this.data = _data.asObservable();
-    this.body = this.data.map(data => data.body);
+    this.body = this.data.pipe(map(data => data.body));
   }
 
   get snapshot() {

@@ -8,7 +8,7 @@ import {
   HttpResponseBase
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators/tap';
 import { MessageService } from './message.service';
 
 /**
@@ -26,11 +26,13 @@ export class MessageHttpInterceptor implements HttpInterceptor {
     const id = MessageHttpInterceptor.nextId++;
     this.messageService.add(`[${id}] ${req.method} ${req.url} (${dumpHeaders(req.headers)})`);
 
-    return next.handle(req).do((res: HttpEvent<any>) => {
-      if (res instanceof HttpResponseBase) {
-        this.messageService.add(`[${id}] => ${res.status} ${res.statusText} (${dumpHeaders(res.headers)})`);
-      }
-    });
+    return next.handle(req).pipe(
+      tap((res: HttpEvent<any>) => {
+        if (res instanceof HttpResponseBase) {
+          this.messageService.add(`[${id}] => ${res.status} ${res.statusText} (${dumpHeaders(res.headers)})`);
+        }
+      })
+    );
   }
 }
 

@@ -2,9 +2,8 @@ import { FactoryProvider, Injectable, Self } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
+import { catchError } from 'rxjs/operators/catchError';
+import { switchMap } from 'rxjs/operators/switchMap';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
@@ -12,6 +11,7 @@ import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOA
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 import { makeNavigableRef, Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
+import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 
 /**
  * @internal
@@ -49,10 +49,10 @@ export class ResourceData implements Navigable, LocationReference {
     // Using Subject in combination with switchMap allows us to easily use only latest value
     // Note: this.load is private and produces a never failing observable
     this.loadDataEvent
-      .switchMap(url => {
+      .pipe(switchMap(url => {
         this.loadingValue = true;
         return this.load(url);
-      })
+      }))
       .subscribe(data => {
         // Update data
         this.loadingValue = false;
@@ -106,15 +106,15 @@ export class ResourceData implements Navigable, LocationReference {
     if (url) {
       return this.client
         .fetch(url, this)
-        .catch(err => {
+        .pipe(catchError(err => {
           // Log it, this should not happen normally
           // Note: We are intentionally not using debugLog here - print this in production log as well
           console.error('Routing Error:', err);
           // Return error view
-          return Observable.of(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', NO_HEADERS, err));
-        });
+          return ScalarObservable.create(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', NO_HEADERS, err));
+        }));
     } else {
-      return Observable.of(this.mockViewData('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
+      return ScalarObservable.create(this.mockViewData('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
     }
   }
 
