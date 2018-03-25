@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators/catchError';
-import { map } from 'rxjs/operators/map';
+import { Observable, of, throwError } from 'rxjs';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
-import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
+import { catchError, map } from 'rxjs/operators';
 
 
 /**
@@ -59,11 +56,11 @@ export class HttpResourceClient extends ResourceClient {
   }
 
   // noinspection JSMethodCanBeStatic
-  protected handleError(err: any): Observable<HttpResponse<string>> | ErrorObservable {
+  protected handleError(err: any): Observable<HttpResponse<string>> {
     // Depends on the type
     if (err instanceof HttpResponse) {
       // Pass it through
-      return ScalarObservable.create(err);
+      return of(err);
     }
     if (err instanceof HttpErrorResponse) {
       let body: string | undefined;
@@ -82,11 +79,11 @@ export class HttpResourceClient extends ResourceClient {
         body = err.error;
       } else {
         // To avoid returning something unexpected, better to rethrow the error
-        return ErrorObservable.create(err);
+        return throwError(err);
       }
 
       // Treat is as non-failing response
-      return ScalarObservable.create(new HttpResponse<string>({
+      return of(new HttpResponse<string>({
         body: body,
         headers: err.headers,
         status: err.status,
@@ -95,7 +92,7 @@ export class HttpResourceClient extends ResourceClient {
       }));
     } else {
       // Other errors propagate (resolve won't be called)
-      return ErrorObservable.create(err);
+      return throwError(err);
     }
   }
 

@@ -1,9 +1,6 @@
 import { FactoryProvider, Injectable, Self } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { catchError } from 'rxjs/operators/catchError';
-import { switchMap } from 'rxjs/operators/switchMap';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
@@ -11,7 +8,6 @@ import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOA
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 import { makeNavigableRef, Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
-import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 
 /**
  * @internal
@@ -111,10 +107,10 @@ export class ResourceData implements Navigable, LocationReference {
           // Note: We are intentionally not using debugLog here - print this in production log as well
           console.error('Routing Error:', err);
           // Return error view
-          return ScalarObservable.create(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', NO_HEADERS, err));
+          return of(this.mockViewData(url, MEDIA_TYPE_ROUTER_ERROR, 999, 'Routing Error', NO_HEADERS, err));
         }));
     } else {
-      return ScalarObservable.create(this.mockViewData('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
+      return of(this.mockViewData('', MEDIA_TYPE_ROUTER_EMPTY, 204, 'OK'));
     }
   }
 

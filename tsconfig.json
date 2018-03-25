@@ -11,6 +11,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
+    "importHelpers": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"

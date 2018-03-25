@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpHeaders,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponseBase
-} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators/tap';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 /**

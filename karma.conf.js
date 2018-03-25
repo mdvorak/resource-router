@@ -16,7 +16,7 @@ module.exports = function (config) {
       require('karma-detect-browsers'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('@angular/cli/plugins/karma')
+      require('@angular-devkit/build-webpack')
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
