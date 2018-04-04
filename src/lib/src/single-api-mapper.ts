@@ -53,6 +53,9 @@ export class SingleApiMapper extends ApiMapper {
     if (url.startsWith(this.prefix)) {
       // Strip prefix, prepend /, remove trailing /
       return '/' + url.substring(this.prefix.length).replace(/\/$/, '');
+    } else if (url + '/' === this.prefix) {
+      // Home
+      return '/';
     }
 
     // Unable to map
