@@ -5,7 +5,7 @@ import { ApiMapper } from './api-mapper';
 
 /**
  * Prefix for the URL. Can be base-relative, host-relative or absolute.
- * Always should however end with slash ('/').
+ * Always should end with slash '/'.
  */
 export const APP_API_PREFIX = new InjectionToken<string>('APP_API_PREFIX');
 
@@ -20,6 +20,7 @@ export class SingleApiMapper extends ApiMapper {
    * API URL prefix. It's absolute URL, includes base href (if applicable).
    */
   readonly prefix: string;
+  private readonly endsWithSlash: boolean;
 
   constructor(private readonly urlNormalizer: UrlNormalizer,
               @Inject(APP_API_PREFIX) prefix: string) {
@@ -27,6 +28,7 @@ export class SingleApiMapper extends ApiMapper {
 
     // Normalize prefix
     this.prefix = urlNormalizer.normalize(prefix);
+    this.endsWithSlash = this.prefix.endsWith('/');
   }
 
   mapViewToApi(path: string): string {
@@ -53,8 +55,10 @@ export class SingleApiMapper extends ApiMapper {
     if (url.startsWith(this.prefix)) {
       // Strip prefix, prepend /, remove trailing /
       return '/' + url.substring(this.prefix.length).replace(/\/$/, '');
-    } else if (url + '/' === this.prefix) {
+    } else if (this.endsWithSlash && url.length + 1 === this.prefix.length && this.prefix.startsWith(url)) {
       // Home
+      // Note: url is missing trailing slash, but otherwise is equal to prefix
+      // Example: prefix='http://.../v1/', url='http://.../v1'
       return '/';
     }
 

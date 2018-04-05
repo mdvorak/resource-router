@@ -65,6 +65,7 @@ export class HttpResourceClient extends ResourceClient {
       // Pass it through
       return ScalarObservable.create(err);
     }
+    // noinspection SuspiciousInstanceOfGuard
     if (err instanceof HttpErrorResponse) {
       let body: string | undefined;
 
@@ -100,7 +101,8 @@ export class HttpResourceClient extends ResourceClient {
   }
 
   protected resolve(requestUrl: string, response: HttpResponse<string>, target: Navigable): ViewData<any> {
-    // Note: In browsers, this does not throw exception, ind NodeJS, it does
+    // Note: In browsers, this does not throw exception, in NodeJS, it does
+    // noinspection SuspiciousInstanceOfGuard
     console.assert(response instanceof HttpResponse, 'response is not instanceof HttpResponse', response);
 
     // Resolve type, if possible
