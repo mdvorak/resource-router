@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiMapper } from './api-mapper';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { LocationReference } from './location-reference';
 
 // TODO normalize URL, using possibly LocationStrategy (that means remove trailing slash directly in the browser if its present)

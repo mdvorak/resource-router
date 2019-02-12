@@ -1,5 +1,5 @@
 import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Hero, Heroes } from './hero';
 

@@ -10,7 +10,7 @@ import {
   StaticProvider,
   ViewContainerRef
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ViewData } from '../view-data';
 import { ActivatedView } from '../activated-view';
 import { Navigable, NavigableRef } from '../navigable';

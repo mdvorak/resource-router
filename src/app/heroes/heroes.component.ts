@@ -16,7 +16,7 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.view.body.subscribe(heroes => this.heroes = heroes);
+    this.view.body.subscribe((heroes: Heroes) => this.heroes = heroes);
   }
 
   add(name: string): void {
@@ -29,12 +29,20 @@ export class HeroesComponent implements OnInit {
 
     this.heroes.items.push(hero);
     this.http.post(this.heroes._links.self.href, hero)
-      .subscribe(undefined, undefined, () => this.view.reload());
+      .subscribe({
+        next: undefined,
+        error: undefined,
+        complete: () => this.view.reload()
+      });
   }
 
   delete(hero: Hero): void {
     this.heroes.items = this.heroes.items.filter(h => h !== hero);
     this.http.delete(hero._links.self.href)
-      .subscribe(undefined, undefined, () => this.view.reload());
+      .subscribe({
+        next: undefined,
+        error: undefined,
+        complete: () => this.view.reload()
+      });
   }
 }

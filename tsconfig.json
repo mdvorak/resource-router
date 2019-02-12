@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -26,6 +27,7 @@
       "angular-resource-router/testing": [
         "src/lib/testing/public_api.ts"
       ]
-    }
+    },
+    "module": "es2015"
   }
 }
