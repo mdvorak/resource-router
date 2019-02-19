@@ -17,7 +17,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.view.body.subscribe((hero: Hero) => this.hero = hero);
+    this.view.body.subscribe(hero => this.hero = hero);
   }
 
   goBack(): void {

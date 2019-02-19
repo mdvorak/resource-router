@@ -10,7 +10,7 @@
     "start": "ng serve",
     "prebuild": "ng lint && ng test --watch=false",
     "build": "ng-packagr -p src/lib/ng-package.json && cpr README.md dist/angular-resource-router/README.md && cpr LICENSE dist/angular-resource-router/LICENSE",
-    "buildapp": "ng build --project angular-resource-router1 --prod --configuration=production --source-map",
+    "buildapp": "ng build --prod --configuration=production --source-map",
     "test": "ng test --browsers Chrome",
     "lint": "ng lint",
     "predocs": "rimraf dist/docs",
