@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ViewData } from '../view-data';
 import { ResourceData, resourceDataNavigableRef } from '../resource-data';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { bindUrl, isLocationReference, LocationReference } from '../location-reference';
 import { ResourceOutletComponent } from './resource-outlet';
 import { topLevelNavigableRef } from '../navigable';

@@ -29,12 +29,12 @@ export class HeroesComponent implements OnInit {
 
     this.heroes.items.push(hero);
     this.http.post(this.heroes._links.self.href, hero)
-      .subscribe(undefined, undefined, () => this.view.reload());
+      .subscribe(() => this.view.reload());
   }
 
   delete(hero: Hero): void {
     this.heroes.items = this.heroes.items.filter(h => h !== hero);
     this.http.delete(hero._links.self.href)
-      .subscribe(undefined, undefined, () => this.view.reload());
+      .subscribe(() => this.view.reload());
   }
 }

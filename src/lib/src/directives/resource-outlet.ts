@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Self } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ResourceData, resourceDataNavigableRef } from '../resource-data';
 import { topLevelNavigableRef } from '../navigable';
 import { ResourceDataOfDirective } from './resource-data-of';
