@@ -109,6 +109,7 @@ To publish new library version to [npm repository](https://www.npmjs.com/package
    ```
    npm run ghpages
    ```
+   _Note: For this command to succeed, you must have ssh agent running at the background._
 1. Merge the branches if needed
 
 ### Demo app
