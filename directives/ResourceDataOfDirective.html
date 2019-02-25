@@ -658,20 +658,7 @@ this directive must be used in conjunction with {@link ResourceContextDirective}
             </p>
             <div class="io-description">
                         <div>
-                            <pre class="line-numbers"><code class="language-html">&lt;!-- apiLocation is host component property --&gt;
-&lt;div *resourceData=&quot;let data of apiLocation&quot; [resourceContext]=&quot;data&quot;&gt;
-&lt;!-- Render navigation component as separate resource --&gt;
-&lt;resource-outlet [src]=&quot;data._links?.nav?.href&quot;&gt;&lt;/resource-outlet&gt;
-
-&lt;!-- Render main content --&gt;
-&lt;resource-view [data]=&quot;data&quot;&gt;&lt;/resource-view&gt;
-
-&lt;!-- Application-wide navigation --&gt;
-&lt;div&gt;
-&lt;a *ngIf=&quot;data._links?.back as link&quot;
-[resourceLink]&quot;=&quot;link.href&quot;&gt;Back&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                            <pre class="line-numbers"><code class="language-html">&lt;!-- apiLocation is host component property --&gt;&lt;div *resourceData=&quot;let data of apiLocation&quot; [resourceContext]=&quot;data&quot;&gt;&lt;!-- Render navigation component as separate resource --&gt;&lt;resource-outlet [src]=&quot;data._links?.nav?.href&quot;&gt;&lt;/resource-outlet&gt;&lt;!-- Render main content --&gt;&lt;resource-view [data]=&quot;data&quot;&gt;&lt;/resource-view&gt;&lt;!-- Application-wide navigation --&gt;&lt;div&gt;&lt;a *ngIf=&quot;data._links?.back as link&quot;[resourceLink]&quot;=&quot;link.href&quot;&gt;Back&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
                         </div>
             </div>
 
@@ -1023,7 +1010,7 @@ limitation.</p>
 } from &#x27;@angular/core&#x27;;
 import { ViewData } from &#x27;../view-data&#x27;;
 import { ResourceData, resourceDataNavigableRef } from &#x27;../resource-data&#x27;;
-import { Subscription } from &#x27;rxjs/Subscription&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
 import { bindUrl, isLocationReference, LocationReference } from &#x27;../location-reference&#x27;;
 import { ResourceOutletComponent } from &#x27;./resource-outlet&#x27;;
 import { topLevelNavigableRef } from &#x27;../navigable&#x27;;

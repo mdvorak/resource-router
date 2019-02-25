@@ -656,11 +656,7 @@
     </p>
     <div class="io-description">
                 <div>
-                    <pre class="line-numbers"><code class="language-html">&lt;!-- To bind to browser location, provide apiLocation as component property and use its url --&gt;
-&lt;resource-outlet [(src)]=&quot;apiLocation.url&quot;&gt;&lt;/resource-outlet&gt;
-
-&lt;!-- To view referenced content, use link href --&gt;
-&lt;resource-outlet [(src)]=&quot;data._links?.content?.href&quot;&gt;&lt;/resource-outlet&gt;</code></pre>
+                    <pre class="line-numbers"><code class="language-html">&lt;!-- To bind to browser location, provide apiLocation as component property and use its url --&gt;&lt;resource-outlet [(src)]=&quot;apiLocation.url&quot;&gt;&lt;/resource-outlet&gt;&lt;!-- To view referenced content, use link href --&gt;&lt;resource-outlet [(src)]=&quot;data._links?.content?.href&quot;&gt;&lt;/resource-outlet&gt;</code></pre>
                 </div>
     </div>
 
@@ -1059,7 +1055,7 @@
 
     <div class="tab-pane fade tab-source-code" id="c-source">
         <pre class="line-numbers"><code class="language-typescript">import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Self } from &#x27;@angular/core&#x27;;
-import { Subscription } from &#x27;rxjs/Subscription&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
 import { ResourceData, resourceDataNavigableRef } from &#x27;../resource-data&#x27;;
 import { topLevelNavigableRef } from &#x27;../navigable&#x27;;
 import { ResourceDataOfDirective } from &#x27;./resource-data-of&#x27;;

@@ -700,7 +700,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/lib/src/resource-client.ts:29</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/lib/src/resource-client.ts:27</a></div>
                                         </td>
                                     </tr>
             
@@ -767,19 +767,17 @@
 
     <div class="tab-pane fade tab-source-code" id="c-source">
         <pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { Observable } from &#x27;rxjs/Observable&#x27;;
 import { HttpClient, HttpErrorResponse, HttpResponse } from &#x27;@angular/common/http&#x27;;
-import &#x27;rxjs/add/operator/map&#x27;;
-import &#x27;rxjs/add/operator/catch&#x27;;
-import &#x27;rxjs/add/observable/of&#x27;;
-import &#x27;rxjs/add/observable/throw&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { catchError, map } from &#x27;rxjs/operators&#x27;;
 import { ResourceViewRegistry } from &#x27;./resource-view-registry&#x27;;
 import { ViewTypeStrategy } from &#x27;./view-type-strategy&#x27;;
 import { ViewData } from &#x27;./view-data&#x27;;
 import { ViewDef } from &#x27;./view-definition&#x27;;
 import { Navigable } from &#x27;./navigable&#x27;;
 import { stringToJSON } from &#x27;./utils/http-utils&#x27;;
-import { ErrorObservable } from &#x27;rxjs/observable/ErrorObservable&#x27;;
+import { throwError } from &#x27;rxjs/internal/observable/throwError&#x27;;
+import { scalar } from &#x27;rxjs/internal/observable/scalar&#x27;;
 
 
 /**
@@ -812,12 +810,12 @@ export class HttpResourceClient extends ResourceClient {
 
   fetch(uri: string, target: Navigable): Observable&lt;ViewData&lt;any&gt;&gt; {
     // Send request
-    return this
-      .get(uri)
+    return this.get(uri).pipe(
       // Convert failure to success, if we know how to handle it (rethrow if we don&#x27;t)
-      .catch(err &#x3D;&gt; this.handleError(err))
+      catchError(err &#x3D;&gt; this.handleError(err)),
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
-      .map(response &#x3D;&gt; this.resolve(uri, response, target));
+      map(response &#x3D;&gt; this.resolve(uri, response, target)),
+    );
   }
 
   protected get(url: string): Observable&lt;HttpResponse&lt;string&gt;&gt; {
@@ -828,12 +826,13 @@ export class HttpResourceClient extends ResourceClient {
   }
 
   // noinspection JSMethodCanBeStatic
-  protected handleError(err: any): Observable&lt;HttpResponse&lt;string&gt;&gt; | ErrorObservable {
+  protected handleError(err: any): Observable&lt;HttpResponse&lt;string&gt;&gt; {
     // Depends on the type
     if (err instanceof HttpResponse) {
       // Pass it through
-      return Observable.of(err);
+      return scalar(err);
     }
+    // noinspection SuspiciousInstanceOfGuard
     if (err instanceof HttpErrorResponse) {
       let body: string | undefined;
 
@@ -851,11 +850,11 @@ export class HttpResourceClient extends ResourceClient {
         body &#x3D; err.error;
       } else {
         // To avoid returning something unexpected, better to rethrow the error
-        return Observable.throw(err);
+        return throwError(err);
       }
 
       // Treat is as non-failing response
-      return Observable.of(new HttpResponse&lt;string&gt;({
+      return scalar(new HttpResponse&lt;string&gt;({
         body: body,
         headers: err.headers,
         status: err.status,
@@ -864,12 +863,13 @@ export class HttpResourceClient extends ResourceClient {
       }));
     } else {
       // Other errors propagate (resolve won&#x27;t be called)
-      return Observable.throw(err);
+      return throwError(err);
     }
   }
 
   protected resolve(requestUrl: string, response: HttpResponse&lt;string&gt;, target: Navigable): ViewData&lt;any&gt; {
-    // Note: In browsers, this does not throw exception, ind NodeJS, it does
+    // Note: In browsers, this does not throw exception, in NodeJS, it does
+    // noinspection SuspiciousInstanceOfGuard
     console.assert(response instanceof HttpResponse, &#x27;response is not instanceof HttpResponse&#x27;, response);
 
     // Resolve type, if possible
@@ -902,8 +902,8 @@ export class HttpResourceClient extends ResourceClient {
     const responseType &#x3D; config.responseType || &#x27;json&#x27;;
     switch (responseType) {
       case &#x27;json&#x27;:
-        // Parse JSON - this assumes body is a string
-        return stringToJSON(body);
+        // Parse JSON - unless body is already object, otherwise we expect string
+        return typeof body &#x3D;&#x3D;&#x3D; &#x27;object&#x27; ? body : stringToJSON(body);
 
       case &#x27;text&#x27;:
         // Return as-is - this assumes body is already string

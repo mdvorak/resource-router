@@ -749,6 +749,9 @@ and for unexpected there is <code>MyGenericErrorComponent</code>.</p>
                             <li>
                                 <a href="#html">html</a>
                             </li>
+                            <li>
+                                <a href="#object">object</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -953,6 +956,28 @@ and for unexpected there is <code>MyGenericErrorComponent</code>.</p>
     
                 </tbody>
             </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <a name="object"></a>
+                            <span class="name"><b>object</b><a href="#object"><span class="fa fa-link"></span></a></span>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="accessor"><b>get</b><code>object()</code></span>
+                        </td>
+                    </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/lib/src/components/default-error.component.ts:55</a></div>
+                                    </td>
+                                </tr>
+    
+                </tbody>
+            </table>
     </section>
 </div>
 
@@ -1011,6 +1036,10 @@ export class DefaultErrorComponent implements OnInit {
   get html() {
     return this.data.type &#x3D;&#x3D;&#x3D; &#x27;text/html&#x27;;
   }
+
+  get object() {
+    return typeof this.data.body &#x3D;&#x3D;&#x3D; &#x27;object&#x27;;
+  }
 }
 </code></pre>
     </div>
@@ -1022,7 +1051,7 @@ export class DefaultErrorComponent implements OnInit {
 &lt;/p&gt;
 &lt;ng-container *ngIf&#x3D;&quot;data.body as body&quot;&gt;
   &lt;!-- Plain text --&gt;
-  &lt;pre *ngIf&#x3D;&quot;!html; else htmlTemplate&quot;&gt;{{body}}&lt;/pre&gt;
+  &lt;pre *ngIf&#x3D;&quot;!html; else htmlTemplate&quot;&gt;{{object ? (body|json) : body}}&lt;/pre&gt;
   &lt;!-- HTML --&gt;
   &lt;ng-template #htmlTemplate&gt;
     &lt;!-- Note: body is automatically sanitized by angular,
@@ -1057,7 +1086,7 @@ export class DefaultErrorComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>  Error loading a view<code *ngIf="data.type"> {{data.type}}</code>  from resource <code>{{data.url}}</code> with <code>{{data.status}} {{data.statusText}}</code></p><ng-container *ngIf="data.body as body">  <!-- Plain text -->  <pre *ngIf="!html; else htmlTemplate">{{body}}</pre>  <!-- HTML -->  <ng-template #htmlTemplate>    <!-- Note: body is automatically sanitized by angular,         which may lead to displaying some garbage from head element,         but its perfectly safe to display it - NEVER use DomSanitizer.bypassSecurityTrustHtml -->    <div [innerHTML]="body"></div>  </ng-template></ng-container></div>'
+        var COMPONENT_TEMPLATE = '<div><p>  Error loading a view<code *ngIf="data.type"> {{data.type}}</code>  from resource <code>{{data.url}}</code> with <code>{{data.status}} {{data.statusText}}</code></p><ng-container *ngIf="data.body as body">  <!-- Plain text -->  <pre *ngIf="!html; else htmlTemplate">{{object ? (body|json) : body}}</pre>  <!-- HTML -->  <ng-template #htmlTemplate>    <!-- Note: body is automatically sanitized by angular,         which may lead to displaying some garbage from head element,         but its perfectly safe to display it - NEVER use DomSanitizer.bypassSecurityTrustHtml -->    <div [innerHTML]="body"></div>  </ng-template></ng-container></div>'
     var COMPONENTS = [{'name': 'DefaultEmptyComponent', 'selector': ''},{'name': 'DefaultErrorComponent', 'selector': ''},{'name': 'ResourceOutletComponent', 'selector': 'resource-outlet'}];
     var DIRECTIVES = [{'name': 'ResourceContextDirective', 'selector': '[resourceContext]'},{'name': 'ResourceDataOfDirective', 'selector': '[resourceData][resourceDataOf]'},{'name': 'ResourceLinkDirective', 'selector': ':not(a)[resourceLink]'},{'name': 'ResourceLinkWithHrefDirective', 'selector': 'a[resourceLink]'},{'name': 'ResourceViewDirective', 'selector': 'resource-view'}];
     var ACTUAL_COMPONENT = {'name': 'DefaultErrorComponent'};

@@ -957,7 +957,7 @@
   StaticProvider,
   ViewContainerRef
 } from &#x27;@angular/core&#x27;;
-import { BehaviorSubject } from &#x27;rxjs/BehaviorSubject&#x27;;
+import { BehaviorSubject } from &#x27;rxjs&#x27;;
 import { ViewData } from &#x27;../view-data&#x27;;
 import { ActivatedView } from &#x27;../activated-view&#x27;;
 import { Navigable, NavigableRef } from &#x27;../navigable&#x27;;
@@ -1042,7 +1042,7 @@ export class ResourceViewDirective implements OnChanges {
       }
     ];
 
-    const injector &#x3D; Injector.create({providers: providers, parent: this.viewContainer.parentInjector});
+    const injector &#x3D; Injector.create({providers: providers, parent: this.viewContainer.injector});
     const component &#x3D; this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
 
     // Store reference

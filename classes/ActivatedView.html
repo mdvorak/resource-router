@@ -713,7 +713,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/lib/src/activated-view.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/lib/src/activated-view.ts:9</a></div>
                                         </td>
                                     </tr>
             
@@ -785,7 +785,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/lib/src/activated-view.ts:27</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/lib/src/activated-view.ts:26</a></div>
                                         </td>
                                     </tr>
             
@@ -840,7 +840,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/lib/src/activated-view.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/lib/src/activated-view.ts:9</a></div>
                                         </td>
                                     </tr>
             
@@ -876,7 +876,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/lib/src/activated-view.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/lib/src/activated-view.ts:8</a></div>
                                         </td>
                                     </tr>
             
@@ -912,7 +912,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/lib/src/activated-view.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/lib/src/activated-view.ts:11</a></div>
                                         </td>
                                     </tr>
             
@@ -941,7 +941,7 @@
                             </tr>
                                         <tr>
                                             <td class="col-md-4">
-                                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/lib/src/activated-view.ts:18</a></div>
+                                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/lib/src/activated-view.ts:17</a></div>
                                             </td>
                                         </tr>
             
@@ -952,9 +952,8 @@
 
 
     <div class="tab-pane fade tab-source-code" id="c-source">
-        <pre class="line-numbers"><code class="language-typescript">import { Observable } from &#x27;rxjs/Observable&#x27;;
-import { BehaviorSubject } from &#x27;rxjs/BehaviorSubject&#x27;;
-import &#x27;rxjs/add/operator/map&#x27;;
+        <pre class="line-numbers"><code class="language-typescript">import { Observable, BehaviorSubject } from &#x27;rxjs&#x27;;
+import { map } from &#x27;rxjs/operators&#x27;;
 import { Navigable } from &#x27;./navigable&#x27;;
 import { ViewData } from &#x27;./view-data&#x27;;
 
@@ -966,7 +965,7 @@ export class ActivatedView&lt;T&gt; {
   constructor(public readonly navigation: Navigable,
               private readonly _data: BehaviorSubject&lt;ViewData&lt;T&gt;&gt;) {
     this.data &#x3D; _data.asObservable();
-    this.body &#x3D; this.data.map(data &#x3D;&gt; data.body);
+    this.body &#x3D; this.data.pipe(map(data &#x3D;&gt; data.body));
   }
 
   get snapshot() {
