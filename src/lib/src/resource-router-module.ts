@@ -8,7 +8,6 @@ import {
   PlatformLocation
 } from '@angular/common';
 import {
-  ANALYZE_FOR_ENTRY_COMPONENTS,
   Inject,
   InjectionToken,
   ModuleWithProviders,
@@ -137,11 +136,6 @@ export class ResourceRouterModule {
           multi: true
         },
         {
-          provide: ANALYZE_FOR_ENTRY_COMPONENTS,
-          useValue: [DefaultErrorComponent, DefaultEmptyComponent],
-          multi: true
-        },
-        {
           provide: ViewTypeStrategy,
           useClass: options.viewTypeStrategy || HeaderViewTypeStrategy
         },
@@ -159,11 +153,6 @@ export class ResourceRouterModule {
       providers: [
         {
           provide: RESOURCE_VIEWS,
-          useValue: views,
-          multi: true
-        },
-        {
-          provide: ANALYZE_FOR_ENTRY_COMPONENTS,
           useValue: views,
           multi: true
         }
