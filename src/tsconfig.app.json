@@ -13,9 +13,8 @@
       ]
     }
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts",
-    "lib/testing/**"
+  "files": [
+    "app/main.ts",
+    "app/polyfills.ts"
   ]
 }

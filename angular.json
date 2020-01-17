@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/example",
             "index": "src/index.html",
             "main": "src/app/main.ts",
@@ -27,6 +28,12 @@
           },
           "configurations": {
             "hash": {
+              "budgets": [
+                {
+                  "type": "all",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/app/environments/environment.ts",
@@ -35,6 +42,12 @@
               ]
             },
             "production": {
+              "budgets": [
+                {
+                  "type": "all",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -137,6 +150,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/example-aot",
             "index": "src/index.html",
             "main": "src/app/main.ts",
@@ -153,6 +167,12 @@
           },
           "configurations": {
             "hash": {
+              "budgets": [
+                {
+                  "type": "all",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/app/environments/environment.ts",
@@ -161,6 +181,12 @@
               ]
             },
             "production": {
+              "budgets": [
+                {
+                  "type": "all",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
