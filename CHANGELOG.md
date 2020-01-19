@@ -1,3 +1,7 @@
+### Features
+
+* Added `[resourceLinkActive]` combine with `[resourceLink]` support directive that can add classes to active elements in the navigation menu
+
 <a name="7.0.0"></a>
 # [7.0.0](https://github.com/mdvorak/resource-router/compare/v5.0.1...v7.0.0) (2019-02-25)
 
