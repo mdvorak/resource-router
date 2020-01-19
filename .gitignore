@@ -38,3 +38,6 @@ classes/
 .DS_Store
 .*.swp
 ._*
+
+#VS Code
+.vscode/

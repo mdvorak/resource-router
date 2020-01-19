@@ -23,6 +23,7 @@ import { RESOURCE_VIEWS, ResourceViewRegistry } from './resource-view-registry';
 import { ViewDef } from './view-definition';
 import { ResourceLinkDirective } from './directives/resource-link';
 import { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
+import { ResourceLinkActiveDirective } from './directives/resource-link-active';
 import { ResourceOutletComponent } from './directives/resource-outlet';
 import { HttpResourceClient, ResourceClient } from './resource-client';
 import { ResourceDataOfDirective } from './directives/resource-data-of';
@@ -82,6 +83,7 @@ export interface ResourceRouterOptions {
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective,
+    ResourceLinkActiveDirective,
     DefaultEmptyComponent,
     DefaultErrorComponent
   ],
@@ -94,7 +96,8 @@ export interface ResourceRouterOptions {
     ResourceContextDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
-    ResourceLinkWithHrefDirective
+    ResourceLinkWithHrefDirective,
+    ResourceLinkActiveDirective
   ]
 })
 export class ResourceRouterModule {
