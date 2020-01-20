@@ -1,18 +1,18 @@
-import { Directive, Input, ElementRef, Renderer2, OnChanges, AfterContentInit, SimpleChanges, OnDestroy } from '@angular/core';
+import { Directive, Input, ElementRef, Renderer2, AfterContentInit, OnDestroy } from '@angular/core';
 import { ApiLocation } from '../api-location';
 import { Subscription } from 'rxjs';
 
 @Directive({
     selector: '[resourceLinkActive]'
 })
-export class ResourceLinkActiveDirective implements OnChanges, AfterContentInit, OnDestroy {
+export class ResourceLinkActiveDirective implements AfterContentInit, OnDestroy {
 
     @Input() resourceLink: string;
 
     private subscription: Subscription;
     private classes: string[] = [];
 
-    constructor(
+    constructor (
         private render: Renderer2,
         private el: ElementRef,
         private apiLocation: ApiLocation
@@ -24,8 +24,6 @@ export class ResourceLinkActiveDirective implements OnChanges, AfterContentInit,
         const classes = Array.isArray(data) ? data : data.split(' ');
         this.classes = classes.filter(c => !!c);
     }
-
-    ngOnChanges(changes: SimpleChanges): void { this.update(); }
 
     ngAfterContentInit(): void { this.update(); }
 
