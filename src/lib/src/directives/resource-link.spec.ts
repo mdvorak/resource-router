@@ -48,7 +48,7 @@ describe(ResourceLinkDirective.name, () => {
   beforeEach(async(() => {
     registry = createClassSpyObj(ResourceViewRegistry);
 
-    return TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         ResourceLinkDirective,
         TestComponent,
@@ -64,7 +64,7 @@ describe(ResourceLinkDirective.name, () => {
         Location,
         {
           provide: ResourceViewRegistry,
-          useValue: registry
+          useValue: {match: () => {}}
         },
         {
           provide: APP_API_PREFIX,
@@ -91,6 +91,8 @@ describe(ResourceLinkDirective.name, () => {
         topLevelNavigableRef(),
       ]
     });
+
+    resourceData = TestBed.inject(ResourceData);
   }));
 
   // Created with TOP_LEVEL_NAVIGABLE and NavigationRef
@@ -104,11 +106,11 @@ describe(ResourceLinkDirective.name, () => {
     })));
 
     it('should be initialized', () => {
-      expect(el).toBeDefined();
+      expect(el).toBeDefined(); // TODO chyba zde
     });
 
     it('should change url onClick without target set', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       fixture.detectChanges();
 
       // Test
@@ -119,7 +121,7 @@ describe(ResourceLinkDirective.name, () => {
     });
 
     it('should change url onClick with ctrlKey or metaKey', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       fixture.detectChanges();
 
       // Test
@@ -130,7 +132,7 @@ describe(ResourceLinkDirective.name, () => {
     });
 
     it('should change url onClick with target _self', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       comp.target = '_self';
       fixture.detectChanges();
 
@@ -142,7 +144,7 @@ describe(ResourceLinkDirective.name, () => {
     });
 
     it('should change url onClick with target _top', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       comp.target = '_top';
       fixture.detectChanges();
 
@@ -156,7 +158,7 @@ describe(ResourceLinkDirective.name, () => {
     it('should navigate onClick with explicit target', () => {
       const navigationMock = createSpyNavigable();
 
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       comp.target = navigationMock;
       fixture.detectChanges();
 

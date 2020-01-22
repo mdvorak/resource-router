@@ -48,7 +48,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
   beforeEach(async(() => {
     registry = createClassSpyObj(ResourceViewRegistry);
 
-    return TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         ResourceLinkWithHrefDirective,
         TestComponent,
@@ -64,7 +64,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         Location,
         {
           provide: ResourceViewRegistry,
-          useValue: registry
+          useValue: {match: () => {}}
         },
         {
           provide: APP_API_PREFIX,
@@ -91,6 +91,8 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         topLevelNavigableRef(),
       ]
     });
+
+    resourceData = TestBed.inject(ResourceData);
   }));
 
   // Created with TOP_LEVEL_NAVIGABLE and NavigationRef
@@ -104,11 +106,11 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     })));
 
     it('should be initialized', () => {
-      expect(el).toBeDefined();
+      expect(el).toBeDefined(); // TODO chyba zde
     });
 
     it('should change location onClick without target set', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       fixture.detectChanges();
 
       // Test
@@ -119,7 +121,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should not handle click with ctrlKey', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       fixture.detectChanges();
 
       // Test
@@ -130,7 +132,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should not handle click with metaKey', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       fixture.detectChanges();
 
       // Test
@@ -141,7 +143,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should not handle click with other mouse buttons', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       fixture.detectChanges();
 
       // Test
@@ -152,7 +154,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should change location onClick with target _self', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       comp.target = '_self';
       fixture.detectChanges();
 
@@ -164,7 +166,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should change location onClick with target _top', () => {
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       comp.target = '_top';
       fixture.detectChanges();
 
@@ -178,7 +180,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     it('should navigate onClick with explicit target', () => {
       const navigationMock = createSpyNavigable();
 
-      comp.link = API_PREFIX + 'foo/bar';
+      comp.link = API_PREFIX + 'foo/bar'; // TODO chyba zde
       comp.target = navigationMock;
       fixture.detectChanges();
 
@@ -192,7 +194,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     it('should change location with external url', () => {
       const navigationMock = createSpyNavigable();
 
-      comp.link = 'http://another.example.com/foo/bar';
+      comp.link = 'http://another.example.com/foo/bar'; // TODO chyba zde
       comp.target = navigationMock;
       fixture.detectChanges();
 

@@ -7,16 +7,12 @@ import { createClassSpyObj } from '../../lib/src/utils/class-spy.spec';
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
   let fixture: ComponentFixture<MessagesComponent>;
-  let messageService: MessageService;
 
   beforeEach(async(() => {
-    messageService = createClassSpyObj(MessageService);
-    messageService.messages = [];
-
-    return TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [MessagesComponent],
       providers: [
-        {provide: MessageService, useValue: messageService},
+        {provide: MessageService, useValue: { messages: [], clear: () => {} }},
       ]
     });
   }));
@@ -28,6 +24,6 @@ describe('MessagesComponent', () => {
   });
 
   it('should be created', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeTruthy(); // TODO chyba zde
   });
 });
