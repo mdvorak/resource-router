@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
-  "dest": "../../dist/angular-resource-router",
+  "dest": "../../dist/angular-resource-router",  
   "workingDirectory": "../../.ng_pkg_build",
   "lib": {
     "entryFile": "public_api.ts",
