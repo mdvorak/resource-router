@@ -1,3 +1,7 @@
+<a name="9.0.0"></a>
+
+Updated to Angular 9.x. 
+
 <a name="7.0.0"></a>
 # [7.0.0](https://github.com/mdvorak/resource-router/compare/v5.0.1...v7.0.0) (2019-02-25)
 
