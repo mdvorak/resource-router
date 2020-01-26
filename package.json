@@ -62,7 +62,7 @@
     "ng-packagr": "9.0.0-rc.7",
     "protractor": "6.0.0",
     "rimraf": "2.6.2",
-    "ts-node": "4.1.0",
+    "ts-node": "8.6.2",
     "tslint": "5.12.1",
     "typescript": "3.7.5"
   }
