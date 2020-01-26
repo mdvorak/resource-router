@@ -14,6 +14,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.view.body.subscribe(heroes => this.heroes = heroes);
+    this.view.body.subscribe((heroes: Heroes) => this.heroes = heroes);
   }
 }
