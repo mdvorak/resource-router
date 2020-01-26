@@ -16,7 +16,7 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.view.body.subscribe(heroes => this.heroes = heroes);
+    this.view.body.subscribe((heroes: Heroes) => this.heroes = heroes);
   }
 
   add(name: string): void {
