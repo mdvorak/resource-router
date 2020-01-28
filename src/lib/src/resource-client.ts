@@ -8,7 +8,7 @@ import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
-import { throwError } from 'rxjs/internal/observable/throwError';
+import { throwError } from 'rxjs';
 
 
 /**
