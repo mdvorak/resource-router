@@ -11,6 +11,7 @@ module.exports = function (config) {
       require('karma-edge-launcher'),
       require('karma-firefox-launcher'),
       require('karma-ie-launcher'),
+      require('karma-chrome-launcher'),
       require('karma-phantomjs-launcher'),
       require('karma-detect-browsers'),
       require('karma-jasmine-html-reporter'),
@@ -30,7 +31,15 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    singleRun: false,
+    singleRun: true,
+    browserDisconnectTimeout: 10000,
+    browserDisconnectTolerance: 3,
+    browserNoActivityTimeout: 60000,
+    flags: [
+      '--disable-web-security',
+      '--disable-gpu',
+      '--no-sandbox'
+    ],
     detectBrowsers: {
       postDetection: function (browsers) {
         // When overriden, use command line
