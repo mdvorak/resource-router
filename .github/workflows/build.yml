@@ -1,0 +1,36 @@
+name: Build
+on:
+  push:
+    branches: ['*']
+    
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: get npm cache directory
+      id: npm-cache
+      run: |
+        echo "::set-output name=dir::$(npm config get cache)"
+    
+    - name: cache npm
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.npm-cache.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: npm install, build, and test
+      run: |
+        npm run bootstrap
+        npm run build
+        npm run buildapp
+        
+    - name: cleanup cache
+      run: npm unlink angular-resource-router
