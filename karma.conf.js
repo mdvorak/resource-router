@@ -5,7 +5,6 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['detectBrowsers', 'jasmine', '@angular-devkit/build-angular'],
-    browsers: ['Chrome', 'Firefox', 'IE'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -41,7 +40,9 @@ module.exports = function (config) {
         }
 
         // Run in headless mode
-        browsers = browsers.map(function (b) {
+        browsers = browsers.filter(function (b) {
+          return ['PhantomJS', 'Edge'].indexOf(b) < 0;
+        }).map(function (b) {
           if (b === 'Chrome' || b === 'Firefox') {
             return b + 'Headless';
           }
