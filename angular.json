@@ -18,7 +18,7 @@
             "polyfills": "src/app/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/app/favicon.ico"
             ],
             "styles": [
               "src/app/styles.css"
@@ -86,7 +86,7 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/app/favicon.ico"
             ]
           }
         },
@@ -144,7 +144,7 @@
             "polyfills": "src/app/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/app/favicon.ico"
             ],
             "styles": [
               "src/app/styles.css"
@@ -212,7 +212,7 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/app/favicon.ico"
             ]
           }
         },

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
@@ -9,7 +9,6 @@ import { ViewDef } from './view-definition';
 import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { scalar } from 'rxjs/internal/observable/scalar';
 
 
 /**
@@ -62,7 +61,7 @@ export class HttpResourceClient extends ResourceClient {
     // Depends on the type
     if (err instanceof HttpResponse) {
       // Pass it through
-      return scalar(err);
+      return of(err);
     }
     // noinspection SuspiciousInstanceOfGuard
     if (err instanceof HttpErrorResponse) {
@@ -86,7 +85,7 @@ export class HttpResourceClient extends ResourceClient {
       }
 
       // Treat is as non-failing response
-      return scalar(new HttpResponse<string>({
+      return of(new HttpResponse<string>({
         body: body,
         headers: err.headers,
         status: err.status,
