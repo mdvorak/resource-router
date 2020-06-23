@@ -16,6 +16,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - uses: dcodeIO/setup-node-nvm@v4.0.0
+    
     - name: get npm cache directory
       id: npm-cache
       run: |
@@ -49,6 +51,8 @@ jobs:
     needs: [build]
     steps:
     - uses: actions/checkout@v2
+    
+    - uses: dcodeIO/setup-node-nvm@v4.0.0
 
     - name: get npm cache directory
       id: npm-cache
