@@ -16,6 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - uses: filipstefansson/set-npm-token-action@v1
+      with:
+        token: ${{ secrets.NPM_TOKEN }}
+    
     - name: get npm cache directory
       id: npm-cache
       run: |
@@ -39,39 +43,14 @@ jobs:
         npm run build
         npm run buildapp
         
-    - name: cleanup cache
-      run: npm unlink angular-resource-router
-
-  publish:
-    name: Publish
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    needs: [build]
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: get npm cache directory
-      id: npm-cache
+    - name: npm publish
       run: |
-        echo "::set-output name=dir::$(npm config get cache)"
-
-    - name: cache npm
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.npm-cache.outputs.dir }}
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
-    - uses: filipstefansson/set-npm-token-action@v1
-      with:
-        token: ${{ secrets.NPM_TOKEN }}
-  
-    - name: npm package
-      run: |
-        npm run bootstrap
-        npm run build
-        npm publish dist/angular-resource-router
-
+        if ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}; then
+          npm publish dist/angular-resource-router
+        else
+          echo "Dry run"
+          npm publish --dry-run dist/angular-resource-router
+        fi
+        
     - name: cleanup cache
       run: npm unlink angular-resource-router
