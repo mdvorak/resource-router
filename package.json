@@ -9,6 +9,7 @@
     "start": "ng serve --project angular-resource-router",
     "prebuild": "ng lint --project angular-resource-router && ng test --project angular-resource-router --watch=false",
     "build": "ng-packagr -p src/lib/ng-package.json && cpr README.md dist/angular-resource-router/README.md && cpr LICENSE dist/angular-resource-router/LICENSE",
+    "buildonly": "ng-packagr -p src/lib/ng-package.json && cpr README.md dist/angular-resource-router/README.md && cpr LICENSE dist/angular-resource-router/LICENSE",
     "buildapp": "ng build --project angular-resource-router-aot --prod --configuration=production --source-map",
     "test": "ng test --project angular-resource-router",
     "lint": "ng lint --project angular-resource-router",
