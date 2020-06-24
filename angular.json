@@ -77,17 +77,17 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "karmaConfig": "./karma.conf.js",
             "polyfills": "src/app/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
-            "styles": [
-              "src/app/styles.css"
-            ],
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/assets",
               "src/app/favicon.ico"
-            ]
+            ],
+            "styles": [
+              "src/app/styles.css"
+            ],
+            "scripts": []
           }
         },
         "lint": {
@@ -203,17 +203,17 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "karmaConfig": "./karma.conf.js",
             "polyfills": "src/app/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
-            "styles": [
-              "src/app/styles.css"
-            ],
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/assets",
               "src/app/favicon.ico"
-            ]
+            ],
+            "styles": [
+              "src/app/styles.css"
+            ],
+            "scripts": []
           }
         },
         "lint": {
@@ -240,5 +240,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
