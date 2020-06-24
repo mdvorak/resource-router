@@ -60,7 +60,7 @@ export class InMemoryDataService implements InMemoryDbService {
       return request.utils.createResponse$(() => ({
         url: request.url,
         body: <Heroes>{
-          items: collection.slice(1, 5).map(hyperHero),
+          items: collection.slice(0, 4).map(hyperHero),
           _links: {
             self: {href: '/api'},
           }

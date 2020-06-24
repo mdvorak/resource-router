@@ -1,6 +1,6 @@
 {
   "name": "angular-resource-router",
-  "version": "7.0.0",
+  "version": "9.1.0",
   "homepage": "https://github.com/mdvorak/resource-router",
   "author": "Michal Dvorak",
   "license": "MIT",
@@ -19,13 +19,13 @@
     "rest"
   ],
   "peerDependencies": {
-    "@angular/animations": "^7.0.0",
-    "@angular/common": "^7.0.0",
-    "@angular/core": "^7.0.0",
-    "@angular/platform-browser": "^7.0.0",
-    "@angular/platform-browser-dynamic": "^7.0.0",
-    "core-js": "^2.4.1",
-    "rxjs": "^6.0.0",
-    "zone.js": "^0.8.14"
+    "@angular/animations": "^9.1.11",
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@angular/platform-browser-dynamic": "^9.1.11",
+    "core-js": "^3.6.5",
+    "rxjs": "^6.5.5",
+    "zone.js": "^0.10.3"
   }
 }

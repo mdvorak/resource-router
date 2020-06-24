@@ -2,7 +2,6 @@
   "ngPackage": {
     "lib": {
       "entryFile": "public_api.ts",
-      "licensePath": "../../../LICENSE",
       "umdModuleIds": {
         "angular-resource-router": "angularResourceRouter"
       }
