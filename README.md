@@ -1,6 +1,6 @@
 # resource-router
 
-[![Build Status](https://travis-ci.org/mdvorak/resource-router.svg?branch=master)](https://travis-ci.org/mdvorak/resource-router)
+![Build](https://github.com/mdvorak/resource-router/workflows/Build/badge.svg)
 
 [Angular](https://angular.io/) routing engine that drive views by media types. It loads data itself, and by response `Content-Type` header
 it displays configured view. It is a replacement for original [Angular Router](https://angular.io/docs/ts/latest/guide/router.html) (they cannot be used at the same time).
