@@ -1,7 +1,14 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
+const os = require('os');
 
 module.exports = function (config) {
+  // Default browsers, still overridable by --browsers option
+  const browsers = ['ChromeHeadless', 'FirefoxHeadless'];
+  if (os.platform() === 'win32') {
+    browsers.push('IE');
+  }
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -27,7 +34,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadless', 'FirefoxHeadless', 'IE'],
+    browsers: browsers,
     singleRun: false,
     restartOnFileChange: true
   });
