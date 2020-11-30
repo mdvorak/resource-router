@@ -1,5 +1,10 @@
+<a name="10.2.0"></a>
+# [10.2.0](https://github.com/mdvorak/resource-router/compare/v7.0.0...v9.1.x) (2020-11-30)
+
+Updated to Angular 10.x
+
 <a name="9.1.0"></a>
-# [9.1.0](https://github.com/mdvorak/resource-router/compare/v5.0.1...v7.0.0) (2020-06-23)
+# [9.1.0](https://github.com/mdvorak/resource-router/compare/v7.0.0...v9.1.x) (2020-06-23)
 
 updated to Angular 9.1.11
 

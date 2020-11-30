@@ -1,4 +1,4 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, inject, TestBed } from '@angular/core/testing';
 import {
   normalizeStatus,
   normalizeStatusExpression,
@@ -9,7 +9,7 @@ import { Type } from '@angular/core';
 import { ViewDef } from './view-definition';
 
 describe(ResourceViewRegistry.name, () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       providers: [ResourceViewRegistry]
     });
@@ -28,7 +28,7 @@ describe(ResourceViewRegistry.name, () => {
   }
 
   describe('should initialize', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       return TestBed.configureTestingModule({
         providers: [
           {
@@ -59,7 +59,7 @@ describe(ResourceViewRegistry.name, () => {
 
   // Exact type
   describe('should match exact type', () => {
-    beforeEach(async(inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
+    beforeEach(waitForAsync(inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
       registry.addViews([
         {type: 'foo', component: fakeComponent('foo')},
         {type: 'application/foo', component: fakeComponent('application/foo')},
@@ -120,7 +120,7 @@ describe(ResourceViewRegistry.name, () => {
 
   // Wildcard type
   describe('should match wildcard type', () => {
-    beforeEach(async(inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
+    beforeEach(waitForAsync(inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
       registry.addViews([
         {type: 'foo*', component: fakeComponent('foo*')},
         {type: '*bar', component: fakeComponent('*bar')},
@@ -208,7 +208,7 @@ describe(ResourceViewRegistry.name, () => {
 
   // Any type
   describe('should match any type', () => {
-    beforeEach(async(inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
+    beforeEach(waitForAsync(inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {
       registry.addViews([
         {type: '*', component: fakeComponent('*')},
         {type: '*', status: 20, component: fakeComponent('020 *')},

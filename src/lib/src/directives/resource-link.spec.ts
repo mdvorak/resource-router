@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ResourceViewRegistry } from '../resource-view-registry';
 import { ResourceLinkDirective, TargetType } from './resource-link';
@@ -6,7 +6,6 @@ import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
 import { Navigable, topLevelNavigableRef } from '../navigable';
 import { By } from '@angular/platform-browser';
-import { createClassSpyObj } from '../utils/class-spy.spec';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { BrowserUrlNormalizer, UrlNormalizer } from '../url-normalizer';
 import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
@@ -45,10 +44,8 @@ describe(ResourceLinkDirective.name, () => {
   let el: HTMLElement;
 
   // Shared components
-  beforeEach(async(() => {
-    registry = createClassSpyObj(ResourceViewRegistry);
-
-    return TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       declarations: [
         ResourceLinkDirective,
         TestComponent,
@@ -64,7 +61,10 @@ describe(ResourceLinkDirective.name, () => {
         Location,
         {
           provide: ResourceViewRegistry,
-          useValue: registry
+          useValue: {
+            match: () => {
+            }
+          }
         },
         {
           provide: APP_API_PREFIX,
@@ -90,12 +90,15 @@ describe(ResourceLinkDirective.name, () => {
         resourceDataNavigableRef(),
         topLevelNavigableRef(),
       ]
-    });
+    })
+      .compileComponents();
+
+    registry = TestBed.inject(ResourceViewRegistry);
   }));
 
   // Created with TOP_LEVEL_NAVIGABLE and NavigationRef
   describe('with navigation context', () => {
-    beforeEach(async(inject([ResourceData], (_resourceData: ResourceData) => {
+    beforeEach(waitForAsync(inject([ResourceData], (_resourceData: ResourceData) => {
       resourceData = _resourceData;
       fixture = TestBed.createComponent(TestComponent);
       comp = fixture.componentInstance;

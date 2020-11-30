@@ -12,6 +12,7 @@
 *.tar.gz
 *.tgz
 .ng_pkg_build/
+debug.log
 
 !/src/typings.d.ts
 

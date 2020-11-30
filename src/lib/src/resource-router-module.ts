@@ -98,7 +98,7 @@ export interface ResourceRouterOptions {
 })
 export class ResourceRouterModule {
 
-  static configure(options: ResourceRouterOptions): ModuleWithProviders {
+  static configure(options: ResourceRouterOptions): ModuleWithProviders<ResourceRouterModule> {
     return {
       ngModule: ResourceRouterModule,
       providers: [
@@ -147,7 +147,7 @@ export class ResourceRouterModule {
     };
   }
 
-  static forTypes(views: ViewDef[]): ModuleWithProviders {
+  static forTypes(views: ViewDef[]): ModuleWithProviders<ResourceRouterModule> {
     return {
       ngModule: ResourceRouterModule,
       providers: [
