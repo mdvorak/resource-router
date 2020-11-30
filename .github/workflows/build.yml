@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
 
-    - uses: filipstefansson/set-npm-token-action@v1
+    - uses: filipstefansson/set-npm-token-action@v1.1
       with:
         token: ${{ secrets.NPM_TOKEN }}
 
