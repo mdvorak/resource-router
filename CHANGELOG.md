@@ -3,6 +3,7 @@
 
 * Added `resolve` to `ViewData`.
 * Added `resolve: Observable<ResolveData>` to `ActivatedView` class, which is same as `view.data.subscribe(data => ... = data.resolve.#resolverName);`.
+* Added `[resourceLinkActive]` combine with `[resourceLink]` support directive that can add classes to active elements in the navigation menu
 
 <a name="9.1.0"></a>
 # [9.1.0](https://github.com/mdvorak/resource-router/compare/v7.0.0...v9.1.0) (2020-06-23)

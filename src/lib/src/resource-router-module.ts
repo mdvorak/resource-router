@@ -33,6 +33,7 @@ import { DefaultErrorComponent } from './components/default-error.component';
 import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_LOADING } from './system-media-types';
 import { BrowserUrlNormalizer, UrlNormalizer } from './url-normalizer';
 import { APP_API_PREFIX, SingleApiMapper } from './single-api-mapper';
+import { ResourceLinkActiveDirective } from './directives/resource-link-active';
 
 
 export const RESOURCE_ROUTER_CONFIGURATION = new InjectionToken<ResourceRouterOptions>('RESOURCE_ROUTER_CONFIGURATION');
@@ -82,6 +83,7 @@ export interface ResourceRouterOptions {
     ResourceViewDirective,
     ResourceLinkDirective,
     ResourceLinkWithHrefDirective,
+    ResourceLinkActiveDirective,
     DefaultEmptyComponent,
     DefaultErrorComponent
   ],
@@ -94,7 +96,8 @@ export interface ResourceRouterOptions {
     ResourceContextDirective,
     ResourceViewDirective,
     ResourceLinkDirective,
-    ResourceLinkWithHrefDirective
+    ResourceLinkWithHrefDirective,
+    ResourceLinkActiveDirective
   ]
 })
 export class ResourceRouterModule {

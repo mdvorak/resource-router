@@ -2,8 +2,8 @@
 <ng-container *resourceData="let data of apiLocation" [resourceContext]="data">
   <nav>
     <!-- TODO -->
-    <a [resourceLink]="'/api'">Dashboard</a>
-    <a [resourceLink]="'/api/heroes'">Heroes</a>
+    <a resourceLink="/api/dashboard" resourceLinkActive="active">Dashboard</a>
+    <a resourceLink="/api/heroes" resourceLinkActive="active">Heroes</a>
   </nav>
 
   <resource-view [data]="data"></resource-view>

@@ -32,6 +32,7 @@ export { ViewTypeStrategy, HeaderViewTypeStrategy } from './view-type-strategy';
 export { escapeRegExpPattern, wildcardToRegex } from './utils/wildcard-to-regex';
 export { ResourceLinkDirective } from './directives/resource-link';
 export { ResourceLinkWithHrefDirective } from './directives/resource-link-with-href';
+export { ResourceLinkActiveDirective } from './directives/resource-link-active';
 export { LocationReference, isLocationReference, bindUrl } from './location-reference';
 export { DefaultEmptyComponent } from './components/default-empty.component';
 export { DefaultErrorComponent } from './components/default-error.component';
