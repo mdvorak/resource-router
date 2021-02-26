@@ -120,6 +120,7 @@ export class HttpResourceClient extends ResourceClient {
       statusText: response.statusText,
       headers: response.headers,
       body: body,
+      resolve: {}
     };
   }
 

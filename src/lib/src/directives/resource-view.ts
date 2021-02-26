@@ -10,10 +10,14 @@ import {
   StaticProvider,
   ViewContainerRef
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from, isObservable, Observable, of } from 'rxjs';
 import { ViewData } from '../view-data';
 import { ActivatedView } from '../activated-view';
 import { Navigable, NavigableRef } from '../navigable';
+import { Resolve } from '../resolve';
+import { ResolveData } from '../view-definition';
+import { isPromise } from 'rxjs/internal-compatibility';
+import { mergeMap, takeLast, tap } from 'rxjs/operators';
 
 class ResourceViewContext<T> {
 
@@ -46,12 +50,22 @@ export class ResourceViewDirective implements OnChanges {
               @Optional() private readonly navigableRef?: NavigableRef) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
     // Show nothing when there is nothing to show
     if (!this.data || !this.data.config || !this.data.config.component) {
       this.destroy();
       return;
     }
+
+    await this.runResolve(this.data.config.resolve)
+      .then(resolveData => {
+        const keys = Object.keys(resolveData);
+        keys.forEach(k => {
+          if (this.data) {
+            this.data.resolve[k] = resolveData[k];
+          }
+        });
+      });
 
     // Is this same component as currently visible?
     if (this.current
@@ -95,10 +109,60 @@ export class ResourceViewDirective implements OnChanges {
       }
     ];
 
-    const injector = Injector.create({providers: providers, parent: this.viewContainer.injector});
+    const injector = Injector.create({ providers: providers, parent: this.viewContainer.injector });
     const component = this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
+    // component.instance.resolve = this.data.config.resolve;
 
     // Store reference
     this.current = new ResourceViewContext<any>(component, target, dataSource);
   }
+
+  runResolve(resolve: ResolveData | undefined): Promise<ResolveData> {
+    if (!resolve) {
+      return of({}).toPromise();
+    }
+    const keys = Object.keys(resolve);
+    if (keys.length === 0) {
+      return of({}).toPromise();
+    }
+    const resolveOut: ResolveData = {};
+    return from(keys)
+      .pipe(
+        mergeMap(
+          (key: string) => this.doResolve(resolve[key])
+            .pipe(tap((value: any) => resolveOut[key] = value))),
+        takeLast(1),
+        mergeMap(() => {
+          if (Object.keys(resolveOut).length === keys.length) {
+            return of(resolveOut);
+          } else {
+            return of({});
+          }
+        })
+      ).toPromise();
+  }
+
+  doResolve(resolve: any): Observable<any> {
+    if (resolve) {
+      resolve = this.viewContainer.injector.get<Resolve>(resolve);
+      if (isResolve(resolve) && this.data) {
+        return this.wrapIntoObservable(resolve.resolve(this.data.body, this.data.headers, this.data.status));
+      }
+    }
+    return of({});
+  }
+
+  wrapIntoObservable(v: any | Promise<any> | Observable<any>): Observable<any> {
+    if (isObservable(v)) {
+      return v;
+    } else if (isPromise(v)) {
+      return from(Promise.resolve(v));
+    } else {
+      return of(v);
+    }
+  }
+}
+
+export function isResolve(r: any): r is Resolve {
+  return r && typeof r.resolve === 'function';
 }

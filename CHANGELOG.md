@@ -1,5 +1,11 @@
+<a name="9.2.0"></a>
+# [9.2.0](https://github.com/mdvorak/resource-router/compare/v9.1.0...v9.2.0) (2021-02-24)
+
+* Added `resolve` to `ViewData`.
+* Added `resolve: Observable<ResolveData>` to `ActivatedView` class, which is same as `view.data.subscribe(data => ... = data.resolve.#resolverName);`.
+
 <a name="9.1.0"></a>
-# [9.1.0](https://github.com/mdvorak/resource-router/compare/v5.0.1...v7.0.0) (2020-06-23)
+# [9.1.0](https://github.com/mdvorak/resource-router/compare/v7.0.0...v9.1.0) (2020-06-23)
 
 updated to Angular 9.1.11
 

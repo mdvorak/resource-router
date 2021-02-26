@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HeroDetailComponent implements OnInit {
   hero: Hero;
+  tenderNames: string[];
 
   constructor(private readonly view: ActivatedView<Hero>,
               private readonly http: HttpClient,
@@ -18,6 +19,7 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.view.body.subscribe(hero => this.hero = hero);
+    this.view.resolve.subscribe(resolve => this.tenderNames = resolve.tenderNames);
   }
 
   goBack(): void {
@@ -27,5 +29,9 @@ export class HeroDetailComponent implements OnInit {
   save(): void {
     const url = this.hero._links.self.href;
     this.http.post(url, this.hero).subscribe(() => this.goBack());
+  }
+
+  select(name: string): void {
+    this.hero.name = name;
   }
 }

@@ -3,6 +3,7 @@ import { ResourceRouterModule } from 'angular-resource-router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { TenderNamesResolver } from './resolvers/tender-names/tender-names.resolver';
 
 @NgModule({
   imports: [
@@ -17,7 +18,10 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
       },
       {
         type: 'application/x.hero',
-        component: HeroDetailComponent
+        component: HeroDetailComponent,
+        resolve: {
+          tenderNames: TenderNamesResolver
+        }
       }
     ])
   ],

@@ -5,6 +5,10 @@ export interface Data {
   readonly [name: string]: any;
 }
 
+export interface ResolveData {
+  [name: string]: any;
+}
+
 export type StatusType = number | string;
 
 /**
@@ -90,9 +94,12 @@ export interface ViewDef {
   readonly data?: Data;
 
   /**
-   * TODO
+   * Interface that classes can implement to be a data provider.
+   * A data provider class can be used with the router to resolve data during navigation.
+   * The interface defines a resolve() method that is invoked when the navigation starts.
+   * The router waits for the data to be resolved before the route is finally activated.
    */
-  readonly resolve?: Data;
+  readonly resolve?: ResolveData;
 
   /**
    * Disables wildcard character parsing in type property.

@@ -36,3 +36,4 @@ export { LocationReference, isLocationReference, bindUrl } from './location-refe
 export { DefaultEmptyComponent } from './components/default-empty.component';
 export { DefaultErrorComponent } from './components/default-error.component';
 export { ResourceContextDirective } from './directives/resource-context';
+export { Resolve } from './resolve';

@@ -1,4 +1,4 @@
-import { ViewDef } from './view-definition';
+import { ResolveData, ViewDef } from './view-definition';
 import { ReadOnlyHeaders } from './read-only-headers';
 import { Navigable } from './navigable';
 
@@ -13,5 +13,5 @@ export interface ViewData<T> {
   readonly statusText: string;
   readonly headers: ReadOnlyHeaders;
   readonly body: T;
-
+  readonly resolve: ResolveData;
 }

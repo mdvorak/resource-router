@@ -126,7 +126,8 @@ export class ResourceData implements Navigable, LocationReference {
       status: status,
       statusText: statusText,
       headers: headers || NO_HEADERS,
-      body: body
+      body: body,
+      resolve: {}
     };
   }
 }
