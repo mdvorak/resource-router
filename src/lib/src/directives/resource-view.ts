@@ -111,7 +111,6 @@ export class ResourceViewDirective implements OnChanges {
 
     const injector = Injector.create({ providers: providers, parent: this.viewContainer.injector });
     const component = this.viewContainer.createComponent(factory, this.viewContainer.length, injector, []);
-    // component.instance.resolve = this.data.config.resolve;
 
     // Store reference
     this.current = new ResourceViewContext<any>(component, target, dataSource);
