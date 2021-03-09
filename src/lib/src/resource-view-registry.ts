@@ -1,8 +1,12 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Compiler, Inject, Injectable, InjectFlags, InjectionToken, Injector, NgModuleFactory, Optional } from '@angular/core';
 import { ViewDef } from './view-definition';
 import { SortedArray } from './utils/sorted-array';
 import { wildcardToRegex } from './utils/wildcard-to-regex';
 import { simpleTypeQualityEvaluator, statusQualityEvaluator, TypeQualityEvaluator } from './quality-evaluator';
+import { wrapIntoObservable } from './utils/wrapers';
+import { map, mergeMap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { LoadChildrenCallback } from '@angular/router';
 
 
 export const RESOURCE_VIEWS = new InjectionToken<ViewDef>('RESOURCE_VIEWS');
@@ -18,6 +22,7 @@ class ViewsByStatus {
   readonly statusExp: RegExp;
   readonly quality: number;
   readonly types = new SortedArray<ParsedViewDef>(qualityComparator);
+  readonly modules = new SortedArray<ParsedViewDef>(qualityComparator);
 
   constructor(status: string) {
     this.status = status;
@@ -44,7 +49,9 @@ export class ResourceViewRegistry {
   private readonly viewsByStatus = new SortedArray<ViewsByStatus>(qualityComparator);
   private _length = 0;
 
-  constructor(@Inject(RESOURCE_VIEWS) @Optional() views?: any,
+  constructor(private compiler: Compiler,
+              private injector: Injector,
+              @Inject(RESOURCE_VIEWS) @Optional() views?: any,
               @Inject(TYPE_QUALITY_EVALUATOR) @Optional() typeQualityEvaluator?: TypeQualityEvaluator) {
     // Initialize quality evaluator - must be before addViews
     this.typeQualityEvaluator = typeQualityEvaluator || simpleTypeQualityEvaluator;
@@ -60,7 +67,7 @@ export class ResourceViewRegistry {
     return this._length;
   }
 
-  match(type: string, status: number): ViewDef {
+  match(type: string, status: number): ViewDef | Observable<ViewDef> {
     // Despite status being mandatory, in runtime we still might receive undefined or others, and default error is misleading
     if (typeof status !== 'number') {
       throw new Error(`Wrong status type (${typeof status}), no view can be matched`);
@@ -79,9 +86,16 @@ export class ResourceViewRegistry {
       }
 
       // Find view in the group
-      const view = group.types.array.find(v => v.typeExp.test(type));
+      let view = group.types.array.find(v => v.typeExp.test(type));
       if (view) {
         return view.config;
+      }
+      view = group.modules.array.find(v => v.typeExp.test(type));
+      if (view && view.config.loadChildren != null) {
+        return this.loadChilderComponents(view.config.loadChildren)
+          .pipe(
+            mergeMap(() => wrapIntoObservable(this.match(type, status)))
+          );
       }
     }
 
@@ -119,9 +133,14 @@ export class ResourceViewRegistry {
 
   //noinspection JSMethodCanBeStatic
   protected validateViewDefinition(config: ViewDef) {
-    // Component
-    if (!config.component || typeof config.component !== 'function') {
-      throw newValidationError(config, 'component is mandatory and must be a type');
+    // Component / LoadChildren
+    if (!( config.component || config.loadChildren ) ||
+      !( typeof config?.component === 'function' || typeof config?.loadChildren === 'function' )) {
+      throw newValidationError(config, 'component / loadChildren is mandatory and must be a type');
+    }
+
+    if (config.component && config.loadChildren) {
+      throw newValidationError(config, 'component and loadChildren cannot be together');
     }
 
     // Type
@@ -149,12 +168,22 @@ export class ResourceViewRegistry {
     // Evaluate quality if needed
     const quality = typeof config.quality === 'number' ? config.quality : this.typeQualityEvaluator(type);
 
-    // Add to the group
-    group.types.push({
-      config: Object.freeze(config),
-      typeExp: wildcardToRegex(type),
-      quality: quality
-    });
+    if (config.component != null) {
+      // Add to the group
+      group.types.push({
+        config: Object.freeze(config),
+        typeExp: wildcardToRegex(type),
+        quality: quality
+      });
+    } else if (config.loadChildren != null) {
+      group.modules.push({
+        config: Object.freeze(config),
+        typeExp: wildcardToRegex(type),
+        quality: quality
+      });
+    } else {
+      throw new Error('Cant load components/modules. Excepted defined component or loadChildren');
+    }
 
     // Increment count
     this._length++;
@@ -169,6 +198,26 @@ export class ResourceViewRegistry {
     }
 
     return byStatus;
+  }
+
+  private loadChilderComponents(loadChildren: LoadChildrenCallback): Observable<void> {
+    return this.loadModuleFactory(loadChildren).pipe(
+      map((factory: NgModuleFactory<any>) =>
+        this.addViews(factory.create(this.injector)
+          .injector.get<ViewDef[]>(RESOURCE_VIEWS, undefined, InjectFlags.Self || InjectFlags.Optional))
+      )
+    );
+  }
+
+  private loadModuleFactory(loadChildren: LoadChildrenCallback): Observable<NgModuleFactory<any>> {
+    return wrapIntoObservable(loadChildren())
+      .pipe(mergeMap((module: any) => {
+        if (module instanceof NgModuleFactory) {
+          return of(module);
+        } else {
+          return from(this.compiler.compileModuleAsync(module));
+        }
+      }));
   }
 }
 
@@ -277,4 +326,12 @@ function qualityComparator(a: { quality: number }, b: { quality: number }) {
  */
 function toArray<T>(value: T | T[]): Array<T> {
   return Array.isArray(value) ? value as T[] : [value] as T[];
+}
+
+function sleep(milliseconds: number): void {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
 }

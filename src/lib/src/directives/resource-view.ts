@@ -10,14 +10,14 @@ import {
   StaticProvider,
   ViewContainerRef
 } from '@angular/core';
-import { BehaviorSubject, from, isObservable, Observable, of } from 'rxjs';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { ViewData } from '../view-data';
 import { ActivatedView } from '../activated-view';
 import { Navigable, NavigableRef } from '../navigable';
 import { Resolve } from '../resolve';
 import { ResolveData } from '../view-definition';
-import { isPromise } from 'rxjs/internal-compatibility';
 import { mergeMap, takeLast, tap } from 'rxjs/operators';
+import { wrapIntoObservable } from '../utils/wrapers';
 
 class ResourceViewContext<T> {
 
@@ -145,20 +145,10 @@ export class ResourceViewDirective implements OnChanges {
     if (resolve) {
       resolve = this.viewContainer.injector.get<Resolve>(resolve);
       if (isResolve(resolve) && this.data) {
-        return this.wrapIntoObservable(resolve.resolve(this.data.body, this.data.headers, this.data.status));
+        return wrapIntoObservable(resolve.resolve(this.data.body, this.data.headers, this.data.status));
       }
     }
     return of({});
-  }
-
-  wrapIntoObservable(v: any | Promise<any> | Observable<any>): Observable<any> {
-    if (isObservable(v)) {
-      return v;
-    } else if (isPromise(v)) {
-      return from(Promise.resolve(v));
-    } else {
-      return of(v);
-    }
   }
 }
 

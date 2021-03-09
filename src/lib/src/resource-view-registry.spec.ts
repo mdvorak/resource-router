@@ -24,7 +24,7 @@ describe(ResourceViewRegistry.name, () => {
   }
 
   function expectComponentName(config: ViewDef | null) {
-    return expect(config ? config.component.toString() : null);
+    return expect(config ? config.component?.toString() : null);
   }
 
   describe('should initialize', () => {
