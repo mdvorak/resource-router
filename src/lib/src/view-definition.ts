@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { LoadChildrenCallback } from '@angular/router';
 
 
 export interface Data {
@@ -17,10 +18,10 @@ export type StatusType = number | string;
 export interface ViewDef {
 
   /**
-   * Component that is viewed when this view definition is matched against response.
-   * Mandatory. Don't forget to add it to modules `declarations`.
+     * Component that is viewed when this view definition is matched against response.
+     * Don't forget to add it or `loadChildren` to modules `declarations`.
    */
-  readonly component: Type<any>;
+  readonly component?: Type<any>;
 
   /**
    * Media type of the response.
@@ -107,4 +108,23 @@ export interface ViewDef {
    * Note: Wildcards in status will still work.
    */
   readonly noWildcards?: boolean;
+
+  /**
+   * Module to load when this view definition is matched against response.
+   * Don't forget to add it or `component` to modules `declarations`.
+   *
+   * For example:
+   * In app.module:
+   * type: app/x.hero
+   * component: hero
+   *
+   * type: app/x.lazy*
+   * loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+   *
+   * In lazy.module:
+   * type: app/x.lazy.apple
+   *
+   * If BE return `app/x.lazy.apple` you match `loadChildren` of type `app/x.lazy*` to load module.
+   */
+  readonly loadChildren?: LoadChildrenCallback;
 }
