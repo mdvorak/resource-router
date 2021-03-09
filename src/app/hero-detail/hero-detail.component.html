@@ -6,6 +6,10 @@
       <input [(ngModel)]="hero.name" placeholder="name"/>
     </label>
   </div>
+  <div>
+    <span>Tender names by resolver: </span>
+    <button *ngFor="let name of tenderNames" (click)="select(name)">{{name}}</button>
+  </div>
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
 </div>
