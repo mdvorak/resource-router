@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
 import { LoadChildrenCallback } from '@angular/router';
+import { isObservable, Observable } from 'rxjs';
 
 
 export interface Data {
@@ -127,4 +128,8 @@ export interface ViewDef {
    * If BE return `app/x.lazy.apple` you match `loadChildren` of type `app/x.lazy*` to load module.
    */
   readonly loadChildren?: LoadChildrenCallback;
+}
+
+export function isViewDefOrUndefined(r: ViewDef | Observable<ViewDef>): r is ViewDef {
+  return !isObservable(r);
 }

@@ -1,6 +1,6 @@
 import { FactoryProvider, Injectable, Self } from '@angular/core';
-import { BehaviorSubject, isObservable, Observable, of, Subject } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ResourceClient } from './resource-client';
 import { ViewData } from './view-data';
@@ -8,8 +8,7 @@ import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOA
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 import { makeNavigableRef, Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
-import { ViewDef } from './view-definition';
-import { Resolve } from './resolve';
+import { isViewDefOrUndefined } from './view-definition';
 
 /**
  * @internal
@@ -120,7 +119,7 @@ export class ResourceData implements Navigable, LocationReference {
                        headers?: ReadOnlyHeaders, body?: any): ViewData<any> {
     const config = this.registry.match(type, status);
 
-    if (isViewDef(config)) {
+    if (isViewDefOrUndefined(config)) {
       return {
         target: this,
         config: config,
@@ -138,15 +137,10 @@ export class ResourceData implements Navigable, LocationReference {
   }
 }
 
-
 export function resourceDataNavigableRef(): FactoryProvider {
   return {
     provide: NavigableRef,
     useFactory: makeNavigableRef,
     deps: [[ResourceData, new Self()]]
   };
-}
-
-export function isViewDef(r: ViewDef | Observable<ViewDef>): r is ViewDef {
-  return r && !isObservable(r);
 }
