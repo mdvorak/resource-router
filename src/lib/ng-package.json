@@ -2,9 +2,6 @@
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "dest": "../../dist/angular-resource-router",
   "lib": {
-    "entryFile": "public_api.ts",
-    "umdModuleIds": {
-      "angular-resource-router": "angularResourceRouter"
-    }
+    "entryFile": "public_api.ts"
   }
 }

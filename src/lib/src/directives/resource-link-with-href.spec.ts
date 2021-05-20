@@ -6,7 +6,6 @@ import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
 import { Navigable, topLevelNavigableRef } from '../navigable';
 import { By } from '@angular/platform-browser';
-import { createClassSpyObj } from '../utils/class-spy.spec';
 import { ResourceLinkWithHrefDirective } from './resource-link-with-href';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { BrowserUrlNormalizer, UrlNormalizer } from '../url-normalizer';
@@ -15,6 +14,7 @@ import { ResourceData, resourceDataNavigableRef } from '../resource-data';
 import { HttpResourceClient, ResourceClient } from '../resource-client';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeaderViewTypeStrategy, ViewTypeStrategy } from '../view-type-strategy';
+import createSpyObj = jasmine.createSpyObj;
 
 
 const API_PREFIX = 'http://example.com/';
@@ -31,10 +31,6 @@ class TestComponent {
   target?: TargetType;
 }
 
-function createSpyNavigable() {
-  return jasmine.createSpyObj<Navigable>('navigable', ['go']);
-}
-
 describe(ResourceLinkWithHrefDirective.name, () => {
   let registry: ResourceViewRegistry;
   let resourceData: ResourceData;
@@ -46,9 +42,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
 
   // Shared components
   beforeEach(async(() => {
-    registry = createClassSpyObj(ResourceViewRegistry);
-
-    return TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         ResourceLinkWithHrefDirective,
         TestComponent,
@@ -64,7 +58,10 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         Location,
         {
           provide: ResourceViewRegistry,
-          useValue: registry
+          useValue: {
+            match: () => {
+            }
+          }
         },
         {
           provide: APP_API_PREFIX,
@@ -90,7 +87,9 @@ describe(ResourceLinkWithHrefDirective.name, () => {
         resourceDataNavigableRef(),
         topLevelNavigableRef(),
       ]
-    });
+    }).compileComponents();
+
+    registry = TestBed.inject(ResourceViewRegistry);
   }));
 
   // Created with TOP_LEVEL_NAVIGABLE and NavigationRef
@@ -176,7 +175,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should navigate onClick with explicit target', () => {
-      const navigationMock = createSpyNavigable();
+      const navigationMock = createSpyObj<Navigable>('navigable', ['go']);
 
       comp.link = API_PREFIX + 'foo/bar';
       comp.target = navigationMock;
@@ -190,7 +189,7 @@ describe(ResourceLinkWithHrefDirective.name, () => {
     });
 
     it('should change location with external url', () => {
-      const navigationMock = createSpyNavigable();
+      const navigationMock = createSpyObj<Navigable>('navigable', ['go']);
 
       comp.link = 'http://another.example.com/foo/bar';
       comp.target = navigationMock;

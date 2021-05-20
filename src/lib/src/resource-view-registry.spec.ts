@@ -29,7 +29,7 @@ describe(ResourceViewRegistry.name, () => {
 
   describe('should initialize', () => {
     beforeEach(async(() => {
-      return TestBed.configureTestingModule({
+      TestBed.configureTestingModule({
         providers: [
           {
             provide: RESOURCE_VIEWS,
@@ -45,7 +45,7 @@ describe(ResourceViewRegistry.name, () => {
             multi: true
           }
         ]
-      });
+      }).compileComponents();
     }));
 
     it('with configured views', inject([ResourceViewRegistry], (registry: ResourceViewRegistry) => {

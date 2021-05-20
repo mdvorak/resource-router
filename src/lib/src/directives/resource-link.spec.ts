@@ -6,7 +6,6 @@ import { Location, LocationStrategy } from '@angular/common';
 import { ApiMapper } from '../api-mapper';
 import { Navigable, topLevelNavigableRef } from '../navigable';
 import { By } from '@angular/platform-browser';
-import { createClassSpyObj } from '../utils/class-spy.spec';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { BrowserUrlNormalizer, UrlNormalizer } from '../url-normalizer';
 import { APP_API_PREFIX, SingleApiMapper } from '../single-api-mapper';
@@ -46,9 +45,7 @@ describe(ResourceLinkDirective.name, () => {
 
   // Shared components
   beforeEach(async(() => {
-    registry = createClassSpyObj(ResourceViewRegistry);
-
-    return TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         ResourceLinkDirective,
         TestComponent,
@@ -64,7 +61,10 @@ describe(ResourceLinkDirective.name, () => {
         Location,
         {
           provide: ResourceViewRegistry,
-          useValue: registry
+          useValue: {
+            match: () => {
+            }
+          }
         },
         {
           provide: APP_API_PREFIX,
@@ -90,7 +90,9 @@ describe(ResourceLinkDirective.name, () => {
         resourceDataNavigableRef(),
         topLevelNavigableRef(),
       ]
-    });
+    }).compileComponents();
+
+    registry = TestBed.inject(ResourceViewRegistry);
   }));
 
   // Created with TOP_LEVEL_NAVIGABLE and NavigationRef
