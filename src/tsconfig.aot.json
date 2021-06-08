@@ -17,8 +17,5 @@
     "test.ts",
     "**/*.spec.ts",
     "lib/testing/**"
-  ],
-  "angularCompilerOptions": {
-    "enableIvy": false
-  }
+  ]
 }
