@@ -327,11 +327,3 @@ function qualityComparator(a: { quality: number }, b: { quality: number }) {
 function toArray<T>(value: T | T[]): Array<T> {
   return Array.isArray(value) ? value as T[] : [value] as T[];
 }
-
-function sleep(milliseconds: number): void {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
