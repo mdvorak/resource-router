@@ -10,6 +10,8 @@
     <span>Tender names by resolver: </span>
     <button *ngFor="let name of tenderNames" (click)="select(name)">{{name}}</button>
   </div>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
+  <nav>
+    <button (click)="goBack()">Go Back</button>
+    <button (click)="save()">Save</button>
+  </nav>
 </div>

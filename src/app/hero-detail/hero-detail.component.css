@@ -33,3 +33,7 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+
+nav button + button {
+  margin-left: 10px;
+}
