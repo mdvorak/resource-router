@@ -92,7 +92,7 @@ export class ResourceViewRegistry {
       }
       view = group.modules.array.find(v => v.typeExp.test(type));
       if (view && view.config.loadChildren != null) {
-        return this.loadChilderComponents(view.config.loadChildren)
+        return this.loadChildComponents(view.config.loadChildren)
           .pipe(
             mergeMap(() => wrapIntoObservable(this.match(type, status)))
           );
@@ -200,7 +200,7 @@ export class ResourceViewRegistry {
     return byStatus;
   }
 
-  private loadChilderComponents(loadChildren: LoadChildrenCallback): Observable<void> {
+  private loadChildComponents(loadChildren: LoadChildrenCallback): Observable<void> {
     return this.loadModuleFactory(loadChildren).pipe(
       map((factory: NgModuleFactory<any>) =>
         this.addViews(factory.create(this.injector)
