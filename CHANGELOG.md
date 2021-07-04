@@ -1,3 +1,9 @@
+<a name="9.3.0"></a>
+# [9.3.0](https://github.com/mdvorak/resource-router/compare/v9.2.0...v9.3.0) (2021-05-10)
+
+* Added `loadChildren` to `ViewDef`.
+* Support lazy loading.
+
 <a name="9.2.0"></a>
 # [9.2.0](https://github.com/mdvorak/resource-router/compare/v9.1.0...v9.2.0) (2021-02-24)
 
@@ -14,7 +20,6 @@ updated to Angular 9.1.11
 # [7.0.0](https://github.com/mdvorak/resource-router/compare/v5.0.1...v7.0.0) (2019-02-25)
 
 Updated to Angular 7.x. Thanks [Zakir](https://github.com/zabdalimovcsas) for PR.
-
 
 <a name="5.0.1"></a>
 # [5.0.1](https://github.com/mdvorak/resource-router/compare/v5.0.0...v5.0.1) (2018-02-16)

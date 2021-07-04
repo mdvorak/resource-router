@@ -8,6 +8,7 @@ import { MEDIA_TYPE_ROUTER_EMPTY, MEDIA_TYPE_ROUTER_ERROR, MEDIA_TYPE_ROUTER_LOA
 import { NO_HEADERS, ReadOnlyHeaders } from './read-only-headers';
 import { makeNavigableRef, Navigable, NavigableRef } from './navigable';
 import { LocationReference } from './location-reference';
+import { isViewDefOrUndefined } from './view-definition';
 
 /**
  * @internal
@@ -118,20 +119,23 @@ export class ResourceData implements Navigable, LocationReference {
                        headers?: ReadOnlyHeaders, body?: any): ViewData<any> {
     const config = this.registry.match(type, status);
 
-    return {
-      target: this,
-      config: config,
-      type: type,
-      url: url,
-      status: status,
-      statusText: statusText,
-      headers: headers || NO_HEADERS,
-      body: body,
-      resolve: {}
-    };
+    if (isViewDefOrUndefined(config)) {
+      return {
+        target: this,
+        config: config,
+        type: type,
+        url: url,
+        status: status,
+        statusText: statusText,
+        headers: headers || NO_HEADERS,
+        body: body,
+        resolve: {}
+      };
+    } else {
+      throw new Error('Unexpected error, ViewDef should never be Observable here');
+    }
   }
 }
-
 
 export function resourceDataNavigableRef(): FactoryProvider {
   return {

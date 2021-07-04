@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, concatMap, exhaustMap, flatMap, map, mergeMap, switchMap } from 'rxjs/operators';
 import { ResourceViewRegistry } from './resource-view-registry';
 import { ViewTypeStrategy } from './view-type-strategy';
 import { ViewData } from './view-data';
 import { ViewDef } from './view-definition';
 import { Navigable } from './navigable';
 import { stringToJSON } from './utils/http-utils';
-import { throwError } from 'rxjs';
+import { wrapIntoObservable } from './utils/wrapers';
 
 
 /**
@@ -45,7 +45,7 @@ export class HttpResourceClient extends ResourceClient {
       // Convert failure to success, if we know how to handle it (rethrow if we don't)
       catchError(err => this.handleError(err)),
       // This might throw exception, e.g. when response is malformed - it produces failed Observable then
-      map(response => this.resolve(uri, response, target)),
+      exhaustMap(response => this.resolve(uri, response, target)),
     );
   }
 
@@ -98,7 +98,7 @@ export class HttpResourceClient extends ResourceClient {
     }
   }
 
-  protected resolve(requestUrl: string, response: HttpResponse<string>, target: Navigable): ViewData<any> {
+  protected resolve(requestUrl: string, response: HttpResponse<string>, target: Navigable): Observable<ViewData<any>> {
     // Note: In browsers, this does not throw exception, in NodeJS, it does
     // noinspection SuspiciousInstanceOfGuard
     console.assert(response instanceof HttpResponse, 'response is not instanceof HttpResponse', response);
@@ -106,22 +106,25 @@ export class HttpResourceClient extends ResourceClient {
     // Resolve type, if possible
     const type = this.strategy.extractType(response) || '';
     // Find view
-    const config = this.registry.match(type, response.status);
-    // Parse body
-    const body = this.parse(response.body, config);
-
-    // Construct and return ViewData
-    return {
-      target: target,
-      config: config,
-      type: type,
-      url: response.url || requestUrl,
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers,
-      body: body,
-      resolve: {}
-    };
+    return wrapIntoObservable(this.registry.match(type, response.status))
+      .pipe(
+        map(config => {
+          // Parse body
+          const body = this.parse(response.body, config);
+          // Construct and return ViewData
+          return {
+            target: target,
+            config: config,
+            type: type,
+            url: response.url || requestUrl,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            body: body,
+            resolve: {}
+          };
+        })
+      );
   }
 
   // noinspection JSMethodCanBeStatic

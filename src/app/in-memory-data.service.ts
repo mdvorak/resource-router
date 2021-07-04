@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Hero, Heroes } from './hero';
 
+const LAZY_TYPE = 'application/x.lazy.component';
 const DASHBOARD_TYPE = 'application/x.dashboard';
 const HEROES_TYPE = 'application/x.heroes';
 const HERO_TYPE = 'application/x.hero';
@@ -62,13 +63,23 @@ export class InMemoryDataService implements InMemoryDbService {
         body: <Heroes>{
           items: collection.slice(0, 4).map(hyperHero),
           _links: {
-            self: {href: '/api/dashboard'},
+            self: {href: '/api/dashboard'}
           }
         },
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
           'Content-Type': DASHBOARD_TYPE
+        })
+      }));
+    } else if (request.collectionName === 'lazy') {
+      return request.utils.createResponse$(() => ({
+        url: request.url,
+        body: {},
+        status: 200,
+        statusText: 'OK',
+        headers: new HttpHeaders({
+          'Content-Type': LAZY_TYPE
         })
       }));
     }
