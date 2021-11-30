@@ -29,7 +29,7 @@
     "@angular/forms": "~9.1.11",
     "@angular/platform-browser": "~9.1.11",
     "@angular/platform-browser-dynamic": "~9.1.11",
-    "core-js": "~3.14.0",
+    "core-js": "~3.19.2",
     "rxjs": "~6.6.7",
     "tslib": "^1.14.1",
     "zone.js": "~0.10.2"
