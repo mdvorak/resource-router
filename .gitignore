@@ -1,40 +1,48 @@
-# Build files
-/docs/
-/dist/
-/coverage/
-/src/dist/
-/index.d.ts
-/index.js
-/index.js.map
-/src/**/*.d.ts
-/src/**/*.js
-/src/**/*.js.map
-*.tar.gz
-*.tgz
-.ng_pkg_build/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-!/src/typings.d.ts
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
 
-# Node and bower directories
-node_modules/
-bower_components/
+# dependencies
+/node_modules
 
-# Temporary files
-*~
-*.log
-*.mo
+# profiling files
+chrome-profiler-events*.json
 
-# IDE files
-.idea/
-*.ipr
-*.iml
-*.iws
+# IDEs and editors
+/.idea
 .project
 .classpath
-.settings
-classes/
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# Other garbage
+# IDE - VSCode
+.vscode
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.angular/cache
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
 .DS_Store
-.*.swp
-._*
+Thumbs.db
+
+debug.log

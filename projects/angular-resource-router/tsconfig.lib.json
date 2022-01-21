@@ -1,0 +1,23 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "angular-resource-router": [
+        "projects/angular-resource-router/src/public-api"
+      ],
+      "angular-resource-router/testing": [
+        "projects/angular-resource-router/testing/public-api"
+      ]
+    },
+    "outDir": "../../out-tsc/lib",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
+  },
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ]
+}

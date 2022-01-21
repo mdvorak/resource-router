@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+<ng-container *resourceData="let data of apiLocation" [resourceContext]="data">
+  <nav>
+    <!-- TODO -->
+    <a resourceLink="/api/dashboard" resourceLinkActive="active">Dashboard</a>
+    <a resourceLink="/api/heroes" resourceLinkActive="active">Heroes</a>
+    <a resourceLink="/api/lazy" resourceLinkActive="active">Lazy component</a>
+  </nav>
+
+  <resource-view [data]="data"></resource-view>
+</ng-container>
+<app-messages></app-messages>

@@ -1,0 +1,110 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "plugins": [
+        "deprecation",
+        "unused-imports"
+      ],
+      "rules": {
+        "unused-imports/no-unused-imports": "error",
+        "no-underscore-dangle": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/member-ordering": "off",
+        "deprecation/deprecation": "warn",
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/contextual-decorator": "error",
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/no-lifecycle-call": "error",
+        "@angular-eslint/no-pipe-impure": "error",
+        "@angular-eslint/prefer-output-readonly": "error",
+        "@angular-eslint/use-injectable-provided-in": "error",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/no-inferrable-types": "error",
+        "@typescript-eslint/no-require-imports": "error",
+        "@typescript-eslint/no-this-alias": "error",
+        "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/promise-function-async": "error",
+        "@typescript-eslint/restrict-plus-operands": "error",
+        "arrow-parens": [
+          "error",
+          "as-needed"
+        ],
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "default-case": "error",
+        "import/order": "off",
+        "no-duplicate-case": "error",
+        "no-duplicate-imports": "error",
+        "no-extra-bind": "error",
+        "no-invalid-this": "error",
+        "no-new-func": "error",
+        "no-return-await": "error",
+        "no-sequences": "error",
+        "no-sparse-arrays": "error",
+        "no-template-curly-in-string": "error",
+        "prefer-object-spread": "error",
+        "prefer-template": "error",
+        "space-in-parens": [
+          "error",
+          "never"
+        ],
+        "yoda": "error"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/template/no-call-expression": "off",
+        "@angular-eslint/template/use-track-by-function": "off"
+      }
+    }
+  ]
+}

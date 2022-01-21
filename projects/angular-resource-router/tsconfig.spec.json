@@ -1,0 +1,27 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "angular-resource-router": [
+        "projects/angular-resource-router/src/public-api",
+        "projects/angular-resource-router/src"
+      ],
+      "angular-resource-router/testing": [
+        "projects/angular-resource-router/testing/public-api",
+        "projects/angular-resource-router/testing"
+      ]
+    },
+    "outDir": "../../out-tsc/spec",
+    "types": [
+      "jasmine"
+    ]
+  },
+  "files": [
+    "src/test.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+}

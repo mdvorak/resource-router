@@ -1,0 +1,12 @@
+<h3>Top Heroes</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let hero of heroes.items" class="col-1-4"
+     [resourceLink]="hero._links?.self?.href">
+    <div class="module hero">
+      <h4>{{hero.name}}</h4>
+    </div>
+  </a>
+</div>
+
+<!-- TODO-->
+<!--<app-hero-search></app-hero-search>-->
