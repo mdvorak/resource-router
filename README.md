@@ -12,7 +12,7 @@ See [CHANGELOG](CHANGELOG.md) for release changes.
 ## Installation
 
     npm i angular-resource-router --save
-    
+
 ## Documentation
 
 See [API documentation](https://mdvorak.github.io/resource-router/) for latest released version.
@@ -65,16 +65,6 @@ export class ExampleModule {
 
 TODO
 
-## Development
-
-Before development, run
-```
-npm run bootstrap
-```
-it will create necessary symlinks for build to pass.
-
-_Note: Under linux, you need to change global npm prefix to user accessible directory, see [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-started/fixing-npm-permissions)._
-
 ### Library
 
 Build of the library is performed with
@@ -84,7 +74,7 @@ npm run build
 
 ### Publishing
 
-To publish new library version to [npm repository](https://www.npmjs.com/package/angular-resource-router): 
+To publish new library version to [npm repository](https://www.npmjs.com/package/angular-resource-router):
 
 1. Verify/set library version in `src/lib/package.json`
 1. Make sure there are release notes in the [CHANGELOG](CHANGELOG.md).
@@ -94,12 +84,7 @@ To publish new library version to [npm repository](https://www.npmjs.com/package
 1. Copy changelog markdown text to the release
 1. Build the library and make sure all tests passed
    ```
-   npm run bootstrap
    npm run build
-   ```
-1. Verify library is built correctly using
-   ```
-   npm run buildapp
    ```
 1. Publish the library
    ```

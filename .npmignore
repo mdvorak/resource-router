@@ -1,7 +1,0 @@
-/codegen/
-/coverage/
-/node_modules/
-/test.*
-**/*.spec.*
-**/*.ngsummary.json
-**/*.ngfactory.ts

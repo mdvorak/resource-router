@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpHeaders,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponseBase
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
@@ -36,6 +29,4 @@ export class MessageHttpInterceptor implements HttpInterceptor {
   }
 }
 
-function dumpHeaders(headers: HttpHeaders) {
-  return headers.keys().map(h => h + ': ' + (headers.getAll(h) || []).join(',')).join(', ');
-}
+const dumpHeaders = (headers: HttpHeaders) => headers.keys().map(h => `${h}: ${(headers.getAll(h) || []).join(',')}`).join(', ');

@@ -19,7 +19,7 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.view.body.subscribe(hero => this.hero = hero);
-    this.view.resolve.subscribe(resolve => this.tenderNames = resolve.tenderNames);
+    this.view.resolve.subscribe((resolve: any) => this.tenderNames = resolve.tenderNames);
   }
 
   goBack(): void {

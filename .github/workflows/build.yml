@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  NODE_VERSION: 12
+  NODE_VERSION: 14
 
 jobs:
   build:
@@ -42,20 +42,12 @@ jobs:
 
     - run: npm install
 
-    - name: Run npm bootstrap
-      run: npm run bootstrap
-
     - name: Build and test
       run: |
         npm run build
-        npm run buildapp
 
     - name: Package and publish
       run: |
-        # NOTE buildapp target currently screws up built app, so we need to rebuild it
-        rm -rf dist/
-        npm run buildonly
-
         if ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}; then
           npm publish dist/angular-resource-router
         else

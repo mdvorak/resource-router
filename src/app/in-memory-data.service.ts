@@ -32,7 +32,7 @@ export class InMemoryDataService implements InMemoryDbService {
       if (data) {
         return request.utils.createResponse$(() => ({
           url: request.url,
-          body: hyperHero(<any>data),
+          body: hyperHero(data as any),
           status: 200,
           statusText: 'OK',
           headers: new HttpHeaders({
@@ -43,12 +43,12 @@ export class InMemoryDataService implements InMemoryDbService {
     } else if (request.collectionName === 'heroes') {
       return request.utils.createResponse$(() => ({
         url: request.url,
-        body: <Heroes>{
+        body: {
           items: request.collection.map(hyperHero),
           _links: {
-            self: {href: '/api/heroes'},
+            self: { href: '/api/heroes' },
           }
-        },
+        } as Heroes,
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
@@ -60,12 +60,12 @@ export class InMemoryDataService implements InMemoryDbService {
 
       return request.utils.createResponse$(() => ({
         url: request.url,
-        body: <Heroes>{
+        body: {
           items: collection.slice(0, 4).map(hyperHero),
           _links: {
-            self: {href: '/api/dashboard'}
+            self: { href: '/api/dashboard' }
           }
-        },
+        } as Heroes,
         status: 200,
         statusText: 'OK',
         headers: new HttpHeaders({
@@ -83,15 +83,16 @@ export class InMemoryDataService implements InMemoryDbService {
         })
       }));
     }
+    return undefined;
   }
 }
 
-function hyperHero({id, name}: { id: number, name: string }, index?: number): Hero {
-  return {
-    id: id,
-    name: name,
+const hyperHero = ({ id, name }: { id: number; name: string }, index?: number): Hero =>
+  ({
+    id,
+    name,
     _links: {
-      self: {href: '/api/heroes/' + id}
+      self: { href: `/api/heroes/${id}` }
     }
-  };
-}
+  });
+

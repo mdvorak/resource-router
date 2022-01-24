@@ -10,6 +10,6 @@ export class RedirectToDashboardResolver implements Resolve {
   }
 
   resolve(body: any, headers: ReadOnlyHeaders, status: number): any {
-    window.location.href = window.location.origin + '/dashboard';
+    window.location.href = `${window.location.origin  }/dashboard`;
   }
 }

@@ -26,7 +26,7 @@ import { RedirectToDashboardResolver } from './resolvers/redirect-to-dashboard/r
       },
       {
         type: 'application/x.lazy*',
-        loadChildren: () => import('./lazy/lazy.module').then(module => module.LazyModule)
+        loadChildren: async () => import('./lazy/lazy.module').then(module => module.LazyModule)
       },
       {
         status: [999],
