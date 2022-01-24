@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedView } from '../activated-view';
 import { ViewData } from '../view-data';
+import { Subscription } from 'rxjs';
 
 
 /**
@@ -37,9 +38,10 @@ import { ViewData } from '../view-data';
 @Component({
   templateUrl: './default-error.component.html'
 })
-export class DefaultErrorComponent implements OnInit {
+export class DefaultErrorComponent implements OnInit, OnDestroy {
 
   data: ViewData<any> = {} as ViewData<any>;
+  data$: Subscription;
 
   get html() {
     return this.data.type === 'text/html';
@@ -53,6 +55,12 @@ export class DefaultErrorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.view.data.subscribe(data => this.data = data);
+    this.data$ = this.view.data.subscribe(data => this.data = data);
+  }
+
+  ngOnDestroy(): void {
+    if (this.data$ && !this.data$.closed) {
+      this.data$.unsubscribe();
+    }
   }
 }
